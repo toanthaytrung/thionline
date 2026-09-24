@@ -8,7 +8,7 @@
     <!-- KaTeX Render Toán học -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/auto-render.min.js"></script>
 
     <!-- Nạp dữ liệu đề thi tự động -->
     <script src="exam_data.js"></script>
@@ -116,7 +116,7 @@
             background: #fff; border: 1px solid var(--border-color);
             padding: 11px 18px; border-radius: 8px; margin-bottom: 16px;
             display: flex; justify-content: space-between; font-size: 14px; font-weight: 600;
-            color: var(--iexam-dark);
+            color: var(--iexam-dark); flex-wrap: wrap; gap: 8px;
         }
 
         .part-title-banner {
@@ -225,7 +225,7 @@
     </div>
 </div>
 
-<!-- MODAL BÁO ĐIỂM KÈM NÚT ĐIỀU HƯỚNG -->
+<!-- MODAL BÁO ĐIỂM -->
 <div id="scoreModal" style="display: none;">
     <div class="modal-card">
         <h2>KẾT QUẢ BÀI THI</h2>
@@ -240,10 +240,8 @@
 
         <div id="solutionLockNotice" style="font-size: 13px; margin: 10px 0; padding: 10px; border-radius: 6px;"></div>
         
-        <!-- Nút Xem lời giải chi tiết (chỉ bật khi đủ điểm) -->
         <button type="button" class="btn-modal" id="btnViewSolution" style="display: none; background: var(--done-color);" onclick="showSolutionDetail()">💡 XEM LỜI GIẢI CHI TIẾT</button>
         
-        <!-- Hàng nút Thi lại & Về trang chủ -->
         <div class="btn-row">
             <button type="button" class="btn-modal" id="btnRetryExam" onclick="retryExamSession()">🔄 THI LẠI</button>
             <a href="index.html" class="btn-modal" style="background: #041e49;">🏠 VỀ TRANG CHỦ</a>
@@ -268,6 +266,7 @@
         <div class="student-strip">
             <span id="stuBadgeName">Thí sinh: Chưa đăng nhập</span>
             <span id="stuBadgeClass">Lớp: ---</span>
+            <span id="stuBadgeExamCode" style="color: #b06000; font-weight: 700;">Mã đề: ---</span>
             <span id="stuBadgeAttempt" style="color: var(--iexam-blue);">Lượt thi: -/-</span>
         </div>
         <div id="examContainer"></div>
@@ -293,7 +292,7 @@
 <script>
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJkUtzD3BE3whKIOuQDHM48kyANvZaqZC_iM0nQnyGaEH3hZn_97YUcBhpx10y87R-/exec";
 
-const ANSWER_KEY = {
+const RAW_ANSWER_KEY = {
     "p1": { "1": "C", "2": "B", "3": "D", "4": "B", "5": "C", "6": "D", "7": "C", "8": "D", "9": "C", "10": "C", "11": "A", "12": "B" },
     "p2": {
         "1": { "a": "S", "b": "Đ", "c": "S", "d": "Đ" },
@@ -304,11 +303,110 @@ const ANSWER_KEY = {
     "p3": { "1": "100", "2": "111", "3": "11,5", "4": "2", "5": "135", "6": "101" }
 };
 
-let currentStudent = { phone: "", name: "", stuClass: "", attempt: 1, maxAttempts: 1 };
+let currentStudent = { phone: "", name: "", stuClass: "", attempt: 1, maxAttempts: 1, examCode: "" };
 let studentAnswers = { p1: {}, p2: {}, p3: {} };
 let timerInterval = null;
 let remainingSeconds = 90 * 60;
 let isSubmitted = false;
+
+// Cấu trúc dữ liệu đã được xáo trộn theo thí sinh
+let activeExamData = null;
+let activeAnswerKey = null;
+
+// =================== THUẬT TOÁN XÁO TRỘN THEO SEED (SĐT + LƯỢT THI) ===================
+function createPRNG(seedStr) {
+    let hash = 0;
+    for (let i = 0; i < seedStr.length; i++) {
+        hash = ((hash << 5) - hash) + seedStr.charCodeAt(i);
+        hash |= 0;
+    }
+    let state = Math.abs(hash) || 123456789;
+    return function() {
+        state = (state * 1664525 + 1013904223) % 4294967296;
+        return state / 4294967296;
+    };
+}
+
+function shuffleArray(arr, rng) {
+    let a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function generateShuffledExam(seedStr) {
+    const rng = createPRNG(seedStr);
+    let newExam = JSON.parse(JSON.stringify(EXAM_DATA));
+    let newKey = { p1: {}, p2: {}, p3: {} };
+
+    // 1. XÁO PHẦN I (Đảo câu hỏi + Đảo 4 phương án A, B, C, D)
+    if (newExam.part1 && newExam.part1.length > 0) {
+        let p1WithOriginalIndex = newExam.part1.map((q, idx) => ({ ...q, originalIdx: idx + 1 }));
+        let shuffledP1 = shuffleArray(p1WithOriginalIndex, rng);
+
+        newExam.part1 = shuffledP1.map((q, newIdx) => {
+            const newQNum = (newIdx + 1).toString();
+            const origQNum = q.originalIdx.toString();
+            const origCorrectOpt = RAW_ANSWER_KEY.p1[origQNum] || "A";
+            const origOpts = normalizeOptions(q.options);
+
+            // Gom từng lựa chọn với chữ cái gốc
+            let optPairs = origOpts.map((text, oIdx) => ({
+                origChar: String.fromCharCode(65 + oIdx),
+                text: text
+            }));
+
+            // Đảo vị trí 4 đáp án A, B, C, D
+            let shuffledPairs = shuffleArray(optPairs, rng);
+            let finalOptions = [];
+
+            shuffledPairs.forEach((pair, oIdx) => {
+                const newChar = String.fromCharCode(65 + oIdx);
+                finalOptions.push(pair.text);
+                if (pair.origChar === origCorrectOpt) {
+                    newKey.p1[newQNum] = newChar;
+                }
+            });
+
+            return {
+                ...q,
+                options: finalOptions,
+                originalIdx: q.originalIdx
+            };
+        });
+    }
+
+    // 2. XÁO PHẦN II (Đảo thứ tự câu hỏi, giữ nguyên ý a, b, c, d)
+    if (newExam.part2 && newExam.part2.length > 0) {
+        let p2WithOriginalIndex = newExam.part2.map((q, idx) => ({ ...q, originalIdx: idx + 1 }));
+        let shuffledP2 = shuffleArray(p2WithOriginalIndex, rng);
+
+        newExam.part2 = shuffledP2.map((q, newIdx) => {
+            const newQNum = (newIdx + 1).toString();
+            const origQNum = q.originalIdx.toString();
+            newKey.p2[newQNum] = RAW_ANSWER_KEY.p2[origQNum];
+            return { ...q, originalIdx: q.originalIdx };
+        });
+    }
+
+    // 3. XÁO PHẦN III (Đảo thứ tự câu trả lời ngắn)
+    if (newExam.part3 && newExam.part3.length > 0) {
+        let p3WithOriginalIndex = newExam.part3.map((q, idx) => ({ ...q, originalIdx: idx + 1 }));
+        let shuffledP3 = shuffleArray(p3WithOriginalIndex, rng);
+
+        newExam.part3 = shuffledP3.map((q, newIdx) => {
+            const newQNum = (newIdx + 1).toString();
+            const origQNum = q.originalIdx.toString();
+            newKey.p3[newQNum] = RAW_ANSWER_KEY.p3[origQNum];
+            return { ...q, originalIdx: q.originalIdx };
+        });
+    }
+
+    return { shuffledExam: newExam, shuffledKey: newKey };
+}
+// ======================================================================================
 
 function cleanTypo(str) {
     if (!str) return "";
@@ -368,16 +466,27 @@ function checkStudentAuth() {
             btn.innerText = "VÀO PHÒNG THI";
 
             if (data.status === "OK") {
+                const used = data.usedAttempts || 1;
+                const seedStr = `${cleanPhone}_L${used}`;
+                const shortCode = `#${cleanPhone.slice(-4)}${used}`;
+
                 currentStudent = {
                     phone: data.student.phone,
                     name: data.student.name,
                     stuClass: data.student.studentClass,
-                    attempt: data.usedAttempts,
-                    maxAttempts: data.maxAttempts
+                    attempt: used,
+                    maxAttempts: data.maxAttempts || 5,
+                    examCode: shortCode
                 };
+
+                // KÍCH HOẠT XÁO TRỘN ĐỀ THEO HỌC SINH
+                const shuffled = generateShuffledExam(seedStr);
+                activeExamData = shuffled.shuffledExam;
+                activeAnswerKey = shuffled.shuffledKey;
 
                 document.getElementById('stuBadgeName').innerText = `Thí sinh: ${currentStudent.name}`;
                 document.getElementById('stuBadgeClass').innerText = `Lớp: ${currentStudent.stuClass}`;
+                document.getElementById('stuBadgeExamCode').innerText = `Mã đề: ${currentStudent.examCode}`;
                 document.getElementById('stuBadgeAttempt').innerText = `Lượt thi: ${currentStudent.attempt}/${currentStudent.maxAttempts}`;
 
                 document.getElementById('loginModal').style.display = 'none';
@@ -426,26 +535,27 @@ function normalizeOptions(rawOpts) {
 }
 
 function buildExamInterface() {
-    if (typeof EXAM_DATA === 'undefined') {
+    const examSource = activeExamData || EXAM_DATA;
+    if (typeof examSource === 'undefined') {
         alert("Lỗi: Không tìm thấy file dữ liệu đề thi 'exam_data.js'!");
         return;
     }
 
-    if (EXAM_DATA.title) document.getElementById('examTitle').innerText = EXAM_DATA.title;
-    if (EXAM_DATA.subtitle) document.getElementById('examSubtitle').innerText = EXAM_DATA.subtitle;
-    if (EXAM_DATA.durationMinutes) remainingSeconds = EXAM_DATA.durationMinutes * 60;
+    if (examSource.title) document.getElementById('examTitle').innerText = examSource.title;
+    if (examSource.subtitle) document.getElementById('examSubtitle').innerText = examSource.subtitle;
+    if (examSource.durationMinutes) remainingSeconds = examSource.durationMinutes * 60;
 
     const container = document.getElementById('examContainer');
     let html = '';
 
     // PHẦN I
-    if (EXAM_DATA.part1 && EXAM_DATA.part1.length > 0) {
-        html += `<div class="part-title-banner">PHẦN I. CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (12 CÂU)</div>
-                 <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${EXAM_DATA.part1.length}. Mỗi câu chọn duy nhất một phương án.</div>`;
+    if (examSource.part1 && examSource.part1.length > 0) {
+        html += `<div class="part-title-banner">PHẦN I. CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (${examSource.part1.length} CÂU)</div>
+                 <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${examSource.part1.length}. Mỗi câu chọn duy nhất một phương án.</div>`;
         
-        EXAM_DATA.part1.forEach((q, idx) => {
+        examSource.part1.forEach((q, idx) => {
             const qNum = idx + 1;
-            const cleanOpts = normalizeOptions(q.options);
+            const cleanOpts = q.options;
             html += `
             <div class="question-card" id="q_p1_${qNum}">
                 <div class="q-tag">Câu ${qNum}</div>
@@ -470,11 +580,11 @@ function buildExamInterface() {
     }
 
     // PHẦN II
-    if (EXAM_DATA.part2 && EXAM_DATA.part2.length > 0) {
-        html += `<div class="part-title-banner">PHẦN II. CÂU TRẮC NGHIỆM ĐÚNG / SAI (4 CÂU)</div>
-                 <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${EXAM_DATA.part2.length}. Trong mỗi ý a), b), c), d), chọn Đúng hoặc Sai.</div>`;
+    if (examSource.part2 && examSource.part2.length > 0) {
+        html += `<div class="part-title-banner">PHẦN II. CÂU TRẮC NGHIỆM ĐÚNG / SAI (${examSource.part2.length} CÂU)</div>
+                 <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${examSource.part2.length}. Trong mỗi ý a), b), c), d), chọn Đúng hoặc Sai.</div>`;
         
-        EXAM_DATA.part2.forEach((q, idx) => {
+        examSource.part2.forEach((q, idx) => {
             const qNum = idx + 1;
             html += `
             <div class="question-card" id="q_p2_${qNum}">
@@ -503,11 +613,11 @@ function buildExamInterface() {
     }
 
     // PHẦN III
-    if (EXAM_DATA.part3 && EXAM_DATA.part3.length > 0) {
-        html += `<div class="part-title-banner">PHẦN III. CÂU TRẮC NGHIỆM TRẢ LỜI NGẮN (6 CÂU)</div>
-                 <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${EXAM_DATA.part3.length}. Điền giá trị số vào ô đáp án.</div>`;
+    if (examSource.part3 && examSource.part3.length > 0) {
+        html += `<div class="part-title-banner">PHẦN III. CÂU TRẮC NGHIỆM TRẢ LỜI NGẮN (${examSource.part3.length} CÂU)</div>
+                 <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${examSource.part3.length}. Điền giá trị số vào ô đáp án.</div>`;
         
-        EXAM_DATA.part3.forEach((q, idx) => {
+        examSource.part3.forEach((q, idx) => {
             const qNum = idx + 1;
             html += `
             <div class="question-card" id="q_p3_${qNum}">
@@ -555,23 +665,24 @@ function buildExamInterface() {
 }
 
 function buildNavGrid() {
+    const examSource = activeExamData || EXAM_DATA;
     const gridP1 = document.getElementById('navGridP1');
     const gridP2 = document.getElementById('navGridP2');
     const gridP3 = document.getElementById('navGridP3');
     gridP1.innerHTML = ''; gridP2.innerHTML = ''; gridP3.innerHTML = '';
 
-    if (EXAM_DATA.part1) {
-        EXAM_DATA.part1.forEach((_, idx) => {
+    if (examSource.part1) {
+        examSource.part1.forEach((_, idx) => {
             gridP1.innerHTML += `<button type="button" class="nav-item" id="nav_p1_${idx+1}" onclick="scrollToQ('q_p1_${idx+1}')">${idx+1}</button>`;
         });
     }
-    if (EXAM_DATA.part2) {
-        EXAM_DATA.part2.forEach((_, idx) => {
+    if (examSource.part2) {
+        examSource.part2.forEach((_, idx) => {
             gridP2.innerHTML += `<button type="button" class="nav-item" id="nav_p2_${idx+1}" onclick="scrollToQ('q_p2_${idx+1}')">${idx+1}</button>`;
         });
     }
-    if (EXAM_DATA.part3) {
-        EXAM_DATA.part3.forEach((_, idx) => {
+    if (examSource.part3) {
+        examSource.part3.forEach((_, idx) => {
             gridP3.innerHTML += `<button type="button" class="nav-item" id="nav_p3_${idx+1}" onclick="scrollToQ('q_p3_${idx+1}')">${idx+1}</button>`;
         });
     }
@@ -656,9 +767,14 @@ function gradeExam() {
     let scoreP2 = 0;
     let scoreP3 = 0;
 
+    const keyP1 = activeAnswerKey ? activeAnswerKey.p1 : RAW_ANSWER_KEY.p1;
+    const keyP2 = activeAnswerKey ? activeAnswerKey.p2 : RAW_ANSWER_KEY.p2;
+    const keyP3 = activeAnswerKey ? activeAnswerKey.p3 : RAW_ANSWER_KEY.p3;
+
+    // Chấm Phần I
     for (let i = 1; i <= 12; i++) {
         const stuAns = studentAnswers.p1[i];
-        const correctAns = ANSWER_KEY.p1[i.toString()];
+        const correctAns = keyP1[i.toString()];
         const navBtn = document.getElementById(`nav_p1_${i}`);
         
         if (stuAns === correctAns) {
@@ -678,10 +794,11 @@ function gradeExam() {
         }
     }
 
+    // Chấm Phần II
     const p2Weights = [0, 0.1, 0.25, 0.5, 1.0];
     for (let i = 1; i <= 4; i++) {
         let correctCount = 0;
-        const keyItem = ANSWER_KEY.p2[i.toString()] || {};
+        const keyItem = keyP2[i.toString()] || {};
         const stuItem = studentAnswers.p2[i] || {};
 
         ['a', 'b', 'c', 'd'].forEach(k => {
@@ -703,14 +820,15 @@ function gradeExam() {
         }
     }
 
+    // Chấm Phần III
     for (let i = 1; i <= 6; i++) {
         const rawStuAns = (studentAnswers.p3[i] || "").replace(/\s+/g, '').replace('.', ',');
-        const rawKey = (ANSWER_KEY.p3[i.toString()] || "").replace(/\s+/g, '').replace('.', ',');
+        const rawKey = (keyP3[i.toString()] || "").replace(/\s+/g, '').replace('.', ',');
         const navBtn = document.getElementById(`nav_p3_${i}`);
         const keySpan = document.getElementById(`p3_key_${i}`);
 
         if (keySpan) {
-            keySpan.innerText = `(Đáp án đúng: ${ANSWER_KEY.p3[i.toString()]})`;
+            keySpan.innerText = `(Đáp án đúng: ${keyP3[i.toString()]})`;
             keySpan.style.display = 'inline';
         }
 
@@ -765,7 +883,8 @@ function submitExam() {
     document.getElementById('scoreP3Text').innerText = `${result.scoreP3.toFixed(2)} / 3.0`;
 
     // CẤU HÌNH ĐIỀU KIỆN MỞ KHÓA LỜI GIẢI
-    const minScore = EXAM_DATA.unlockSolutionScore || 8.0;
+    const examSource = activeExamData || EXAM_DATA;
+    const minScore = examSource.unlockSolutionScore || 8.0;
     const noticeBox = document.getElementById('solutionLockNotice');
     const btnSol = document.getElementById('btnViewSolution');
 
@@ -795,11 +914,12 @@ function submitExam() {
 
     document.getElementById('scoreModal').style.display = 'flex';
 
-    // Gửi điểm số về Google Sheets
+    // Gửi điểm số và Mã đề thi về Google Sheets
     const payload = {
         phone: currentStudent.phone,
         student_name: currentStudent.name,
         student_class: currentStudent.stuClass,
+        exam_code: currentStudent.examCode,
         score_p1: result.scoreP1,
         score_p2: result.scoreP2,
         score_p3: result.scoreP3,
@@ -817,26 +937,38 @@ function submitExam() {
     }).catch(err => console.log("Lỗi lưu sheet:", err));
 }
 
-// XỬ LÝ LÀM LẠI BÀI THI KHI BẤM "THI LẠI"
+// XỬ LÝ LÀM LẠI BÀI THI KHI BẤM "THI LẠI" (SINH MÃ ĐỀ MỚI CHO LƯỢT TIẾP THEO)
 function retryExamSession() {
     if (currentStudent.attempt >= currentStudent.maxAttempts) {
         alert("Em đã hoàn thành hết số lượt thi cho phép!");
         return;
     }
 
-    // Tăng số thứ tự lượt thi
+    // Tăng số lượt thi
     currentStudent.attempt += 1;
+    const cleanPhone = currentStudent.phone;
+    const used = currentStudent.attempt;
+    const seedStr = `${cleanPhone}_L${used}`;
+    currentStudent.examCode = `#${cleanPhone.slice(-4)}${used}`;
+
+    // Sinh đề và bộ đáp án mới hoàn toàn cho lượt này
+    const shuffled = generateShuffledExam(seedStr);
+    activeExamData = shuffled.shuffledExam;
+    activeAnswerKey = shuffled.shuffledKey;
+
     document.getElementById('stuBadgeAttempt').innerText = `Lượt thi: ${currentStudent.attempt}/${currentStudent.maxAttempts}`;
+    document.getElementById('stuBadgeExamCode').innerText = `Mã đề: ${currentStudent.examCode}`;
 
     // Đặt lại các biến trạng thái
     studentAnswers = { p1: {}, p2: {}, p3: {} };
     isSubmitted = false;
-    remainingSeconds = (EXAM_DATA.durationMinutes || 90) * 60;
+    const examSource = activeExamData || EXAM_DATA;
+    remainingSeconds = (examSource.durationMinutes || 90) * 60;
 
     // Đóng modal kết quả
     document.getElementById('scoreModal').style.display = 'none';
 
-    // Xây dựng lại giao diện làm bài mới toanh
+    // Xây dựng lại giao diện làm bài mới
     buildExamInterface();
     runTimer();
 
