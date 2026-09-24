@@ -6,7 +6,7 @@ const EXAM_DATA = {
     "part1": [
         {
             "id": 1,
-            "content": "<b> </b>Hm số <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image001.png\" width=\"113\"/>đồng biến trn khoảng no trong cc khoảng sau?",
+            "content": "<b> </b>Hm số <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image001.png\" width=\"113\"/>đồng biến trn khoảng no trong cc khoảng sau? <b> </b>",
             "options": [
                 "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image002.png\" width=\"51\"/>",
                 "...",
