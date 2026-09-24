@@ -411,6 +411,11 @@ function generateShuffledExam(seedStr) {
 function cleanTypo(str) {
     if (!str) return "";
     return str
+        // Chuẩn hóa khoảng trắng lạ từ Word
+        .replace(/&nbsp;/g, ' ')
+        .replace(/\u00a0/g, ' ')
+        // Cắt bỏ triệt để tiền tố "Câu X.", "Câu X:", "Bài X." kể cả khi nằm sau thẻ HTML
+        .replace(/^((?:\s*<[^>]+>)*\s*)(?:Câu|Bài)\s*\d+[\s\.:\)]*/i, '$1')
         .replace(/ông\s+Bình\s+d[oòóỏõọôồốổỗộuùúủũụ\S]*?ng\s+để/gi, 'ông Bình dùng để')
         .replace(/\bd[oòóỏõọôồốổỗộuùúủũụ\S]*?ng\s+để\s+hoàn\s+thành/gi, 'dùng để hoàn thành')
         .replace(/làm\s+\S{1,6}\s+đến/gi, 'làm tròn đến')
@@ -882,9 +887,8 @@ function submitExam() {
     document.getElementById('scoreP2Text').innerText = `${result.scoreP2.toFixed(2)} / 4.0`;
     document.getElementById('scoreP3Text').innerText = `${result.scoreP3.toFixed(2)} / 3.0`;
 
-    // CẤU HÌNH ĐIỀU KIỆN MỞ KHÓA LỜI GIẢI
-    const examSource = activeExamData || EXAM_DATA;
-    const minScore = examSource.unlockSolutionScore || 8.0;
+    // CẤU HÌNH ĐIỀU KIỆN MỞ KHÓA LỜI GIẢI (Cố định ở mức 6.5 điểm)
+    const minScore = 6.5;
     const noticeBox = document.getElementById('solutionLockNotice');
     const btnSol = document.getElementById('btnViewSolution');
 
