@@ -6,133 +6,133 @@ const EXAM_DATA = {
     "part1": [
         {
             "id": 1,
-            "content": "",
+            "content": "<b> </b>Hàm số <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image001.png\" width=\"113\"/> đồng biến trên khoảng nào trong các khoảng sau?<b> </b>",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image002.png\" width=\"51\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image003.png\" width=\"52\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image004.png\" width=\"44\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image005.png\" width=\"39\"/>"
             ],
             "solution": "Ta có <img class=\"is-diagram\" height=\"24\" src=\"k12_de01/temp_exam_files/image006.png\" width=\"225\"/>.<br><img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image007.png\" width=\"200\"/>."
         },
         {
             "id": 2,
-            "content": "",
+            "content": "<b> </b>Cho hàm số <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image008.png\" width=\"39\"/> có đạo hàm liên tục trên đoạn <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image009.png\" width=\"42\"/>. Biết <img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image010.png\" width=\"135\"/>. Giá trị của tích phân <img class=\"math-img-inline\" height=\"49\" src=\"k12_de01/temp_exam_files/image011.png\" width=\"71\"/> bằng",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "0",
+                "2",
+                "−2",
+                "1"
             ],
             "solution": "Ta có tích phân <img class=\"is-diagram\" height=\"49\" src=\"k12_de01/temp_exam_files/image012.png\" width=\"317\"/>"
         },
         {
             "id": 3,
-            "content": "",
+            "content": "<b> </b>Cho hình chóp <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image013.png\" width=\"61\"/> có đáy là hình bình hành. Đẳng thức nào sau đây <b>Sai</b>? <img class=\"is-diagram\" height=\"231\" id=\"Picture 2\" src=\"k12_de01/temp_exam_files/image014.png\" width=\"218\"/>",
             "options": [
+                "<img class=\"is-diagram\" height=\"23\" src=\"k12_de01/temp_exam_files/image015.png\" width=\"125\"/>",
                 "...",
                 "...",
-                "...",
-                "..."
+                "<img class=\"is-diagram\" height=\"23\" src=\"k12_de01/temp_exam_files/image018.png\" width=\"125\"/>"
             ],
             "solution": "Gọi <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image019.png\" width=\"28\"/>là trung điểm của <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image020.png\" width=\"53\"/>a có  <img class=\"is-diagram\" height=\"25\" src=\"k12_de01/temp_exam_files/image021.png\" width=\"209\"/><br>Mà <img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image022.png\" width=\"55\"/>suy ra <img class=\"is-diagram\" height=\"23\" src=\"k12_de01/temp_exam_files/image023.png\" width=\"127\"/>."
         },
         {
             "id": 4,
-            "content": "",
+            "content": "<b> </b>Trong không gian với hệ tọa độ <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image024.png\" width=\"42\"/> cho hai điểm <img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image025.png\" width=\"138\"/>. Tọa độ trung điểm của đoạn thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image026.png\" width=\"26\"/> là",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image027.png\" width=\"76\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image028.png\" width=\"57\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image029.png\" width=\"61\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image030.png\" width=\"79\"/>"
             ],
             "solution": "Trung điểm đoạn thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image026.png\" width=\"26\"/> là<br><img class=\"is-diagram\" height=\"59\" src=\"k12_de01/temp_exam_files/image031.png\" width=\"245\"/>."
         },
         {
             "id": 5,
-            "content": "",
+            "content": "Trong không gian với hệ tọa độ <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image024.png\" width=\"42\"/> cho hai vectơ <img class=\"is-diagram\" height=\"28\" src=\"k12_de01/temp_exam_files/image032.png\" width=\"128\"/>. Độ dài của vectơ <img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image033.png\" width=\"44\"/> bằng",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "54",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image034.png\" width=\"32\"/>",
+                "62",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image035.png\" width=\"33\"/>"
             ],
             "solution": "<img class=\"math-img-inline\" height=\"28\" src=\"k12_de01/temp_exam_files/image036.png\" width=\"105\"/><br><img class=\"is-diagram\" height=\"33\" src=\"k12_de01/temp_exam_files/image037.png\" width=\"192\"/>."
         },
         {
             "id": 6,
-            "content": "",
+            "content": "Cho cấp số cộng <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image038.png\" width=\"32\"/> có <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image039.png\" width=\"91\"/>. Số hạng thứ 5 của cấp số cộng là",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "−9",
+                "−7",
+                "−14",
+                "−11"
             ],
             "solution": "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image040.png\" width=\"104\"/>.<br><img class=\"is-diagram\" height=\"24\" src=\"k12_de01/temp_exam_files/image041.png\" width=\"173\"/>"
         },
         {
             "id": 7,
-            "content": "",
+            "content": "Cho hàm số <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image042.png\" width=\"64\"/> liên tục trên <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image043.png\" width=\"45\"/>. Biết <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image044.png\" width=\"40\"/> là một nguyên hàm của <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image045.png\" width=\"38\"/> và <img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image046.png\" width=\"120\"/>. Giá trị của tích phân <img class=\"is-diagram\" height=\"48\" src=\"k12_de01/temp_exam_files/image047.png\" width=\"132\"/> bằng",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "7",
+                "9",
+                "1",
+                "−1"
             ],
             "solution": "<img class=\"is-diagram\" height=\"77\" src=\"k12_de01/temp_exam_files/image048.png\" width=\"420\"/>."
         },
         {
             "id": 8,
-            "content": "",
+            "content": "Đường cong trong hình vẽ là đồ thị của hàm số nào trong các hàm số dưới đây? <img class=\"is-diagram\" height=\"224\" id=\"Picture 10\" src=\"k12_de01/temp_exam_files/image049.jpg\" width=\"280\"/>",
             "options": [
                 "...",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image051.png\" width=\"78\"/>",
+                "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image052.png\" width=\"88\"/>",
+                "<img class=\"math-img-inline\" height=\"42\" src=\"k12_de01/temp_exam_files/image053.png\" width=\"63\"/>"
             ],
             "solution": "Đồ thị hàm số đi qua điểm có tọa độ <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image054.png\" width=\"39\"/> nên loại<br>Ta có <img class=\"is-diagram\" height=\"44\" src=\"k12_de01/temp_exam_files/image055.png\" width=\"184\"/> suy ra đường tiệm cận xiên là <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image056.png\" width=\"67\"/> không đi qua điểm có tọa độ <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image057.png\" width=\"47\"/> nên loại"
         },
         {
             "id": 9,
-            "content": "",
+            "content": "<b> </b>Nguyên hàm của hàm số <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image058.png\" width=\"66\"/> là",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image059.png\" width=\"45\"/>",
+                "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image060.png\" width=\"59\"/>",
+                "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image061.png\" width=\"73\"/>",
+                "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image062.png\" width=\"56\"/>"
             ],
             "solution": "Ta có <img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image063.png\" width=\"112\"/>."
         },
         {
             "id": 10,
-            "content": "",
+            "content": "Phương tŕnh đường tiệm cận ngang của đồ thị hàm số <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image064.png\" width=\"72\"/> là",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image065.png\" width=\"44\"/>",
+                "<img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image066.png\" width=\"34\"/>",
+                "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image067.png\" width=\"36\"/>",
+                "<img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image068.png\" width=\"46\"/>"
             ],
             "solution": "Ta có đường tiệm cận ngang của đồ thị hàm số là <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image069.png\" width=\"45\"/>."
         },
         {
             "id": 11,
-            "content": "",
+            "content": "Cho hình chóp tứ giác <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image070.png\" width=\"56\"/> có <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image071.png\" width=\"23\"/> vuông góc với mặt phẳng đáy. Góc giữa đường thẳng <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image072.png\" width=\"24\"/> với mặt phẳng <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image073.png\" width=\"60\"/> là <img class=\"is-diagram\" height=\"230\" id=\"Picture 11\" src=\"k12_de01/temp_exam_files/image074.png\" width=\"194\"/>",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image075.png\" width=\"33\"/>",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image076.png\" width=\"34\"/>",
+                "<img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image077.png\" width=\"37\"/>",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image078.png\" width=\"33\"/>"
             ],
             "solution": "Ta có đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image026.png\" width=\"26\"/>là hình chiếu vuông góc của đường thẳng <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image079.png\" width=\"24\"/>lên mặt phẳng <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image073.png\" width=\"60\"/>.<br>Suy ra góc giữa đường thẳng <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image072.png\" width=\"24\"/> với mặt phẳng <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image073.png\" width=\"60\"/> là góc giữa đường thẳng <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image079.png\" width=\"24\"/> với đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image026.png\" width=\"26\"/> và là <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image078.png\" width=\"33\"/>"
         },
         {
             "id": 12,
-            "content": "",
+            "content": "Nghiệm của phương tŕnh <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image080.png\" width=\"115\"/> là",
             "options": [
-                "...",
-                "...",
-                "...",
-                "..."
+                "<img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image081.png\" width=\"135\"/>",
+                "<img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image082.png\" width=\"146\"/>",
+                "<img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image083.png\" width=\"146\"/>",
+                "<img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image084.png\" width=\"135\"/>"
             ],
             "solution": "Ta có <img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image085.png\" width=\"454\"/>"
         }
@@ -144,19 +144,19 @@ const EXAM_DATA = {
             "items": [
                 {
                     "key": "a",
-                    "text": "</b>Tập xác định của hàm số là <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image087.png\" width=\"61\"/>."
+                    "text": "Tập xác định của hàm số là <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image087.png\" width=\"61\"/>."
                 },
                 {
                     "key": "b",
-                    "text": "<b><u>b</u></b><b>) [TH] </b><img class=\"is-diagram\" height=\"47\" src=\"k12_de01/temp_exam_files/image088.png\" width=\"231\"/>."
+                    "text": "<b>b</b><b>) [TH] </b><img class=\"is-diagram\" height=\"47\" src=\"k12_de01/temp_exam_files/image088.png\" width=\"231\"/>."
                 },
                 {
                     "key": "c",
-                    "text": "</b>Phương tŕnh <img class=\"is-diagram\" height=\"30\" src=\"k12_de01/temp_exam_files/image089.png\" width=\"152\"/> có hai nghiệm phân biệt."
+                    "text": "Phương tŕnh <img class=\"is-diagram\" height=\"30\" src=\"k12_de01/temp_exam_files/image089.png\" width=\"152\"/> có hai nghiệm phân biệt."
                 },
                 {
                     "key": "d",
-                    "text": "</b>Gọi <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image090.png\" width=\"14\"/> là tập hợp tất cả các nghiệm nguyên của bất phương tŕnh <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image091.png\" width=\"62\"/>. Tổng tất cả các phần tử của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image090.png\" width=\"14\"/> bằng 903."
+                    "text": "Gọi <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image090.png\" width=\"14\"/> là tập hợp tất cả các nghiệm nguyên của bất phương tŕnh <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image091.png\" width=\"62\"/>. Tổng tất cả các phần tử của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image090.png\" width=\"14\"/> bằng 903."
                 }
             ],
             "solution": "<b>a)</b>Điều kiện xác định: <img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image092.png\" width=\"125\"/>.<br>Tập xác định của hàm số là <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image093.png\" width=\"61\"/>.<br><b>b)</b>Đạo hàm: <img class=\"is-diagram\" height=\"47\" src=\"k12_de01/temp_exam_files/image094.png\" width=\"231\"/>.<br><b>c)</b><img class=\"is-diagram\" height=\"30\" src=\"k12_de01/temp_exam_files/image095.png\" width=\"152\"/><br><img class=\"is-diagram\" height=\"30\" src=\"k12_de01/temp_exam_files/image096.png\" width=\"218\"/><br><img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image097.png\" width=\"144\"/><br><img class=\"is-diagram\" height=\"70\" src=\"k12_de01/temp_exam_files/image098.png\" width=\"124\"/><br><img class=\"is-diagram\" height=\"94\" src=\"k12_de01/temp_exam_files/image099.png\" width=\"130\"/>.<br>Vậy phương tŕnh có một nghiệm<img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image100.png\" width=\"37\"/>.<br><b>d)</b><img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image101.png\" width=\"190\"/><br><img class=\"math-img-inline\" height=\"47\" src=\"k12_de01/temp_exam_files/image102.png\" width=\"102\"/><br><img class=\"is-diagram\" height=\"66\" src=\"k12_de01/temp_exam_files/image103.png\" width=\"166\"/>.<br>Kết hợp với điều kiện <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image104.png\" width=\"38\"/> <img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image105.png\" width=\"142\"/><br>Tổng các phần tử của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image106.png\" width=\"14\"/> bằng <img class=\"is-diagram\" height=\"42\" src=\"k12_de01/temp_exam_files/image107.png\" width=\"242\"/>."
@@ -167,22 +167,22 @@ const EXAM_DATA = {
             "items": [
                 {
                     "key": "a",
-                    "text": "<b><u>a</u></b><b>)</b> <b>[TH] </b>Phương tŕnh đường tiệm cận xiên của đồ thị hàm số là <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>."
+                    "text": "Phương tŕnh đường tiệm cận xiên của đồ thị hàm số là <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>."
                 },
                 {
                     "key": "b",
-                    "text": "<b><u>b</u></b><b>)</b> <b>[TH] </b>Điểm cực tiểu của đồ thị hàm số là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image112.png\" width=\"51\"/>."
+                    "text": "Điểm cực tiểu của đồ thị hàm số là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image112.png\" width=\"51\"/>."
                 },
                 {
                     "key": "c",
-                    "text": "</b>Hàm số đồng biến trên <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image113.png\" width=\"48\"/>."
+                    "text": "Hàm số đồng biến trên <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image113.png\" width=\"48\"/>."
                 },
                 {
                     "key": "d",
-                    "text": "<b><u>d</u></b><b>)</b> <b>[VD] </b>Gọi <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image114.png\" width=\"32\"/> là hai điểm di động trên đồ thị hàm số sao cho các tiếp tuyến của đồ thị hàm số tại <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image115.png\" width=\"16\"/> và <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image116.png\" width=\"16\"/> luôn song song với nhau. Khi khoảng cách từ điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image117.png\" width=\"55\"/> đến đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> lớn nhất thì độ dài đoạn thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> bằng <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image119.png\" width=\"32\"/>."
+                    "text": "Gọi <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image114.png\" width=\"32\"/> là hai điểm di động trên đồ thị hàm số sao cho các tiếp tuyến của đồ thị hàm số tại <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image115.png\" width=\"16\"/> và <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image116.png\" width=\"16\"/> luôn song song với nhau. Khi khoảng cách từ điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image117.png\" width=\"55\"/> đến đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> lớn nhất thì độ dài đoạn thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> bằng <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image119.png\" width=\"32\"/>."
                 }
             ],
-            "solution": "<b><u>a</u></b><b>)</b> Phương tŕnh đường tiệm cận xiên của đồ thị hàm số là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image120.png\" width=\"92\"/>.<br>Tiệm cận xiên của đồ thị hàm số đi qua điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image121.png\" width=\"47\"/> và <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image122.png\" width=\"36\"/>.<br>Thay vào <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image123.png\" width=\"26\"/> ta có <img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image124.png\" width=\"138\"/>.<br>Vậy tiệm cận xiên của đồ thị hàm số là <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>. Nên  <b>đúng</b>.<br><b><u>b</u></b><b>)</b> Do đồ thị hàm số qua điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image109.png\" width=\"52\"/> nên thay vào hàm số ta được <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image125.png\" width=\"94\"/>.<br>Đồ thị hàm số có tiệm cận đứng là <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image126.png\" width=\"35\"/><img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image127.png\" width=\"65\"/>.<br>Khi đó <img class=\"is-diagram\" height=\"44\" src=\"k12_de01/temp_exam_files/image128.png\" width=\"257\"/>.<br>Do tiệm cận xiên <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/> nên <img class=\"math-img-inline\" height=\"48\" src=\"k12_de01/temp_exam_files/image129.png\" width=\"45\"/>.<br>Vậy <img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image130.png\" width=\"152\"/><br><img class=\"is-diagram\" height=\"56\" src=\"k12_de01/temp_exam_files/image131.png\" width=\"403\"/><br>Mà điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image109.png\" width=\"52\"/> là điểm cực đại của đồ thị hàm số.<br>V́ thế tọa độ điểm cực tiểu là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image112.png\" width=\"51\"/>. Nên  <b>đúng</b>.<br><b>c)</b> Trên khoảng <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image132.png\" width=\"48\"/> đồ thị hàm số vừa đi lên, vừa đi xuống nên hàm số vừa đồng biến, vừa nghịch biến trên <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image132.png\" width=\"48\"/>. Nên <b>sai</b>.<br><b><u>d</u></b><b>)</b> Tiếp tuyến của đồ thị hàm số tại <img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image133.png\" width=\"141\"/>, <img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image134.png\" width=\"141\"/> (<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image135.png\" width=\"51\"/>) thuộc đồ thị song song với nhau nên<br><img class=\"is-diagram\" height=\"50\" src=\"k12_de01/temp_exam_files/image136.png\" width=\"258\"/><br><img class=\"is-diagram\" height=\"30\" src=\"k12_de01/temp_exam_files/image137.png\" width=\"145\"/><img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image138.png\" width=\"254\"/>.<br>Vậy: <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image139.png\" width=\"74\"/>, nên đặt <img class=\"is-diagram\" height=\"24\" src=\"k12_de01/temp_exam_files/image140.png\" width=\"122\"/><br>Vậy <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image141.png\" width=\"112\"/>, <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image142.png\" width=\"112\"/>.<br><img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image143.png\" width=\"115\"/>. Véc tơ pháp tuyến của đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> là <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image144.png\" width=\"93\"/> hay <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image145.png\" width=\"105\"/>.<br>Đặt <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image146.png\" width=\"62\"/>.<br>Trung điểm của <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image147.png\" width=\"45\"/><br>Vậy phương tŕnh đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> đi qua <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image147.png\" width=\"45\"/> và có véc tơ pháp tuyến <img class=\"math-img-inline\" height=\"28\" src=\"k12_de01/temp_exam_files/image148.png\" width=\"73\"/> là:<br><img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image149.png\" width=\"135\"/><img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image150.png\" width=\"133\"/>.<br><img class=\"is-diagram\" height=\"48\" src=\"k12_de01/temp_exam_files/image151.png\" width=\"364\"/>.<br>Đặt <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image152.png\" width=\"100\"/><img class=\"is-diagram\" height=\"57\" src=\"k12_de01/temp_exam_files/image153.png\" width=\"217\"/>.<br>Hàm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image154.png\" width=\"37\"/> đạt giá trị lớn nhất tại <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image155.png\" width=\"34\"/>. Khi đó <img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image156.png\" width=\"145\"/>.<br><img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image157.png\" width=\"115\"/><img class=\"is-diagram\" height=\"53\" src=\"k12_de01/temp_exam_files/image158.png\" width=\"277\"/><br>Thay <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image159.png\" width=\"42\"/> vào <img class=\"is-diagram\" height=\"67\" src=\"k12_de01/temp_exam_files/image160.png\" width=\"214\"/>. Vậy d <b>đúng</b>."
+            "solution": "<b>a)</b> Phương tŕnh đường tiệm cận xiên của đồ thị hàm số là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image120.png\" width=\"92\"/>.<br>Tiệm cận xiên của đồ thị hàm số đi qua điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image121.png\" width=\"47\"/> và <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image122.png\" width=\"36\"/>.<br>Thay vào <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image123.png\" width=\"26\"/> ta có <img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image124.png\" width=\"138\"/>.<br>Vậy tiệm cận xiên của đồ thị hàm số là <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>. Nên  <b>đúng</b>.<br><b>b)</b> Do đồ thị hàm số qua điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image109.png\" width=\"52\"/> nên thay vào hàm số ta được <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image125.png\" width=\"94\"/>.<br>Đồ thị hàm số có tiệm cận đứng là <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image126.png\" width=\"35\"/><img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image127.png\" width=\"65\"/>.<br>Khi đó <img class=\"is-diagram\" height=\"44\" src=\"k12_de01/temp_exam_files/image128.png\" width=\"257\"/>.<br>Do tiệm cận xiên <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/> nên <img class=\"math-img-inline\" height=\"48\" src=\"k12_de01/temp_exam_files/image129.png\" width=\"45\"/>.<br>Vậy <img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image130.png\" width=\"152\"/><br><img class=\"is-diagram\" height=\"56\" src=\"k12_de01/temp_exam_files/image131.png\" width=\"403\"/><br>Mà điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image109.png\" width=\"52\"/> là điểm cực đại của đồ thị hàm số.<br>V́ thế tọa độ điểm cực tiểu là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image112.png\" width=\"51\"/>. Nên  <b>đúng</b>.<br><b>c)</b> Trên khoảng <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image132.png\" width=\"48\"/> đồ thị hàm số vừa đi lên, vừa đi xuống nên hàm số vừa đồng biến, vừa nghịch biến trên <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image132.png\" width=\"48\"/>. Nên <b>sai</b>.<br><b>d)</b> Tiếp tuyến của đồ thị hàm số tại <img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image133.png\" width=\"141\"/>, <img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image134.png\" width=\"141\"/> (<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image135.png\" width=\"51\"/>) thuộc đồ thị song song với nhau nên<br><img class=\"is-diagram\" height=\"50\" src=\"k12_de01/temp_exam_files/image136.png\" width=\"258\"/><br><img class=\"is-diagram\" height=\"30\" src=\"k12_de01/temp_exam_files/image137.png\" width=\"145\"/><img class=\"is-diagram\" height=\"51\" src=\"k12_de01/temp_exam_files/image138.png\" width=\"254\"/>.<br>Vậy: <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image139.png\" width=\"74\"/>, nên đặt <img class=\"is-diagram\" height=\"24\" src=\"k12_de01/temp_exam_files/image140.png\" width=\"122\"/><br>Vậy <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image141.png\" width=\"112\"/>, <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image142.png\" width=\"112\"/>.<br><img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image143.png\" width=\"115\"/>. Véc tơ pháp tuyến của đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> là <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image144.png\" width=\"93\"/> hay <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image145.png\" width=\"105\"/>.<br>Đặt <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image146.png\" width=\"62\"/>.<br>Trung điểm của <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image147.png\" width=\"45\"/><br>Vậy phương tŕnh đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/> đi qua <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image147.png\" width=\"45\"/> và có véc tơ pháp tuyến <img class=\"math-img-inline\" height=\"28\" src=\"k12_de01/temp_exam_files/image148.png\" width=\"73\"/> là:<br><img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image149.png\" width=\"135\"/><img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image150.png\" width=\"133\"/>.<br><img class=\"is-diagram\" height=\"48\" src=\"k12_de01/temp_exam_files/image151.png\" width=\"364\"/>.<br>Đặt <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image152.png\" width=\"100\"/><img class=\"is-diagram\" height=\"57\" src=\"k12_de01/temp_exam_files/image153.png\" width=\"217\"/>.<br>Hàm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image154.png\" width=\"37\"/> đạt giá trị lớn nhất tại <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image155.png\" width=\"34\"/>. Khi đó <img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image156.png\" width=\"145\"/>.<br><img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image157.png\" width=\"115\"/><img class=\"is-diagram\" height=\"53\" src=\"k12_de01/temp_exam_files/image158.png\" width=\"277\"/><br>Thay <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image159.png\" width=\"42\"/> vào <img class=\"is-diagram\" height=\"67\" src=\"k12_de01/temp_exam_files/image160.png\" width=\"214\"/>. Vậy d <b>đúng</b>."
         },
         {
             "id": 3,
@@ -190,19 +190,19 @@ const EXAM_DATA = {
             "items": [
                 {
                     "key": "a",
-                    "text": "</b>Giả sử <img class=\"is-diagram\" height=\"25\" src=\"k12_de01/temp_exam_files/image169.png\" width=\"181\"/> thì <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image170.png\" width=\"60\"/>."
+                    "text": "Giả sử <img class=\"is-diagram\" height=\"25\" src=\"k12_de01/temp_exam_files/image169.png\" width=\"181\"/> thì <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image170.png\" width=\"60\"/>."
                 },
                 {
                     "key": "b",
-                    "text": "</b><img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image171.png\" width=\"85\"/>."
+                    "text": "<img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image171.png\" width=\"85\"/>."
                 },
                 {
                     "key": "c",
-                    "text": "</b><img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image172.png\" width=\"107\"/>."
+                    "text": "<img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image172.png\" width=\"107\"/>."
                 },
                 {
                     "key": "d",
-                    "text": "</b><img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image173.png\" width=\"107\"/>."
+                    "text": "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image173.png\" width=\"107\"/>."
                 }
             ],
             "solution": "a) <b>Sai.</b><br>Ta có: <img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image174.png\" width=\"141\"/><img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image175.png\" width=\"343\"/><img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image176.png\" width=\"144\"/>. Suy ra <img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image177.png\" width=\"199\"/>.<br>b) <b>Đúng.</b><br>Ta có: <img class=\"is-diagram\" height=\"42\" src=\"k12_de01/temp_exam_files/image178.png\" width=\"432\"/>.<br>c) <b>Đúng</b>.<br>Ta có: <img class=\"is-diagram\" height=\"23\" src=\"k12_de01/temp_exam_files/image179.png\" width=\"183\"/>.<br>d) <b>Đúng.</b><br>Ta có:<img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image180.png\" width=\"376\"/><img class=\"is-diagram\" height=\"46\" src=\"k12_de01/temp_exam_files/image181.png\" width=\"371\"/><img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image182.png\" width=\"592\"/><br><img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image183.png\" width=\"321\"/><br><img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image184.png\" width=\"501\"/><br><img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image185.png\" width=\"487\"/><br><img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image186.png\" width=\"44\"/>."
@@ -213,11 +213,11 @@ const EXAM_DATA = {
             "items": [
                 {
                     "key": "a",
-                    "text": "</b>Vận tốc của vật tại thời điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image189.png\" width=\"56\"/> là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image190.png\" width=\"61\"/>."
+                    "text": "Vận tốc của vật tại thời điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image189.png\" width=\"56\"/> là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image190.png\" width=\"61\"/>."
                 },
                 {
                     "key": "b",
-                    "text": "</b>Vận tốc tức thời của vật là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image191.png\" width=\"102\"/>."
+                    "text": "Vận tốc tức thời của vật là <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image191.png\" width=\"102\"/>."
                 },
                 {
                     "key": "c",
@@ -225,7 +225,7 @@ const EXAM_DATA = {
                 },
                 {
                     "key": "d",
-                    "text": "</b>Quăng đường vật đi được sau <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image193.png\" width=\"19\"/> giây kể từ khi bắt đầu chuyển động là <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image194.png\" width=\"35\"/>."
+                    "text": "Quăng đường vật đi được sau <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image193.png\" width=\"19\"/> giây kể từ khi bắt đầu chuyển động là <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image194.png\" width=\"35\"/>."
                 }
             ],
             "solution": "a) <b>Đúng.</b><br>Ta có: <img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image195.png\" width=\"177\"/><br>b) <b>Đúng.</b><br>Ta có: <img class=\"is-diagram\" height=\"29\" src=\"k12_de01/temp_exam_files/image196.png\" width=\"136\"/><br><img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image197.png\" width=\"188\"/>.<br>c) <b>Đúng</b>.<br>Ta có: <img class=\"is-diagram\" height=\"44\" src=\"k12_de01/temp_exam_files/image198.png\" width=\"217\"/><br><img class=\"is-diagram\" height=\"44\" src=\"k12_de01/temp_exam_files/image199.png\" width=\"201\"/><br><img class=\"is-diagram\" height=\"41\" src=\"k12_de01/temp_exam_files/image200.png\" width=\"199\"/>.<br>d) <b>Sai.</b><br>Ta có: <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image201.png\" width=\"55\"/>.<br>Quăng đường vật đi được sau 10 giây kể từ khi bắt đầu chuyển động là: <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image202.png\" width=\"104\"/>."
