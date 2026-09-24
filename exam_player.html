@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HỆ THỐNG THI TRỰC TUYẾN TOÁN THPT - GDPT 2018</title>
+    <title>LỚP TOÁN THẦY TRUNG - TN1 | HỆ THỐNG THI TRỰC TUYẾN</title>
     
     <!-- KaTeX Render Toán học -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -253,8 +253,8 @@
 
 <header>
     <div class="brand-box">
-        <h1 id="examTitle">ĐỀ THI TỐT NGHIỆP THPT MÔN TOÁN</h1>
-        <span id="examSubtitle">Chương trình GDPT 2018 - Thời gian: 90 phút</span>
+        <h1 id="examTitle">LỚP TOÁN THẦY TRUNG - TN1</h1>
+        <span id="examSubtitle">Đề Khảo sát Năng lực Môn Toán</span>
     </div>
     <div class="timer-badge">
         <span>⏱️</span> <span id="timerDisplay">90:00</span>
@@ -411,7 +411,7 @@ function generateShuffledExam(seedStr) {
 function cleanTypo(str) {
     if (!str) return "";
     return str
-        // Chuẩn hóa khoảng trắng lạ từ Word
+        // Chuẩn hóa khoảng trắng đặc biệt từ Word
         .replace(/&nbsp;/g, ' ')
         .replace(/\u00a0/g, ' ')
         // Cắt bỏ triệt để tiền tố "Câu X.", "Câu X:", "Bài X." kể cả khi nằm sau thẻ HTML
@@ -497,6 +497,17 @@ function checkStudentAuth() {
                 document.getElementById('loginModal').style.display = 'none';
                 buildExamInterface();
                 runTimer();
+
+                // Tự động bật chế độ toàn màn hình để ẩn thanh duyệt web
+                try {
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen();
+                    }
+                } catch (e) {
+                    console.log("Fullscreen blocked:", e);
+                }
             } else {
                 msg.style.color = "var(--danger-color)";
                 msg.innerText = data.message || "Không thể xác thực số điện thoại!";
