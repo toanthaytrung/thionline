@@ -6,12 +6,12 @@ const EXAM_DATA = {
     "part1": [
         {
             "id": 1,
-            "content": "<b> </b>Hm số <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image001.png\" width=\"113\"/>đồng biến trn khoảng no trong cc khoảng sau? <b> </b>A. <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image002.png\" width=\"51\"/>. <b>B</b>. <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image003.png\" width=\"52\"/>. <b>C</b>. <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image004.png\" width=\"44\"/>. <b>D</b>. <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image005.png\" width=\"39\"/>.",
+            "content": "<b> </b>Hm số <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image001.png\" width=\"113\"/>đồng biến trn khoảng no trong cc khoảng sau? <b> </b><b>A.</b> <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image002.png\" width=\"51\"/>.",
             "options": [
                 "...",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image003.png\" width=\"52\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image004.png\" width=\"44\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image005.png\" width=\"39\"/>"
             ],
             "solution": "Ta c <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image006.png\" width=\"225\"/>.<br><img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image007.png\" width=\"200\"/>Vậy <b>D</b> đng."
         },
@@ -20,20 +20,20 @@ const EXAM_DATA = {
             "content": "<b> </b>Cho hm số <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image008.png\" width=\"39\"/>c đạo hm lin tục trn đoạn <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image009.png\" width=\"42\"/>. Biết <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image010.png\" width=\"135\"/>. Gi trị của tch phn <img class=\"math-img-inline\" height=\"49\" src=\"k12_de01/temp_exam_files/image011.png\" width=\"71\"/>bằng",
             "options": [
                 "0",
-                "...",
-                "...",
-                "..."
+                "2",
+                "−2",
+                "1"
             ],
             "solution": "Ta c tch phn <img class=\"math-img-inline\" height=\"49\" src=\"k12_de01/temp_exam_files/image012.png\" width=\"317\"/>"
         },
         {
             "id": 3,
-            "content": "<b> </b>Cho hnh chp <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image013.png\" width=\"61\"/>c đy l hnh bnh hnh. Đẳng thức no sau đy <b>Sai</b>? <img class=\"is-diagram\" height=\"231\" id=\"Picture 2\" src=\"k12_de01/temp_exam_files/image014.png\" width=\"218\"/>",
+            "content": "<b> </b>Cho hnh chp <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image013.png\" width=\"61\"/>c đy l hnh bnh hnh. Đẳng thức no sau đy <b>Sai</b>? <img class=\"is-diagram\" height=\"231\" id=\"Picture 2\" src=\"k12_de01/temp_exam_files/image014.png\" width=\"218\"/> <b><u>A</u></b><b>.</b> <img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image015.png\" width=\"125\"/>.",
             "options": [
-                "<img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image015.png\" width=\"125\"/>",
+                "...",
                 "<img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image016.png\" width=\"103\"/>",
                 "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image017.png\" width=\"101\"/>",
-                "..."
+                "<img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image018.png\" width=\"125\"/>"
             ],
             "solution": "Gọi <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image019.png\" width=\"28\"/>l trung điểm của <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image020.png\" width=\"53\"/>a c <img class=\"math-img-inline\" height=\"25\" src=\"k12_de01/temp_exam_files/image021.png\" width=\"209\"/><br>M <img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image022.png\" width=\"55\"/>suy ra <img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image023.png\" width=\"127\"/>."
         },
@@ -42,9 +42,9 @@ const EXAM_DATA = {
             "content": "<b> </b>Trong khng gian với hệ tọa độ <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image024.png\" width=\"42\"/>cho hai điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image025.png\" width=\"138\"/>. Tọa độ trung điểm của đoạn thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image026.png\" width=\"26\"/>l",
             "options": [
                 "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image027.png\" width=\"76\"/>",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image028.png\" width=\"57\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image029.png\" width=\"61\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image030.png\" width=\"79\"/>"
             ],
             "solution": "Trung điểm đoạn thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image026.png\" width=\"26\"/>l<br><img class=\"math-img-inline\" height=\"59\" src=\"k12_de01/temp_exam_files/image031.png\" width=\"245\"/>suy ra đp n <b>B</b> đng"
         },
@@ -53,9 +53,9 @@ const EXAM_DATA = {
             "content": "Trong khng gian với hệ tọa độ <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image024.png\" width=\"42\"/>cho hai vectơ <img class=\"math-img-inline\" height=\"28\" src=\"k12_de01/temp_exam_files/image032.png\" width=\"128\"/>. Độ di của vectơ <img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image033.png\" width=\"44\"/>bằng",
             "options": [
                 "54",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image034.png\" width=\"32\"/>",
+                "62",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image035.png\" width=\"33\"/>"
             ],
             "solution": "<img class=\"math-img-inline\" height=\"28\" src=\"k12_de01/temp_exam_files/image036.png\" width=\"105\"/><br><img class=\"math-img-inline\" height=\"33\" src=\"k12_de01/temp_exam_files/image037.png\" width=\"192\"/>."
         },
@@ -64,9 +64,9 @@ const EXAM_DATA = {
             "content": "Cho cấp số cộng <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image038.png\" width=\"32\"/>c <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image039.png\" width=\"91\"/>. Số hạng thứ 5 của cấp số cộng l",
             "options": [
                 "−9",
-                "...",
-                "...",
-                "..."
+                "−7",
+                "−14",
+                "−11"
             ],
             "solution": "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image040.png\" width=\"104\"/>.<br><img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image041.png\" width=\"173\"/>"
         },
@@ -75,20 +75,20 @@ const EXAM_DATA = {
             "content": "Cho hm số <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image042.png\" width=\"64\"/>lin tục trn <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image043.png\" width=\"45\"/>. Biết <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image044.png\" width=\"40\"/>l một nguyn hm của <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image045.png\" width=\"38\"/>v <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image046.png\" width=\"120\"/>. Gi trị của tch phn <img class=\"math-img-inline\" height=\"48\" src=\"k12_de01/temp_exam_files/image047.png\" width=\"132\"/>bằng",
             "options": [
                 "7",
-                "...",
-                "...",
-                "..."
+                "9",
+                "1",
+                "−1"
             ],
             "solution": "<img class=\"math-img-inline\" height=\"77\" src=\"k12_de01/temp_exam_files/image048.png\" width=\"420\"/>"
         },
         {
             "id": 8,
-            "content": "Đường cong trong hnh vẽ l đồ thị của hm số no trong cc hm số dưới đy? <img class=\"is-diagram\" height=\"224\" id=\"Picture 10\" src=\"k12_de01/temp_exam_files/image049.jpg\" width=\"280\"/>",
+            "content": "Đường cong trong hnh vẽ l đồ thị của hm số no trong cc hm số dưới đy? <img class=\"is-diagram\" height=\"224\" id=\"Picture 10\" src=\"k12_de01/temp_exam_files/image049.jpg\" width=\"280\"/> <b><u>A</u></b><b>. </b><a name=\"_Hlk215812648\"><img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image050.png\" width=\"78\"/></a>.",
             "options": [
-                "<a name=\"_Hlk215812648\"><img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image050.png\" width=\"78\"/></a>",
                 "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image051.png\" width=\"78\"/>",
+                "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image052.png\" width=\"88\"/>",
+                "<img class=\"math-img-inline\" height=\"42\" src=\"k12_de01/temp_exam_files/image053.png\" width=\"63\"/>"
             ],
             "solution": "Đồ thị hm số đi qua điểm c tọa độ <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image054.png\" width=\"39\"/>nn loại<br>Ta c <img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image055.png\" width=\"184\"/>suy ra đường tiệm cận xin l <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image056.png\" width=\"67\"/>khng đi qua điểm c tọa độ <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image057.png\" width=\"47\"/>nn loại"
         },
@@ -97,20 +97,20 @@ const EXAM_DATA = {
             "content": "<b></b>Nguyn hm của hm số <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image058.png\" width=\"66\"/>l",
             "options": [
                 "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image059.png\" width=\"45\"/>",
-                "...",
-                "...",
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image062.png\" width=\"56\"/>"
+                "<img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image060.png\" width=\"59\"/>",
+                "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image061.png\" width=\"73\"/>. <b><u>D</u></b><b>.</b> <img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image062.png\" width=\"56\"/>",
+                "..."
             ],
             "solution": "Ta c <img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image063.png\" width=\"112\"/>."
         },
         {
             "id": 10,
-            "content": "Phương trnh đường tiệm cận ngang của đồ thị hm số <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image064.png\" width=\"72\"/>l",
+            "content": "Phương trnh đường tiệm cận ngang của đồ thị hm số <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image064.png\" width=\"72\"/>l <b><u>A</u></b><b>.</b> <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image065.png\" width=\"44\"/>.",
             "options": [
-                "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image065.png\" width=\"44\"/>",
                 "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image066.png\" width=\"34\"/>",
+                "<img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image067.png\" width=\"36\"/>",
+                "<img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image068.png\" width=\"46\"/>"
             ],
             "solution": "Ta c đường tiệm cận ngang của đồ thị hm số l <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image069.png\" width=\"45\"/>."
         },
@@ -119,9 +119,9 @@ const EXAM_DATA = {
             "content": "Cho hnh chp tứ gic <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image070.png\" width=\"56\"/>c <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image071.png\" width=\"23\"/>vung gc với mặt phẳng đy. Gc giữa đường thẳng <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image072.png\" width=\"24\"/>với mặt phẳng <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image073.png\" width=\"60\"/>l <img class=\"is-diagram\" height=\"230\" id=\"Picture 11\" src=\"k12_de01/temp_exam_files/image074.png\" width=\"194\"/>",
             "options": [
                 "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image075.png\" width=\"33\"/>",
-                "...",
-                "...",
-                "..."
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image076.png\" width=\"34\"/>",
+                "<img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image077.png\" width=\"37\"/>",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image078.png\" width=\"33\"/>"
             ],
             "solution": "Ta c đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image026.png\" width=\"26\"/>l hnh chiếu vung gc của đường thẳng <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image079.png\" width=\"24\"/>ln mặt phẳng <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image073.png\" width=\"60\"/>.<br>Suy ra gc giữa đường thẳng <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image072.png\" width=\"24\"/>với mặt phẳng <a name=\"_Hlk215783328\"><img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image073.png\" width=\"60\"/></a>l gc giữa đường thẳng <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image079.png\" width=\"24\"/>với đường thẳng <a name=\"_Hlk215783257\"><img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image026.png\" width=\"26\"/></a>v l <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image078.png\" width=\"33\"/>"
         },
@@ -130,9 +130,9 @@ const EXAM_DATA = {
             "content": "Nghiệm của phương trnh <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image080.png\" width=\"115\"/>l",
             "options": [
                 "<img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image081.png\" width=\"135\"/>",
+                "<img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image082.png\" width=\"146\"/>",
                 "...",
-                "<img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image083.png\" width=\"146\"/>",
-                "..."
+                "<img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image084.png\" width=\"135\"/>"
             ],
             "solution": "Ta c <img class=\"is-diagram\" height=\"88\" src=\"k12_de01/temp_exam_files/image085.png\" width=\"454\"/>"
         }
@@ -148,7 +148,7 @@ const EXAM_DATA = {
                 },
                 {
                     "key": "b",
-                    "text": "<b>b</b><b>) [TH] </b><img class=\"math-img-inline\" height=\"47\" src=\"k12_de01/temp_exam_files/image088.png\" width=\"231\"/>."
+                    "text": "<b><u>b</u></b><b>) [TH] </b><img class=\"math-img-inline\" height=\"47\" src=\"k12_de01/temp_exam_files/image088.png\" width=\"231\"/>."
                 },
                 {
                     "key": "c",
@@ -159,7 +159,7 @@ const EXAM_DATA = {
                     "text": "</b>Gọi <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image090.png\" width=\"14\"/>l tập hợp tất cả cc nghiệm nguyn của bất phương trnh <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image091.png\" width=\"62\"/>. Tổng tất cả cc phần tử của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image090.png\" width=\"14\"/>bằng 903."
                 }
             ],
-            "solution": "a)Điều kiện xc định: <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image092.png\" width=\"125\"/>.<br>Tập xc định của hm số l <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image093.png\" width=\"61\"/>.<br>b)Đạo hm: <img class=\"math-img-inline\" height=\"47\" src=\"k12_de01/temp_exam_files/image094.png\" width=\"231\"/>.<br>c)<img class=\"math-img-inline\" height=\"30\" src=\"k12_de01/temp_exam_files/image095.png\" width=\"152\"/><br><img class=\"math-img-inline\" height=\"30\" src=\"k12_de01/temp_exam_files/image096.png\" width=\"218\"/><br><img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image097.png\" width=\"144\"/><br><img class=\"math-img-inline\" height=\"70\" src=\"k12_de01/temp_exam_files/image098.png\" width=\"124\"/><br><img class=\"is-diagram\" height=\"94\" src=\"k12_de01/temp_exam_files/image099.png\" width=\"130\"/>.<br>Vậy phương trnh c một nghiệm<img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image100.png\" width=\"37\"/>.<br>d)<img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image101.png\" width=\"190\"/><br><img class=\"math-img-inline\" height=\"47\" src=\"k12_de01/temp_exam_files/image102.png\" width=\"102\"/><br><img class=\"math-img-inline\" height=\"66\" src=\"k12_de01/temp_exam_files/image103.png\" width=\"166\"/>.<br>Kết hợp với điều kiện <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image104.png\" width=\"38\"/><img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image105.png\" width=\"142\"/><br>Tổng cc phần tử của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image106.png\" width=\"14\"/>bằng <img class=\"math-img-inline\" height=\"42\" src=\"k12_de01/temp_exam_files/image107.png\" width=\"242\"/>."
+            "solution": "<b>a)</b>Điều kiện xc định: <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image092.png\" width=\"125\"/>.<br>Tập xc định của hm số l <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image093.png\" width=\"61\"/>.<br><b>b)</b>Đạo hm: <img class=\"math-img-inline\" height=\"47\" src=\"k12_de01/temp_exam_files/image094.png\" width=\"231\"/>.<br><b>c)</b><img class=\"math-img-inline\" height=\"30\" src=\"k12_de01/temp_exam_files/image095.png\" width=\"152\"/><br><img class=\"math-img-inline\" height=\"30\" src=\"k12_de01/temp_exam_files/image096.png\" width=\"218\"/><br><img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image097.png\" width=\"144\"/><br><img class=\"math-img-inline\" height=\"70\" src=\"k12_de01/temp_exam_files/image098.png\" width=\"124\"/><br><img class=\"is-diagram\" height=\"94\" src=\"k12_de01/temp_exam_files/image099.png\" width=\"130\"/>.<br>Vậy phương trnh c một nghiệm<img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image100.png\" width=\"37\"/>.<br><b>d)</b><img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image101.png\" width=\"190\"/><br><img class=\"math-img-inline\" height=\"47\" src=\"k12_de01/temp_exam_files/image102.png\" width=\"102\"/><br><img class=\"math-img-inline\" height=\"66\" src=\"k12_de01/temp_exam_files/image103.png\" width=\"166\"/>.<br>Kết hợp với điều kiện <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image104.png\" width=\"38\"/><img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image105.png\" width=\"142\"/><br>Tổng cc phần tử của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image106.png\" width=\"14\"/>bằng <img class=\"math-img-inline\" height=\"42\" src=\"k12_de01/temp_exam_files/image107.png\" width=\"242\"/>."
         },
         {
             "id": 2,
@@ -167,11 +167,11 @@ const EXAM_DATA = {
             "items": [
                 {
                     "key": "a",
-                    "text": "<a name=\"_Hlk216018502\"><b>[TH] </b></a>Phương trnh đường tiệm cận xin của đồ thị hm số l <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>."
+                    "text": "<b><u>a</u></b><b>)</b> <a name=\"_Hlk216018502\"><b>[TH] </b></a>Phương trnh đường tiệm cận xin của đồ thị hm số l <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>."
                 },
                 {
                     "key": "b",
-                    "text": "<b>[TH] </b>Điểm cực tiểu của đồ thị hm số l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image112.png\" width=\"51\"/>."
+                    "text": "<b><u>b</u></b><b>)</b> <b>[TH] </b>Điểm cực tiểu của đồ thị hm số l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image112.png\" width=\"51\"/>."
                 },
                 {
                     "key": "c",
@@ -179,10 +179,10 @@ const EXAM_DATA = {
                 },
                 {
                     "key": "d",
-                    "text": "<a name=\"_Hlk216018518\"><b>[VD] </b></a>Gọi <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image114.png\" width=\"32\"/>l hai điểm di động trn đồ thị hm số sao cho cc tiếp tuyến của đồ thị hm số tại <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image115.png\" width=\"16\"/>v <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image116.png\" width=\"16\"/>lun song song với nhau. Khi khoảng cch từ điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image117.png\" width=\"55\"/>đến đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>lớn nhất th độ di đoạn thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>bằng <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image119.png\" width=\"32\"/>."
+                    "text": "<b><u>d</u></b><b>)</b> <a name=\"_Hlk216018518\"><b>[VD] </b></a>Gọi <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image114.png\" width=\"32\"/>l hai điểm di động trn đồ thị hm số sao cho cc tiếp tuyến của đồ thị hm số tại <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image115.png\" width=\"16\"/>v <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image116.png\" width=\"16\"/>lun song song với nhau. Khi khoảng cch từ điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image117.png\" width=\"55\"/>đến đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>lớn nhất th độ di đoạn thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>bằng <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image119.png\" width=\"32\"/>."
                 }
             ],
-            "solution": "a) Phương trnh đường tiệm cận xin của đồ thị hm số l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image120.png\" width=\"92\"/>.<br>Tiệm cận xin của đồ thị hm số đi qua điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image121.png\" width=\"47\"/>v <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image122.png\" width=\"36\"/>.<br>Thay vo <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image123.png\" width=\"26\"/>ta c <img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image124.png\" width=\"138\"/>.<br>Vậy tiệm cận xin của đồ thị hm số l <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>. Nn <b>đng</b>.<br>b) Do đồ thị hm số qua điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image109.png\" width=\"52\"/>nn thay vo hm số ta được <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image125.png\" width=\"94\"/>.<br>Đồ thị hm số c tiệm cận đứng l <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image126.png\" width=\"35\"/><img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image127.png\" width=\"65\"/>.<br>Khi đ <img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image128.png\" width=\"257\"/>.<br>Do tiệm cận xin <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>nn <img class=\"math-img-inline\" height=\"48\" src=\"k12_de01/temp_exam_files/image129.png\" width=\"45\"/>.<br>Vậy <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image130.png\" width=\"152\"/><br><img class=\"math-img-inline\" height=\"56\" src=\"k12_de01/temp_exam_files/image131.png\" width=\"403\"/><br>M điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image109.png\" width=\"52\"/>l điểm cực đại của đồ thị hm số.<br>V thế tọa độ điểm cực tiểu l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image112.png\" width=\"51\"/>. Nn <b>đng</b>.<br>c) Trn khoảng <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image113.png\" width=\"48\"/>đồ thị hm số vừa đi ln, vừa đi xuống nn hm số vừa đồng biến, vừa nghịch biến trn <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image132.png\" width=\"48\"/>. Nn <b>sai</b>.<br>d) Tiếp tuyến của đồ thị hm số tại <img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image133.png\" width=\"141\"/>, <img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image134.png\" width=\"141\"/>(<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image135.png\" width=\"51\"/>) thuộc đồ thị song song với nhau nn<br><img class=\"math-img-inline\" height=\"50\" src=\"k12_de01/temp_exam_files/image136.png\" width=\"258\"/><br><img class=\"math-img-inline\" height=\"30\" src=\"k12_de01/temp_exam_files/image137.png\" width=\"145\"/><img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image138.png\" width=\"254\"/>.<br>Vậy: <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image139.png\" width=\"74\"/>, nn đặt <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image140.png\" width=\"122\"/><br>Vậy <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image141.png\" width=\"112\"/>, <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image142.png\" width=\"112\"/>.<br><img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image143.png\" width=\"115\"/>. Vc tơ php tuyến của đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>l <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image144.png\" width=\"93\"/>hay <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image145.png\" width=\"105\"/>.<br>Đặt <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image146.png\" width=\"62\"/>.<br>Trung điểm của <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image147.png\" width=\"45\"/><br>Vậy phương trnh đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>đi qua <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image147.png\" width=\"45\"/>v c vc tơ php tuyến <img class=\"math-img-inline\" height=\"28\" src=\"k12_de01/temp_exam_files/image148.png\" width=\"73\"/>l:<br><img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image149.png\" width=\"135\"/><img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image150.png\" width=\"133\"/>.<br><img class=\"math-img-inline\" height=\"48\" src=\"k12_de01/temp_exam_files/image151.png\" width=\"364\"/>.<br>Đặt <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image152.png\" width=\"100\"/><img class=\"math-img-inline\" height=\"57\" src=\"k12_de01/temp_exam_files/image153.png\" width=\"217\"/>.<br>Hm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image154.png\" width=\"37\"/>đạt gi trị lớn nhất tại <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image155.png\" width=\"34\"/>. Khi đ <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image156.png\" width=\"145\"/>.<br><img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image157.png\" width=\"115\"/><img class=\"math-img-inline\" height=\"53\" src=\"k12_de01/temp_exam_files/image158.png\" width=\"277\"/><br>Thay <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image159.png\" width=\"42\"/>vo <img class=\"math-img-inline\" height=\"67\" src=\"k12_de01/temp_exam_files/image160.png\" width=\"214\"/>. Vậy d <b>đng</b>."
+            "solution": "<b><u>a</u></b><b>)</b> Phương trnh đường tiệm cận xin của đồ thị hm số l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image120.png\" width=\"92\"/>.<br>Tiệm cận xin của đồ thị hm số đi qua điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image121.png\" width=\"47\"/>v <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image122.png\" width=\"36\"/>.<br>Thay vo <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image123.png\" width=\"26\"/>ta c <img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image124.png\" width=\"138\"/>.<br>Vậy tiệm cận xin của đồ thị hm số l <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>. Nn <b>đng</b>.<br><b><u>b</u></b><b>)</b> Do đồ thị hm số qua điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image109.png\" width=\"52\"/>nn thay vo hm số ta được <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image125.png\" width=\"94\"/>.<br>Đồ thị hm số c tiệm cận đứng l <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image126.png\" width=\"35\"/><img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image127.png\" width=\"65\"/>.<br>Khi đ <img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image128.png\" width=\"257\"/>.<br>Do tiệm cận xin <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image111.png\" width=\"58\"/>nn <img class=\"math-img-inline\" height=\"48\" src=\"k12_de01/temp_exam_files/image129.png\" width=\"45\"/>.<br>Vậy <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image130.png\" width=\"152\"/><br><img class=\"math-img-inline\" height=\"56\" src=\"k12_de01/temp_exam_files/image131.png\" width=\"403\"/><br>M điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image109.png\" width=\"52\"/>l điểm cực đại của đồ thị hm số.<br>V thế tọa độ điểm cực tiểu l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image112.png\" width=\"51\"/>. Nn <b>đng</b>.<br><b>c)</b> Trn khoảng <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image113.png\" width=\"48\"/>đồ thị hm số vừa đi ln, vừa đi xuống nn hm số vừa đồng biến, vừa nghịch biến trn <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image132.png\" width=\"48\"/>. Nn <b>sai</b>.<br><b><u>d</u></b><b>)</b> Tiếp tuyến của đồ thị hm số tại <img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image133.png\" width=\"141\"/>, <img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image134.png\" width=\"141\"/>(<img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image135.png\" width=\"51\"/>) thuộc đồ thị song song với nhau nn<br><img class=\"math-img-inline\" height=\"50\" src=\"k12_de01/temp_exam_files/image136.png\" width=\"258\"/><br><img class=\"math-img-inline\" height=\"30\" src=\"k12_de01/temp_exam_files/image137.png\" width=\"145\"/><img class=\"math-img-inline\" height=\"51\" src=\"k12_de01/temp_exam_files/image138.png\" width=\"254\"/>.<br>Vậy: <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image139.png\" width=\"74\"/>, nn đặt <img class=\"math-img-inline\" height=\"24\" src=\"k12_de01/temp_exam_files/image140.png\" width=\"122\"/><br>Vậy <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image141.png\" width=\"112\"/>, <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image142.png\" width=\"112\"/>.<br><img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image143.png\" width=\"115\"/>. Vc tơ php tuyến của đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>l <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image144.png\" width=\"93\"/>hay <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image145.png\" width=\"105\"/>.<br>Đặt <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image146.png\" width=\"62\"/>.<br>Trung điểm của <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image147.png\" width=\"45\"/><br>Vậy phương trnh đường thẳng <img class=\"math-img-inline\" height=\"17\" src=\"k12_de01/temp_exam_files/image118.png\" width=\"26\"/>đi qua <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image147.png\" width=\"45\"/>v c vc tơ php tuyến <img class=\"math-img-inline\" height=\"28\" src=\"k12_de01/temp_exam_files/image148.png\" width=\"73\"/>l:<br><img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image149.png\" width=\"135\"/><img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image150.png\" width=\"133\"/>.<br><img class=\"math-img-inline\" height=\"48\" src=\"k12_de01/temp_exam_files/image151.png\" width=\"364\"/>.<br>Đặt <img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image152.png\" width=\"100\"/><img class=\"math-img-inline\" height=\"57\" src=\"k12_de01/temp_exam_files/image153.png\" width=\"217\"/>.<br>Hm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image154.png\" width=\"37\"/>đạt gi trị lớn nhất tại <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image155.png\" width=\"34\"/>. Khi đ <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image156.png\" width=\"145\"/>.<br><img class=\"math-img-inline\" height=\"45\" src=\"k12_de01/temp_exam_files/image157.png\" width=\"115\"/><img class=\"math-img-inline\" height=\"53\" src=\"k12_de01/temp_exam_files/image158.png\" width=\"277\"/><br>Thay <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image159.png\" width=\"42\"/>vo <img class=\"math-img-inline\" height=\"67\" src=\"k12_de01/temp_exam_files/image160.png\" width=\"214\"/>. Vậy d <b>đng</b>."
         },
         {
             "id": 3,
@@ -194,15 +194,15 @@ const EXAM_DATA = {
                 },
                 {
                     "key": "b",
-                    "text": "<b> [TH] </b><img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image171.png\" width=\"85\"/>."
+                    "text": "<b><b>b)</b></b><b> [TH] </b><img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image171.png\" width=\"85\"/>."
                 },
                 {
                     "key": "c",
-                    "text": "<b> [TH] </b><img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image172.png\" width=\"107\"/>."
+                    "text": "<b><b>c)</b></b><b> [TH] </b><img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image172.png\" width=\"107\"/>."
                 },
                 {
                     "key": "d",
-                    "text": "<b> [VD,VDC] </b><img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image173.png\" width=\"107\"/>."
+                    "text": "<b><b>d)</b></b><b> [VD,VDC] </b><img class=\"math-img-inline\" height=\"44\" src=\"k12_de01/temp_exam_files/image173.png\" width=\"107\"/>."
                 }
             ],
             "solution": "a) <b>Sai.</b><br>Ta c: <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image174.png\" width=\"141\"/><img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image175.png\" width=\"343\"/><img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image176.png\" width=\"144\"/>. Suy ra <img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image177.png\" width=\"199\"/>.<br>b) <b>Đng.</b><br>Ta c: <img class=\"math-img-inline\" height=\"42\" src=\"k12_de01/temp_exam_files/image178.png\" width=\"432\"/>.<br>c) <b>Đng</b>.<br>Ta c: <img class=\"math-img-inline\" height=\"23\" src=\"k12_de01/temp_exam_files/image179.png\" width=\"183\"/>.<br>d) <b>Đng.</b><br>Ta c:<img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image180.png\" width=\"376\"/><img class=\"math-img-inline\" height=\"46\" src=\"k12_de01/temp_exam_files/image181.png\" width=\"371\"/><img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image182.png\" width=\"592\"/><br><img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image183.png\" width=\"321\"/><br><img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image184.png\" width=\"501\"/><br><img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image185.png\" width=\"487\"/><br><img class=\"math-img-inline\" height=\"41\" src=\"k12_de01/temp_exam_files/image186.png\" width=\"44\"/>."
@@ -213,15 +213,15 @@ const EXAM_DATA = {
             "items": [
                 {
                     "key": "a",
-                    "text": "<b> [NB] </b>Vận tốc của vật tại thời điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image189.png\" width=\"56\"/>l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image190.png\" width=\"61\"/>."
+                    "text": "<b><b>a)</b></b><b> [NB] </b>Vận tốc của vật tại thời điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image189.png\" width=\"56\"/>l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image190.png\" width=\"61\"/>."
                 },
                 {
                     "key": "b",
-                    "text": "<b> [TH] </b>Vận tốc tức thời của vật l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image191.png\" width=\"102\"/>."
+                    "text": "<b><b>b)</b></b><b> [TH] </b>Vận tốc tức thời của vật l <img class=\"math-img-inline\" height=\"26\" src=\"k12_de01/temp_exam_files/image191.png\" width=\"102\"/>."
                 },
                 {
                     "key": "c",
-                    "text": "<b> [TH] <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image192.png\" width=\"37\"/></b>."
+                    "text": "<b><b>c)</b></b><b> [TH] <img class=\"math-img-inline\" height=\"19\" src=\"k12_de01/temp_exam_files/image192.png\" width=\"37\"/></b>."
                 },
                 {
                     "key": "d",
