@@ -21,7 +21,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
         body { background-color: var(--bg-page); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* HEADER TINH GỌN - ĐÃ BỎ HẾT MÔ TẢ RƯỜM RÀ */
         header {
             background: linear-gradient(135deg, #0b57d0 0%, #041e49 100%);
             color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center;
@@ -32,23 +31,14 @@
         .header-title-box h1 { font-size: 19px; font-weight: 800; letter-spacing: -0.3px; }
         .header-title-box p { font-size: 13px; opacity: 0.85; }
 
-        .btn-admin-toggle {
-            background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff; padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 700;
-            cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s;
-        }
-        .btn-admin-toggle:hover { background: rgba(255, 255, 255, 0.25); }
-
         .container { max-width: 1020px; margin: 28px auto 40px; padding: 0 16px; width: 100%; flex: 1; }
 
-        /* TIÊU ĐỀ KHỐI THEO ẢNH MẪU */
         .tab-section-title {
             text-align: center; color: var(--primary-blue); font-size: 21px; font-weight: 800;
             display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px;
         }
         .tab-section-sub { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
 
-        /* THANH 3 KHỐI LỚP */
         .tab-bar {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 26px;
         }
@@ -63,7 +53,6 @@
             box-shadow: 0 4px 14px rgba(11, 87, 208, 0.28);
         }
 
-        /* DANH SÁCH DẢI NGANG ĐÚNG BỐ CỤC ẢNH 1 */
         .exam-list { display: flex; flex-direction: column; gap: 14px; }
 
         .exam-card {
@@ -76,7 +65,6 @@
             transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.06);
             border-color: #cbd5e1; border-left-color: var(--primary-blue);
         }
-        .exam-card.is-hidden { opacity: 0.55; background: #f8fafc; border-left-color: #94a3b8; }
 
         .card-info { display: flex; flex-direction: column; gap: 6px; }
         .card-meta { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; color: var(--text-muted); }
@@ -86,9 +74,8 @@
         }
         .card-title { font-size: 19px; font-weight: 800; color: var(--text-dark); }
 
-        .card-actions { display: flex; align-items: center; gap: 10px; }
+        .card-actions { display: flex; align-items: center; }
 
-        /* NÚT BẮT ĐẦU LÀM BÀI MÀU TEAL/XANH NGỌC BÍCH CHUẨN ẢNH 1 */
         .btn-start {
             background: var(--teal-btn); color: #ffffff; text-decoration: none;
             padding: 11px 22px; border-radius: 8px; font-weight: 800; font-size: 14.5px;
@@ -96,18 +83,6 @@
             box-shadow: 0 2px 8px rgba(0, 135, 116, 0.25); white-space: nowrap;
         }
         .btn-start:hover { background: var(--teal-hover); transform: translateX(2px); }
-
-        /* THANH ĐIỀU KHIỂN QUẢN TRỊ ADMIN (ẨN / HIỆN / XÓA) */
-        .admin-controls { display: none; align-items: center; gap: 8px; margin-right: 6px; }
-        .admin-mode .admin-controls { display: flex; }
-        .btn-adm {
-            padding: 8px 12px; font-size: 12.5px; font-weight: 700; border-radius: 6px;
-            border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.15s;
-        }
-        .btn-adm-hide { background: #fef08a; color: #854d0e; border: 1px solid #fde047; }
-        .btn-adm-hide:hover { background: #fde047; }
-        .btn-adm-delete { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-        .btn-adm-delete:hover { background: #fecaca; }
 
         .empty-state {
             text-align: center; padding: 50px 20px; background: #fff;
@@ -120,7 +95,7 @@
         @media (max-width: 680px) {
             .tab-bar { grid-template-columns: 1fr; gap: 8px; }
             .exam-card { flex-direction: column; align-items: flex-start; gap: 14px; }
-            .card-actions { width: 100%; justify-content: space-between; }
+            .card-actions { width: 100%; justify-content: flex-end; }
             .btn-start { width: 100%; justify-content: center; }
         }
     </style>
@@ -135,9 +110,6 @@
             <p>Trường THPT Số 1 Tư Nghĩa - Cổng Luyện Thi Trực Tuyến</p>
         </div>
     </div>
-    <button class="btn-admin-toggle" onclick="toggleAdmin()">
-        <i class="fa-solid fa-gear"></i> <span id="adminBtnText">Quản trị</span>
-    </button>
 </header>
 
 <div class="container">
@@ -146,7 +118,6 @@
     </div>
     <div class="tab-section-sub">Chọn Khối học bên dưới để tiến hành luyện tập</div>
 
-    <!-- THANH 3 KHỐI LỚP ĐÚNG BỐ CỤC ẢNH 1 -->
     <div class="tab-bar">
         <button class="tab-btn active" id="tab-12" onclick="selectGrade('12')">
             <i class="fa-solid fa-graduation-cap"></i> KHỐI 12
@@ -159,7 +130,6 @@
         </button>
     </div>
 
-    <!-- VÙNG RENDER DANH SÁCH ĐỀ THI DẢI NGANG -->
     <div class="exam-list" id="examListContainer"></div>
 </div>
 
@@ -170,34 +140,32 @@
 <script>
 let currentSelectedGrade = '12';
 let allExams = [];
-let isAdmin = false;
+
+// Danh sách đề dự phòng khi mở trực tiếp file:// từ ổ đĩa
+const FALLBACK_EXAMS = [
+    { "id": "k12_de03", "grade": "12", "title": "Đề số 3", "folder": "k12_de03", "duration": 90, "hidden": false },
+    { "id": "k12_de02", "grade": "12", "title": "Đề số 2", "folder": "k12_de02", "duration": 90, "hidden": false },
+    { "id": "k12_de01", "grade": "12", "title": "Đề số 1", "folder": "k12_de01", "duration": 90, "hidden": false }
+];
 
 function loadManifest() {
+    // Nếu mở file cục bộ từ ổ cứng (file:///), dùng ngay danh sách dự phòng
+    if (window.location.protocol === 'file:') {
+        allExams = FALLBACK_EXAMS;
+        renderExams();
+        return;
+    }
+
     fetch(`manifest.json?t=${Date.now()}`)
         .then(res => res.json())
         .then(data => {
             allExams = data;
-            const localHidden = JSON.parse(localStorage.getItem('admin_hidden_exams') || '{}');
-            const localDeleted = JSON.parse(localStorage.getItem('admin_deleted_exams') || '[]');
-            
-            // Lọc bỏ đề đã bấm xóa
-            allExams = allExams.filter(item => !localDeleted.includes(item.id));
-            
-            // Cập nhật trạng thái ẩn/hiện
-            allExams.forEach(item => {
-                if (localHidden[item.id] !== undefined) {
-                    item.hidden = localHidden[item.id];
-                }
-            });
             renderExams();
         })
         .catch(err => {
-            console.error("Lỗi đọc manifest:", err);
-            document.getElementById('examListContainer').innerHTML = `
-                <div class="empty-state">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <p>Chưa có đề thi nào trong danh mục hoặc đang cập nhật.</p>
-                </div>`;
+            console.warn("Không tải được manifest qua fetch, dùng dữ liệu dự phòng:", err);
+            allExams = FALLBACK_EXAMS;
+            renderExams();
         });
 }
 
@@ -215,23 +183,17 @@ function selectGrade(grade) {
 
 function renderExams() {
     const container = document.getElementById('examListContainer');
-    let filtered = allExams.filter(e => String(e.grade) === currentSelectedGrade);
-
-    // Học sinh sẽ không nhìn thấy đề đang bị ẩn
-    if (!isAdmin) {
-        filtered = filtered.filter(e => !e.hidden);
-    }
+    let filtered = allExams.filter(e => String(e.grade) === currentSelectedGrade && !e.hidden);
 
     if (filtered.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
                 <i class="fa-solid fa-folder-open"></i>
-                <p>Khối ${currentSelectedGrade} hiện chưa có đề thi nào.</p>
+                <p>Khối ${currentSelectedGrade} hiện chưa có đề thi nào mở.</p>
             </div>`;
         return;
     }
 
-    // Sắp xếp số đề giảm dần: Đề mới nhất luôn nằm trên cùng (Đề 3 -> Đề 2 -> Đề 1)
     filtered.sort((a, b) => {
         const numA = parseInt((a.title || a.id).replace(/\D/g, '')) || 0;
         const numB = parseInt((b.title || b.id).replace(/\D/g, '')) || 0;
@@ -240,11 +202,6 @@ function renderExams() {
 
     let html = '';
     filtered.forEach(exam => {
-        const isHidden = exam.hidden;
-        const hiddenClass = isHidden ? 'is-hidden' : '';
-        const hideBtnLabel = isHidden ? '<i class="fa-solid fa-eye"></i> Hiện đề' : '<i class="fa-solid fa-eye-slash"></i> Ẩn đề';
-        
-        // Chuẩn hóa tên ngắn gọn (ví dụ "Đề số 1", "Đề số 2")
         let displayTitle = exam.title;
         const m = (exam.title || exam.id).match(/\d+/);
         if (m) {
@@ -252,20 +209,15 @@ function renderExams() {
         }
 
         html += `
-        <div class="exam-card ${hiddenClass}" id="card_${exam.id}">
+        <div class="exam-card" id="card_${exam.id}">
             <div class="card-info">
                 <div class="card-meta">
                     <span class="badge-grade">Khối ${exam.grade}</span>
                     <span><i class="fa-regular fa-clock"></i> ${exam.duration || 90} Phút</span>
-                    ${isHidden ? '<span style="color:#d93025; font-weight:800;">[ĐANG ẨN KHỎI HỌC SINH]</span>' : ''}
                 </div>
                 <div class="card-title">${displayTitle}</div>
             </div>
             <div class="card-actions">
-                <div class="admin-controls">
-                    <button class="btn-adm btn-adm-hide" onclick="toggleHideExam('${exam.id}')">${hideBtnLabel}</button>
-                    <button class="btn-adm btn-adm-delete" onclick="deleteExamLocally('${exam.id}')"><i class="fa-solid fa-trash"></i> Xóa đề</button>
-                </div>
                 <a href="exam_player.html?exam=${exam.folder || exam.id}" class="btn-start">
                     🚀 BẮT ĐẦU LÀM BÀI <i class="fa-solid fa-arrow-right"></i>
                 </a>
@@ -274,53 +226,6 @@ function renderExams() {
     });
 
     container.innerHTML = html;
-}
-
-// BẬT / TẮT CHẾ ĐỘ QUẢN TRỊ DÀNH CHO THẦY
-function toggleAdmin() {
-    if (!isAdmin) {
-        const pass = prompt("Nhập mật khẩu quản trị (Mặc định: thaytrung):");
-        if (pass === "thaytrung") {
-            isAdmin = true;
-            document.body.classList.add('admin-mode');
-            document.getElementById('adminBtnText').innerText = "Thoát Q.Trị";
-            renderExams();
-        } else if (pass !== null) {
-            alert("Mật khẩu quản trị không chính xác!");
-        }
-    } else {
-        isAdmin = false;
-        document.body.classList.remove('admin-mode');
-        document.getElementById('adminBtnText').innerText = "Quản trị";
-        renderExams();
-    }
-}
-
-// ẨN / HIỆN ĐỀ
-function toggleHideExam(examId) {
-    const exam = allExams.find(e => e.id === examId);
-    if (!exam) return;
-    exam.hidden = !exam.hidden;
-
-    const localHidden = JSON.parse(localStorage.getItem('admin_hidden_exams') || '{}');
-    localHidden[examId] = exam.hidden;
-    localStorage.setItem('admin_hidden_exams', JSON.stringify(localHidden));
-
-    renderExams();
-}
-
-// XÓA ĐỀ KHỎI DANH MỤC HIỂN THỊ
-function deleteExamLocally(examId) {
-    if (!confirm(`Thầy có chắc chắn muốn gỡ đề [${examId}] khỏi danh sách hiển thị của học sinh?`)) return;
-    
-    const localDeleted = JSON.parse(localStorage.getItem('admin_deleted_exams') || '[]');
-    if (!localDeleted.includes(examId)) {
-        localDeleted.push(examId);
-        localStorage.setItem('admin_deleted_exams', JSON.stringify(localDeleted));
-    }
-    
-    allExams = allExams.filter(e => e.id !== examId);
-    renderExams();
 }
 
 loadManifest();
