@@ -8,10 +8,24 @@
     <!-- KaTeX Render Toán học -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/auto-render.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
-    <!-- Nạp dữ liệu đề thi tự động -->
-    <script src="exam_data.js"></script>
+    <!-- Nạp dữ liệu đề thi linh hoạt, chống đè Cache tuyệt đối theo tham số URL -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentExamFolder = urlParams.get('exam');
+        
+        if (!currentExamFolder) {
+            currentExamFolder = 'k12_de01';
+            window.location.replace(window.location.pathname + "?exam=k12_de01");
+        } else {
+            // Xóa sạch biến cũ trong Window trước khi nạp đề mới
+            window.EXAM_DATA = undefined;
+            const examScript = document.createElement('script');
+            examScript.src = `${currentExamFolder}/exam_data.js?t=${Date.now()}`;
+            document.write(examScript.outerHTML);
+        }
+    </script>
 
     <style>
         :root {
@@ -29,23 +43,24 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
-        body { background-color: var(--iexam-bg); color: var(--text-main); line-height: 1.6; }
+        body { background-color: var(--iexam-bg); color: var(--text-main); line-height: 1.7; font-size: 15px; }
 
-        .q-content img, .opt-text img, .p2-table img, .sol-box img, img.math-img-inline {
+        img.math-img-inline {
             display: inline-block !important;
             vertical-align: middle !important;
-            margin: 0 4px !important;
-            max-height: 2.3em !important;
+            margin: 0 3px !important;
+            max-height: 2.1em !important;
             width: auto !important;
         }
 
-        .q-content img.is-diagram, .sol-box img.is-diagram {
+        img.is-diagram, .q-content img.is-diagram, .sol-box img.is-diagram {
             display: block !important;
-            margin: 14px auto !important;
-            max-height: 320px !important;
-            max-width: 92% !important;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-            border-radius: 6px;
+            margin: 16px auto !important;
+            max-height: 380px !important;
+            max-width: 95% !important;
+            width: auto !important;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
         }
 
         #loginModal, #scoreModal {
@@ -79,7 +94,6 @@
         .btn-modal:disabled { background: #dadce0 !important; color: #80868b !important; cursor: not-allowed; }
 
         .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-
         .auth-msg { font-size: 13px; font-weight: 600; margin-top: 10px; min-height: 20px; }
 
         .score-circle {
@@ -136,7 +150,7 @@
             display: inline-block; background: #e8f0fe; color: var(--iexam-blue);
             padding: 2px 10px; border-radius: 4px; font-size: 13px; font-weight: 700; margin-bottom: 8px;
         }
-        .q-content { font-size: 15px; margin-bottom: 14px; line-height: 1.8; color: #1f1f1f; }
+        .q-content { font-size: 15.5px; margin-bottom: 14px; line-height: 1.8; color: #1f1f1f; }
 
         .p1-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         @media (max-width: 768px) { .p1-grid { grid-template-columns: 1fr; } }
@@ -144,7 +158,7 @@
         .opt-btn {
             display: flex; align-items: center; padding: 10px 14px;
             border: 1.5px solid #e0e2ec; border-radius: 8px; cursor: pointer;
-            font-size: 14px; background: #fff; transition: 0.15s;
+            font-size: 14.5px; background: #fff; transition: 0.15s;
         }
         .opt-btn:hover { background: #f1f3f4; border-color: #c7c7c7; }
         .opt-btn input[type="radio"] { margin-right: 10px; accent-color: var(--iexam-blue); width: 16px; height: 16px; flex-shrink: 0; }
@@ -154,7 +168,7 @@
         .opt-btn .opt-text { flex: 1; display: flex; align-items: center; flex-wrap: wrap; }
 
         .p2-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-        .p2-table td { padding: 10px 8px; border-bottom: 1px solid #f1f3f4; font-size: 14px; vertical-align: middle; }
+        .p2-table td { padding: 10px 8px; border-bottom: 1px solid #f1f3f4; font-size: 14.5px; vertical-align: middle; }
         .btn-tf-group { display: flex; gap: 8px; justify-content: center; }
         .btn-tf {
             padding: 5px 14px; border: 1.5px solid #c7c7c7; background: #fff;
@@ -173,7 +187,7 @@
         .sol-box {
             display: none; margin-top: 16px; padding: 14px 18px;
             background: var(--sol-bg); border-left: 4px solid var(--sol-border);
-            border-radius: 4px; font-size: 14px; line-height: 1.7; color: #2e7d32;
+            border-radius: 4px; font-size: 14.5px; line-height: 1.7; color: #2e7d32;
         }
         .sol-title { font-weight: 700; margin-bottom: 6px; color: #1b5e20; }
 
@@ -292,7 +306,7 @@
 <script>
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJkUtzD3BE3whKIOuQDHM48kyANvZaqZC_iM0nQnyGaEH3hZn_97YUcBhpx10y87R-/exec";
 
-const RAW_ANSWER_KEY = {
+const DEFAULT_ANSWER_KEY = {
     "p1": { "1": "C", "2": "B", "3": "D", "4": "B", "5": "C", "6": "D", "7": "C", "8": "D", "9": "C", "10": "C", "11": "A", "12": "B" },
     "p2": {
         "1": { "a": "S", "b": "Đ", "c": "S", "d": "Đ" },
@@ -309,11 +323,13 @@ let timerInterval = null;
 let remainingSeconds = 90 * 60;
 let isSubmitted = false;
 
-// Cấu trúc dữ liệu đã được xáo trộn theo thí sinh
 let activeExamData = null;
 let activeAnswerKey = null;
 
-// =================== THUẬT TOÁN XÁO TRỘN THEO SEED (SĐT + LƯỢT THI) ===================
+function getActiveExam() {
+    return (typeof window.EXAM_DATA !== 'undefined' && window.EXAM_DATA) ? window.EXAM_DATA : (typeof EXAM_DATA !== 'undefined' ? EXAM_DATA : null);
+}
+
 function createPRNG(seedStr) {
     let hash = 0;
     for (let i = 0; i < seedStr.length; i++) {
@@ -338,10 +354,12 @@ function shuffleArray(arr, rng) {
 
 function generateShuffledExam(seedStr) {
     const rng = createPRNG(seedStr);
-    let newExam = JSON.parse(JSON.stringify(EXAM_DATA));
+    const sourceExam = getActiveExam();
+    let newExam = JSON.parse(JSON.stringify(sourceExam));
+    const rawKey = (sourceExam && sourceExam.answerKey && Object.keys(sourceExam.answerKey).length > 0) ? sourceExam.answerKey : DEFAULT_ANSWER_KEY;
     let newKey = { p1: {}, p2: {}, p3: {} };
 
-    // 1. XÁO PHẦN I (Đảo câu hỏi + Đảo 4 phương án A, B, C, D)
+    // 1. Xáo trộn Phần 1
     if (newExam.part1 && newExam.part1.length > 0) {
         let p1WithOriginalIndex = newExam.part1.map((q, idx) => ({ ...q, originalIdx: idx + 1 }));
         let shuffledP1 = shuffleArray(p1WithOriginalIndex, rng);
@@ -349,16 +367,14 @@ function generateShuffledExam(seedStr) {
         newExam.part1 = shuffledP1.map((q, newIdx) => {
             const newQNum = (newIdx + 1).toString();
             const origQNum = q.originalIdx.toString();
-            const origCorrectOpt = RAW_ANSWER_KEY.p1[origQNum] || "A";
+            const origCorrectOpt = (rawKey.p1 && rawKey.p1[origQNum]) ? rawKey.p1[origQNum] : "A";
             const origOpts = normalizeOptions(q.options);
 
-            // Gom từng lựa chọn với chữ cái gốc
             let optPairs = origOpts.map((text, oIdx) => ({
                 origChar: String.fromCharCode(65 + oIdx),
                 text: text
             }));
 
-            // Đảo vị trí 4 đáp án A, B, C, D
             let shuffledPairs = shuffleArray(optPairs, rng);
             let finalOptions = [];
 
@@ -378,7 +394,7 @@ function generateShuffledExam(seedStr) {
         });
     }
 
-    // 2. XÁO PHẦN II (Đảo thứ tự câu hỏi, giữ nguyên ý a, b, c, d)
+    // 2. Xáo trộn Phần 2
     if (newExam.part2 && newExam.part2.length > 0) {
         let p2WithOriginalIndex = newExam.part2.map((q, idx) => ({ ...q, originalIdx: idx + 1 }));
         let shuffledP2 = shuffleArray(p2WithOriginalIndex, rng);
@@ -386,12 +402,12 @@ function generateShuffledExam(seedStr) {
         newExam.part2 = shuffledP2.map((q, newIdx) => {
             const newQNum = (newIdx + 1).toString();
             const origQNum = q.originalIdx.toString();
-            newKey.p2[newQNum] = RAW_ANSWER_KEY.p2[origQNum];
+            newKey.p2[newQNum] = (rawKey.p2 && rawKey.p2[origQNum]) ? rawKey.p2[origQNum] : {};
             return { ...q, originalIdx: q.originalIdx };
         });
     }
 
-    // 3. XÁO PHẦN III (Đảo thứ tự câu trả lời ngắn)
+    // 3. Xáo trộn Phần 3
     if (newExam.part3 && newExam.part3.length > 0) {
         let p3WithOriginalIndex = newExam.part3.map((q, idx) => ({ ...q, originalIdx: idx + 1 }));
         let shuffledP3 = shuffleArray(p3WithOriginalIndex, rng);
@@ -399,22 +415,19 @@ function generateShuffledExam(seedStr) {
         newExam.part3 = shuffledP3.map((q, newIdx) => {
             const newQNum = (newIdx + 1).toString();
             const origQNum = q.originalIdx.toString();
-            newKey.p3[newQNum] = RAW_ANSWER_KEY.p3[origQNum];
+            newKey.p3[newQNum] = (rawKey.p3 && rawKey.p3[origQNum]) ? rawKey.p3[origQNum] : "";
             return { ...q, originalIdx: q.originalIdx };
         });
     }
 
     return { shuffledExam: newExam, shuffledKey: newKey };
 }
-// ======================================================================================
 
 function cleanTypo(str) {
     if (!str) return "";
-    return str
-        // Chuẩn hóa khoảng trắng đặc biệt từ Word
+    let res = str
         .replace(/&nbsp;/g, ' ')
         .replace(/\u00a0/g, ' ')
-        // Cắt bỏ triệt để tiền tố "Câu X.", "Câu X:", "Bài X." kể cả khi nằm sau thẻ HTML
         .replace(/^((?:\s*<[^>]+>)*\s*)(?:Câu|Bài)\s*\d+[\s\.:\)]*/i, '$1')
         .replace(/ông\s+Bình\s+d[oòóỏõọôồốổỗộuùúủũụ\S]*?ng\s+để/gi, 'ông Bình dùng để')
         .replace(/\bd[oòóỏõọôồốổỗộuùúủũụ\S]*?ng\s+để\s+hoàn\s+thành/gi, 'dùng để hoàn thành')
@@ -445,6 +458,10 @@ function cleanTypo(str) {
         .replace(/Đă/g, 'Đã')
         .replace(/măn/g, 'mãn')
         .replace(/Măn/g, 'Mãn');
+
+    const folder = currentExamFolder || 'k12_de01';
+    res = res.replace(/src=["'](?:k\d+_de\d+\/)?temp_exam_files\/([^"']+)["']/g, `src="${folder}/temp_exam_files/$1"`);
+    return res;
 }
 
 function checkStudentAuth() {
@@ -484,7 +501,6 @@ function checkStudentAuth() {
                     examCode: shortCode
                 };
 
-                // KÍCH HOẠT XÁO TRỘN ĐỀ THEO HỌC SINH
                 const shuffled = generateShuffledExam(seedStr);
                 activeExamData = shuffled.shuffledExam;
                 activeAnswerKey = shuffled.shuffledKey;
@@ -498,7 +514,6 @@ function checkStudentAuth() {
                 buildExamInterface();
                 runTimer();
 
-                // Tự động bật chế độ toàn màn hình để ẩn thanh duyệt web
                 try {
                     if (document.documentElement.requestFullscreen) {
                         document.documentElement.requestFullscreen();
@@ -551,9 +566,9 @@ function normalizeOptions(rawOpts) {
 }
 
 function buildExamInterface() {
-    const examSource = activeExamData || EXAM_DATA;
-    if (typeof examSource === 'undefined') {
-        alert("Lỗi: Không tìm thấy file dữ liệu đề thi 'exam_data.js'!");
+    const examSource = activeExamData || getActiveExam();
+    if (!examSource) {
+        alert("Lỗi: Không tìm thấy dữ liệu đề thi!");
         return;
     }
 
@@ -607,18 +622,22 @@ function buildExamInterface() {
                 <div class="q-tag">Câu ${qNum}</div>
                 <div class="q-content">${cleanTypo(q.content)}</div>
                 <table class="p2-table">
-                    ${q.items.map(item => `
+                    ${q.items.map(item => {
+                        let cleanText = cleanTypo(item.text)
+                            .replace(/^(?:\s*<[^>]+>)*\s*[a-d][\)\.]\s*(?:<\/[^>]+>)*\s*/i, '')
+                            .replace(/^(?:\s*<[^>]+>)*\s*\[(?:NB|TH|VD|VDC)[^\]]*\]\s*(?:<\/[^>]+>)*\s*/i, '');
+                        return `
                         <tr id="row_p2_${qNum}_${item.key}">
                             <td style="width: 32px; font-weight: 700; color: var(--iexam-blue);">${item.key})</td>
-                            <td>${cleanTypo(item.text)}</td>
+                            <td>${cleanText}</td>
                             <td style="width: 140px;">
                                 <div class="btn-tf-group">
                                     <button type="button" class="btn-tf" id="btn_p2_${qNum}_${item.key}_T" onclick="selectP2(${qNum}, '${item.key}', 'Đ')">ĐÚNG</button>
                                     <button type="button" class="btn-tf" id="btn_p2_${qNum}_${item.key}_F" onclick="selectP2(${qNum}, '${item.key}', 'S')">SAI</button>
                                 </div>
                             </td>
-                        </tr>
-                    `).join('')}
+                        </tr>`;
+                    }).join('')}
                 </table>
                 <div class="sol-box" id="sol_p2_${qNum}">
                     <div class="sol-title">💡 Lời giải chi tiết:</div>
@@ -657,7 +676,7 @@ function buildExamInterface() {
 
     document.querySelectorAll('.q-content img, .sol-box img').forEach(img => {
         function checkImage() {
-            if (img.naturalHeight >= 80) {
+            if (img.naturalHeight >= 65 || img.naturalWidth >= 120) {
                 img.classList.add('is-diagram');
                 img.classList.remove('math-img-inline');
             } else if (img.naturalHeight > 0) {
@@ -681,7 +700,7 @@ function buildExamInterface() {
 }
 
 function buildNavGrid() {
-    const examSource = activeExamData || EXAM_DATA;
+    const examSource = activeExamData || getActiveExam();
     const gridP1 = document.getElementById('navGridP1');
     const gridP2 = document.getElementById('navGridP2');
     const gridP3 = document.getElementById('navGridP3');
@@ -783,17 +802,23 @@ function gradeExam() {
     let scoreP2 = 0;
     let scoreP3 = 0;
 
-    const keyP1 = activeAnswerKey ? activeAnswerKey.p1 : RAW_ANSWER_KEY.p1;
-    const keyP2 = activeAnswerKey ? activeAnswerKey.p2 : RAW_ANSWER_KEY.p2;
-    const keyP3 = activeAnswerKey ? activeAnswerKey.p3 : RAW_ANSWER_KEY.p3;
+    const sourceExam = getActiveExam();
+    const rawKey = (activeExamData && activeExamData.answerKey && Object.keys(activeExamData.answerKey).length > 0)
+        ? activeExamData.answerKey
+        : (sourceExam && sourceExam.answerKey && Object.keys(sourceExam.answerKey).length > 0)
+            ? sourceExam.answerKey
+            : DEFAULT_ANSWER_KEY;
 
-    // Chấm Phần I
+    const keyP1 = activeAnswerKey ? activeAnswerKey.p1 : rawKey.p1;
+    const keyP2 = activeAnswerKey ? activeAnswerKey.p2 : rawKey.p2;
+    const keyP3 = activeAnswerKey ? activeAnswerKey.p3 : rawKey.p3;
+
     for (let i = 1; i <= 12; i++) {
         const stuAns = studentAnswers.p1[i];
-        const correctAns = keyP1[i.toString()];
+        const correctAns = keyP1 ? keyP1[i.toString()] : undefined;
         const navBtn = document.getElementById(`nav_p1_${i}`);
         
-        if (stuAns === correctAns) {
+        if (stuAns && stuAns === correctAns) {
             scoreP1 += 0.25;
             if (navBtn) navBtn.className = 'nav-item rev-correct';
         } else {
@@ -810,11 +835,10 @@ function gradeExam() {
         }
     }
 
-    // Chấm Phần II
     const p2Weights = [0, 0.1, 0.25, 0.5, 1.0];
     for (let i = 1; i <= 4; i++) {
         let correctCount = 0;
-        const keyItem = keyP2[i.toString()] || {};
+        const keyItem = (keyP2 && keyP2[i.toString()]) ? keyP2[i.toString()] : {};
         const stuItem = studentAnswers.p2[i] || {};
 
         ['a', 'b', 'c', 'd'].forEach(k => {
@@ -836,15 +860,14 @@ function gradeExam() {
         }
     }
 
-    // Chấm Phần III
     for (let i = 1; i <= 6; i++) {
         const rawStuAns = (studentAnswers.p3[i] || "").replace(/\s+/g, '').replace('.', ',');
-        const rawKey = (keyP3[i.toString()] || "").replace(/\s+/g, '').replace('.', ',');
+        const rawKey = (keyP3 && keyP3[i.toString()] ? keyP3[i.toString()] : "").replace(/\s+/g, '').replace('.', ',');
         const navBtn = document.getElementById(`nav_p3_${i}`);
         const keySpan = document.getElementById(`p3_key_${i}`);
 
-        if (keySpan) {
-            keySpan.innerText = `(Đáp án đúng: ${keyP3[i.toString()]})`;
+        if (keySpan && keyP3) {
+            keySpan.innerText = `(Đáp án đúng: ${keyP3[i.toString()] || '---'})`;
             keySpan.style.display = 'inline';
         }
 
@@ -898,8 +921,8 @@ function submitExam() {
     document.getElementById('scoreP2Text').innerText = `${result.scoreP2.toFixed(2)} / 4.0`;
     document.getElementById('scoreP3Text').innerText = `${result.scoreP3.toFixed(2)} / 3.0`;
 
-    // CẤU HÌNH ĐIỀU KIỆN MỞ KHÓA LỜI GIẢI (Cố định ở mức 6.5 điểm)
-    const minScore = 6.5;
+    const sourceExam = getActiveExam();
+    const minScore = (sourceExam && sourceExam.unlockSolutionScore !== undefined) ? sourceExam.unlockSolutionScore : 6.5;
     const noticeBox = document.getElementById('solutionLockNotice');
     const btnSol = document.getElementById('btnViewSolution');
 
@@ -915,7 +938,6 @@ function submitExam() {
         btnSol.style.display = 'none';
     }
 
-    // CẤU HÌNH NÚT THI LẠI THEO LƯỢT THI THỰC TẾ
     const btnRetry = document.getElementById('btnRetryExam');
     if (currentStudent.attempt < currentStudent.maxAttempts) {
         btnRetry.disabled = false;
@@ -929,12 +951,12 @@ function submitExam() {
 
     document.getElementById('scoreModal').style.display = 'flex';
 
-    // Gửi điểm số và Mã đề thi về Google Sheets
     const payload = {
         phone: currentStudent.phone,
         student_name: currentStudent.name,
         student_class: currentStudent.stuClass,
         exam_code: currentStudent.examCode,
+        exam_id: currentExamFolder || "k12_de01",
         score_p1: result.scoreP1,
         score_p2: result.scoreP2,
         score_p3: result.scoreP3,
@@ -952,21 +974,18 @@ function submitExam() {
     }).catch(err => console.log("Lỗi lưu sheet:", err));
 }
 
-// XỬ LÝ LÀM LẠI BÀI THI KHI BẤM "THI LẠI" (SINH MÃ ĐỀ MỚI CHO LƯỢT TIẾP THEO)
 function retryExamSession() {
     if (currentStudent.attempt >= currentStudent.maxAttempts) {
         alert("Em đã hoàn thành hết số lượt thi cho phép!");
         return;
     }
 
-    // Tăng số lượt thi
     currentStudent.attempt += 1;
     const cleanPhone = currentStudent.phone;
     const used = currentStudent.attempt;
     const seedStr = `${cleanPhone}_L${used}`;
     currentStudent.examCode = `#${cleanPhone.slice(-4)}${used}`;
 
-    // Sinh đề và bộ đáp án mới hoàn toàn cho lượt này
     const shuffled = generateShuffledExam(seedStr);
     activeExamData = shuffled.shuffledExam;
     activeAnswerKey = shuffled.shuffledKey;
@@ -974,25 +993,19 @@ function retryExamSession() {
     document.getElementById('stuBadgeAttempt').innerText = `Lượt thi: ${currentStudent.attempt}/${currentStudent.maxAttempts}`;
     document.getElementById('stuBadgeExamCode').innerText = `Mã đề: ${currentStudent.examCode}`;
 
-    // Đặt lại các biến trạng thái
     studentAnswers = { p1: {}, p2: {}, p3: {} };
     isSubmitted = false;
-    const examSource = activeExamData || EXAM_DATA;
-    remainingSeconds = (examSource.durationMinutes || 90) * 60;
+    const sourceExam = getActiveExam();
+    remainingSeconds = (sourceExam.durationMinutes || 90) * 60;
 
-    // Đóng modal kết quả
     document.getElementById('scoreModal').style.display = 'none';
-
-    // Xây dựng lại giao diện làm bài mới
     buildExamInterface();
     runTimer();
 
-    // Khôi phục nút Nộp bài
     const btn = document.querySelector('.btn-submit');
     btn.disabled = false;
     btn.innerText = "NỘP BÀI THI";
 
-    // Cuộn lên đầu trang
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 

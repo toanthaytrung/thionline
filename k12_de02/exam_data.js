@@ -1,5 +1,5 @@
-const EXAM_DATA = {
-    "title": "ĐỀ THI TỐT NGHIỆP THPT MÔN TOÁN - SỐ 02",
+window.EXAM_DATA = {
+    "title": "ĐỀ THI TỐT NGHIỆP THPT MÔN TOÁN – SỐ 02",
     "subtitle": "Chương trình GDPT 2018 - Khối 12 - Thời gian: 90 phút",
     "durationMinutes": 90,
     "unlockSolutionScore": 6.5,
@@ -314,3 +314,4 @@ const EXAM_DATA = {
         }
     }
 };
+var EXAM_DATA = window.EXAM_DATA;
