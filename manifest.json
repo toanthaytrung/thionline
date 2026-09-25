@@ -16,5 +16,14 @@
     "duration": 90,
     "unlockScore": 6.5,
     "totalQuestions": 22
+  },
+  {
+    "id": "k12_de03",
+    "grade": "12",
+    "title": "ĐỀ THI TỐT NGHIỆP THPT MÔN TOÁN – SỐ 03",
+    "folder": "k12_de03",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22
   }
 ]
