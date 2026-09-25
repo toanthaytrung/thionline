@@ -1,5 +1,15 @@
 [
   {
+    "id": "k10_de01",
+    "grade": "10",
+    "title": "Đề số 1",
+    "folder": "k10_de01",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22,
+    "hidden": false
+  },
+  {
     "id": "k12_de01",
     "grade": "12",
     "title": "ĐỀ THI TỐT NGHIỆP THPT MÔN TOÁN - SỐ 01",
