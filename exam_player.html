@@ -10,7 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
-    <!-- Nạp dữ liệu đề thi linh hoạt, chống đè Cache tuyệt đối theo tham số URL -->
+    <!-- Nạp dữ liệu đề thi linh hoạt theo tham số URL -->
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         let currentExamFolder = urlParams.get('exam');
@@ -76,12 +76,13 @@
         .modal-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 18px; }
         .input-group { text-align: left; margin-bottom: 14px; }
         .input-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--iexam-dark); }
-        .input-group input {
+        .input-group input, .input-group select {
             width: 100%; padding: 12px 14px; border: 1.5px solid #c7c7c7;
             border-radius: 8px; font-size: 15px; outline: none; transition: 0.2s;
-            text-align: center; font-weight: 700; letter-spacing: 1px;
+            font-weight: 700;
         }
-        .input-group input:focus { border-color: var(--iexam-blue); box-shadow: 0 0 0 3px rgba(11,87,208,0.15); }
+        .input-group input { text-align: center; letter-spacing: 1px; }
+        .input-group input:focus, .input-group select:focus { border-color: var(--iexam-blue); box-shadow: 0 0 0 3px rgba(11,87,208,0.15); }
         
         .btn-modal {
             width: 100%; padding: 12px; background: var(--iexam-blue); color: #fff;
@@ -176,7 +177,6 @@
         .btn-tf.true-active { background: var(--done-color); color: #fff; border-color: var(--done-color); }
         .btn-tf.false-active { background: var(--danger-color); color: #fff; border-color: var(--danger-color); }
 
-        /* ĐÁNH DẤU CHẤM ĐIỂM CHI TIẾT CHO Ý ĐÚNG / SAI */
         .btn-tf.grade-correct {
             background: var(--done-color) !important; color: #fff !important; border-color: var(--done-color) !important;
             box-shadow: 0 0 0 2px rgba(30, 142, 62, 0.25);
@@ -244,10 +244,34 @@
     <div class="modal-card">
         <h2>CỔNG THI TRỰC TUYẾN TOÁN THPT</h2>
         <p>Tổ Toán - Trường THPT Số 1 Tư Nghĩa</p>
+
+        <!-- 1. CHỌN LỚP HỌC -->
         <div class="input-group">
-            <label>Nhập Số Điện Thoại đã đăng ký:</label>
-            <input type="tel" id="stuPhoneInput" placeholder="Ví dụ: 0792408306" maxlength="11" autofocus onkeydown="if(event.key==='Enter') checkStudentAuth()">
+            <label>🏷️ Chọn Lớp của em:</label>
+            <select id="stuClassSelect" autofocus>
+                <option value="">-- Bấm chọn đúng Lớp --</option>
+                <optgroup label="Khối Lớp Học Thêm">
+                    <option value="12A">Lớp 12A</option>
+                    <option value="12B">Lớp 12B</option>
+                    <option value="11A">Lớp 11A</option>
+                    <option value="11B">Lớp 11B</option>
+                    <option value="10A">Lớp 10A</option>
+                    <option value="10B">Lớp 10B</option>
+                </optgroup>
+                <optgroup label="Khối Lớp Tại Trường THPT">
+                    <option value="12A4">Lớp 12A4</option>
+                    <option value="12A6">Lớp 12A6</option>
+                    <option value="11A2">Lớp 11A2</option>
+                </optgroup>
+            </select>
         </div>
+
+        <!-- 2. NHẬP SỐ ĐIỆN THOẠI -->
+        <div class="input-group">
+            <label>📞 Nhập Số Điện Thoại đã đăng ký:</label>
+            <input type="tel" id="stuPhoneInput" placeholder="Ví dụ: 0985xxxxxx" maxlength="11" onkeydown="if(event.key==='Enter') checkStudentAuth()">
+        </div>
+
         <button type="button" class="btn-modal" id="btnVerify" onclick="checkStudentAuth()">VÀO PHÒNG THI</button>
         <a href="index.html" class="btn-modal" style="background: transparent; color: var(--text-muted); font-size: 13px; margin-top: 4px;">Quay lại danh mục đề thi</a>
         <div class="auth-msg" id="authMsg"></div>
@@ -319,7 +343,7 @@
 </div>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJkUtzD3BE3whKIOuQDHM48kyANvZaqZC_iM0nQnyGaEH3hZn_97YUcBhpx10y87R-/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJkUtzD3BE3whKIOuQDHM48kyANvZaqZC_iM0nQnyGaEH3hZn_97YUcBhpx10y87R-/exec";
 
 const DEFAULT_ANSWER_KEY = {
     "p1": { "1": "C", "2": "B", "3": "D", "4": "B", "5": "C", "6": "D", "7": "C", "8": "D", "9": "C", "10": "C", "11": "A", "12": "B" },
@@ -332,7 +356,7 @@ const DEFAULT_ANSWER_KEY = {
     "p3": { "1": "100", "2": "111", "3": "11,5", "4": "2", "5": "135", "6": "101" }
 };
 
-let currentStudent = { phone: "", name: "", stuClass: "", attempt: 1, maxAttempts: 5, examCode: "" };
+let currentStudent = { phone: "", name: "", stuClass: "", attempt: 1, maxAttempts: 3, examCode: "" };
 let studentAnswers = { p1: {}, p2: {}, p3: {} };
 let timerInterval = null;
 let remainingSeconds = 90 * 60;
@@ -340,6 +364,20 @@ let isSubmitted = false;
 
 let activeExamData = null;
 let activeAnswerKey = null;
+let manifestConfig = null;
+
+// Tải cấu hình số lượt thi từ manifest.json
+fetch('manifest.json?t=' + Date.now())
+    .then(res => res.json())
+    .then(data => {
+        manifestConfig = data;
+        const examId = currentExamFolder || 'k12_de01';
+        const found = data.find(e => e.id === examId || e.folder === examId);
+        if (found && found.max_attempts !== undefined) {
+            currentStudent.maxAttempts = parseInt(found.max_attempts, 10);
+        }
+    })
+    .catch(() => console.log("Dùng max_attempts mặc định"));
 
 function getActiveExam() {
     return (typeof window.EXAM_DATA !== 'undefined' && window.EXAM_DATA) ? window.EXAM_DATA : (typeof EXAM_DATA !== 'undefined' ? EXAM_DATA : null);
@@ -479,7 +517,7 @@ function cleanTypo(str) {
     return res;
 }
 
-// BỘ ĐẾM LƯỢT THI RIÊNG BIỆT CHO TỪNG ĐỀ THI
+// LƯU VÀ TRUY XUẤT LƯỢT THI CHO TỪNG ĐỀ RIÊNG BIỆT
 function getLocalAttempts(phone, examId) {
     const key = `attempts_${phone}_${examId}`;
     return parseInt(localStorage.getItem(key) || '0', 10);
@@ -491,15 +529,38 @@ function saveLocalAttempts(phone, examId, attemptCount) {
 }
 
 function checkStudentAuth() {
+    const selectedClass = document.getElementById('stuClassSelect').value;
     const rawPhone = document.getElementById('stuPhoneInput').value.trim();
     const cleanPhone = rawPhone.replace(/['\s\.\-\+]/g, "");
     const msg = document.getElementById('authMsg');
     const btn = document.getElementById('btnVerify');
     const examId = currentExamFolder || "k12_de01";
 
+    if (!selectedClass) {
+        msg.style.color = "var(--danger-color)";
+        msg.innerText = "Em vui lòng chọn đúng Lớp của mình!";
+        return;
+    }
+
     if (!cleanPhone || cleanPhone.length < 9) {
         msg.style.color = "var(--danger-color)";
         msg.innerText = "Vui lòng nhập đúng số điện thoại (từ 10 số)!";
+        return;
+    }
+
+    // Cập nhật số lượt tối đa từ manifest.json nếu có
+    if (manifestConfig) {
+        const found = manifestConfig.find(e => e.id === examId || e.folder === examId);
+        if (found && found.max_attempts !== undefined) {
+            currentStudent.maxAttempts = parseInt(found.max_attempts, 10);
+        }
+    }
+
+    // Kiểm tra ngay số lượt thi tại máy học sinh
+    const localUsed = getLocalAttempts(cleanPhone, examId);
+    if (localUsed >= currentStudent.maxAttempts) {
+        msg.style.color = "var(--danger-color)";
+        msg.innerText = `⛔ Đề thi này giới hạn ${currentStudent.maxAttempts} lượt làm bài. Em đã hoàn thành đủ số lượt!`;
         return;
     }
 
@@ -508,28 +569,33 @@ function checkStudentAuth() {
     msg.style.color = "var(--iexam-blue)";
     msg.innerText = "Đang kiểm tra danh sách phòng thi...";
 
-    // Truyền examId lên Apps Script để đếm riêng cho từng đề
-    fetch(`${GOOGLE_SCRIPT_URL}?phone=${encodeURIComponent(cleanPhone)}&exam=${encodeURIComponent(examId)}`)
+    fetch(`${GOOGLE_SCRIPT_URL}?phone=${encodeURIComponent(cleanPhone)}&exam=${encodeURIComponent(examId)}&class=${encodeURIComponent(selectedClass)}`)
         .then(res => res.json())
         .then(data => {
             btn.disabled = false;
             btn.innerText = "VÀO PHÒNG THI";
 
             if (data.status === "OK") {
-                // Ưu tiên lượt thi đếm riêng cho đề này
                 let examUsed = (data.examAttempts && data.examAttempts[examId]) 
-                                || getLocalAttempts(cleanPhone, examId) 
-                                || 1;
+                                || localUsed 
+                                || 0;
 
-                const seedStr = `${cleanPhone}_${examId}_L${examUsed}`;
-                const shortCode = `#${cleanPhone.slice(-4)}${examUsed}`;
+                let nextAttempt = examUsed + 1;
+                if (nextAttempt > currentStudent.maxAttempts) {
+                    msg.style.color = "var(--danger-color)";
+                    msg.innerText = `⛔ Em đã hoàn thành đủ ${currentStudent.maxAttempts} lượt thi của đề này!`;
+                    return;
+                }
+
+                const seedStr = `${cleanPhone}_${examId}_L${nextAttempt}`;
+                const shortCode = `#${cleanPhone.slice(-4)}${nextAttempt}`;
 
                 currentStudent = {
-                    phone: data.student.phone,
-                    name: data.student.name,
-                    stuClass: data.student.studentClass,
-                    attempt: examUsed,
-                    maxAttempts: data.maxAttempts || 5,
+                    phone: data.student.phone || cleanPhone,
+                    name: data.student.name || "Học sinh",
+                    stuClass: selectedClass,
+                    attempt: nextAttempt,
+                    maxAttempts: currentStudent.maxAttempts,
                     examCode: shortCode
                 };
 
@@ -561,8 +627,29 @@ function checkStudentAuth() {
         .catch(err => {
             btn.disabled = false;
             btn.innerText = "VÀO PHÒNG THI";
-            msg.style.color = "var(--danger-color)";
-            msg.innerText = "Lỗi kết nối máy chủ! Vui lòng thử lại.";
+            // Dự phòng khi mạng yếu nhưng SĐT hợp lệ
+            let nextAttempt = localUsed + 1;
+            const seedStr = `${cleanPhone}_${examId}_L${nextAttempt}`;
+            currentStudent = {
+                phone: cleanPhone,
+                name: "Học sinh",
+                stuClass: selectedClass,
+                attempt: nextAttempt,
+                maxAttempts: currentStudent.maxAttempts,
+                examCode: `#${cleanPhone.slice(-4)}${nextAttempt}`
+            };
+            const shuffled = generateShuffledExam(seedStr);
+            activeExamData = shuffled.shuffledExam;
+            activeAnswerKey = shuffled.shuffledKey;
+
+            document.getElementById('stuBadgeName').innerText = `Thí sinh: Học sinh`;
+            document.getElementById('stuBadgeClass').innerText = `Lớp: ${currentStudent.stuClass}`;
+            document.getElementById('stuBadgeExamCode').innerText = `Mã đề: ${currentStudent.examCode}`;
+            document.getElementById('stuBadgeAttempt').innerText = `Lượt thi: ${currentStudent.attempt}/${currentStudent.maxAttempts}`;
+
+            document.getElementById('loginModal').style.display = 'none';
+            buildExamInterface();
+            runTimer();
         });
 }
 
@@ -869,7 +956,7 @@ function gradeExam() {
         }
     }
 
-    // CHẤM PHẦN II - ĐÁNH DẤU RÕ RÀNG TỪNG Ý ĐÚNG / SAI
+    // CHẤM PHẦN II
     const p2Weights = [0, 0.1, 0.25, 0.5, 1.0];
     for (let i = 1; i <= 4; i++) {
         let correctCount = 0;
@@ -902,7 +989,6 @@ function gradeExam() {
                 }
             }
 
-            // Đổi màu trực tiếp trên 2 nút Đúng/Sai
             if (userChoice === 'Đ') {
                 if (btnT) btnT.className = isItemCorrect ? 'btn-tf grade-correct' : 'btn-tf grade-wrong';
             } else if (userChoice === 'S') {
@@ -969,7 +1055,7 @@ function submitExam() {
 
     const result = gradeExam();
 
-    // Lưu lại số lượt thi riêng cho đề này
+    // 1. Lưu số lượt thi riêng cho đề này
     const examId = currentExamFolder || "k12_de01";
     saveLocalAttempts(currentStudent.phone, examId, currentStudent.attempt);
 
@@ -1015,20 +1101,13 @@ function submitExam() {
 
     document.getElementById('scoreModal').style.display = 'flex';
 
+    // 2. GÓI TIN GỬI VỀ GOOGLE SHEETS: Tinh gọn chỉ lấy Tổng điểm và đúng Lớp
     const payload = {
         phone: currentStudent.phone,
         student_name: currentStudent.name,
         student_class: currentStudent.stuClass,
-        exam_code: currentStudent.examCode,
         exam_id: examId,
-        attempt_number: currentStudent.attempt,
-        score_p1: result.scoreP1,
-        score_p2: result.scoreP2,
-        score_p3: result.scoreP3,
-        total_score: result.totalScore,
-        rank: rank,
-        answers: studentAnswers,
-        submitted_at: new Date().toLocaleString("vi-VN")
+        total_score: result.totalScore
     };
 
     fetch(GOOGLE_SCRIPT_URL, {
