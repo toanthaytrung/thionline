@@ -718,7 +718,7 @@ function buildExamInterface() {
         });
     }
 
-    // PHẦN II
+    // PHẦN II - ĐÃ CHUẨN HÓA KHÔNG CÒN LỖI BIẾN itemKey
     if (examSource.part2 && examSource.part2.length > 0) {
         html += `<div class="part-title-banner">PHẦN II. CÂU TRẮC NGHIỆM ĐÚNG / SAI (${examSource.part2.length} CÂU)</div>
                  <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${examSource.part2.length}. Trong mỗi ý a), b), c), d), chọn Đúng hoặc Sai.</div>`;
@@ -744,7 +744,7 @@ function buildExamInterface() {
                             <td style="width: 140px;">
                                 <div class="btn-tf-group">
                                     <button type="button" class="btn-tf" id="btn_p2_${qNum}_${item.key}_T" onclick="selectP2(${qNum}, '${item.key}', 'Đ')">ĐÚNG</button>
-                                    <button type="button" class="btn-tf" id="btn_p2_${qNum}_${itemKey}_F" onclick="selectP2(${qNum}, '${item.key}', 'S')">SAI</button>
+                                    <button type="button" class="btn-tf" id="btn_p2_${qNum}_${item.key}_F" onclick="selectP2(${qNum}, '${item.key}', 'S')">SAI</button>
                                 </div>
                             </td>
                         </tr>`;
