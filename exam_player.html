@@ -343,7 +343,7 @@
 </div>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJkUtzD3BE3whKIOuQDHM48kyANvZaqZC_iM0nQnyGaEH3hZn_97YUcBhpx10y87R-/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJkUtzD3BE3whKIOuQDHM48kyANvZaqZC_iM0nQnyGaEH3hZn_97YUcBhpx10y87R-/exec";
 
 const DEFAULT_ANSWER_KEY = {
     "p1": { "1": "C", "2": "B", "3": "D", "4": "B", "5": "C", "6": "D", "7": "C", "8": "D", "9": "C", "10": "C", "11": "A", "12": "B" },
@@ -528,6 +528,65 @@ function saveLocalAttempts(phone, examId, attemptCount) {
     localStorage.setItem(key, attemptCount);
 }
 
+// HÀM NHẬN PHẢN HỒI JSONP TỪ GOOGLE APPS SCRIPT
+window.handleStudentAuthResponse = function(data) {
+    const btn = document.getElementById('btnVerify');
+    const msg = document.getElementById('authMsg');
+    const examId = currentExamFolder || "k12_de01";
+    const selectedClass = document.getElementById('stuClassSelect').value;
+    const cleanPhone = document.getElementById('stuPhoneInput').value.trim().replace(/['\s\.\-\+]/g, "");
+
+    btn.disabled = false;
+    btn.innerText = "VÀO PHÒNG THI";
+
+    if (data && data.status === "OK") {
+        const localUsed = getLocalAttempts(cleanPhone, examId);
+        let nextAttempt = localUsed + 1;
+
+        if (nextAttempt > currentStudent.maxAttempts) {
+            msg.style.color = "var(--danger-color)";
+            msg.innerText = `⛔ Em đã hoàn thành đủ ${currentStudent.maxAttempts} lượt thi của đề này!`;
+            return;
+        }
+
+        const seedStr = `${cleanPhone}_${examId}_L${nextAttempt}`;
+        const shortCode = `#${cleanPhone.slice(-4)}${nextAttempt}`;
+
+        currentStudent = {
+            phone: cleanPhone,
+            name: (data.student && data.student.name && data.student.name !== "Học sinh") ? data.student.name : "Học sinh",
+            stuClass: selectedClass,
+            attempt: nextAttempt,
+            maxAttempts: currentStudent.maxAttempts,
+            examCode: shortCode
+        };
+
+        const shuffled = generateShuffledExam(seedStr);
+        activeExamData = shuffled.shuffledExam;
+        activeAnswerKey = shuffled.shuffledKey;
+
+        document.getElementById('stuBadgeName').innerText = `Thí sinh: ${currentStudent.name}`;
+        document.getElementById('stuBadgeClass').innerText = `Lớp: ${currentStudent.stuClass}`;
+        document.getElementById('stuBadgeExamCode').innerText = `Mã đề: ${currentStudent.examCode}`;
+        document.getElementById('stuBadgeAttempt').innerText = `Lượt thi: ${currentStudent.attempt}/${currentStudent.maxAttempts}`;
+
+        document.getElementById('loginModal').style.display = 'none';
+        buildExamInterface();
+        runTimer();
+
+        try {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            }
+        } catch (e) {}
+    } else {
+        msg.style.color = "var(--danger-color)";
+        msg.innerText = (data && data.message) ? data.message : "Không tìm thấy học sinh trong danh sách!";
+    }
+};
+
 function checkStudentAuth() {
     const selectedClass = document.getElementById('stuClassSelect').value;
     const rawPhone = document.getElementById('stuPhoneInput').value.trim();
@@ -548,7 +607,6 @@ function checkStudentAuth() {
         return;
     }
 
-    // Cập nhật số lượt tối đa từ manifest.json nếu có
     if (manifestConfig) {
         const found = manifestConfig.find(e => e.id === examId || e.folder === examId);
         if (found && found.max_attempts !== undefined) {
@@ -556,7 +614,6 @@ function checkStudentAuth() {
         }
     }
 
-    // Kiểm tra ngay số lượt thi tại máy học sinh
     const localUsed = getLocalAttempts(cleanPhone, examId);
     if (localUsed >= currentStudent.maxAttempts) {
         msg.style.color = "var(--danger-color)";
@@ -569,88 +626,22 @@ function checkStudentAuth() {
     msg.style.color = "var(--iexam-blue)";
     msg.innerText = "Đang kiểm tra danh sách phòng thi...";
 
-    fetch(`${GOOGLE_SCRIPT_URL}?phone=${encodeURIComponent(cleanPhone)}&exam=${encodeURIComponent(examId)}&class=${encodeURIComponent(selectedClass)}`)
-        .then(res => res.json())
-        .then(data => {
-            btn.disabled = false;
-            btn.innerText = "VÀO PHÒNG THI";
+    // GỌI BẰNG JSONP: BỎ QUA HOÀN TOÀN LỖI CORS CỦA TRÌNH DUYỆT
+    const oldScript = document.getElementById('jsonpAuthScript');
+    if (oldScript) oldScript.remove();
 
-            if (data.status === "OK") {
-                let examUsed = (data.examAttempts && data.examAttempts[examId]) 
-                                || localUsed 
-                                || 0;
+    const script = document.createElement('script');
+    script.id = 'jsonpAuthScript';
+    script.src = `${GOOGLE_SCRIPT_URL}?phone=${encodeURIComponent(cleanPhone)}&class=${encodeURIComponent(selectedClass)}&callback=handleStudentAuthResponse&t=${Date.now()}`;
+    
+    script.onerror = function() {
+        btn.disabled = false;
+        btn.innerText = "VÀO PHÒNG THI";
+        msg.style.color = "var(--danger-color)";
+        msg.innerText = "Lỗi kết nối máy chủ! Vui lòng thử lại.";
+    };
 
-                let nextAttempt = examUsed + 1;
-                if (nextAttempt > currentStudent.maxAttempts) {
-                    msg.style.color = "var(--danger-color)";
-                    msg.innerText = `⛔ Em đã hoàn thành đủ ${currentStudent.maxAttempts} lượt thi của đề này!`;
-                    return;
-                }
-
-                const seedStr = `${cleanPhone}_${examId}_L${nextAttempt}`;
-                const shortCode = `#${cleanPhone.slice(-4)}${nextAttempt}`;
-
-                currentStudent = {
-                    phone: data.student.phone || cleanPhone,
-                    name: data.student.name || "Học sinh",
-                    stuClass: selectedClass,
-                    attempt: nextAttempt,
-                    maxAttempts: currentStudent.maxAttempts,
-                    examCode: shortCode
-                };
-
-                const shuffled = generateShuffledExam(seedStr);
-                activeExamData = shuffled.shuffledExam;
-                activeAnswerKey = shuffled.shuffledKey;
-
-                document.getElementById('stuBadgeName').innerText = `Thí sinh: ${currentStudent.name}`;
-                document.getElementById('stuBadgeClass').innerText = `Lớp: ${currentStudent.stuClass}`;
-                document.getElementById('stuBadgeExamCode').innerText = `Mã đề: ${currentStudent.examCode}`;
-                document.getElementById('stuBadgeAttempt').innerText = `Lượt thi: ${currentStudent.attempt}/${currentStudent.maxAttempts}`;
-
-                document.getElementById('loginModal').style.display = 'none';
-                buildExamInterface();
-                runTimer();
-
-                try {
-                    if (document.documentElement.requestFullscreen) {
-                        document.documentElement.requestFullscreen();
-                    } else if (document.documentElement.webkitRequestFullscreen) {
-                        document.documentElement.webkitRequestFullscreen();
-                    }
-                } catch (e) {}
-            } else {
-                msg.style.color = "var(--danger-color)";
-                msg.innerText = data.message || "Không thể xác thực số điện thoại!";
-            }
-        })
-        .catch(err => {
-            btn.disabled = false;
-            btn.innerText = "VÀO PHÒNG THI";
-            // Dự phòng khi mạng yếu nhưng SĐT hợp lệ
-            let nextAttempt = localUsed + 1;
-            const seedStr = `${cleanPhone}_${examId}_L${nextAttempt}`;
-            currentStudent = {
-                phone: cleanPhone,
-                name: "Học sinh",
-                stuClass: selectedClass,
-                attempt: nextAttempt,
-                maxAttempts: currentStudent.maxAttempts,
-                examCode: `#${cleanPhone.slice(-4)}${nextAttempt}`
-            };
-            const shuffled = generateShuffledExam(seedStr);
-            activeExamData = shuffled.shuffledExam;
-            activeAnswerKey = shuffled.shuffledKey;
-
-            document.getElementById('stuBadgeName').innerText = `Thí sinh: Học sinh`;
-            document.getElementById('stuBadgeClass').innerText = `Lớp: ${currentStudent.stuClass}`;
-            document.getElementById('stuBadgeExamCode').innerText = `Mã đề: ${currentStudent.examCode}`;
-            document.getElementById('stuBadgeAttempt').innerText = `Lượt thi: ${currentStudent.attempt}/${currentStudent.maxAttempts}`;
-
-            document.getElementById('loginModal').style.display = 'none';
-            buildExamInterface();
-            runTimer();
-        });
+    document.body.appendChild(script);
 }
 
 function normalizeOptions(rawOpts) {
@@ -753,7 +744,7 @@ function buildExamInterface() {
                             <td style="width: 140px;">
                                 <div class="btn-tf-group">
                                     <button type="button" class="btn-tf" id="btn_p2_${qNum}_${item.key}_T" onclick="selectP2(${qNum}, '${item.key}', 'Đ')">ĐÚNG</button>
-                                    <button type="button" class="btn-tf" id="btn_p2_${qNum}_${item.key}_F" onclick="selectP2(${qNum}, '${item.key}', 'S')">SAI</button>
+                                    <button type="button" class="btn-tf" id="btn_p2_${qNum}_${itemKey}_F" onclick="selectP2(${qNum}, '${item.key}', 'S')">SAI</button>
                                 </div>
                             </td>
                         </tr>`;
