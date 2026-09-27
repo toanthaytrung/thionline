@@ -365,6 +365,7 @@ let isSubmitted = false;
 let activeExamData = null;
 let activeAnswerKey = null;
 let manifestConfig = null;
+let authTimeoutTimer = null;
 
 // Tải cấu hình số lượt thi từ manifest.json
 fetch('manifest.json?t=' + Date.now())
@@ -405,7 +406,7 @@ function shuffleArray(arr, rng) {
     return a;
 }
 
-// Hàm chuẩn hóa ký tự Đúng / Sai
+// Chuẩn hóa ký tự Đúng / Sai hỗ trợ mọi kiểu dữ liệu từ đề
 function normalizeTF(val) {
     if (!val) return '';
     const v = String(val).trim().toUpperCase();
@@ -538,6 +539,11 @@ function saveLocalAttempts(phone, examId, attemptCount) {
 
 // HÀM NHẬN PHẢN HỒI JSONP VÀ XÁC THỰC
 window.handleStudentAuthResponse = function(data) {
+    if (authTimeoutTimer) {
+        clearTimeout(authTimeoutTimer);
+        authTimeoutTimer = null;
+    }
+
     const btn = document.getElementById('btnVerify');
     const msg = document.getElementById('authMsg');
     const examId = currentExamFolder || "k12_de01";
@@ -637,15 +643,28 @@ function checkStudentAuth() {
     const oldScript = document.getElementById('jsonpAuthScript');
     if (oldScript) oldScript.remove();
 
+    if (authTimeoutTimer) clearTimeout(authTimeoutTimer);
+
+    authTimeoutTimer = setTimeout(function() {
+        btn.disabled = false;
+        btn.innerText = "VÀO PHÒNG THI";
+        msg.style.color = "var(--danger-color)";
+        msg.innerText = "Máy chủ phản hồi chậm hoặc gián đoạn mạng. Em vui lòng bấm thử lại!";
+    }, 10000);
+
     const script = document.createElement('script');
     script.id = 'jsonpAuthScript';
     script.src = `${GOOGLE_SCRIPT_URL}?phone=${encodeURIComponent(cleanPhone)}&class=${encodeURIComponent(selectedClass)}&callback=handleStudentAuthResponse&t=${Date.now()}`;
     
     script.onerror = function() {
+        if (authTimeoutTimer) {
+            clearTimeout(authTimeoutTimer);
+            authTimeoutTimer = null;
+        }
         btn.disabled = false;
         btn.innerText = "VÀO PHÒNG THI";
         msg.style.color = "var(--danger-color)";
-        msg.innerText = "Không thể kết nối đến danh sách thí sinh! Vui lòng thử lại.";
+        msg.innerText = "Không thể kết nối đến máy chủ danh sách thí sinh! Vui lòng thử lại.";
     };
 
     document.body.appendChild(script);
@@ -915,7 +934,7 @@ function runTimer() {
     }, 1000);
 }
 
-// HÀM CHẤM ĐIỂM TOÀN DIỆN (ĐÃ FIX TRIỆT ĐỂ PHẦN II)
+// HÀM CHẤM ĐIỂM TOÀN DIỆN (CHUẨN HÓA KÝ TỰ Đ/D/T VÀ S/F PHẦN II)
 function gradeExam() {
     let scoreP1 = 0;
     let scoreP2 = 0;
@@ -955,7 +974,7 @@ function gradeExam() {
         }
     }
 
-    // CHẤM PHẦN II (ĐÃ TỰ ĐỘNG CHUẨN HÓA KÝ TỰ Đ/D/T VÀ S/F)
+    // CHẤM PHẦN II (TỰ ĐỘNG CHUẨN HÓA KÝ TỰ Đ/D/T VÀ S/F)
     const p2Weights = [0, 0.1, 0.25, 0.5, 1.0];
     for (let i = 1; i <= 4; i++) {
         let correctCount = 0;
