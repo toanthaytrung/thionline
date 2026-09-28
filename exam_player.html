@@ -935,7 +935,7 @@ function runTimer() {
     }, 1000);
 }
 
-// HÀM CHẤM ĐIỂM TOÀN DIỆN (CHUẨN HÓA KÝ TỰ Đ/D/T VÀ S/F PHẦN II)
+// HÀM CHẤM ĐIỂM TOÀN DIỆN (CHỈ BÁO ĐÚNG/SAI LỰA CHỌN CỦA HỌC SINH, KHÔNG LỘ ĐÁP ÁN ĐÚNG CỦA ĐỀ)
 function gradeExam() {
     let scoreP1 = 0;
     let scoreP2 = 0;
@@ -963,15 +963,11 @@ function gradeExam() {
             if (navBtn) navBtn.className = 'nav-item rev-correct';
         } else {
             if (navBtn) navBtn.className = 'nav-item rev-wrong';
-        }
-
-        if (correctAns) {
-            const correctLbl = document.getElementById(`lbl_p1_${i}_${correctAns}`);
-            if (correctLbl) correctLbl.classList.add('correct-opt');
-        }
-        if (stuAns && stuAns !== correctAns) {
-            const wrongLbl = document.getElementById(`lbl_p1_${i}_${stuAns}`);
-            if (wrongLbl) wrongLbl.classList.add('wrong-opt');
+            // Chỉ đánh dấu ô học sinh chọn bị sai nếu có chọn, KHÔNG lộ ô đáp án đúng
+            if (stuAns) {
+                const wrongLbl = document.getElementById(`lbl_p1_${i}_${stuAns}`);
+                if (wrongLbl) wrongLbl.classList.add('wrong-opt');
+            }
         }
     }
 
@@ -986,28 +982,20 @@ function gradeExam() {
             const row = document.getElementById(`row_p2_${i}_${k}`);
             const btnT = document.getElementById(`btn_p2_${i}_${k}_T`);
             const btnF = document.getElementById(`btn_p2_${i}_${k}_F`);
-            const badgeSpan = document.getElementById(`p2_badge_${i}_${k}`);
 
+            const rawKeyVal = (keyItem[k] !== undefined) ? keyItem[k] : keyItem[k.toUpperCase()];
             const userChoice = normalizeTF(stuItem[k]);
-            const correctVal = normalizeTF(keyItem[k]);
-            const isItemCorrect = (userChoice !== '' && userChoice === correctVal);
+            const correctVal = normalizeTF(rawKeyVal);
+            const isItemCorrect = (userChoice !== '' && correctVal !== '' && userChoice === correctVal);
 
             if (isItemCorrect) {
                 correctCount++;
                 if (row) row.style.background = '#f6fbf7';
-                if (badgeSpan) {
-                    badgeSpan.className = 'p2-key-badge badge-ok';
-                    badgeSpan.innerText = `✔ Đúng`;
-                }
             } else {
                 if (row) row.style.background = '#fef7f7';
-                if (badgeSpan) {
-                    const ansDisplay = (correctVal === 'Đ') ? 'ĐÚNG' : 'SAI';
-                    badgeSpan.className = 'p2-key-badge badge-fail';
-                    badgeSpan.innerText = `✖ Sai (Đáp án: ${ansDisplay})`;
-                }
             }
 
+            // Chỉ tô màu nút học sinh vừa bấm là Đúng (xanh) hay Sai (đỏ), KHÔNG hiện badge lộ đáp án đúng
             if (userChoice === 'Đ') {
                 if (btnT) btnT.className = isItemCorrect ? 'btn-tf grade-correct' : 'btn-tf grade-wrong';
             } else if (userChoice === 'S') {
@@ -1029,12 +1017,6 @@ function gradeExam() {
         const rawStuAns = (studentAnswers.p3[i] || "").replace(/\s+/g, '').replace('.', ',');
         const rawKey = (keyP3 && keyP3[i.toString()] ? keyP3[i.toString()] : "").replace(/\s+/g, '').replace('.', ',');
         const navBtn = document.getElementById(`nav_p3_${i}`);
-        const keySpan = document.getElementById(`p3_key_${i}`);
-
-        if (keySpan && keyP3) {
-            keySpan.innerText = `(Đáp án đúng: ${keyP3[i.toString()] || '---'})`;
-            keySpan.style.display = 'inline';
-        }
 
         if (rawStuAns && rawStuAns === rawKey) {
             scoreP3 += 0.5;
@@ -1174,11 +1156,70 @@ function retryExamSession() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// CHỈ MỞ ĐÁP ÁN ĐÚNG KHI HỌC SINH ĐỦ ĐIỀU KIỆN VÀ BẤM XEM LỜI GIẢI CHI TIẾT
 function showSolutionDetail() {
     document.getElementById('scoreModal').style.display = 'none';
+
+    // 1. Mở toàn bộ hộp lời giải chi tiết
     document.querySelectorAll('.sol-box').forEach(box => {
         box.style.display = 'block';
     });
+
+    // 2. Bây giờ mới hiển thị ĐÁP ÁN ĐÚNG cho học sinh xem
+    const sourceExam = getActiveExam();
+    const rawKey = (activeExamData && activeExamData.answerKey && Object.keys(activeExamData.answerKey).length > 0)
+        ? activeExamData.answerKey
+        : (sourceExam && sourceExam.answerKey && Object.keys(sourceExam.answerKey).length > 0)
+            ? sourceExam.answerKey
+            : DEFAULT_ANSWER_KEY;
+
+    const keyP1 = (activeAnswerKey && activeAnswerKey.p1) ? activeAnswerKey.p1 : rawKey.p1;
+    const keyP2 = (activeAnswerKey && activeAnswerKey.p2) ? activeAnswerKey.p2 : rawKey.p2;
+    const keyP3 = (activeAnswerKey && activeAnswerKey.p3) ? activeAnswerKey.p3 : rawKey.p3;
+
+    // Tô xanh đáp án chuẩn Phần I
+    for (let i = 1; i <= 12; i++) {
+        const correctAns = keyP1 ? keyP1[i.toString()] : undefined;
+        if (correctAns) {
+            const correctLbl = document.getElementById(`lbl_p1_${i}_${correctAns}`);
+            if (correctLbl) correctLbl.classList.add('correct-opt');
+        }
+    }
+
+    // Hiện nhãn đáp án Đúng/Sai chuẩn Phần II
+    for (let i = 1; i <= 4; i++) {
+        const keyItem = (keyP2 && keyP2[i.toString()]) ? keyP2[i.toString()] : {};
+        const stuItem = studentAnswers.p2[i] || {};
+
+        ['a', 'b', 'c', 'd'].forEach(k => {
+            const badgeSpan = document.getElementById(`p2_badge_${i}_${k}`);
+            const rawKeyVal = (keyItem[k] !== undefined) ? keyItem[k] : keyItem[k.toUpperCase()];
+            const userChoice = normalizeTF(stuItem[k]);
+            const correctVal = normalizeTF(rawKeyVal);
+            const isItemCorrect = (userChoice !== '' && correctVal !== '' && userChoice === correctVal);
+
+            if (badgeSpan) {
+                if (isItemCorrect) {
+                    badgeSpan.className = 'p2-key-badge badge-ok';
+                    badgeSpan.innerText = `✔ Đúng`;
+                } else {
+                    const ansDisplay = (correctVal === 'Đ') ? 'ĐÚNG' : (correctVal === 'S' ? 'SAI' : '---');
+                    badgeSpan.className = 'p2-key-badge badge-fail';
+                    badgeSpan.innerText = `✖ (Đáp án: ${ansDisplay})`;
+                }
+            }
+        });
+    }
+
+    // Hiện nhãn đáp án chuẩn Phần III
+    for (let i = 1; i <= 6; i++) {
+        const keySpan = document.getElementById(`p3_key_${i}`);
+        if (keySpan && keyP3) {
+            keySpan.innerText = `(Đáp án đúng: ${keyP3[i.toString()] || '---'})`;
+            keySpan.style.display = 'inline';
+        }
+    }
+
     if (window.renderMathInElement) {
         renderMathInElement(document.getElementById('examContainer'), {
             delimiters: [
