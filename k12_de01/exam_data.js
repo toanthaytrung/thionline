@@ -1,6 +1,6 @@
-const EXAM_DATA = {
-    "title": "ĐỀ THI TỐT NGHIỆP THPT MÔN TOÁN - SỐ 01",
-    "subtitle": "Chương trình GDPT 2018 - Khối 12 - Thời gian: 90 phút",
+window.EXAM_DATA = {
+    "title": "ĐỀ THI TOÁN KHỐI 12 - SỐ 01",
+    "subtitle": "Chương trình GDPT 2018 - Thời gian: 90 phút",
     "durationMinutes": 90,
     "unlockSolutionScore": 6.5,
     "part1": [
@@ -260,35 +260,35 @@ const EXAM_DATA = {
         {
             "id": 6,
             "content": "Một cái lều có dạng hình chóp tứ giác đều, cạnh đáy bằng <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image311.png\" width=\"30\"/> và chiều cao là <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image312.png\" width=\"32\"/> Cửa vào lều là hình thang <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image313.png\" width=\"50\"/> trong đó <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image314.png\" width=\"64\"/> và <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image315.png\" width=\"72\"/> Gọi <img class=\"math-img-inline\" height=\"20\" src=\"k12_de01/temp_exam_files/image316.png\" width=\"36\"/> lần lượt là trung điểm của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image317.png\" width=\"24\"/> và <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image318.png\" width=\"28\"/> Một nguồn sáng đặt cách đỉnh <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image223.png\" width=\"14\"/> một mét ở phía dưới. Ánh sáng chiếu ra ngoài qua cửa tạo thành một vùng được chiếu sáng <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image319.png\" width=\"60\"/> Diện tích vùng được chiếu sáng là bao nhiêu <img class=\"math-img-inline\" height=\"20\" src=\"k12_de01/temp_exam_files/image320.png\" width=\"22\"/> (Làm tṛn kết quả đến hàng đơn vị)? <sub><img alt=\"Ảnh có chứa hàng, biểu đồ, hình tam giác Nội dung do AI tạo ra có thể không chính xác.\" class=\"is-diagram\" height=\"206\" id=\"Hình ảnh 23\" src=\"k12_de01/temp_exam_files/image321.png\" width=\"295\"/></sub>",
-            "solution": "Đáp án: 24<br><b><img class=\"is-diagram\" height=\"314\" id=\"Hình ảnh 27\" src=\"k12_de01/temp_exam_files/image322.png\" width=\"205\"/></b><br>Gọi <img class=\"math-img-inline\" height=\"16\" src=\"k12_de01/temp_exam_files/image323.png\" width=\"14\"/> là điểm phát sáng; <img class=\"math-img-inline\" height=\"16\" src=\"k12_de01/temp_exam_files/image324.png\" width=\"22\"/> là trung điểm của <img class=\"math-img-inline\" height=\"16\" src=\"k12_de01/temp_exam_files/image325.png\" width=\"26\"/> cũng là trung điểm của <img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image326.png\" width=\"128\"/> là trung điểm của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image327.png\" width=\"26\"/> (hình vẽ).<br>Chọn hệ trục tọa độ <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image328.png\" width=\"38\"/> sao cho tia <img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image329.png\" width=\"194\"/> Khi đó<br><img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image330.png\" width=\"588\"/><br><img class=\"math-img-inline\" height=\"16\" src=\"k12_de01/temp_exam_files/image331.png\" width=\"18\"/> là trung điểm <img class=\"is-diagram\" height=\"46\" src=\"k12_de01/temp_exam_files/image332.png\" width=\"124\"/>; <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image333.png\" width=\"18\"/>là trung điểm của <img class=\"math-img-inline\" height=\"46\" src=\"k12_de01/temp_exam_files/image334.png\" width=\"118\"/><br><img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image335.png\" width=\"170\"/><br><img class=\"is-diagram\" height=\"74\" src=\"k12_de01/temp_exam_files/image336.png\" width=\"534\"/><br><img class=\"is-diagram\" height=\"74\" src=\"k12_de01/temp_exam_files/image337.png\" width=\"494\"/><br><img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image338.png\" width=\"286\"/><br>Vậy <img class=\"is-diagram\" height=\"42\" src=\"k12_de01/temp_exam_files/image339.png\" width=\"494\"/>"
+            "solution": "Đáp án: 24<br><b><img class=\"is-diagram\" height=\"314\" id=\"Hình ảnh 27\" src=\"k12_de01/temp_exam_files/image322.png\" width=\"205\"/></b><br>Gọi <img class=\"math-img-inline\" height=\"16\" src=\"k12_de01/temp_exam_files/image323.png\" width=\"14\"/> là điểm phát sáng; <img class=\"math-img-inline\" height=\"16\" src=\"k12_de01/temp_exam_files/image324.png\" width=\"22\"/> là trung điểm của <img class=\"math-img-inline\" height=\"16\" src=\"k12_de01/temp_exam_files/image325.png\" width=\"26\"/> cũng là trung điểm của <img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image326.png\" width=\"128\"/> là trung điểm của <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image327.png\" width=\"26\"/> (hình vẽ).<br>Chọn hệ trục tọa độ <img class=\"math-img-inline\" height=\"22\" src=\"k12_de01/temp_exam_files/image328.png\" width=\"38\"/> sao cho tia <img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image329.png\" width=\"194\"/> Khi đó<br><img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image330.png\" width=\"588\"/><br><img class=\"math-img-inline\" height=\"16\" src=\"k12_de01/temp_exam_files/image331.png\" width=\"18\"/> là trung điểm <img class=\"is-diagram\" height=\"46\" src=\"k12_de01/temp_exam_files/image332.png\" width=\"124\"/>; <img class=\"math-img-inline\" height=\"18\" src=\"k12_de01/temp_exam_files/image333.png\" width=\"18\"/>là trung điểm của <img class=\"math-img-inline\" height=\"46\" src=\"k12_de01/temp_exam_files/image334.png\" width=\"118\"/><br><img class=\"is-diagram\" height=\"22\" src=\"k12_de01/temp_exam_files/image335.png\" width=\"170\"/><br><img class=\"is-diagram\" height=\"74\" src=\"k12_de01/temp_exam_files/image336.png\" width=\"534\"/><br><img class=\"is-diagram\" height=\"74\" src=\"k12_de01/temp_exam_files/image337.png\" width=\"494\"/><br><img class=\"is-diagram\" height=\"26\" src=\"k12_de01/temp_exam_files/image338.png\" width=\"286\"/><br>Vậy <img class=\"is-diagram\" height=\"42\" src=\"k12_de01/temp_exam_files/image339.png\" width=\"494\"/><br>…………………………………."
         }
     ],
     "answerKey": {
         "p1": {
-            "1": "C",
-            "2": "B",
-            "3": "D",
+            "1": "D",
+            "2": "C",
+            "3": "A",
             "4": "B",
-            "5": "C",
+            "5": "A",
             "6": "D",
-            "7": "C",
-            "8": "D",
-            "9": "C",
-            "10": "C",
-            "11": "A",
-            "12": "B"
+            "7": "B",
+            "8": "A",
+            "9": "D",
+            "10": "A",
+            "11": "D",
+            "12": "C"
         },
         "p2": {
             "1": {
                 "a": "S",
                 "b": "Đ",
                 "c": "S",
-                "d": "Đ"
+                "d": "S"
             },
             "2": {
-                "a": "S",
+                "a": "Đ",
                 "b": "Đ",
-                "c": "Đ",
+                "c": "S",
                 "d": "Đ"
             },
             "3": {
@@ -299,18 +299,19 @@ const EXAM_DATA = {
             },
             "4": {
                 "a": "Đ",
-                "b": "S",
+                "b": "Đ",
                 "c": "Đ",
-                "d": "Đ"
+                "d": "S"
             }
         },
         "p3": {
-            "1": "100",
-            "2": "111",
-            "3": "11,5",
-            "4": "2",
-            "5": "135",
-            "6": "101"
+            "1": "17",
+            "2": "8",
+            "3": "1,45",
+            "4": "196",
+            "5": "1,65",
+            "6": "24"
         }
     }
 };
+var EXAM_DATA = window.EXAM_DATA;
