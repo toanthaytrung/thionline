@@ -1,6 +1,6 @@
 window.EXAM_DATA = {
-    "title": "ĐỀ THI TỐT NGHIỆP THPT MÔN TOÁN – SỐ 02",
-    "subtitle": "Chương trình GDPT 2018 - Khối 12 - Thời gian: 90 phút",
+    "title": "ĐỀ THI TOÁN KHỐI 12 - SỐ 02",
+    "subtitle": "Chương trình GDPT 2018 - Thời gian: 90 phút",
     "durationMinutes": 90,
     "unlockSolutionScore": 6.5,
     "part1": [
@@ -260,48 +260,48 @@ window.EXAM_DATA = {
         {
             "id": 6,
             "content": "Trong không gian với hệ tọa độ <img class=\"math-img-inline\" height=\"22\" src=\"k12_de02/temp_exam_files/image257.png\" width=\"38\"/> (đơn vị trên mỗi trục tọa độ là <img class=\"math-img-inline\" height=\"18\" src=\"k12_de02/temp_exam_files/image258.png\" width=\"22\"/>), một cabin cáp treo xuất phát từ điểm <img class=\"math-img-inline\" height=\"26\" src=\"k12_de02/temp_exam_files/image259.png\" width=\"71\"/> và chuyển động đều theo đường cáp thẳng đến vị trí <img class=\"math-img-inline\" height=\"17\" src=\"k12_de02/temp_exam_files/image260.png\" width=\"17\"/> cách <img class=\"math-img-inline\" height=\"17\" src=\"k12_de02/temp_exam_files/image261.png\" width=\"16\"/><img class=\"math-img-inline\" height=\"18\" src=\"k12_de02/temp_exam_files/image262.png\" width=\"50\"/>. Biết đường đi của cabin cùng phương với vectơ <img class=\"math-img-inline\" height=\"28\" src=\"k12_de02/temp_exam_files/image263.png\" width=\"70\"/>và sau 3 phút kể từ khi xuất phát thì cabin đến vị trí <img class=\"math-img-inline\" height=\"17\" src=\"k12_de02/temp_exam_files/image264.png\" width=\"16\"/> có hoành độ <img class=\"math-img-inline\" height=\"24\" src=\"k12_de02/temp_exam_files/image265.png\" width=\"60\"/>. Hỏi thời gian di chuyển của cabin trên quăng đường <img class=\"math-img-inline\" height=\"17\" src=\"k12_de02/temp_exam_files/image266.png\" width=\"28\"/> là bao nhiêu phút?",
-            "solution": "Đáp án: 15<br>Ta có <img class=\"math-img-inline\" height=\"22\" src=\"k12_de02/temp_exam_files/image267.png\" width=\"26\"/> cùng phương với <img class=\"math-img-inline\" height=\"28\" src=\"k12_de02/temp_exam_files/image268.png\" width=\"70\"/>nên <img class=\"is-diagram\" height=\"51\" src=\"k12_de02/temp_exam_files/image269.png\" width=\"218\"/><img class=\"is-diagram\" height=\"26\" src=\"k12_de02/temp_exam_files/image270.png\" width=\"141\"/><br>Quăng đường <img class=\"math-img-inline\" height=\"18\" src=\"k12_de02/temp_exam_files/image271.png\" width=\"78\"/> thì cabin di chuyển hết 3 phút. Vậy để cabin di chuyển hết quăng đường <img class=\"math-img-inline\" height=\"18\" src=\"k12_de02/temp_exam_files/image272.png\" width=\"88\"/> thì mất <img class=\"math-img-inline\" height=\"42\" src=\"k12_de02/temp_exam_files/image273.png\" width=\"82\"/> phút.<br>……………………………………………………………………………………………."
+            "solution": "Đáp án: 15<br>Ta có <img class=\"math-img-inline\" height=\"22\" src=\"k12_de02/temp_exam_files/image267.png\" width=\"26\"/> cùng phương với <img class=\"math-img-inline\" height=\"28\" src=\"k12_de02/temp_exam_files/image268.png\" width=\"70\"/>nên <img class=\"is-diagram\" height=\"51\" src=\"k12_de02/temp_exam_files/image269.png\" width=\"218\"/><img class=\"is-diagram\" height=\"26\" src=\"k12_de02/temp_exam_files/image270.png\" width=\"141\"/><br>Quăng đường <img class=\"math-img-inline\" height=\"18\" src=\"k12_de02/temp_exam_files/image271.png\" width=\"78\"/> thì cabin di chuyển hết 3 phút. Vậy để cabin di chuyển hết quăng đường <img class=\"math-img-inline\" height=\"18\" src=\"k12_de02/temp_exam_files/image272.png\" width=\"88\"/> thì mất <img class=\"math-img-inline\" height=\"42\" src=\"k12_de02/temp_exam_files/image273.png\" width=\"82\"/> phút.<br>………………………………………………………………………………………………….."
         }
     ],
     "answerKey": {
         "p1": {
-            "1": "A",
+            "1": "B",
             "2": "B",
-            "3": "C",
-            "4": "D",
-            "5": "A",
-            "6": "B",
-            "7": "C",
+            "3": "D",
+            "4": "C",
+            "5": "C",
+            "6": "A",
+            "7": "B",
             "8": "D",
-            "9": "A",
-            "10": "B",
-            "11": "C",
+            "9": "D",
+            "10": "A",
+            "11": "A",
             "12": "D"
         },
         "p2": {
             "1": {
                 "a": "Đ",
-                "b": "S",
+                "b": "Đ",
                 "c": "Đ",
                 "d": "S"
             },
             "2": {
-                "a": "S",
-                "b": "Đ",
-                "c": "S",
-                "d": "Đ"
+                "a": "Đ",
+                "b": "S",
+                "c": "Đ",
+                "d": "S"
             },
             "3": {
                 "a": "Đ",
-                "b": "Đ",
-                "c": "S",
-                "d": "Đ"
-            },
-            "4": {
-                "a": "S",
                 "b": "S",
                 "c": "Đ",
                 "d": "Đ"
+            },
+            "4": {
+                "a": "Đ",
+                "b": "Đ",
+                "c": "Đ",
+                "d": "S"
             }
         },
         "p3": {
