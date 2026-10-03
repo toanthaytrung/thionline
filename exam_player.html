@@ -624,8 +624,18 @@ function checkStudentAuth() {
 
     if (manifestConfig) {
         const found = manifestConfig.find(e => e.id === examId || e.folder === examId);
-        if (found && found.max_attempts !== undefined) {
-            currentStudent.maxAttempts = parseInt(found.max_attempts, 10);
+        if (found) {
+            if (found.max_attempts !== undefined) {
+                currentStudent.maxAttempts = parseInt(found.max_attempts, 10);
+            }
+            // Kiểm tra lớp có được phép thi đề này không
+            if (found.allowed_classes && found.allowed_classes.length > 0) {
+                if (!found.allowed_classes.includes(selectedClass)) {
+                    msg.style.color = "var(--danger-color)";
+                    msg.innerText = `⛔ Đề thi này chỉ giao cho lớp: ${found.allowed_classes.join(', ')}. Em không có quyền truy cập!`;
+                    return; // CHẶN KHÔNG CHO THI
+                }
+            }
         }
     }
 
