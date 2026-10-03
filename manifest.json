@@ -38,7 +38,11 @@
     "duration": 90,
     "unlockScore": 6.5,
     "totalQuestions": 22,
-    "hidden": false
+    "hidden": false,
+    "allowed_classes": [
+      "12A",
+      "12B"
+    ]
   },
   {
     "id": "k12_de02",
