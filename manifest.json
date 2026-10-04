@@ -31,6 +31,17 @@
     "hidden": false
   },
   {
+    "id": "k11_de02",
+    "grade": "11",
+    "title": "Đề số 2",
+    "folder": "k11_de02",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22,
+    "hidden": false,
+    "allowed_classes": []
+  },
+  {
     "id": "k12_de01",
     "grade": "12",
     "title": "Đề số 1",
