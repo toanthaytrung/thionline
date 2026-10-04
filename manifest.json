@@ -38,7 +38,7 @@
     "duration": 90,
     "unlockScore": 6.5,
     "totalQuestions": 22,
-    "hidden": true,
+    "hidden": false,
     "allowed_classes": []
   },
   {
