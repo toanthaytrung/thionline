@@ -21,6 +21,20 @@
     "hidden": false
   },
   {
+    "id": "k10_de03",
+    "grade": "10",
+    "title": "Đề số 3",
+    "folder": "k10_de03",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22,
+    "hidden": false,
+    "allowed_classes": [
+      "10A",
+      "10B"
+    ]
+  },
+  {
     "id": "k11_de01",
     "grade": "11",
     "title": "Đề số 1",
