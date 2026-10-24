@@ -39,7 +39,7 @@ window.EXAM_DATA = {
         },
         {
             "id": 4,
-            "content": "Cho hai tập hợp<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image018.png\" width=\"16\"/>và<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image019.png\" width=\"16\"/> như hình vẽ . Tập hợp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image020.png\" width=\"37\"/>là <table align=\"left\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td height=\"148\" width=\"343\"></td> </tr> <tr> <td></td> <td><img class=\"is-diagram\" height=\"141\" src=\"k10_de03/temp_exam_files/image021.png\" width=\"188\"/></td> </tr> </table> <b> </b>",
+            "content": "Cho hai tập hợp<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image018.png\" width=\"16\"/>và<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image019.png\" width=\"16\"/> như hình vẽ . Tập hợp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image020.png\" width=\"37\"/>là <table align=\"left\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td height=\"154\" width=\"343\"></td> </tr> <tr> <td></td> <td><img class=\"is-diagram\" height=\"141\" src=\"k10_de03/temp_exam_files/image021.png\" width=\"188\"/></td> </tr> </table> <b> </b>",
             "options": [
                 "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image022.png\" width=\"90\"/>",
                 "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image023.png\" width=\"115\"/>",
@@ -101,40 +101,40 @@ window.EXAM_DATA = {
                 "<img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image060.png\" width=\"138\"/>",
                 "<img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image061.png\" width=\"142\"/>"
             ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image062.png\" width=\"138\"/> là đẳng thức đúng."
+            "solution": "Ta có <img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image060.png\" width=\"138\"/> là đẳng thức đúng."
         },
         {
             "id": 10,
             "content": "Trong các đẳng thức  sau,  đẳng thức nào đúng?",
             "options": [
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image063.png\" width=\"156\"/>.<b>            </b>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image064.png\" width=\"156\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image065.png\" width=\"170\"/>.<b>         </b>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image066.png\" width=\"170\"/>"
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image062.png\" width=\"156\"/>.<b>            </b>",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image063.png\" width=\"156\"/>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image064.png\" width=\"170\"/>.<b>         </b>",
+                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image065.png\" width=\"170\"/>"
             ],
             "solution": ""
         },
         {
             "id": 11,
-            "content": "Cho <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image067.png\" width=\"46\"/> có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image068.png\" width=\"37\"/>, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image069.png\" width=\"36\"/>, <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image070.png\" width=\"60\"/>. Diện tích tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image071.png\" width=\"37\"/>bằng",
+            "content": "Cho <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image066.png\" width=\"46\"/> có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image067.png\" width=\"37\"/>, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image068.png\" width=\"36\"/>, <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image069.png\" width=\"60\"/>. Diện tích tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image070.png\" width=\"37\"/>bằng",
             "options": [
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image072.png\" width=\"46\"/>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image073.png\" width=\"64\"/>.<b>                                   </b>",
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image074.png\" width=\"37\"/>.<b>  </b>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image075.png\" width=\"57\"/>"
+                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image071.png\" width=\"46\"/>",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image072.png\" width=\"64\"/>.<b>                                   </b>",
+                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image073.png\" width=\"37\"/>.<b>  </b>",
+                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image074.png\" width=\"57\"/>"
             ],
-            "solution": "Diện tích tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image071.png\" width=\"37\"/>là <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image076.png\" width=\"92\"/><img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image077.png\" width=\"104\"/><img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image078.png\" width=\"26\"/>."
+            "solution": "Diện tích tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image070.png\" width=\"37\"/>là <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image075.png\" width=\"92\"/><img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image076.png\" width=\"104\"/><img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image077.png\" width=\"26\"/>."
         },
         {
             "id": 12,
-            "content": "Cho tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image071.png\" width=\"37\"/>có <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image079.png\" width=\"162\"/> Độ dài của cạnh <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image080.png\" width=\"26\"/> có giá trị gần nhất với giá trị nào dưới đây?",
+            "content": "Cho tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image070.png\" width=\"37\"/>có <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image078.png\" width=\"162\"/> Độ dài của cạnh <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image079.png\" width=\"26\"/> có giá trị gần nhất với giá trị nào dưới đây?",
             "options": [
+                "<img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image080.png\" width=\"29\"/>",
                 "<img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image081.png\" width=\"29\"/>",
                 "<img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image082.png\" width=\"29\"/>",
-                "<img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image083.png\" width=\"29\"/>",
-                "<img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image084.png\" width=\"29\"/>"
+                "<img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image083.png\" width=\"29\"/>"
             ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"34\" src=\"k10_de03/temp_exam_files/image085.png\" width=\"160\"/> <br> Áp dụng định lí <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image086.png\" width=\"24\"/>ta có <img class=\"math-img-inline\" height=\"44\" src=\"k10_de03/temp_exam_files/image087.png\" width=\"324\"/>"
+            "solution": "Ta có <img class=\"math-img-inline\" height=\"34\" src=\"k10_de03/temp_exam_files/image084.png\" width=\"160\"/> <br> Áp dụng định lí <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image085.png\" width=\"24\"/>ta có <img class=\"math-img-inline\" height=\"44\" src=\"k10_de03/temp_exam_files/image086.png\" width=\"324\"/>"
         }
     ],
     "part2": [
@@ -148,30 +148,30 @@ window.EXAM_DATA = {
                 },
                 {
                     "key": "b",
-                    "text": "Mệnh đề <i>P</i> được viết lại như sau <i>P</i>:<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image088.png\" width=\"115\"/>."
+                    "text": "Mệnh đề <i>P</i> được viết lại như sau <i>P</i>:<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image087.png\" width=\"115\"/>."
                 },
                 {
                     "key": "c",
-                    "text": "Phủ định của mệnh đề <i>P</i> là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image089.png\" width=\"132\"/>."
+                    "text": "Phủ định của mệnh đề <i>P</i> là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image088.png\" width=\"132\"/>."
                 },
                 {
                     "key": "d",
-                    "text": "Mệnh đề <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image090.png\" width=\"17\"/> là một mệnh đề đúng."
+                    "text": "Mệnh đề <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image089.png\" width=\"17\"/> là một mệnh đề đúng."
                 }
             ],
-            "solution": "a) <b>Sai.</b> V́ mọi số thực đều có bình phương không âm, nên <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image091.png\" width=\"115\"/>. <br> b) <b>Đúng</b> <br> c) <b>Sai.</b> V́ P:<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image092.png\" width=\"115\"/> có mệnh đề phủ định là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image093.png\" width=\"132\"/> <br> d) <b>Đúng.</b> V́ với <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image094.png\" width=\"38\"/> thì <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image095.png\" width=\"150\"/>."
+            "solution": "a) <b>Sai.</b> V́ mọi số thực đều có bình phương không âm, nên <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image090.png\" width=\"115\"/>. <br> b) <b>Đúng</b> <br> c) <b>Sai.</b> V́ P:<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image091.png\" width=\"115\"/> có mệnh đề phủ định là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image092.png\" width=\"132\"/> <br> d) <b>Đúng.</b> V́ với <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image093.png\" width=\"38\"/> thì <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image094.png\" width=\"150\"/>."
         },
         {
             "id": 2,
-            "content": "Lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image096.png\" width=\"30\"/> có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image097.png\" width=\"19\"/> học sinh giỏi môn Toán, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image098.png\" width=\"19\"/> học sinh giỏi môn Lư và <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image099.png\" width=\"19\"/> học sinh giỏi môn Hóa. Biết rằng có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image100.png\" width=\"19\"/> học sinh giỏi cả hai môn Toán và Lư, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image101.png\" width=\"14\"/> học sinh giỏi cả hai môn  Lư và Hóa, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image102.png\" width=\"14\"/> học sinh giỏi cả hai môn Hóa và Toán, trong đó có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image103.png\" width=\"18\"/> học sinh giỏi đúng hai môn. Ngoài ra, lớp 10A còn có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image104.png\" width=\"19\"/> học sinh không giỏi môn nào trong ba môn nói trên. Gọi <img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image105.png\" width=\"14\"/> là số học sinh giỏi cả ba môn Toán, Lư, Hóa. Các mệnh đề sau đây đúng hay sai?",
+            "content": "Lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image095.png\" width=\"30\"/> có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image096.png\" width=\"19\"/> học sinh giỏi môn Toán, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image097.png\" width=\"19\"/> học sinh giỏi môn Lư và <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image098.png\" width=\"19\"/> học sinh giỏi môn Hóa. Biết rằng có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image099.png\" width=\"19\"/> học sinh giỏi cả hai môn Toán và Lư, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image100.png\" width=\"14\"/> học sinh giỏi cả hai môn  Lư và Hóa, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image101.png\" width=\"14\"/> học sinh giỏi cả hai môn Hóa và Toán, trong đó có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image102.png\" width=\"18\"/> học sinh giỏi đúng hai môn. Ngoài ra, lớp 10A còn có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image103.png\" width=\"19\"/> học sinh không giỏi môn nào trong ba môn nói trên. Gọi <img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image104.png\" width=\"14\"/> là số học sinh giỏi cả ba môn Toán, Lư, Hóa. Các mệnh đề sau đây đúng hay sai?",
             "items": [
                 {
                     "key": "a",
-                    "text": "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image106.png\" width=\"42\"/> là số học sinh chỉ giỏi đúng hai môn Toán và Lư."
+                    "text": "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image105.png\" width=\"42\"/> là số học sinh chỉ giỏi đúng hai môn Toán và Lư."
                 },
                 {
                     "key": "b",
-                    "text": "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image107.png\" width=\"42\"/> là số học sinh chỉ giỏi đúng hai môn Lư và Hóa."
+                    "text": "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image106.png\" width=\"42\"/> là số học sinh chỉ giỏi đúng hai môn Lư và Hóa."
                 },
                 {
                     "key": "c",
@@ -179,22 +179,22 @@ window.EXAM_DATA = {
                 },
                 {
                     "key": "d",
-                    "text": "Số học sinh lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image108.png\" width=\"30\"/>là 40."
+                    "text": "Số học sinh lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image107.png\" width=\"30\"/>là 40."
                 }
             ],
-            "solution": "<img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image109.png\" width=\"14\"/> là số học sinh giỏi cả ba môn Toán, Lư, Hóa <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image110.png\" width=\"54\"/>. <br> <b>a) Đúng. </b> Có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image100.png\" width=\"19\"/> học sinh giỏi Toán và Lư. <br> <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image111.png\" width=\"20\"/>Số học sinh chỉ giỏi đúng hai môn Toán và Lư là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image112.png\" width=\"42\"/>. <br> <b>b)Sai. </b>Có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image101.png\" width=\"14\"/> học sinh giỏi cả hai môn  Lư và Hóa. <br> <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image111.png\" width=\"20\"/>Số học sinh chỉ giỏi đúng hai môn  Lư và Hóa là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image113.png\" width=\"34\"/>. <br> <b>c)Sai. </b>Số học sinh chỉ giỏi đúng hai môn là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image114.png\" width=\"229\"/>. <br> Theo đề bài, có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image103.png\" width=\"18\"/> học sinh giỏi đúng hai môn nên ta có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image115.png\" width=\"136\"/>. <br> <b>d) Đúng. </b> Số học sinh giỏi ít nhất một trong ba môn Toán, Lư, Hóa là <br> <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image116.png\" width=\"310\"/>. <br> Số học sinh lớp 10A là 25 + 15 = 40 (học sinh)."
+            "solution": "<b>a) Đúng. </b><img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image108.png\" width=\"14\"/> là số học sinh giỏi cả ba môn Toán, Lư, Hóa <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image109.png\" width=\"54\"/>. <br> Có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image099.png\" width=\"19\"/> học sinh giỏi Toán và Lư. <br> <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image110.png\" width=\"20\"/>Số học sinh chỉ giỏi đúng hai môn Toán và Lư là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image111.png\" width=\"42\"/>. <br> <b>b)Sai. </b>Có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image100.png\" width=\"14\"/> học sinh giỏi cả hai môn  Lư và Hóa. <br> <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image110.png\" width=\"20\"/>Số học sinh chỉ giỏi đúng hai môn  Lư và Hóa là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image112.png\" width=\"34\"/>. <br> <b>c)Sai. </b>Số học sinh chỉ giỏi đúng hai môn là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image113.png\" width=\"229\"/>. <br> Theo đề bài, có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image102.png\" width=\"18\"/> học sinh giỏi đúng hai môn nên ta có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image114.png\" width=\"136\"/>. <br> <b>d) Đúng. </b> Số học sinh giỏi ít nhất một trong ba môn Toán, Lư, Hóa là <br> <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image115.png\" width=\"310\"/>. <br> Số học sinh lớp 10A là 25 + 15 = 40 (học sinh)."
         },
         {
             "id": 3,
-            "content": "Lớp 10A có 40 học sinh. Để chuẩn bị cho các hoạt động ngoại khóa, giáo viên chủ nhiệm khảo sát nguyện vọng tham gia câu lạc bộ và thu được kết quả: có 20 học sinh đãng kư tham gia câu lạc bộ Toán học, 15 học sinh đãng kư tham gia câu lạc bộ Tiếng Anh, và 5 học sinh đãng kư tham gia cả hai câu lạc bộ này. Gọi <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image117.png\" width=\"16\"/> là tập hợp các học sinh đãng kư câu lạc bộ Toán học, <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image118.png\" width=\"16\"/> là tập hợp các học sinh đãng kư câu lạc bộ Tiếng Anh.",
+            "content": "Lớp 10A có 40 học sinh. Để chuẩn bị cho các hoạt động ngoại khóa, giáo viên chủ nhiệm khảo sát nguyện vọng tham gia câu lạc bộ và thu được kết quả: có 20 học sinh đãng kư tham gia câu lạc bộ Toán học, 15 học sinh đãng kư tham gia câu lạc bộ Tiếng Anh, và 5 học sinh đãng kư tham gia cả hai câu lạc bộ này. Gọi <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image116.png\" width=\"16\"/> là tập hợp các học sinh đãng kư câu lạc bộ Toán học, <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image117.png\" width=\"16\"/> là tập hợp các học sinh đãng kư câu lạc bộ Tiếng Anh.",
             "items": [
                 {
                     "key": "a",
-                    "text": "Tập hợp các học sinh tham gia cả hai câu lạc bộ được kí hiệu là <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image119.png\" width=\"44\"/>."
+                    "text": "Tập hợp các học sinh tham gia cả hai câu lạc bộ được kí hiệu là <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image118.png\" width=\"44\"/>."
                 },
                 {
                     "key": "b",
-                    "text": "Số học sinh tham gia ít nhất một trong hai câu lạc bộ được kí hiệu là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image120.png\" width=\"66\"/>."
+                    "text": "Số học sinh tham gia ít nhất một trong hai câu lạc bộ được kí hiệu là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image119.png\" width=\"66\"/>."
                 },
                 {
                     "key": "c",
@@ -205,54 +205,30 @@ window.EXAM_DATA = {
                     "text": "Số học sinh của lớp 10A không tham gia câu lạc bộ nào trong hai câu lạc bộ trên là 10 học sinh."
                 }
             ],
-            "solution": "<b>a)</b> Tập hợp chứa các phần tử thuộc cả <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/> và <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image122.png\" width=\"16\"/> là giao của hai tập hợp, kí hiệu theo chuẩn toán học là <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image123.png\" width=\"44\"/>. Mệnh đề đúng. <br> <b>b)</b> Tập hợp chứa các phần tử thuộc ít nhất một trong hai tập hợp là hợp của hai tập hợp. Số lượng phần tử của tập hợp hợp được kí hiệu là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image124.png\" width=\"66\"/>. Mệnh đề đúng. <br> <b>c)</b> Số học sinh tham gia ít nhất một câu lạc bộ được tính theo công thức <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image125.png\" width=\"356\"/>. Do <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image126.png\" width=\"52\"/>, mệnh đề sai. <br> <b>d)</b> Số học sinh không tham gia câu lạc bộ nào bằng tổng số học sinh cả lớp trừ đi số học sinh tham gia ít nhất một câu lạc bộ: <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image127.png\" width=\"82\"/>. Mệnh đề đúng."
+            "solution": "<b>a)</b> Tập hợp chứa các phần tử thuộc cả <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image120.png\" width=\"16\"/> và <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/> là giao của hai tập hợp, kí hiệu theo chuẩn toán học là <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image122.png\" width=\"44\"/>. Mệnh đề đúng. <br> <b>b)</b> Tập hợp chứa các phần tử thuộc ít nhất một trong hai tập hợp là hợp của hai tập hợp. Số lượng phần tử của tập hợp hợp được kí hiệu là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image123.png\" width=\"66\"/>. Mệnh đề đúng. <br> <b>c)</b> Số học sinh tham gia ít nhất một câu lạc bộ được tính theo công thức <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image124.png\" width=\"356\"/>. Do <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image125.png\" width=\"52\"/>, mệnh đề sai. <br> <b>d)</b> Số học sinh không tham gia câu lạc bộ nào bằng tổng số học sinh cả lớp trừ đi số học sinh tham gia ít nhất một câu lạc bộ: <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image126.png\" width=\"82\"/>. Mệnh đề đúng."
         },
         {
             "id": 4,
-            "content": "Để tính khoảng cách giữa hai vị trí <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/> và <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image122.png\" width=\"16\"/> ở hai bên bờ một hồ nước, một người quan sát chọn một vị trí <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image128.png\" width=\"16\"/> trên bờ sao cho có thể đo trực tiếp khoảng cách từ <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image128.png\" width=\"16\"/> đến <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/> và từ <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image128.png\" width=\"16\"/> đến <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image122.png\" width=\"16\"/>. Bằng các dụng cụ đo đạc, người đó ghi nhận được các số liệu: <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image129.png\" width=\"74\"/>, <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image130.png\" width=\"74\"/> và <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image131.png\" width=\"74\"/>.",
+            "content": "Để tính khoảng cách giữa hai vị trí <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image120.png\" width=\"16\"/> và <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/> ở hai bên bờ một hồ nước, một người quan sát chọn một vị trí <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image127.png\" width=\"16\"/> trên bờ sao cho có thể đo trực tiếp khoảng cách từ <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image127.png\" width=\"16\"/> đến <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image120.png\" width=\"16\"/> và từ <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image127.png\" width=\"16\"/> đến <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/>. Bằng các dụng cụ đo đạc, người đó ghi nhận được các số liệu: <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image128.png\" width=\"74\"/>, <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image129.png\" width=\"74\"/> và <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image130.png\" width=\"74\"/>.",
             "items": [
                 {
                     "key": "a",
-                    "text": "Theo định lí côsin trong tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"38\"/>, khoảng cách <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image133.png\" width=\"26\"/> thỏa mãn hệ thức <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image134.png\" width=\"238\"/>."
+                    "text": "Theo định lí côsin trong tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image131.png\" width=\"38\"/>, khoảng cách <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"26\"/> thỏa mãn hệ thức <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image133.png\" width=\"238\"/>."
                 },
                 {
                     "key": "b",
-                    "text": "Diện tích của phần mặt hồ hình tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"38\"/> được tính bằng hệ thức <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image135.png\" width=\"136\"/>."
+                    "text": "Diện tích của phần mặt hồ hình tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image131.png\" width=\"38\"/> được tính bằng hệ thức <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image134.png\" width=\"136\"/>."
                 },
                 {
                     "key": "c",
-                    "text": "Diện tích của phần mặt hồ hình tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"38\"/> là <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image136.png\" width=\"78\"/>."
+                    "text": "Diện tích của phần mặt hồ hình tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image131.png\" width=\"38\"/> là <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image135.png\" width=\"78\"/>."
                 },
                 {
                     "key": "d",
-                    "text": "Khoảng cách giữa hai vị trí <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image137.png\" width=\"10\"/> và <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image138.png\" width=\"11\"/> qua hồ nước là <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image139.png\" width=\"34\"/>."
+                    "text": "Khoảng cách giữa hai vị trí <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image136.png\" width=\"10\"/> và <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image137.png\" width=\"11\"/> qua hồ nước là <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image138.png\" width=\"34\"/>."
                 }
             ],
-            "solution": "<b>a)</b> Hệ thức chuẩn xác của định lí côsin trong tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"38\"/> biểu diễn bình phương một cạnh bằng tổng bình phương hai cạnh kia trừ đi hai lần tích của chúng với côsin góc xen giữa: <br> <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image134.png\" width=\"238\"/>. Mệnh đề đúng. <br> <b>b)</b> Diện tích tam giác được tính bằng nửa tích hai cạnh nhân với sin của góc xen giữa hai cạnh đó: <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image140.png\" width=\"136\"/>. Mệnh đề đúng.  <b>c)</b> Thay số vào công thức tính diện tích: <br> <img class=\"math-img-inline\" height=\"46\" src=\"k10_de03/temp_exam_files/image141.png\" width=\"304\"/>. <br> Do  <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image142.png\" width=\"122\"/>, mệnh đề sai. <br> <b>d)</b> Thay số vào hệ thức định lí côsin: <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image143.png\" width=\"530\"/>. Khai căn bậc hai số học, ta thu được <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image144.png\" width=\"76\"/>. Mệnh đề đúng."
-        },
-        {
-            "id": 1,
-            "content": "a) S  b) Đ   c) S   d) Đ",
-            "items": [],
-            "solution": ""
-        },
-        {
-            "id": 2,
-            "content": "a) Đ   b) S   c) S   d) S",
-            "items": [],
-            "solution": ""
-        },
-        {
-            "id": 3,
-            "content": "a) Đ   b) Đ   c) S   d) Đ",
-            "items": [],
-            "solution": ""
-        },
-        {
-            "id": 4,
-            "content": "a) Đ   b) Đ   c) S   d) Đ",
-            "items": [],
-            "solution": ""
+            "solution": "<b>a)</b> Hệ thức chuẩn xác của định lí côsin trong tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image131.png\" width=\"38\"/> biểu diễn bình phương một cạnh bằng tổng bình phương hai cạnh kia trừ đi hai lần tích của chúng với côsin góc xen giữa: <br> <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image139.png\" width=\"238\"/>. Mệnh đề đúng. <br> <b>b)</b> Diện tích tam giác được tính bằng nửa tích hai cạnh nhân với sin của góc xen giữa hai cạnh đó: <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image140.png\" width=\"136\"/>. Mệnh đề đúng.  <b>c)</b> Thay số vào công thức tính diện tích: <br> <img class=\"math-img-inline\" height=\"46\" src=\"k10_de03/temp_exam_files/image141.png\" width=\"304\"/>. <br> Do  <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image142.png\" width=\"122\"/>, mệnh đề sai. <br> <b>d)</b> Thay số vào hệ thức định lí côsin: <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image143.png\" width=\"530\"/>. Khai căn bậc hai số học, ta thu được <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image144.png\" width=\"76\"/>. Mệnh đề đúng."
         }
     ],
     "part3": [
@@ -279,50 +255,28 @@ window.EXAM_DATA = {
         {
             "id": 5,
             "content": "Lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image169.png\" width=\"36\"/> có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image170.png\" width=\"22\"/> học sinh, trong đó có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image171.png\" width=\"20\"/> học sinh tham gia câu lạc bộ thể thao, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image172.png\" width=\"20\"/> học sinh tham gia câu lạc bộ âm nhạc, trong đó có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image173.png\" width=\"12\"/> học sinh tham gia cả hai câu lạc bộ thể thao và âm nhạc. Hỏi có bao nhiêu học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image174.png\" width=\"36\"/> không tham gia cả hai câu lạc bộ thể thao và âm nhạc?",
-            "solution": "Số học sinh chỉ tham gia câu lạc bộ thể thao là: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image175.png\" width=\"72\"/> <br> Số học sinh chỉ tham gia câu lạc bộ âm nhạc là: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image176.png\" width=\"70\"/> <br> Gọi <img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image177.png\" width=\"14\"/> là số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image169.png\" width=\"36\"/> không tham gia cả hai câu lạc bộ thể thao và âm nhạc. <br> Tổng số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image178.png\" width=\"36\"/> bằng <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image170.png\" width=\"22\"/>, ta có phương tŕnh: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image179.png\" width=\"122\"/> <br> Lời giải t́m được <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image180.png\" width=\"44\"/>, kết luận số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image178.png\" width=\"36\"/> không tham gia cả hai câu lạc bộ thể thao và âm nhạc là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image181.png\" width=\"19\"/> học sinh."
+            "solution": "Số học sinh chỉ tham gia câu lạc bộ thể thao là: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image175.png\" width=\"72\"/> <br> Số học sinh chỉ tham gia câu lạc bộ âm nhạc là: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image176.png\" width=\"70\"/> <br> Gọi <img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image177.png\" width=\"14\"/> là số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image178.png\" width=\"36\"/> không tham gia cả hai câu lạc bộ thể thao và âm nhạc. <br> Tổng số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image178.png\" width=\"36\"/> bằng <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image170.png\" width=\"22\"/>, ta có phương tŕnh: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image179.png\" width=\"122\"/> <br> Lời giải t́m được <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image180.png\" width=\"44\"/>, kết luận số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image178.png\" width=\"36\"/> không tham gia cả hai câu lạc bộ thể thao và âm nhạc là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image181.png\" width=\"19\"/> học sinh."
         },
         {
             "id": 6,
             "content": "Một cột tháp truyền thông được xây dựng trên nóc của một ṭa nhà như hình vẽ. Hăy tính chiều cao của cột tháp (<i>Làm tṛn đến hàng phần mười</i>). <img alt=\"https://img.loigiaihay.com/picture/2022/1130/6_5.png\" class=\"is-diagram\" height=\"182\" id=\"Picture 916857072\" src=\"k10_de03/temp_exam_files/image182.jpg\" width=\"368\"/>",
             "solution": "Tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image183.png\" width=\"37\"/> có: <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image184.png\" width=\"220\"/> <br> Áp dụng định lí sin cho tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image183.png\" width=\"37\"/>: <br> <img class=\"math-img-inline\" height=\"47\" src=\"k10_de03/temp_exam_files/image185.png\" width=\"530\"/> <br> Tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image186.png\" width=\"39\"/> có: <br> <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image187.png\" width=\"266\"/>; <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image188.png\" width=\"190\"/> <br> Áp dụng định lí sin cho tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image189.png\" width=\"39\"/>: <br> <img class=\"math-img-inline\" height=\"47\" src=\"k10_de03/temp_exam_files/image190.png\" width=\"538\"/> <br> Chiều cao của cột tháp truyền thông là: <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image191.png\" width=\"234\"/> <br> ----HẾT-----"
-        },
-        {
-            "id": 1,
-            "content": "40",
-            "solution": ""
-        },
-        {
-            "id": 2,
-            "content": "5,25",
-            "solution": ""
-        },
-        {
-            "id": 3,
-            "content": "6",
-            "solution": ""
-        },
-        {
-            "id": 4,
-            "content": "17,5",
-            "solution": ""
-        },
-        {
-            "id": 5,
-            "content": "10",
-            "solution": ""
-        },
-        {
-            "id": 6,
-            "content": "77,5",
-            "solution": ""
         }
     ],
     "answerKey": {
         "p1": {
-            "1": "A",
+            "1": "C",
             "2": "A",
-            "3": "A",
-            "4": "A"
+            "3": "C",
+            "4": "C",
+            "5": "A",
+            "6": "B",
+            "7": "D",
+            "8": "A",
+            "9": "C",
+            "10": "D",
+            "11": "C",
+            "12": "B"
         },
         "p2": {
             "1": {
