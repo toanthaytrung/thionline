@@ -37,6 +37,7 @@
     "duration": 90,
     "unlockScore": 6.5,
     "totalQuestions": 22,
+    "max_attempts": 3,
     "hidden": true,
     "allowed_classes": [
       "10A",

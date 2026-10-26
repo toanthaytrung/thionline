@@ -1,305 +1,318 @@
 window.EXAM_DATA = {
-    "title": "ĐỀ THI TOÁN KHỐI 10 - SỐ 03",
-    "subtitle": "Chương trình GDPT 2018 - Thời gian: 90 phút",
-    "durationMinutes": 90,
-    "unlockSolutionScore": 6.5,
-    "part1": [
-        {
-            "id": 1,
-            "content": "Phủ định của mệnh đề <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image001.png\" width=\"28\"/> chia hết cho <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image002.png\" width=\"19\"/>là",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image002.png\" width=\"19\"/> chia hết cho <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image001.png\" width=\"28\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image001.png\" width=\"28\"/> chia hết cho <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image003.png\" width=\"19\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image001.png\" width=\"28\"/>không chia hết cho <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image002.png\" width=\"19\"/>. <b>                             </b>",
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image002.png\" width=\"19\"/> không chia hết cho<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image001.png\" width=\"28\"/>"
-            ],
-            "solution": "Mệnh đề phủ định của mệnh đề đã cho là <img class=\"math-img-inline\" height=\"30\" src=\"k10_de03/temp_exam_files/image004.png\" width=\"18\"/> không chia hết cho <img class=\"math-img-inline\" height=\"30\" src=\"k10_de03/temp_exam_files/image005.png\" width=\"9\"/>."
-        },
-        {
-            "id": 2,
-            "content": "Trong các phát biểu sau phát biểu nào là mệnh đề <b>sai</b>?",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image006.png\" width=\"14\"/></b>là số chẵn",
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image007.png\" width=\"22\"/></b>là số hữu tỉ",
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image008.png\" width=\"37\"/></b>chia hết cho <img class=\"math-img-inline\" height=\"30\" src=\"k10_de03/temp_exam_files/image009.png\" width=\"9\"/>",
-                "Phương tŕnh<img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image010.png\" width=\"105\"/>có  nghiệm phân biệt"
-            ],
-            "solution": "<img class=\"math-img-inline\" height=\"30\" src=\"k10_de03/temp_exam_files/image005.png\" width=\"9\"/> là số chẵn là khẳng định sai."
-        },
-        {
-            "id": 3,
-            "content": "Cho hai tập hợp <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image011.png\" width=\"107\"/> và <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image012.png\" width=\"133\"/>. Tập hợp <img class=\"math-img-inline\" height=\"30\" src=\"k10_de03/temp_exam_files/image013.png\" width=\"39\"/> là",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image014.png\" width=\"90\"/>.<b>             </b>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image015.png\" width=\"162\"/>. <b>                                </b>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image016.png\" width=\"37\"/></b>. <b>                         </b>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image017.png\" width=\"62\"/></b>"
-            ],
-            "solution": ""
-        },
-        {
-            "id": 4,
-            "content": "Cho hai tập hợp<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image018.png\" width=\"16\"/>và<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image019.png\" width=\"16\"/> như hình vẽ . Tập hợp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image020.png\" width=\"37\"/>là <b><img class=\"is-diagram\" height=\"134\" src=\"k10_de03/temp_exam_files/image021.png\" width=\"192\"/></b>",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image022.png\" width=\"86\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image023.png\" width=\"111\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image024.png\" width=\"87\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image025.png\" width=\"71\"/>"
-            ],
-            "solution": ""
-        },
-        {
-            "id": 5,
-            "content": "Miền nghiệm của bất phương tŕnh: <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image026.png\" width=\"70\"/> là nửa mặt phẳng tọa độ chứa điểm nào?",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image027.png\" width=\"46\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image028.png\" width=\"36\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image029.png\" width=\"39\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image030.png\" width=\"47\"/>"
-            ],
-            "solution": "Dễ thấy tại điểm <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image027.png\" width=\"46\"/> ta có: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image031.png\" width=\"78\"/>."
-        },
-        {
-            "id": 6,
-            "content": "Sắp đến rằm Trung thu, mẹ đưa Nam 15000 để mua hai loại bánh nướng và bánh dẻ Biết rằng một chiếc bánh nướng giá 8000 đồng và một chiếc bánh dẻo giá 6000 đồng. Hỏi Nam có thể mua nhiều nhất được bao nhiêu chiếc bánh nướng nếu Nam đã mua 10 chiếc bánh dẻo?",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image032.png\" width=\"12\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image033.png\" width=\"18\"/>",
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image034.png\" width=\"19\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image035.png\" width=\"19\"/>"
-            ],
-            "solution": "Bất phương tŕnh biểu diễn số bánh nướng và bánh dẻo có thể mua được phụ thuộc vào số tiền mang theo là: <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image036.png\" width=\"163\"/> <br> Bạn Nam có thể mua được tối đa số bánh nướng nếu bạn đã mua <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image034.png\" width=\"19\"/> chiếc bánh dẻo là:<img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image037.png\" width=\"256\"/> <br> V́  <img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image038.png\" width=\"14\"/> nguyên dương nên số bánh nướng nhiều nhất bạn Nam mua được là <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image033.png\" width=\"18\"/> chiếc."
-        },
-        {
-            "id": 7,
-            "content": "Trong các hệ bất phương tŕnh sau, hệ nào là hệ bất phương tŕnh bậc nhất hai ẩn",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"54\" src=\"k10_de03/temp_exam_files/image039.png\" width=\"121\"/>",
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k10_de03/temp_exam_files/image040.png\" width=\"107\"/>",
-                "<img class=\"math-img-inline\" height=\"48\" src=\"k10_de03/temp_exam_files/image041.png\" width=\"115\"/>",
-                "<img class=\"math-img-inline\" height=\"48\" src=\"k10_de03/temp_exam_files/image042.png\" width=\"107\"/>"
-            ],
-            "solution": "Xét phương án <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image018.png\" width=\"16\"/>. V́ <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image043.png\" width=\"110\"/>không là bất phương tŕnh bậc nhất hai ẩn nên hệ <img class=\"math-img-inline\" height=\"54\" src=\"k10_de03/temp_exam_files/image044.png\" width=\"118\"/> không là hệ bất phương tŕnh bậc nhất hai ẩn. Suy ra phương án <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image018.png\" width=\"16\"/> sai. <br> Xét phương án <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image019.png\" width=\"16\"/>. V́ <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image045.png\" width=\"90\"/>không là bất phương tŕnh bậc nhất hai ẩn nên hệ <img class=\"math-img-inline\" height=\"50\" src=\"k10_de03/temp_exam_files/image040.png\" width=\"107\"/> không là hệ bất phương tŕnh bậc nhất hai ẩn. Suy ra phương án <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image019.png\" width=\"16\"/> sai. <br> Xét phương án <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image046.png\" width=\"16\"/>. V́ <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image047.png\" width=\"104\"/>không là bất phương tŕnh bậc nhất hai ẩn nên hệ <img class=\"math-img-inline\" height=\"48\" src=\"k10_de03/temp_exam_files/image048.png\" width=\"112\"/> không là hệ bất phương tŕnh bậc nhất hai ẩn. Suy ra phương án <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image046.png\" width=\"16\"/> sai. <br> Xét phương án <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image049.png\" width=\"18\"/>. Hệ <img class=\"math-img-inline\" height=\"48\" src=\"k10_de03/temp_exam_files/image042.png\" width=\"107\"/> là hệ bất phương tŕnh bậc nhất hai ẩn. Suy ra phương án <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image049.png\" width=\"18\"/> đúng."
-        },
-        {
-            "id": 8,
-            "content": "Giá trị của <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image050.png\" width=\"57\"/> bằng ?",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"46\" src=\"k10_de03/temp_exam_files/image051.png\" width=\"39\"/>",
-                "<img class=\"math-img-inline\" height=\"46\" src=\"k10_de03/temp_exam_files/image052.png\" width=\"28\"/>",
-                "<img class=\"math-img-inline\" height=\"46\" src=\"k10_de03/temp_exam_files/image053.png\" width=\"37\"/>",
-                "<img class=\"math-img-inline\" height=\"46\" src=\"k10_de03/temp_exam_files/image054.png\" width=\"26\"/>"
-            ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"46\" src=\"k10_de03/temp_exam_files/image055.png\" width=\"107\"/>."
-        },
-        {
-            "id": 9,
-            "content": "Cho góc <img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image056.png\" width=\"16\"/>tùy ư <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image057.png\" width=\"102\"/>. Trong các đẳng thức sau, đẳng thức nào đúng?",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image058.png\" width=\"150\"/>",
-                "<img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image059.png\" width=\"143\"/>",
-                "<img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image060.png\" width=\"138\"/>",
-                "<img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image061.png\" width=\"142\"/>"
-            ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"29\" src=\"k10_de03/temp_exam_files/image062.png\" width=\"138\"/> là đẳng thức đúng."
-        },
-        {
-            "id": 10,
-            "content": "Trong các đẳng thức  sau,  đẳng thức nào đúng?",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image063.png\" width=\"156\"/>.<b>            </b>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image064.png\" width=\"156\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image065.png\" width=\"170\"/>.<b>         </b>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image066.png\" width=\"170\"/>"
-            ],
-            "solution": ""
-        },
-        {
-            "id": 11,
-            "content": "Cho <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image067.png\" width=\"46\"/> có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image068.png\" width=\"37\"/>, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image069.png\" width=\"36\"/>, <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image070.png\" width=\"60\"/>. Diện tích tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image071.png\" width=\"37\"/>bằng",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image072.png\" width=\"46\"/>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image073.png\" width=\"64\"/>.<b>                                   </b>",
-                "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image074.png\" width=\"37\"/>.<b>  </b>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image075.png\" width=\"57\"/>"
-            ],
-            "solution": "Diện tích tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image071.png\" width=\"37\"/>là <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image076.png\" width=\"92\"/><img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image077.png\" width=\"104\"/><img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image078.png\" width=\"26\"/>."
-        },
-        {
-            "id": 12,
-            "content": "Cho tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image071.png\" width=\"37\"/>có <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image079.png\" width=\"162\"/> Độ dài của cạnh <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image080.png\" width=\"26\"/> có giá trị gần nhất với giá trị nào dưới đây?",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"20\" src=\"k10_de03/temp_exam_files/image081.png\" width=\"25\"/>",
-                "<img class=\"math-img-inline\" height=\"20\" src=\"k10_de03/temp_exam_files/image082.png\" width=\"25\"/>",
-                "<img class=\"math-img-inline\" height=\"20\" src=\"k10_de03/temp_exam_files/image083.png\" width=\"26\"/>",
-                "<img class=\"math-img-inline\" height=\"20\" src=\"k10_de03/temp_exam_files/image084.png\" width=\"25\"/>"
-            ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"34\" src=\"k10_de03/temp_exam_files/image085.png\" width=\"160\"/> <br> Áp dụng định lí <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image086.png\" width=\"24\"/>ta có <img class=\"math-img-inline\" height=\"44\" src=\"k10_de03/temp_exam_files/image087.png\" width=\"324\"/>"
-        }
-    ],
-    "part2": [
-        {
-            "id": 1,
-            "content": "Xét mệnh đề P: ‶Mọi số thực đều có bình phương của nó cộng với 1 bằng 0². Xét tính đúng sai của các khẳng định sau:",
-            "items": [
-                {
-                    "key": "a",
-                    "text": "Mệnh đề <i>P</i> đúng."
-                },
-                {
-                    "key": "b",
-                    "text": "Mệnh đề <i>P</i> được viết lại như sau <i>P</i>:<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image088.png\" width=\"115\"/>."
-                },
-                {
-                    "key": "c",
-                    "text": "Phủ định của mệnh đề <i>P</i> là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image089.png\" width=\"132\"/>."
-                },
-                {
-                    "key": "d",
-                    "text": "Mệnh đề <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image090.png\" width=\"17\"/> là một mệnh đề đúng."
-                }
-            ],
-            "solution": "a) <b>Sai.</b> V́ mọi số thực đều có bình phương không âm, nên <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image091.png\" width=\"115\"/>. <br> b) <b>Đúng</b> <br> c) <b>Sai.</b> V́ P:<img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image092.png\" width=\"115\"/> có mệnh đề phủ định là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image093.png\" width=\"132\"/> <br> d) <b>Đúng.</b> V́ với <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image094.png\" width=\"38\"/> thì <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image095.png\" width=\"150\"/>."
-        },
-        {
-            "id": 2,
-            "content": "Lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image096.png\" width=\"30\"/> có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image097.png\" width=\"19\"/> học sinh giỏi môn Toán, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image098.png\" width=\"19\"/> học sinh giỏi môn Lư và <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image099.png\" width=\"19\"/> học sinh giỏi môn Hóa. Biết rằng có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image100.png\" width=\"19\"/> học sinh giỏi cả hai môn Toán và Lư, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image101.png\" width=\"14\"/> học sinh giỏi cả hai môn  Lư và Hóa, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image102.png\" width=\"14\"/> học sinh giỏi cả hai môn Hóa và Toán, trong đó có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image103.png\" width=\"18\"/> học sinh giỏi đúng hai môn. Ngoài ra, lớp 10A còn có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image104.png\" width=\"19\"/> học sinh không giỏi môn nào trong ba môn nói trên. Gọi <img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image105.png\" width=\"14\"/> là số học sinh giỏi cả ba môn Toán, Lư, Hóa. Các mệnh đề sau đây đúng hay sai?",
-            "items": [
-                {
-                    "key": "a",
-                    "text": "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image106.png\" width=\"42\"/> là số học sinh chỉ giỏi đúng hai môn Toán và Lư."
-                },
-                {
-                    "key": "b",
-                    "text": "<img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image107.png\" width=\"42\"/> là số học sinh chỉ giỏi đúng hai môn Lư và Hóa."
-                },
-                {
-                    "key": "c",
-                    "text": "Số học sinh giỏi cả ba môn Toán, Lư, Hóa là 6."
-                },
-                {
-                    "key": "d",
-                    "text": "Số học sinh lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image108.png\" width=\"30\"/>là 40."
-                }
-            ],
-            "solution": "<b>a) Đúng. </b><img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image109.png\" width=\"14\"/> là số học sinh giỏi cả ba môn Toán, Lư, Hóa <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image110.png\" width=\"54\"/>. <br> Có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image100.png\" width=\"19\"/> học sinh giỏi Toán và Lư. <br> <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image111.png\" width=\"20\"/>Số học sinh chỉ giỏi đúng hai môn Toán và Lư là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image112.png\" width=\"42\"/>. <br> <b>b)Sai. </b>Có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image101.png\" width=\"14\"/> học sinh giỏi cả hai môn  Lư và Hóa. <br> <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image111.png\" width=\"20\"/>Số học sinh chỉ giỏi đúng hai môn  Lư và Hóa là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image113.png\" width=\"34\"/>. <br> <b>c)Sai. </b>Số học sinh chỉ giỏi đúng hai môn là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image114.png\" width=\"229\"/>. <br> Theo đề bài, có <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image103.png\" width=\"18\"/> học sinh giỏi đúng hai môn nên ta có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image115.png\" width=\"136\"/>. <br> <b>d) Đúng. </b> Số học sinh giỏi ít nhất một trong ba môn Toán, Lư, Hóa là <br> <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image116.png\" width=\"310\"/>. <br> Số học sinh lớp 10A là 25 + 15 = 40 (học sinh)."
-        },
-        {
-            "id": 3,
-            "content": "Lớp 10A có 40 học sinh. Để chuẩn bị cho các hoạt động ngoại khóa, giáo viên chủ nhiệm khảo sát nguyện vọng tham gia câu lạc bộ và thu được kết quả: có 20 học sinh đãng kư tham gia câu lạc bộ Toán học, 15 học sinh đãng kư tham gia câu lạc bộ Tiếng Anh, và 5 học sinh đãng kư tham gia cả hai câu lạc bộ này. Gọi <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image117.png\" width=\"16\"/> là tập hợp các học sinh đãng kư câu lạc bộ Toán học, <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image118.png\" width=\"16\"/> là tập hợp các học sinh đãng kư câu lạc bộ Tiếng Anh.",
-            "items": [
-                {
-                    "key": "a",
-                    "text": "Tập hợp các học sinh tham gia cả hai câu lạc bộ được kí hiệu là <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image119.png\" width=\"44\"/>."
-                },
-                {
-                    "key": "b",
-                    "text": "Số học sinh tham gia ít nhất một trong hai câu lạc bộ được kí hiệu là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image120.png\" width=\"66\"/>."
-                },
-                {
-                    "key": "c",
-                    "text": "Lớp 10A có chính xác 35 học sinh tham gia ít nhất một trong hai câu lạc bộ Toán học hoặc Tiếng Anh."
-                },
-                {
-                    "key": "d",
-                    "text": "Số học sinh của lớp 10A không tham gia câu lạc bộ nào trong hai câu lạc bộ trên là 10 học sinh."
-                }
-            ],
-            "solution": "<b>a)</b> Tập hợp chứa các phần tử thuộc cả <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/> và <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image122.png\" width=\"16\"/> là giao của hai tập hợp, kí hiệu theo chuẩn toán học là <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image123.png\" width=\"44\"/>. Mệnh đề đúng. <br> <b>b)</b> Tập hợp chứa các phần tử thuộc ít nhất một trong hai tập hợp là hợp của hai tập hợp. Số lượng phần tử của tập hợp hợp được kí hiệu là <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image124.png\" width=\"66\"/>. Mệnh đề đúng. <br> <b>c)</b> Số học sinh tham gia ít nhất một câu lạc bộ được tính theo công thức <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image125.png\" width=\"356\"/>. Do <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image126.png\" width=\"52\"/>, mệnh đề sai. <br> <b>d)</b> Số học sinh không tham gia câu lạc bộ nào bằng tổng số học sinh cả lớp trừ đi số học sinh tham gia ít nhất một câu lạc bộ: <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image127.png\" width=\"82\"/>. Mệnh đề đúng."
-        },
-        {
-            "id": 4,
-            "content": "Để tính khoảng cách giữa hai vị trí <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/> và <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image122.png\" width=\"16\"/> ở hai bên bờ một hồ nước, một người quan sát chọn một vị trí <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image128.png\" width=\"16\"/> trên bờ sao cho có thể đo trực tiếp khoảng cách từ <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image128.png\" width=\"16\"/> đến <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image121.png\" width=\"16\"/> và từ <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image128.png\" width=\"16\"/> đến <img class=\"math-img-inline\" height=\"16\" src=\"k10_de03/temp_exam_files/image122.png\" width=\"16\"/>. Bằng các dụng cụ đo đạc, người đó ghi nhận được các số liệu: <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image129.png\" width=\"74\"/>, <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image130.png\" width=\"74\"/> và <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image131.png\" width=\"74\"/>.",
-            "items": [
-                {
-                    "key": "a",
-                    "text": "Theo định lí côsin trong tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"38\"/>, khoảng cách <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image133.png\" width=\"26\"/> thỏa mãn hệ thức <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image134.png\" width=\"238\"/>."
-                },
-                {
-                    "key": "b",
-                    "text": "Diện tích của phần mặt hồ hình tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"38\"/> được tính bằng hệ thức <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image135.png\" width=\"136\"/>."
-                },
-                {
-                    "key": "c",
-                    "text": "Diện tích của phần mặt hồ hình tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"38\"/> là <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image136.png\" width=\"78\"/>."
-                },
-                {
-                    "key": "d",
-                    "text": "Khoảng cách giữa hai vị trí <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image137.png\" width=\"10\"/> và <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image138.png\" width=\"11\"/> qua hồ nước là <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image139.png\" width=\"34\"/>."
-                }
-            ],
-            "solution": "<b>a)</b> Hệ thức chuẩn xác của định lí côsin trong tam giác <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image132.png\" width=\"38\"/> biểu diễn bình phương một cạnh bằng tổng bình phương hai cạnh kia trừ đi hai lần tích của chúng với côsin góc xen giữa: <br> <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image140.png\" width=\"238\"/>. Mệnh đề đúng. <br> <b>b)</b> Diện tích tam giác được tính bằng nửa tích hai cạnh nhân với sin của góc xen giữa hai cạnh đó: <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image141.png\" width=\"136\"/>. Mệnh đề đúng.  <b>c)</b> Thay số vào công thức tính diện tích: <br> <img class=\"math-img-inline\" height=\"46\" src=\"k10_de03/temp_exam_files/image142.png\" width=\"304\"/>. <br> Do  <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image143.png\" width=\"122\"/>, mệnh đề sai. <br> <b>d)</b> Thay số vào hệ thức định lí côsin: <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image144.png\" width=\"530\"/>. Khai căn bậc hai số học, ta thu được <img class=\"math-img-inline\" height=\"18\" src=\"k10_de03/temp_exam_files/image145.png\" width=\"76\"/>. Mệnh đề đúng."
-        }
-    ],
-    "part3": [
-        {
-            "id": 1,
-            "content": "Mỗi học sinh của lớp 10A đều biết chơi đá cầu hoặc cầu lông, biết rằng có 25 em biết chơi đá cầu, 30 em biết chơi cầu lông, 15 em biết chơi cả hai môn. Hỏi sĩ số học sinh của lớp 10A<sub> </sub>là bao nhiêu?",
-            "solution": "<img alt=\"A screenshot of a computer AI-generated content may be incorrect.\" class=\"is-diagram\" height=\"123\" id=\"Picture 1\" src=\"k10_de03/temp_exam_files/image146.jpg\" width=\"183\"/> <br> Dựa vào biểu đồ Ven ta suy ra số học sinh chỉ biết đá cầu là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image147.png\" width=\"78\"/> <br> Số học sinh chỉ biết đánh cầu lông là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image148.png\" width=\"78\"/> <br> Do đó ta có sĩ số học sinh của lớp  10A<sub> </sub>là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image149.png\" width=\"108\"/>"
-        },
-        {
-            "id": 2,
-            "content": "Cho <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image150.png\" width=\"62\"/>. Tính giá trị biểu thức <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image151.png\" width=\"144\"/>",
-            "solution": "<b> Đáp số: </b><img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image152.png\" width=\"34\"/> <br> Ta có: <img class=\"math-img-inline\" height=\"42\" src=\"k10_de03/temp_exam_files/image153.png\" width=\"499\"/>"
-        },
-        {
-            "id": 3,
-            "content": "Bất phương tŕnh <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image154.png\" width=\"70\"/>có bao nhiêu nghiệm <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image155.png\" width=\"40\"/>thỏa mãn <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image156.png\" width=\"130\"/>?",
-            "solution": "<b>Đáp số: </b>6 <br> Trước hết, ta vẽ đường thẳng <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image157.png\" width=\"100\"/> <br> Ta thấy <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image158.png\" width=\"39\"/> là không nghiệm của bất phương tŕnh đã ch Vậy miền nghiệm cần t́m là nửa mặt phẳng bờ <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image159.png\" width=\"26\"/> không chứa điểm <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image160.png\" width=\"39\"/> <br> Vẽ các đường thẳng <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image161.png\" width=\"74\"/>. <br> Suy ra bất phương tŕnh có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image162.png\" width=\"14\"/>nghiệm. <br> <img class=\"is-diagram\" height=\"232\" id=\"Picture 41\" src=\"k10_de03/temp_exam_files/image163.png\" width=\"264\"/>"
-        },
-        {
-            "id": 4,
-            "content": "Một người đứng ở vị trí <i>A</i> trên tầng 2 của một ngôi nhà cao 4 m, đang quan sát 1 cái cây cách nhà 20 m và đo được <img class=\"math-img-inline\" height=\"24\" src=\"k10_de03/temp_exam_files/image164.png\" width=\"74\"/> (tham khảo hình vẽ sau). Tính chiều cao cái cây đó (<i>Làm tṛn đến hàng phần mười</i>). <img class=\"is-diagram\" height=\"114\" id=\"Picture 31977792\" src=\"k10_de03/temp_exam_files/image165.jpg\" width=\"198\"/>",
-            "solution": "<b>Đáp số: </b>17,5 <br> Vẽ AD vuông góc với BC. <br> Xét tam giác ABD có  ta có góc <img class=\"math-img-inline\" height=\"20\" src=\"k10_de03/temp_exam_files/image166.png\" width=\"70\"/> <br> Xét tam giác ACD Suy ra góc <img class=\"math-img-inline\" height=\"22\" src=\"k10_de03/temp_exam_files/image167.png\" width=\"74\"/><b> </b>và <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image168.png\" width=\"279\"/> <br> Vậy <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image169.png\" width=\"238\"/>"
-        },
-        {
-            "id": 5,
-            "content": "Lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image170.png\" width=\"36\"/> có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image171.png\" width=\"22\"/> học sinh, trong đó có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image172.png\" width=\"20\"/> học sinh tham gia câu lạc bộ thể thao, <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image173.png\" width=\"20\"/> học sinh tham gia câu lạc bộ âm nhạc, trong đó có <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image174.png\" width=\"12\"/> học sinh tham gia cả hai câu lạc bộ thể thao và âm nhạc. Hỏi có bao nhiêu học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image175.png\" width=\"36\"/> không tham gia cả hai câu lạc bộ thể thao và âm nhạc?",
-            "solution": "Số học sinh chỉ tham gia câu lạc bộ thể thao là: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image176.png\" width=\"72\"/> <br> Số học sinh chỉ tham gia câu lạc bộ âm nhạc là: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image177.png\" width=\"70\"/> <br> Gọi <img class=\"math-img-inline\" height=\"14\" src=\"k10_de03/temp_exam_files/image178.png\" width=\"14\"/> là số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image179.png\" width=\"36\"/> không tham gia cả hai câu lạc bộ thể thao và âm nhạc. <br> Tổng số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image179.png\" width=\"36\"/> bằng <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image171.png\" width=\"22\"/>, ta có phương tŕnh: <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image180.png\" width=\"122\"/> <br> Lời giải t́m được <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image181.png\" width=\"44\"/>, kết luận số học sinh của lớp <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image179.png\" width=\"36\"/> không tham gia cả hai câu lạc bộ thể thao và âm nhạc là <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image182.png\" width=\"19\"/> học sinh."
-        },
-        {
-            "id": 6,
-            "content": "Một cột tháp truyền thông được xây dựng trên nóc của một ṭa nhà như hình vẽ. Hăy tính chiều cao của cột tháp (<i>Làm tṛn đến hàng phần mười</i>). <img alt=\"https://img.loigiaihay.com/picture/2022/1130/6_5.png\" class=\"is-diagram\" height=\"182\" id=\"Picture 916857072\" src=\"k10_de03/temp_exam_files/image183.jpg\" width=\"368\"/>",
-            "solution": "Tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image184.png\" width=\"37\"/> có: <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image185.png\" width=\"220\"/> <br> Áp dụng định lí sin cho tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image184.png\" width=\"37\"/>: <br> <img class=\"math-img-inline\" height=\"47\" src=\"k10_de03/temp_exam_files/image186.png\" width=\"530\"/> <br> Tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image187.png\" width=\"39\"/> có: <br> <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image188.png\" width=\"266\"/>; <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image189.png\" width=\"190\"/> <br> Áp dụng định lí sin cho tam giác <img class=\"math-img-inline\" height=\"19\" src=\"k10_de03/temp_exam_files/image187.png\" width=\"39\"/>: <br> <img class=\"math-img-inline\" height=\"47\" src=\"k10_de03/temp_exam_files/image190.png\" width=\"538\"/> <br> Chiều cao của cột tháp truyền thông là: <img class=\"math-img-inline\" height=\"26\" src=\"k10_de03/temp_exam_files/image191.png\" width=\"234\"/> <br> ----HẾT-----"
-        }
-    ],
-    "answerKey": {
-        "p1": {
-            "1": "C",
-            "2": "A",
-            "3": "C",
-            "4": "C",
-            "5": "A",
-            "6": "B",
-            "7": "D",
-            "8": "A",
-            "9": "C",
-            "10": "D",
-            "11": "C",
-            "12": "B"
-        },
-        "p2": {
-            "1": {
-                "a": "S"
-            },
-            "2": {
-                "a": "Đ"
-            },
-            "3": {
-                "a": "Đ"
-            },
-            "4": {
-                "a": "Đ"
-            }
-        },
-        "p3": {
-            "1": "40",
-            "2": "5,25",
-            "3": "6",
-            "4": "17,5",
-            "5": "10",
-            "6": "77,5"
-        }
+ "part1": [
+  {
+   "id": 1,
+   "content": "Phủ định của mệnh đề \\(\"41\\) chia hết cho \\(5\"\\)là",
+   "solution": "Mệnh đề phủ định của mệnh đề đã cho là 41 không chia hết cho 5.",
+   "options": [
+    "\\(5\"\\) chia hết cho \\(\"41\\)",
+    "\\(\"41\\) chia hết cho \\(6\"\\)",
+    "\\(\"41\\)không chia hết cho \\(5\"\\)",
+    "\\(5\"\\) không chia hết cho\\(\"41\\)"
+   ]
+  },
+  {
+   "id": 2,
+   "content": "Trong các phát biểu sau phát biểu nào là mệnh đề <b>sai</b>?",
+   "solution": "5 là số chẵn là khẳng định sai.",
+   "options": [
+    "\\(5\\)là số chẵn",
+    "\\(29\\)là số hữu tỉ",
+    "\\(1024\\)chia hết cho 4",
+    "Phương trình\\(x^{2}-6x+8=0\\)có nghiệm phân biệt"
+   ]
+  },
+  {
+   "id": 3,
+   "content": "Cho hai tập hợp \\(A=\\left\\{ -6;-4;1;3 \\right\\}\\) và \\(B=\\left\\{ -8;-4;-3;0;2 \\right\\}\\). Tập hợp A∩B là",
+   "solution": "",
+   "options": [
+    "\\(\\left\\{ 0;-8;2;-3 \\right\\}\\)",
+    "\\(\\left\\{ 0;1;2;3;-8;-6;-4;-3 \\right\\}\\)",
+    "\\(\\left\\{ -4 \\right\\}\\)",
+    "\\(\\left\\{ 1;-6;3 \\right\\}\\)"
+   ]
+  },
+  {
+   "id": 4,
+   "content": "Cho hai tập hợp\\(A\\)và\\(B\\) như hình vẽ . Tập hợp \\(B\\backslash A\\)là<br><img class=\"fig\" src=\"k10_de03/img/image17.png\" alt=\"Hình vẽ\">",
+   "solution": "",
+   "options": [
+    "\\(B\\backslash A=\\left\\{ 0;6 \\right\\}\\)",
+    "\\(B\\backslash A=\\left\\{ 1;2;3;7 \\right\\}\\)",
+    "\\(B\\backslash A=\\left\\{ 8;9 \\right\\}\\)",
+    "\\(B\\backslash A=\\left\\{ 5 \\right\\}\\)"
+   ]
+  },
+  {
+   "id": 5,
+   "content": "Miền nghiệm của bất phương trình: \\(x+2y&lt;4\\) là nửa mặt phẳng tọa độ chứa điểm nào?",
+   "solution": "Dễ thấy tại điểm \\(\\left( -4;1 \\right)\\) ta có: \\(-4+2.1&lt;4\\).",
+   "options": [
+    "\\(\\left( -4;1 \\right)\\)",
+    "\\(\\left( 1;2 \\right)\\)",
+    "\\(\\left( 0;2 \\right)\\)",
+    "\\(\\left( -2;3 \\right)\\)"
+   ]
+  },
+  {
+   "id": 6,
+   "content": "Sắp đến rằm Trung thu, mẹ đưa Nam 15000 để mua hai loại bánh nướng và bánh dẻo. Biết rằng một chiếc bánh nướng giá 8000 đồng và một chiếc bánh dẻo giá 6000 đồng. Hỏi Nam có thể mua nhiều nhất được bao nhiêu chiếc bánh nướng nếu Nam đã mua 10 chiếc bánh dẻo?",
+   "solution": "Bất phương trình biểu diễn số bánh nướng và bánh dẻo có thể mua được phụ thuộc vào số tiền mang theo là: \\(8000x+6000y\\le 150000\\)<br>Bạn Nam có thể mua được tối đa số bánh nướng nếu bạn đã mua \\(10\\) chiếc bánh dẻo là:\\(8000x+6000.10\\le 150000\\Leftrightarrow x\\le 11,25\\)<br>Vì \\(x\\) nguyên dương nên số bánh nướng nhiều nhất bạn Nam mua được là \\(11\\) chiếc.",
+   "options": [
+    "\\(9\\)",
+    "\\(11\\)",
+    "\\(10\\)",
+    "\\(12\\)"
+   ]
+  },
+  {
+   "id": 7,
+   "content": "Trong các hệ bất phương trình sau, hệ nào là hệ bất phương trình bậc nhất hai ẩn",
+   "solution": "Xét phương án \\(A\\). Vì \\(2x-3\\sqrt{y}+2&gt;0\\)không là bất phương trình bậc nhất hai ẩn nên hệ \\(\\left\\{ \\begin{array}{l}x+y-2\\le 0\\\\ 2x-3\\sqrt{y}+2&gt;0\\end{array} \\right.\\) không là hệ bất phương trình bậc nhất hai ẩn. Suy ra phương án \\(A\\) sai.<br>Xét phương án \\(B\\). Vì \\(x^{2}+y-2\\le 0\\)không là bất phương trình bậc nhất hai ẩn nên hệ \\(\\left\\{ \\begin{array}{l}x^{2}+y-2\\le 0\\\\ 2x-3y+2&gt;0\\end{array} \\right.\\) không là hệ bất phương trình bậc nhất hai ẩn. Suy ra phương án \\(B\\) sai.<br>Xét phương án \\(C\\). Vì \\(2x-3xy+2&gt;0\\)không là bất phương trình bậc nhất hai ẩn nên hệ \\(\\left\\{ \\begin{array}{l}x+y-2\\le 0\\\\ 2x-3xy+2&gt;0\\end{array} \\right.\\) không là hệ bất phương trình bậc nhất hai ẩn. Suy ra phương án \\(C\\) sai.<br>Xét phương án \\(D\\). Hệ \\(\\left\\{ \\begin{array}{l}x+y-2\\le 0\\\\ 2x-3y+2&gt;0\\end{array} \\right.\\) là hệ bất phương trình bậc nhất hai ẩn. Suy ra phương án \\(D\\) đúng.",
+   "options": [
+    "\\(\\left\\{ \\begin{array}{l}x+y-2\\le 0\\\\ 2x-3\\sqrt{y}+2&gt;0\\end{array} \\right.\\)",
+    "\\(\\left\\{ \\begin{array}{l}x^{2}+y-2\\le 0\\\\ 2x-3y+2&gt;0\\end{array} \\right.\\)",
+    "\\(\\left\\{ \\begin{array}{l}x+y-2\\le 0\\\\ 2x-3xy+2&gt;0\\end{array} \\right.\\)",
+    "\\(\\left\\{ \\begin{array}{l}x+y-2\\le 0\\\\ 2x-3y+2&gt;0\\end{array} \\right.\\)"
+   ]
+  },
+  {
+   "id": 8,
+   "content": "Giá trị của \\(\\cos 135^{\\circ}\\) bằng ?",
+   "solution": "Ta có \\(\\cos 135^{\\circ}=-\\dfrac{\\sqrt{2}}{2}\\).",
+   "options": [
+    "\\(-\\dfrac{\\sqrt{2}}{2}\\)",
+    "\\(\\dfrac{\\sqrt{2}}{2}\\)",
+    "\\(-\\dfrac{\\sqrt{3}}{2}\\)",
+    "\\(\\dfrac{\\sqrt{3}}{2}\\)"
+   ]
+  },
+  {
+   "id": 9,
+   "content": "Cho góc \\(\\alpha\\)tùy ý \\(\\left( 0^{\\circ}\\le \\alpha \\le 180^{\\circ} \\right)\\). Trong các đẳng thức sau, đẳng thức nào đúng?",
+   "solution": "Ta có \\(\\sin \\left( 180^{^{\\circ}}-\\alpha \\right)=\\sin \\alpha\\) là đẳng thức đúng.",
+   "options": [
+    "\\(\\sin \\left( 180^{^{\\circ}}-\\alpha \\right)=-\\sin \\alpha\\)",
+    "\\(\\cos \\left( 180^{^{\\circ}}-\\alpha \\right)=\\cos \\alpha\\)",
+    "\\(\\sin \\left( 180^{^{\\circ}}-\\alpha \\right)=\\sin \\alpha\\)",
+    "\\(\\cos \\left( 180^{^{\\circ}}-\\alpha \\right)=\\cot \\alpha\\)"
+   ]
+  },
+  {
+   "id": 10,
+   "content": "Trong các đẳng thức sau, đẳng thức nào đúng?",
+   "solution": "",
+   "options": [
+    "\\(a^{2}=b^{2}+c^{2}+2bc\\cos A\\)",
+    "\\(a^{2}=b^{2}+c^{2}-2bc\\cos B\\)",
+    "\\(a^{2}=b^{2}+c^{2}+2bc\\cos B\\)",
+    "\\(a^{2}=b^{2}+c^{2}-2bc\\cos A\\)"
+   ]
+  },
+  {
+   "id": 11,
+   "content": "Cho \\(\\Delta ABC\\) có \\(a=4\\), \\(c=5\\), \\(\\widehat{B}=150^{\\circ}\\). Diện tích tam giác \\(ABC\\)bằng",
+   "solution": "Diện tích tam giác \\(ABC\\)là \\(S=\\dfrac{1}{2}ac\\sin \\widehat{B}\\)\\(=\\dfrac{1}{2}.4.5\\sin 150^{\\circ}\\)\\(=5\\).",
+   "options": [
+    "\\(S=10\\)",
+    "\\(S=10\\sqrt{3}\\)",
+    "\\(S=5\\)",
+    "\\(S=5\\sqrt{3}\\)"
+   ]
+  },
+  {
+   "id": 12,
+   "content": "Cho tam giác \\(ABC\\)có \\(AB=5;\\widehat{A}=30^{^{\\circ}};\\widehat{B}=70^{^{\\circ}}.\\) Độ dài của cạnh \\(BC\\) có giá trị gần nhất với giá trị nào dưới đây?",
+   "solution": "Ta có \\(\\widehat{C}=180^{^{\\circ}}-\\left( \\widehat{A}+\\widehat{B} \\right)=80^{^{\\circ}}.\\)<br>Áp dụng định lí \\(\\sin\\)ta có \\(\\dfrac{BC}{\\sin A}=\\dfrac{AB}{\\sin C}\\Leftrightarrow BC=\\dfrac{AB\\sin A}{\\sin C}=\\dfrac{5.\\sin 30^{^{\\circ}}}{\\sin 80^{^{\\circ}}}\\approx 2,5.\\)",
+   "options": [
+    "\\(5,2\\)",
+    "\\(2,5\\)",
+    "\\(2,6\\)",
+    "\\(9,8\\)"
+   ]
+  }
+ ],
+ "part2": [
+  {
+   "id": 1,
+   "content": "Xét mệnh đề P: ‶Mọi số thực đều có bình phương của nó cộng với 1 bằng 0. Xét tính đúng sai của các khẳng định sau:",
+   "solution": "a) <b>Sai.</b> Vì mọi số thực đều có bình phương không âm, nên \\(\\forall x\\in \\mathbb{R},x^{2}+1&gt;0\\).<br>b) <b>Đúng</b><br>c) <b>Sai.</b> Vì P:\\(\\forall x\\in \\mathbb{R},x^{2}+1=0\\) có mệnh đề phủ định là \\(\\overline{P}:\\exists x\\in \\mathbb{R},x^{2}+1\\ne 0\\)<br>d) <b>Đúng.</b> Vì với \\(x=1\\) thì \\(x^{2}+1=1^{2}+1=2\\ne 0\\).",
+   "items": [
+    {
+     "key": "a",
+     "text": "Mệnh đề <i>P</i> đúng."
+    },
+    {
+     "key": "b",
+     "text": "Mệnh đề <i>P</i> được viết lại như sau <i>P</i>:\\(\\forall x\\in \\mathbb{R},x^{2}+1=0\\)."
+    },
+    {
+     "key": "c",
+     "text": "Phủ định của mệnh đề <i>P</i> là \\(\\overline{P}:\\exists x\\in \\mathbb{R},x^{2}+1&gt;0\\)."
+    },
+    {
+     "key": "d",
+     "text": "Mệnh đề \\(\\overline{P}\\) là một mệnh đề đúng.<br>"
     }
+   ]
+  },
+  {
+   "id": 2,
+   "content": "Lớp \\(10A\\) có \\(14\\) học sinh giỏi môn Toán, \\(18\\) học sinh giỏi môn Lý và \\(12\\) học sinh giỏi môn Hóa. Biết rằng có \\(10\\) học sinh giỏi cả hai môn Toán và Lý, \\(7\\) học sinh giỏi cả hai môn Lý và Hóa, \\(6\\) học sinh giỏi cả hai môn Hóa và Toán, trong đó có \\(11\\) học sinh giỏi đúng hai môn. Ngoài ra, lớp 10A còn có \\(15\\) học sinh không giỏi môn nào trong ba môn nói trên. Gọi \\(x\\) là số học sinh giỏi cả ba môn Toán, Lý, Hóa. Các mệnh đề sau đây đúng hay sai?",
+   "solution": "<b>a) Đúng. </b>\\(x\\) là số học sinh giỏi cả ba môn Toán, Lý, Hóa \\(\\left( x\\in \\mathbb{N} \\right)\\).<br>Có \\(10\\) học sinh giỏi Toán và Lý.<br>\\(\\Rightarrow\\)Số học sinh chỉ giỏi đúng hai môn Toán và Lý là \\(10-x\\).<br><b>b) Sai. </b>Có \\(7\\) học sinh giỏi cả hai môn Lý và Hóa.<br>\\(\\Rightarrow\\)Số học sinh chỉ giỏi đúng hai môn Lý và Hóa là \\(7-x\\).<br><b>c) Sai. </b>Số học sinh chỉ giỏi đúng hai môn là \\(\\left( 10- x \\right)+\\left( 7-x \\right)+\\left( 6-x \\right)=\\ 23-3x\\).<br>Theo đề bài, có \\(11\\) học sinh giỏi đúng hai môn nên ta có \\(23-3x=11\\Leftrightarrow x=4\\).<br><b>d) Đúng. </b> Số học sinh giỏi ít nhất một trong ba môn Toán, Lý, Hóa là<br>\\((14+18+12)-\\left( 10+7+6 \\right)+4=44-23+4=25\\).<br>Số học sinh lớp 10A là 25 + 15 = 40 (học sinh).",
+   "items": [
+    {
+     "key": "a",
+     "text": "\\(10-x\\) là số học sinh chỉ giỏi đúng hai môn Toán và Lý."
+    },
+    {
+     "key": "b",
+     "text": "\\(12-x\\) là số học sinh chỉ giỏi đúng hai môn Lý và Hóa."
+    },
+    {
+     "key": "c",
+     "text": "Số học sinh giỏi cả ba môn Toán, Lý, Hóa là 6."
+    },
+    {
+     "key": "d",
+     "text": "Số học sinh lớp \\(10A\\)là 40."
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "content": "Lớp 10A có 40 học sinh. Để chuẩn bị cho các hoạt động ngoại khóa, giáo viên chủ nhiệm khảo sát nguyện vọng tham gia câu lạc bộ và thu được kết quả: có 20 học sinh đăng ký tham gia câu lạc bộ Toán học, 15 học sinh đăng ký tham gia câu lạc bộ Tiếng Anh, và 5 học sinh đăng ký tham gia cả hai câu lạc bộ này. Gọi \\(A\\) là tập hợp các học sinh đăng ký câu lạc bộ Toán học, \\(B\\) là tập hợp các học sinh đăng ký câu lạc bộ Tiếng Anh.",
+   "solution": "<b>a)</b> Tập hợp chứa các phần tử thuộc cả \\(A\\) và \\(B\\) là giao của hai tập hợp, kí hiệu theo chuẩn toán học là \\(A\\cap B\\). Mệnh đề đúng.<br><b>b)</b> Tập hợp chứa các phần tử thuộc ít nhất một trong hai tập hợp là hợp của hai tập hợp. Số lượng phần tử của tập hợp hợp được kí hiệu là \\(n\\left( A\\cup B \\right)\\). Mệnh đề đúng.<br><b>c)</b> Số học sinh tham gia ít nhất một câu lạc bộ được tính theo công thức \\(n\\left( A\\cup B \\right)=n\\left( A \\right)+n\\left( B \\right)-n\\left( A\\cap B \\right)=20+15-5=30\\). Do \\(30\\ne 35\\), mệnh đề sai.<br><b>d)</b> Số học sinh không tham gia câu lạc bộ nào bằng tổng số học sinh cả lớp trừ đi số học sinh tham gia ít nhất một câu lạc bộ: \\(40-30=10\\). Mệnh đề đúng.",
+   "items": [
+    {
+     "key": "a",
+     "text": "Tập hợp các học sinh tham gia cả hai câu lạc bộ được kí hiệu là \\(A\\cap B\\)."
+    },
+    {
+     "key": "b",
+     "text": "Số học sinh tham gia ít nhất một trong hai câu lạc bộ được kí hiệu là \\(n\\left( A\\cup B \\right)\\)."
+    },
+    {
+     "key": "c",
+     "text": "Lớp 10A có chính xác 35 học sinh tham gia ít nhất một trong hai câu lạc bộ Toán học hoặc Tiếng Anh."
+    },
+    {
+     "key": "d",
+     "text": "Số học sinh của lớp 10A không tham gia câu lạc bộ nào trong hai câu lạc bộ trên là 10 học sinh."
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "content": "Để tính khoảng cách giữa hai vị trí \\(A\\) và \\(B\\) ở hai bên bờ một hồ nước, một người quan sát chọn một vị trí \\(C\\) trên bờ sao cho có thể đo trực tiếp khoảng cách từ \\(C\\) đến \\(A\\) và từ \\(C\\) đến \\(B\\). Bằng các dụng cụ đo đạc, người đó ghi nhận được các số liệu: \\(CA=50\\ \\text{m}\\), \\(CB=80\\ \\text{m}\\) và \\(\\widehat{ACB}=60^{\\circ}\\).",
+   "solution": "<b>a)</b> Hệ thức chuẩn xác của định lí côsin trong tam giác \\(ABC\\) biểu diễn bình phương một cạnh bằng tổng bình phương hai cạnh kia trừ đi hai lần tích của chúng với côsin góc xen giữa:<br>\\(AB^{2}=CA^{2}+CB^{2}-2\\cdot CA\\cdot CB\\cdot \\text{cos}C\\). Mệnh đề đúng.<br><b>b)</b> Diện tích tam giác được tính bằng nửa tích hai cạnh nhân với sin của góc xen giữa hai cạnh đó: \\(S=\\dfrac{1}{2}\\cdot CA\\cdot CB\\cdot \\text{sin}C\\). Mệnh đề đúng.<br><b>c)</b> Thay số vào công thức tính diện tích:<br>\\(S=\\dfrac{1}{2}\\cdot 50\\cdot 80\\cdot \\text{sin}60^{\\circ}=2000\\cdot \\dfrac{\\sqrt{3}}{2}=1000\\sqrt{3}\\ \\text{m}^{2}\\).<br>Do \\(1000\\sqrt{3}\\ne 2000\\sqrt{3}\\), mệnh đề sai.<br><b>d)</b> Thay số vào hệ thức định lí côsin: \\(AB^{2}=50^{2}+80^{2}-2\\cdot 50\\cdot 80\\cdot \\text{cos}60^{\\circ}=2500+6400-8000\\cdot \\dfrac{1}{2}=8900-4000=4900\\). Khai căn bậc hai số học, ta thu được \\(AB=70\\ \\text{m}\\). Mệnh đề đúng.",
+   "items": [
+    {
+     "key": "a",
+     "text": "Theo định lí côsin trong tam giác \\(ABC\\), khoảng cách \\(AB\\) thỏa mãn hệ thức \\(AB^{2}=CA^{2}+CB^{2}-2\\cdot CA\\cdot CB\\cdot \\text{cos}C\\)."
+    },
+    {
+     "key": "b",
+     "text": "Diện tích của phần mặt hồ hình tam giác \\(ABC\\) được tính bằng hệ thức \\(S=\\dfrac{1}{2}\\cdot CA\\cdot CB\\cdot \\text{sin}C\\)."
+    },
+    {
+     "key": "c",
+     "text": "Diện tích của phần mặt hồ hình tam giác \\(ABC\\) là \\(2000\\sqrt{3}\\ \\text{m}^{2}\\)."
+    },
+    {
+     "key": "d",
+     "text": "Khoảng cách giữa hai vị trí A và B qua hồ nước là 70 m."
+    }
+   ]
+  }
+ ],
+ "part3": [
+  {
+   "id": 1,
+   "content": "Mỗi học sinh của lớp 10A đều biết chơi đá cầu hoặc cầu lông, biết rằng có 25 em biết chơi đá cầu, 30 em biết chơi cầu lông, 15 em biết chơi cả hai môn. Hỏi sĩ số học sinh của lớp 10A là bao nhiêu?",
+   "solution": "<img class=\"fig\" src=\"k10_de03/img/image159.png\" alt=\"Hình vẽ\"><br>Dựa vào biểu đồ Ven ta suy ra số học sinh chỉ biết đá cầu là \\(25-15=10\\)<br>Số học sinh chỉ biết đánh cầu lông là \\(30-15=15\\)<br>Do đó ta có sĩ số học sinh của lớp 10A là \\(10+15+15=40\\)"
+  },
+  {
+   "id": 2,
+   "content": "Cho \\(\\cos x=\\dfrac{1}{2}\\). Tính giá trị biểu thức \\(P=5\\sin ^{2}x+6\\cos ^{2}x.\\)",
+   "solution": "<b> Đáp số: </b>\\(5,25\\)<br>Ta có: \\(P=5\\sin ^{2}x+6\\cos ^{2}x=5\\left( 1-\\cos ^{2}x \\right)+6\\cos ^{2}x=5+\\cos ^{2}x=5+\\dfrac{1}{4}=\\dfrac{21}{4}=5,25\\)"
+  },
+  {
+   "id": 3,
+   "content": "Bất phương trình \\(x+2y\\ge 2\\)có bao nhiêu nghiệm \\(\\left( x;y \\right)\\)thỏa mãn \\(x,y\\in \\mathbb{N};x\\le 3;y\\le 2\\)?",
+   "solution": "<b>Đáp số: </b>6<br>Trước hết, ta vẽ đường thẳng \\(\\left( d \\right):x+2y=2\\)<br>Ta thấy \\(\\left( 0;0 \\right)\\) là không nghiệm của bất phương trình đã cho. Vậy miền nghiệm cần tìm là nửa mặt phẳng bờ \\(\\left( d \\right)\\) không chứa điểm \\(\\left( 0;0 \\right)\\)<br>Vẽ các đường thẳng \\(x=3;y=2\\).<br>Suy ra bất phương trình có \\(6\\)nghiệm.<br><img class=\"fig\" src=\"k10_de03/img/image175.png\" alt=\"Hình vẽ\">"
+  },
+  {
+   "id": 4,
+   "content": "Một người đứng ở vị trí <i>A</i> trên tầng 2 của một ngôi nhà cao 4 m, đang quan sát 1 cái cây cách nhà 20 m và đo được \\(\\widehat{BAC}=45^{0}\\) (tham khảo hình vẽ sau). Tính chiều cao cái cây đó (<i>Làm tròn đến hàng phần mười</i>).<br><img class=\"fig\" src=\"k10_de03/img/image177.png\" alt=\"Hình vẽ\">",
+   "solution": "<b>Đáp số: </b>17,5<br>Vẽ AD vuông góc với BC.<br>Xét tam giác ABD có ta có góc \\(BAD\\approx 11^{0}\\)<br>Xét tam giác ACD Suy ra góc \\(DAC\\approx 34^{0}\\) và \\(DC=AD.\\tan DAC=20.\\tan 34^{0}\\approx 13,5\\left( m \\right)\\)<br>Vậy \\(BC=BD+DC=4+13,5=17,5\\left( m \\right)\\)"
+  },
+  {
+   "id": 5,
+   "content": "Lớp \\(10B1\\) có \\(45\\) học sinh, trong đó có \\(23\\) học sinh tham gia câu lạc bộ thể thao, \\(17\\) học sinh tham gia câu lạc bộ âm nhạc, trong đó có \\(5\\) học sinh tham gia cả hai câu lạc bộ thể thao và âm nhạc. Hỏi có bao nhiêu học sinh của lớp \\(10B1\\) không tham gia cả hai câu lạc bộ thể thao và âm nhạc?",
+   "solution": "Số học sinh chỉ tham gia câu lạc bộ thể thao là: \\(23-5=18\\)<br>Số học sinh chỉ tham gia câu lạc bộ âm nhạc là: \\(17-5=12\\)<br>Gọi \\(x\\) là số học sinh của lớp \\(10B1\\) không tham gia cả hai câu lạc bộ thể thao và âm nhạc.<br>Tổng số học sinh của lớp \\(10B1\\) bằng \\(45\\), ta có phương trình: \\(5+18+12+x=45\\)<br>Lời giải tìm được \\(x=10\\), kết luận số học sinh của lớp \\(10B1\\) không tham gia cả hai câu lạc bộ thể thao và âm nhạc là \\(10\\) học sinh."
+  },
+  {
+   "id": 6,
+   "content": "Một cột tháp truyền thông được xây dựng trên nóc của một tòa nhà như hình vẽ. Hãy tính chiều cao của cột tháp (<i>Làm tròn đến hàng phần mười</i>).<br><img class=\"fig\" src=\"k10_de03/img/image198.png\" alt=\"Hình vẽ\">",
+   "solution": "Tam giác \\(BCD\\) có: \\(\\widehat{DBC}=180^{0}-90^{0}-23,6^{0}=66,4^{0}\\)<br>Áp dụng định lí sin cho tam giác \\(BCD\\):<br>\\(\\dfrac{CD}{\\sin \\widehat{DBC}}=\\dfrac{BC}{\\sin \\widehat{CDB}}\\Leftrightarrow \\dfrac{200}{\\sin 66,4^{0}}=\\dfrac{BC}{\\sin 23,6^{0}}\\Leftrightarrow BC=\\dfrac{200.\\sin 23,6^{0}}{\\sin 66,4^{0}}\\approx 87,378\\left( m \\right)\\)<br>Tam giác \\(ACD\\) có:<br>\\(\\widehat{DAC}=180^{0}-90^{0}-23,6^{0}-15,9^{0}=50,5^{0}\\); \\(\\widehat{ADC}=23,6^{0}+15,9^{0}=39,5^{0}\\)<br>Áp dụng định lí sin cho tam giác \\(ACD\\):<br>\\(\\dfrac{AC}{\\sin \\widehat{ADC}}=\\dfrac{CD}{\\sin \\widehat{DAC}}\\Leftrightarrow \\dfrac{AC}{\\sin 39,5^{0}}=\\dfrac{CD}{\\sin 50,5^{0}}\\Leftrightarrow AC=\\dfrac{200.\\sin 39,5^{0}}{\\sin 50,5^{0}}\\approx 164,867\\left( m \\right)\\)<br>Chiều cao của cột tháp truyền thông là: \\(AB=AC-BC=77,489\\approx 77,5\\left( m \\right)\\)"
+  }
+ ],
+ "answerKey": {
+  "p1": {
+   "1": "C",
+   "2": "A",
+   "3": "C",
+   "4": "C",
+   "5": "A",
+   "6": "B",
+   "7": "D",
+   "8": "A",
+   "9": "C",
+   "10": "D",
+   "11": "C",
+   "12": "B"
+  },
+  "p2": {
+   "1": {
+    "a": "S",
+    "b": "Đ",
+    "c": "S",
+    "d": "Đ"
+   },
+   "2": {
+    "a": "Đ",
+    "b": "S",
+    "c": "S",
+    "d": "Đ"
+   },
+   "3": {
+    "a": "Đ",
+    "b": "Đ",
+    "c": "S",
+    "d": "Đ"
+   },
+   "4": {
+    "a": "Đ",
+    "b": "Đ",
+    "c": "S",
+    "d": "Đ"
+   }
+  },
+  "p3": {
+   "1": "40",
+   "2": "5,25",
+   "3": "6",
+   "4": "17,5",
+   "5": "10",
+   "6": "77,5"
+  }
+ },
+ "title": "ĐỀ THI TOÁN KHỐI 10 - SỐ 3",
+ "subtitle": "Chương trình GDPT 2018 - Thời gian: 90 phút",
+ "durationMinutes": 90,
+ "unlockSolutionScore": 6.5,
+ "formatVersion": 2
 };
 var EXAM_DATA = window.EXAM_DATA;
