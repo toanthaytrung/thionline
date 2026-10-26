@@ -62,6 +62,16 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.06);
         }
 
+        /* Hình vẽ và bảng của đề nạp bằng app mới */
+        img.fig {
+            display: block; margin: 14px auto; max-height: 380px; max-width: 95%; width: auto;
+            border-radius: 8px; background: #fff;
+        }
+        table.tbl { border-collapse: collapse; margin: 10px auto; display: block; overflow-x: auto; max-width: 100%; }
+        table.tbl td { border: 1px solid #c7c7c7; padding: 6px 10px; }
+        .q-content, .sol-content, .opt-text, .p2-table td { overflow-x: auto; overflow-y: hidden; }
+        .katex { font-size: 1.08em; }
+
         #loginModal, #scoreModal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(4, 30, 73, 0.75); backdrop-filter: blur(5px);
@@ -346,16 +356,14 @@
 // ĐƯỜNG LINK WEB APP CHUẨN XÁC ĐÃ SỬA CHỮ "z"
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJkUtzD3BE3whKIOuQDHM48kyANvZaqZC_iM0nQnyGaEH3hZn_97YUcBhpx10y87R-/exec";
 
-const DEFAULT_ANSWER_KEY = {
-    "p1": { "1": "C", "2": "B", "3": "D", "4": "B", "5": "C", "6": "D", "7": "C", "8": "D", "9": "C", "10": "C", "11": "A", "12": "B" },
-    "p2": {
-        "1": { "a": "S", "b": "Đ", "c": "S", "d": "Đ" },
-        "2": { "a": "S", "b": "Đ", "c": "Đ", "d": "Đ" },
-        "3": { "a": "S", "b": "Đ", "c": "Đ", "d": "Đ" },
-        "4": { "a": "Đ", "b": "S", "c": "Đ", "d": "Đ" }
-    },
-    "p3": { "1": "100", "2": "111", "3": "11,5", "4": "2", "5": "135", "6": "101" }
-};
+// Không còn bộ đáp án dự phòng viết cứng: đề nào thiếu đáp án sẽ không cho thi (tránh chấm sai).
+const DEFAULT_ANSWER_KEY = { p1: {}, p2: {}, p3: {} };
+
+function examHasAnswerKey() {
+    const ex = getActiveExam();
+    const k = ex && ex.answerKey;
+    return !!(k && k.p1 && Object.keys(k.p1).length > 0);
+}
 
 let currentStudent = { phone: "", name: "", stuClass: "", attempt: 1, maxAttempts: 3, examCode: "" };
 let studentAnswers = { p1: {}, p2: {}, p3: {} };
@@ -487,8 +495,12 @@ function generateShuffledExam(seedStr) {
     return { shuffledExam: newExam, shuffledKey: newKey };
 }
 
+// Đề nạp bằng app mới (có formatVersion) đã sạch sẵn: không sửa gì thêm.
+// Các vá chính tả bên dưới chỉ còn dùng cho đề nạp bằng app cũ.
 function cleanTypo(str) {
     if (!str) return "";
+    const ex = getActiveExam();
+    if (ex && ex.formatVersion >= 2) return str;
     let res = str
         .replace(/&nbsp;/g, ' ')
         .replace(/\u00a0/g, ' ')
@@ -622,6 +634,17 @@ function checkStudentAuth() {
         return;
     }
 
+    if (!getActiveExam()) {
+        msg.style.color = "var(--danger-color)";
+        msg.innerText = "Không tải được đề thi. Em kiểm tra mạng rồi tải lại trang (F5).";
+        return;
+    }
+    if (!examHasAnswerKey()) {
+        msg.style.color = "var(--danger-color)";
+        msg.innerText = "Đề này chưa có đáp án nên chưa mở thi. Em báo lại cho Thầy nhé!";
+        return;
+    }
+
     if (manifestConfig) {
         const found = manifestConfig.find(e => e.id === examId || e.folder === examId);
         if (found) {
@@ -683,6 +706,8 @@ function checkStudentAuth() {
 
 function normalizeOptions(rawOpts) {
     if (!rawOpts || rawOpts.length === 0) return ["...", "...", "...", "..."];
+    const ex = getActiveExam();
+    if (ex && ex.formatVersion >= 2) return rawOpts; // app mới đã tách đúng 4 phương án
     let isMerged = false;
     rawOpts.forEach(o => {
         if (o.includes('B.') || o.includes('C.') || o.includes('D.') || o.includes('\nB') || o.includes('\nC')) {
@@ -822,7 +847,7 @@ function buildExamInterface() {
     container.innerHTML = html;
     buildNavGrid();
 
-    document.querySelectorAll('.q-content img, .sol-box img').forEach(img => {
+    document.querySelectorAll('.q-content img:not(.fig), .sol-box img:not(.fig)').forEach(img => {
         function checkImage() {
             if (img.naturalHeight >= 65 || img.naturalWidth >= 120) {
                 img.classList.add('is-diagram');
@@ -840,6 +865,8 @@ function buildExamInterface() {
         renderMathInElement(container, {
             delimiters: [
                 {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false},
                 {left: '$', right: '$', display: false}
             ],
             throwOnError: false
@@ -1234,6 +1261,8 @@ function showSolutionDetail() {
         renderMathInElement(document.getElementById('examContainer'), {
             delimiters: [
                 {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false},
                 {left: '$', right: '$', display: false}
             ],
             throwOnError: false
