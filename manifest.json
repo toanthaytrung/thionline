@@ -42,7 +42,9 @@
     "duration": 90,
     "unlockScore": 6.5,
     "totalQuestions": 22,
-    "hidden": false
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": []
   },
   {
     "id": "k11_de02",
