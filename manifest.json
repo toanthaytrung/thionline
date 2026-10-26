@@ -22,7 +22,12 @@
     "duration": 90,
     "unlockScore": 6.5,
     "totalQuestions": 22,
-    "hidden": false
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "10A",
+      "10B"
+    ]
   },
   {
     "id": "k10_de03",
