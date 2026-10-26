@@ -1,317 +1,318 @@
 window.EXAM_DATA = {
-    "title": "ĐỀ THI TOÁN KHỐI 11 - SỐ 02",
-    "subtitle": "Chương trình GDPT 2018 - Thời gian: 90 phút",
-    "durationMinutes": 90,
-    "unlockSolutionScore": 6.5,
-    "part1": [
-        {
-            "id": 1,
-            "content": "Tính độ dài của cung trên đường tṛn có bán kính <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image001.png\" width=\"88\"/> và số đo <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image002.png\" width=\"58\"/>",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image003.png\" width=\"70\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image004.png\" width=\"70\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image005.png\" width=\"78\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image006.png\" width=\"80\"/>"
-            ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image007.png\" width=\"54\"/><img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image008.png\" width=\"102\"/><img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image009.png\" width=\"92\"/>. Đáp án <b>C</b>"
-        },
-        {
-            "id": 2,
-            "content": "Trên đường tṛn lượng giác điểm gốc <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image010.png\" width=\"16\"/>, điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image011.png\" width=\"22\"/>thuộc đường tṛn sao cho cung lượng giác <img class=\"math-img-inline\" height=\"30\" src=\"k11_de02/temp_exam_files/image012.png\" width=\"34\"/> có số đo <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image013.png\" width=\"28\"/>. Gọi <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image014.png\" width=\"20\"/> là điểm đối xứng với <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image011.png\" width=\"22\"/> qua trục tung. Số đo của góc lượng giác <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image015.png\" width=\"72\"/> là",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k11_de02/temp_exam_files/image016.png\" width=\"130\"/>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k11_de02/temp_exam_files/image017.png\" width=\"138\"/>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k11_de02/temp_exam_files/image018.png\" width=\"130\"/>",
-                "<img class=\"math-img-inline\" height=\"24\" src=\"k11_de02/temp_exam_files/image019.png\" width=\"138\"/>"
-            ],
-            "solution": "<b><i><img class=\"is-diagram\" height=\"239\" id=\"Picture 1\" src=\"k11_de02/temp_exam_files/image020.png\" width=\"298\"/></i></b> <br> V́ số đo cung <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image021.png\" width=\"34\"/> bằng <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image013.png\" width=\"28\"/> nên <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image022.png\" width=\"88\"/>, <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image014.png\" width=\"20\"/> là điểm đối xứng với <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image011.png\" width=\"22\"/> qua trục <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image023.png\" width=\"26\"/> nên <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image024.png\" width=\"92\"/>. Do đó số đo cung <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image025.png\" width=\"30\"/> bằng <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image026.png\" width=\"36\"/> nên số đo góc lượng giác <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image015.png\" width=\"72\"/> có số đo là <img class=\"math-img-inline\" height=\"24\" src=\"k11_de02/temp_exam_files/image027.png\" width=\"140\"/>."
-        },
-        {
-            "id": 3,
-            "content": "Cho <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image028.png\" width=\"66\"/>, <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image029.png\" width=\"76\"/>. Tính <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image030.png\" width=\"40\"/>.",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"46\" src=\"k11_de02/temp_exam_files/image031.png\" width=\"92\"/>",
-                "<img class=\"math-img-inline\" height=\"46\" src=\"k11_de02/temp_exam_files/image032.png\" width=\"104\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image033.png\" width=\"90\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image034.png\" width=\"98\"/>"
-            ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image035.png\" width=\"130\"/><img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image036.png\" width=\"82\"/>, mà <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image029.png\" width=\"76\"/> nên <img class=\"math-img-inline\" height=\"48\" src=\"k11_de02/temp_exam_files/image037.png\" width=\"104\"/><img class=\"math-img-inline\" height=\"46\" src=\"k11_de02/temp_exam_files/image038.png\" width=\"124\"/>."
-        },
-        {
-            "id": 4,
-            "content": "Giải phương tŕnh: <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image039.png\" width=\"96\"/>.",
-            "options": [
-                "<img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image040.png\" width=\"160\"/>",
-                "<img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image041.png\" width=\"158\"/>",
-                "<img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image042.png\" width=\"146\"/>",
-                "<img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image043.png\" width=\"154\"/>"
-            ],
-            "solution": "<img class=\"is-diagram\" height=\"98\" src=\"k11_de02/temp_exam_files/image044.png\" width=\"622\"/>."
-        },
-        {
-            "id": 5,
-            "content": "Cho các hàm số 1)<img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image045.png\" width=\"64\"/>.  2)<img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image046.png\" width=\"114\"/>.  3)<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image047.png\" width=\"72\"/>. 4)<img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image048.png\" width=\"74\"/>.  5) <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image049.png\" width=\"116\"/>. Có bao nhiêu hàm số lẻ trong các hàm số trên?",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image050.png\" width=\"14\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image051.png\" width=\"14\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image052.png\" width=\"10\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image053.png\" width=\"12\"/>"
-            ],
-            "solution": "Trong các hàm số trên, các hàm số lẻ là: <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image054.png\" width=\"254\"/>."
-        },
-        {
-            "id": 6,
-            "content": "Biết <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image055.png\" width=\"78\"/>. Tính <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image056.png\" width=\"168\"/>.",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image057.png\" width=\"216\"/>",
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image058.png\" width=\"204\"/>",
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image059.png\" width=\"216\"/>",
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image060.png\" width=\"204\"/>"
-            ],
-            "solution": "Áp dụng công thức: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image061.png\" width=\"370\"/>."
-        },
-        {
-            "id": 7,
-            "content": "Cho <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image062.png\" width=\"66\"/>, khi đó giá trị của <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image063.png\" width=\"48\"/> bằng:",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image064.png\" width=\"16\"/>",
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image065.png\" width=\"16\"/>",
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image066.png\" width=\"28\"/>",
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image067.png\" width=\"28\"/>"
-            ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image068.png\" width=\"230\"/>."
-        },
-        {
-            "id": 8,
-            "content": "Cho biểu thức <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image069.png\" width=\"188\"/> Rút gọn biểu thức <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image070.png\" width=\"20\"/>",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image071.png\" width=\"158\"/>",
-                "<img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image072.png\" width=\"158\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image073.png\" width=\"76\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image074.png\" width=\"86\"/>"
-            ],
-            "solution": "Ta có <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image075.png\" width=\"198\"/> <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image076.png\" width=\"230\"/> <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image077.png\" width=\"166\"/> <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image078.png\" width=\"144\"/>."
-        },
-        {
-            "id": 9,
-            "content": "T́m tập xác định của hàm số <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image079.png\" width=\"134\"/>.",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image080.png\" width=\"194\"/>",
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image081.png\" width=\"186\"/>",
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image082.png\" width=\"184\"/>",
-                "<img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image083.png\" width=\"176\"/>"
-            ],
-            "solution": "Điều kiện: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image084.png\" width=\"426\"/>. <br> TXĐ: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image085.png\" width=\"194\"/>."
-        },
-        {
-            "id": 10,
-            "content": "Gọi <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image086.png\" width=\"42\"/> lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image087.png\" width=\"146\"/>. Tính tổng <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image088.png\" width=\"82\"/>.",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image089.png\" width=\"54\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image090.png\" width=\"46\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image091.png\" width=\"42\"/>",
-                "<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image092.png\" width=\"50\"/>"
-            ],
-            "solution": "Với <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image093.png\" width=\"54\"/> ta có <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image094.png\" width=\"142\"/>. <br> Suy ra <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image095.png\" width=\"178\"/> <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image096.png\" width=\"98\"/>. <br> Giá trị lớn nhất của hàm số là <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image097.png\" width=\"56\"/> khi <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image098.png\" width=\"276\"/>. <br> Giá trị nhỏ nhất của hàm số là <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image099.png\" width=\"44\"/> khi <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image100.png\" width=\"308\"/>."
-        },
-        {
-            "id": 11,
-            "content": "Tất cả các nghiệm của phương tŕnh <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image101.png\" width=\"124\"/> là",
-            "options": [
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image102.png\" width=\"150\"/>",
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image103.png\" width=\"140\"/>",
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image104.png\" width=\"146\"/>",
-                "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image105.png\" width=\"136\"/>"
-            ],
-            "solution": "Phương tŕnh <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image106.png\" width=\"124\"/><img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image107.png\" width=\"296\"/><img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image108.png\" width=\"162\"/>."
-        },
-        {
-            "id": 12,
-            "content": "Giải phương tŕnh: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image109.png\" width=\"126\"/>.",
-            "options": [
-                "<img class=\"is-diagram\" height=\"74\" src=\"k11_de02/temp_exam_files/image110.png\" width=\"162\"/>",
-                "<img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image111.png\" width=\"152\"/>",
-                "<img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image112.png\" width=\"160\"/>",
-                "<img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image113.png\" width=\"164\"/>"
-            ],
-            "solution": "<img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image114.png\" width=\"462\"/>."
-        }
-    ],
-    "part2": [
-        {
-            "id": 1,
-            "content": "Cho góc lượng giác <img class=\"math-img-inline\" height=\"14\" src=\"k11_de02/temp_exam_files/image115.png\" width=\"16\"/> thỏa mãn <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image116.png\" width=\"76\"/> và <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image117.png\" width=\"66\"/>.",
-            "items": [
-                {
-                    "key": "a",
-                    "text": "Điểm biểu diễn của góc lượng giác <img class=\"math-img-inline\" height=\"14\" src=\"k11_de02/temp_exam_files/image115.png\" width=\"16\"/> trên đường tṛn lượng giác thuộc góc phần tư thứ II."
-                },
-                {
-                    "key": "b",
-                    "text": "Giá trị của <img class=\"math-img-inline\" height=\"14\" src=\"k11_de02/temp_exam_files/image118.png\" width=\"40\"/> mang dấu dương."
-                },
-                {
-                    "key": "c",
-                    "text": "<img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image119.png\" width=\"80\"/> và <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image120.png\" width=\"80\"/>."
-                },
-                {
-                    "key": "d",
-                    "text": "Giá trị của biểu thức <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image121.png\" width=\"138\"/> bằng <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image122.png\" width=\"24\"/>."
-                }
-            ],
-            "solution": "a)  Khoảng <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image116.png\" width=\"76\"/> thuộc góc phần tư thứ II. <br> b)  Ở góc phần tư thứ II, hoành độ âm nên <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image123.png\" width=\"66\"/>. <br> c)  <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image124.png\" width=\"264\"/>. <br> <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image125.png\" width=\"194\"/>. <br> d) <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image126.png\" width=\"286\"/>. <br> <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image127.png\" width=\"262\"/>. <br> Tử số: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image128.png\" width=\"268\"/>. <br> Mẫu số: <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image129.png\" width=\"240\"/>. <br> Do đó: <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image130.png\" width=\"178\"/>."
-        },
-        {
-            "id": 2,
-            "content": "Cho hàm số <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image131.png\" width=\"156\"/>.",
-            "items": [
-                {
-                    "key": "a",
-                    "text": "Tập xác định của hàm số <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image132.png\" width=\"42\"/> là <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image133.png\" width=\"50\"/>."
-                },
-                {
-                    "key": "b",
-                    "text": "Hàm số <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image134.png\" width=\"42\"/> là hàm số chẵn."
-                },
-                {
-                    "key": "c",
-                    "text": "Ta có thể biến đổi thu gọn <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image135.png\" width=\"168\"/>."
-                },
-                {
-                    "key": "d",
-                    "text": "Giá trị lớn nhất của hàm số <img class=\"math-img-inline\" height=\"30\" src=\"k11_de02/temp_exam_files/image136.png\" width=\"220\"/> trên <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image137.png\" width=\"18\"/> bằng <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image138.png\" width=\"14\"/>."
-                }
-            ],
-            "solution": "a) Hàm số lượng giác tổng xác định với mọi <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image139.png\" width=\"44\"/>. Đúng <br> b) <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image140.png\" width=\"394\"/> và <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image141.png\" width=\"66\"/>, không phải hàm chẵn. Sai <br> c) <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image142.png\" width=\"490\"/>. Đúng <br> d)  Đặt <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image143.png\" width=\"68\"/>, v́ <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image144.png\" width=\"168\"/> nên <img class=\"math-img-inline\" height=\"34\" src=\"k11_de02/temp_exam_files/image145.png\" width=\"106\"/>. Đúng <br> Xét parabol <img class=\"math-img-inline\" height=\"30\" src=\"k11_de02/temp_exam_files/image146.png\" width=\"152\"/> trên đoạn <img class=\"math-img-inline\" height=\"34\" src=\"k11_de02/temp_exam_files/image147.png\" width=\"80\"/>. <br> Hoành độ đỉnh <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image148.png\" width=\"202\"/>. <br> Bề lơm quay lên, hàm số đạt giá trị lớn nhất tại mút xa đỉnh nhất là <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image149.png\" width=\"64\"/>: <br> <img class=\"math-img-inline\" height=\"34\" src=\"k11_de02/temp_exam_files/image150.png\" width=\"352\"/>."
-        },
-        {
-            "id": 3,
-            "content": "Xét phương tŕnh lượng giác: <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image151.png\" width=\"172\"/>.",
-            "items": [
-                {
-                    "key": "a",
-                    "text": "Đưa về phương tŕnh bậc hai theo <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image152.png\" width=\"34\"/>, phương tŕnh <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image153.png\" width=\"26\"/> tương đương với <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image154.png\" width=\"150\"/>."
-                },
-                {
-                    "key": "b",
-                    "text": "Phương tŕnh <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image155.png\" width=\"26\"/> tương đương với phương tŕnh <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image156.png\" width=\"168\"/>."
-                },
-                {
-                    "key": "c",
-                    "text": "Trong khoảng <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image157.png\" width=\"52\"/>, phương tŕnh <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image155.png\" width=\"26\"/> có đúng 3 nghiệm phân biệt."
-                },
-                {
-                    "key": "d",
-                    "text": "Tổng tất cả các nghiệm của phương tŕnh <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image155.png\" width=\"26\"/> thuộc đoạn <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image158.png\" width=\"50\"/> bằng <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image159.png\" width=\"24\"/>."
-                }
-            ],
-            "solution": "a)  <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image160.png\" width=\"130\"/>. Thay vào phương tŕnh: <br> <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image161.png\" width=\"526\"/>. <br> b)  Phương tŕnh bậc hai có <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image162.png\" width=\"162\"/>, phân tích thành <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image163.png\" width=\"168\"/> <br> c)  Phương tŕnh tương đương: <br> <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image164.png\" width=\"170\"/>. Trên <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image165.png\" width=\"52\"/> có đúng 1 nghiệm là <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image166.png\" width=\"46\"/>. <br> <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image167.png\" width=\"174\"/> hoặc <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image168.png\" width=\"100\"/>. Trên <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image157.png\" width=\"52\"/> có 2 nghiệm là <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image169.png\" width=\"46\"/> và <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image170.png\" width=\"54\"/>. <br> Tổng cộng có đúng 3 nghiệm phân biệt trên <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image157.png\" width=\"52\"/>. <br> d)  Xét trên đoạn <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image171.png\" width=\"50\"/>, các nghiệm là <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image172.png\" width=\"114\"/>. <br> Tổng các nghiệm bằng <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image173.png\" width=\"202\"/>"
-        },
-        {
-            "id": 4,
-            "content": "Một bánh xe của thiết bị tập thể dục có bán kính <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image174.png\" width=\"78\"/>. Người ta gắn một chiếc đèn cảm ứng phản quang nhỏ tại một điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image175.png\" width=\"22\"/> trên vành bánh xe. Ban đầu, khi bắt đầu bấm giờ quan sát (<img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image176.png\" width=\"70\"/>), điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image175.png\" width=\"22\"/> ở vị trí tiếp xúc với mặt sàn nằm ngang. Khi người tập vận hành thiết bị, bánh xe quay ngược chiều kim đồng hồ quanh trục cố định của nó với tốc độ không đổi là <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image177.png\" width=\"24\"/>ṿng một phút.",
-            "items": [
-                {
-                    "key": "a",
-                    "text": "Tốc độ góc của bánh xe là <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image178.png\" width=\"92\"/>."
-                },
-                {
-                    "key": "b",
-                    "text": "Sau <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image179.png\" width=\"10\"/> giây (<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image180.png\" width=\"36\"/>), góc mà bán kính nối trục quay đến điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image175.png\" width=\"22\"/> đã quét được một góc lượng giác có số đo là <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image181.png\" width=\"118\"/>."
-                },
-                {
-                    "key": "c",
-                    "text": "Độ cao <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image182.png\" width=\"34\"/> của điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image183.png\" width=\"22\"/> so với mặt đất tại thời điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image184.png\" width=\"10\"/> (giây) được xác định theo công thức <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image185.png\" width=\"204\"/>."
-                },
-                {
-                    "key": "d",
-                    "text": "Trong <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image186.png\" width=\"48\"/> đầu tiên kể từ lúc bắt đầu quan sát, có đúng 12 lần điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image175.png\" width=\"22\"/> đạt độ cao <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image187.png\" width=\"48\"/> so với mặt đất."
-                }
-            ],
-            "solution": "<b>a)</b>Tốc độ <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image188.png\" width=\"222\"/>. <br> Mỗi ṿng tương ứng <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image189.png\" width=\"54\"/>, do đó <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image190.png\" width=\"158\"/>. <br> <b>b)</b>Bánh xe quay đều nên góc quét <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image191.png\" width=\"154\"/>. <br> <b>c)</b>Chọn trục thẳng đứng hướng lên, gốc tại mặt sàn. Tâm trục bánh xe cách đất <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image192.png\" width=\"48\"/>. <br> Tại thời điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image179.png\" width=\"10\"/>, góc quay là <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image193.png\" width=\"30\"/>, vị trí ban đầu <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image194.png\" width=\"36\"/> ở điểm thấp nhất. Tung độ của điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image183.png\" width=\"22\"/> so với trục là <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image195.png\" width=\"196\"/>. <br> Độ cao so với mặt sàn: <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image185.png\" width=\"204\"/>. <br> <b>d)</b><img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image196.png\" width=\"438\"/>. <br> <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image197.png\" width=\"314\"/>. <br> Chu kỳ của chuyển động là <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image198.png\" width=\"162\"/>. <br> Trong <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image186.png\" width=\"48\"/> đầu tiên, bánh xe thực hiện đúng <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image199.png\" width=\"102\"/> quay trọn vẹn. <br> Trong mỗi ṿng quay, phương tŕnh <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image200.png\" width=\"108\"/> có đúng 2 nghiệm. <br> Vậy trong 6 ṿng quay có đúng <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image201.png\" width=\"64\"/> lần điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image183.png\" width=\"22\"/> đạt độ cao <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image202.png\" width=\"48\"/>."
-        }
-    ],
-    "part3": [
-        {
-            "id": 1,
-            "content": "T́m số nghiệm của phương tŕnh lượng giác <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image203.png\" width=\"134\"/> trên khoảng <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image204.png\" width=\"44\"/>.",
-            "solution": "Đáp án: 3 <br> <img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image205.png\" width=\"540\"/> <br> Xét trên khoảng <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image206.png\" width=\"44\"/>: <br> Nhánh <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image207.png\" width=\"94\"/>: với <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image208.png\" width=\"106\"/>; với <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image209.png\" width=\"112\"/> (thỏa mãn 2 nghiệm). <br> Nhánh <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image210.png\" width=\"64\"/>: với <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image211.png\" width=\"112\"/> (thỏa mãn 1 nghiệm). <br> Vậy phương tŕnh có tất cả 3 nghiệm trên khoảng <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image212.png\" width=\"44\"/>."
-        },
-        {
-            "id": 2,
-            "content": "Độ sâu <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image213.png\" width=\"14\"/> (tính bằng mét) của mực nước biển tại một vịnh biển ở thời điểm <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image179.png\" width=\"10\"/> giờ sau khi nửa đêm (<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image214.png\" width=\"70\"/>) được mô hình hóa bởi hàm số: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image215.png\" width=\"154\"/>. Hỏi trong một ngày (từ <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image194.png\" width=\"36\"/> đến <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image216.png\" width=\"46\"/>), có bao nhiêu thời điểm mà mực nước tại vịnh đạt độ sâu đúng <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image217.png\" width=\"52\"/>?",
-            "solution": "Đáp án: 4 <br> <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image218.png\" width=\"702\"/> <br> V́ <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image214.png\" width=\"70\"/>: <br> Nhánh <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image219.png\" width=\"78\"/>: với <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image220.png\" width=\"98\"/>; với <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image221.png\" width=\"102\"/> (2 giá trị). <br> Nhánh <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image222.png\" width=\"88\"/>: với <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image223.png\" width=\"102\"/>; với <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image224.png\" width=\"106\"/> (2 giá trị). <br> Tổng cộng có đúng 4 thời điểm trong ngày mực nước đạt <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image217.png\" width=\"52\"/>."
-        },
-        {
-            "id": 3,
-            "content": "T́m giá trị lớn nhất của hàm số <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image225.png\" width=\"154\"/>.",
-            "solution": "Đáp án: 7 <br> V́ <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image226.png\" width=\"152\"/> nên <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image227.png\" width=\"174\"/>. <br> Do đó giá trị lớn nhất của <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image228.png\" width=\"14\"/> là <img class=\"math-img-inline\" height=\"24\" src=\"k11_de02/temp_exam_files/image229.png\" width=\"110\"/> (đạt được khi <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image230.png\" width=\"128\"/>)."
-        },
-        {
-            "id": 4,
-            "content": "Phương tŕnh <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image231.png\" width=\"168\"/> có bao nhiêu nghiệm trên khoảng <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image232.png\" width=\"66\"/>",
-            "solution": "Đáp án: 3 <br> <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image233.png\" width=\"382\"/> <br> <img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image234.png\" width=\"492\"/> <br> Vậy tập nghiệm của phương tŕnh là: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image235.png\" width=\"186\"/>"
-        },
-        {
-            "id": 5,
-            "content": "Một ṿng quay Mặt Trời trong công viên giải trí có bán kính <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image236.png\" width=\"70\"/>, tâm của trục quay cách mặt đất <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image237.png\" width=\"40\"/>. Ṿng quay quay đều quanh trục theo chiều ngược chiều kim đồng hồ với tốc độ <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image238.png\" width=\"50\"/> hết <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image239.png\" width=\"58\"/>. Giả sử một hành khách bước vào cabin tại vị trí thấp nhất của ṿng quay (cách mặt đất <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image240.png\" width=\"30\"/>). Trong ṿng quay đầu tiên (<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image241.png\" width=\"70\"/>), ở những thời điểm nào thì cabin ở độ cao <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image242.png\" width=\"40\"/> so với mặt đất? (kết quả làm tṛn đến hàng phần chục).",
-            "solution": "Đáp án: 26,7 <br> Khi cabin ở độ cao <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image243.png\" width=\"40\"/>: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image244.png\" width=\"346\"/> <br> <img class=\"is-diagram\" height=\"94\" src=\"k11_de02/temp_exam_files/image245.png\" width=\"340\"/> <br> Trong ṿng quay đầu tiên (<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image246.png\" width=\"70\"/>): <br> Nhánh <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image247.png\" width=\"90\"/>: chọn <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image248.png\" width=\"156\"/>. <br> Nhánh <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image249.png\" width=\"102\"/>: chọn <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image250.png\" width=\"152\"/>. <br> Vậy sau <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image251.png\" width=\"62\"/> (khoảng <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image252.png\" width=\"46\"/>) và <img class=\"math-img-inline\" height=\"44\" src=\"k11_de02/temp_exam_files/image253.png\" width=\"60\"/> (khoảng <img class=\"math-img-inline\" height=\"22\" src=\"k11_de02/temp_exam_files/image254.png\" width=\"48\"/>) thì cabin ở độ cao <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image243.png\" width=\"40\"/>."
-        },
-        {
-            "id": 6,
-            "content": "Giả sử công suất tiêu thụ điện của một thành phố trong một ngày đêm (tính từ 0 giờ đến 24 giờ) được mô phỏng theo hàm số: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image255.png\" width=\"202\"/>trong đó <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image256.png\" width=\"38\"/> là công suất tiêu thụ (đơn vị: MW) và <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image179.png\" width=\"10\"/> là thời gian trong ngày (<img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image257.png\" width=\"70\"/>, tính bằng giờ). T́m thời điểm trong ngày mà công suất tiêu thụ điện của thành phố đạt mức cực đại.",
-            "solution": "Đáp án: 9 <br> Ta có <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image258.png\" width=\"150\"/> với mọi <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image179.png\" width=\"10\"/>. <br> Do đó, công suất tiêu thụ cực đại là: <br> <img class=\"math-img-inline\" height=\"26\" src=\"k11_de02/temp_exam_files/image259.png\" width=\"212\"/> <br> Đạt được khi: <img class=\"math-img-inline\" height=\"50\" src=\"k11_de02/temp_exam_files/image260.png\" width=\"554\"/> <br> V́ <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image261.png\" width=\"70\"/>, chọn <img class=\"math-img-inline\" height=\"20\" src=\"k11_de02/temp_exam_files/image262.png\" width=\"96\"/>. <br> Vậy vào lúc 9 giờ sáng, công suất tiêu thụ điện của thành phố đạt cực đại là <img class=\"math-img-inline\" height=\"18\" src=\"k11_de02/temp_exam_files/image263.png\" width=\"68\"/>."
-        }
-    ],
-    "answerKey": {
-        "p1": {
-            "1": "C",
-            "2": "B",
-            "3": "D",
-            "4": "C",
-            "5": "D",
-            "6": "A",
-            "7": "C",
-            "8": "A",
-            "9": "A",
-            "10": "A",
-            "11": "D",
-            "12": "B"
-        },
-        "p2": {
-            "1": {
-                "a": "Đ",
-                "b": "S",
-                "c": "Đ",
-                "d": "S"
-            },
-            "2": {
-                "a": "Đ",
-                "b": "S",
-                "c": "Đ",
-                "d": "Đ"
-            },
-            "3": {
-                "a": "Đ",
-                "b": "Đ",
-                "c": "Đ",
-                "d": "S"
-            },
-            "4": {
-                "a": "Đ",
-                "b": "Đ",
-                "c": "Đ",
-                "d": "Đ"
-            }
-        },
-        "p3": {
-            "1": "3",
-            "2": "4",
-            "3": "7",
-            "4": "3",
-            "5": "26,7",
-            "6": "9"
-        }
+ "part1": [
+  {
+   "id": 1,
+   "content": "Tính độ dài của cung trên đường tròn có bán kính \\(R=20\\left( cm \\right)\\) và số đo \\(\\alpha =\\dfrac{2\\pi}{5}\\)",
+   "solution": "Ta có \\(l=R.\\alpha\\)\\(=20.\\dfrac{2\\pi}{5}=8\\pi\\)\\(\\approx 25,13\\left( cm \\right)\\). Đáp án <b>C</b>",
+   "options": [
+    "\\(15,7\\left( cm \\right)\\)",
+    "\\(18,8\\left( cm \\right)\\)",
+    "\\(25,13\\left( cm \\right)\\)",
+    "\\(21,99\\left( cm \\right)\\)"
+   ]
+  },
+  {
+   "id": 2,
+   "content": "Trên đường tròn lượng giác điểm gốc \\(A\\), điểm \\(M\\)thuộc đường tròn sao cho cung lượng giác \\(\\operatorname*{AM}^{↷}\\) có số đo \\(55^{\\circ}\\). Gọi \\(N\\) là điểm đối xứng với \\(M\\) qua trục tung. Số đo của góc lượng giác \\(\\left( OA,ON \\right)\\) là",
+   "solution": "<img class=\"fig\" src=\"k11_de02/img/image21.png\" alt=\"Hình vẽ\"><br>Vì số đo cung \\(AM\\) bằng \\(55^{\\circ}\\) nên \\(\\widehat{AOM}=55^{\\circ}\\), \\(N\\) là điểm đối xứng với \\(M\\) qua trục \\(Oy\\) nên \\(\\widehat{AON}=125^{\\circ}\\). Do đó số đo cung \\(AN\\) bằng \\(125^{\\circ}\\) nên số đo góc lượng giác \\(\\left( OA,ON \\right)\\) có số đo là \\(125^{\\circ}+k360^{\\circ},k\\in \\mathbb{Z}\\).",
+   "options": [
+    "\\(55^{\\circ}+k360^{\\circ},k\\in \\mathbb{Z}\\)",
+    "\\(125^{\\circ}+k360^{\\circ},k\\in \\mathbb{Z}\\)",
+    "\\(35^{\\circ}+k360^{\\circ},k\\in \\mathbb{Z}\\)",
+    "\\(235^{\\circ}+k360^{\\circ},k\\in \\mathbb{Z}\\)"
+   ]
+  },
+  {
+   "id": 3,
+   "content": "Cho \\(\\sin \\alpha =\\dfrac{1}{3}\\), \\(\\dfrac{\\pi}{2}&lt;\\alpha &lt;\\pi\\). Tính \\(\\tan \\alpha\\).",
+   "solution": "Ta có \\(\\cos ^{2}\\alpha =1-\\sin ^{2}\\alpha\\)\\(=1-\\dfrac{1}{9}=\\dfrac{8}{9}\\), mà \\(\\dfrac{\\pi}{2}&lt;\\alpha &lt;\\pi\\) nên \\(\\cos \\alpha =-\\dfrac{2\\sqrt{2}}{3}\\)\\(\\Rightarrow \\tan \\alpha =-\\dfrac{1}{2\\sqrt{2}}\\).",
+   "options": [
+    "\\(\\tan \\alpha =\\dfrac{1}{2\\sqrt{2}}\\)",
+    "\\(\\tan \\alpha =-\\dfrac{1}{2\\sqrt{2}}\\)",
+    "\\(\\tan \\alpha =2\\sqrt{2}\\)",
+    "\\(\\tan \\alpha =-2\\sqrt{2}\\)"
+   ]
+  },
+  {
+   "id": 4,
+   "content": "Giải phương trình: \\(\\sin 3x=\\cos x\\).",
+   "solution": "\\(\\sin 3x=\\cos x\\Leftrightarrow \\sin 3x=\\sin \\left( \\dfrac{\\pi}{2}-x \\right)\\Leftrightarrow \\left[ \\begin{array}{l}3x=\\dfrac{\\pi}{2}-x+k2\\pi \\\\ 3x=\\pi -\\left( \\dfrac{\\pi}{2}-x \\right)+k2\\pi \\end{array} \\right.\\Leftrightarrow \\left[ \\begin{array}{l}x=\\dfrac{\\pi}{8}+\\dfrac{k\\pi}{2}\\\\ x=\\dfrac{\\pi}{4}+k\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\).",
+   "options": [
+    "\\(\\left[ \\begin{array}{l}x=\\dfrac{3\\pi}{8}+k2\\pi \\\\ x=\\dfrac{\\pi}{4}+k2\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\)",
+    "\\(\\left[ \\begin{array}{l}x=-\\dfrac{\\pi}{8}+\\dfrac{k\\pi}{2}\\\\ x=\\dfrac{\\pi}{4}+k2\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\)",
+    "\\(\\left[ \\begin{array}{l}x=\\dfrac{\\pi}{8}+\\dfrac{k\\pi}{2}\\\\ x=\\dfrac{\\pi}{4}+k\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\)",
+    "\\(\\left[ \\begin{array}{l}x=\\dfrac{\\pi}{8}+k2\\pi \\\\ x=-\\dfrac{\\pi}{4}+k\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\)"
+   ]
+  },
+  {
+   "id": 5,
+   "content": "Cho các hàm số<br>1)\\(y=\\sin x\\). 2)\\(y=\\sin x-\\tan x\\). 3)\\(y=\\sin ^{2}x\\). 4)\\(y=\\cot 2x\\). 5) \\(y=\\cos x+\\cot x\\).<br>Có bao nhiêu hàm số lẻ trong các hàm số trên?",
+   "solution": "Trong các hàm số trên, các hàm số lẻ là: \\(y=\\sin x;y=\\sin x-\\tan x;y=\\cot 2x\\).",
+   "options": [
+    "\\(4\\)",
+    "\\(2\\)",
+    "\\(1\\)",
+    "\\(3\\)"
+   ]
+  },
+  {
+   "id": 6,
+   "content": "Biết \\(\\cos 2x=\\dfrac{2}{3}\\). Tính \\(\\sin \\left( x-\\dfrac{\\pi}{3} \\right).\\sin \\left( x+\\dfrac{\\pi}{3} \\right)\\).",
+   "solution": "Áp dụng công thức: \\(\\sin \\left( x-\\dfrac{\\pi}{3} \\right).\\sin \\left( x+\\dfrac{\\pi}{3} \\right)=\\dfrac{1}{2}\\left( \\cos \\dfrac{2\\pi}{3}-\\cos 2x \\right)=-\\dfrac{7}{12}\\).",
+   "options": [
+    "\\(\\sin \\left( x-\\dfrac{\\pi}{3} \\right).\\sin \\left( x+\\dfrac{\\pi}{3} \\right)=-\\dfrac{7}{12}\\)",
+    "\\(\\sin \\left( x-\\dfrac{\\pi}{3} \\right).\\sin \\left( x+\\dfrac{\\pi}{3} \\right)=\\dfrac{7}{12}\\)",
+    "\\(\\sin \\left( x-\\dfrac{\\pi}{3} \\right).\\sin \\left( x+\\dfrac{\\pi}{3} \\right)=-\\dfrac{1}{12}\\)",
+    "\\(\\sin \\left( x-\\dfrac{\\pi}{3} \\right).\\sin \\left( x+\\dfrac{\\pi}{3} \\right)=\\dfrac{1}{12}\\)"
+   ]
+  },
+  {
+   "id": 7,
+   "content": "Cho \\(\\cos a=\\dfrac{1}{3}\\), khi đó giá trị của \\(\\cos 2a\\) bằng:",
+   "solution": "Ta có \\(\\cos 2a=2\\cos ^{2}a-1=\\dfrac{2}{9}-1=-\\dfrac{7}{9}\\).",
+   "options": [
+    "\\(\\dfrac{8}{9}\\)",
+    "\\(\\dfrac{7}{9}\\)",
+    "\\(-\\dfrac{7}{9}\\)",
+    "\\(-\\dfrac{8}{9}\\)"
+   ]
+  },
+  {
+   "id": 8,
+   "content": "Cho biểu thức \\(A=\\cos x+\\cos 2x+\\cos 3x.\\) Rút gọn biểu thức \\(A.\\)",
+   "solution": "Ta có \\(A=\\left( \\cos x+\\cos 3x \\right)+\\cos 2x\\) \\(=2\\cos \\dfrac{x+3x}{2}\\cos \\dfrac{x-3x}{2}+\\cos 2x\\) \\(=2\\cos 2x\\cos x+\\cos 2x\\) \\(=\\cos 2x\\left( 2\\cos x+1 \\right)\\).",
+   "options": [
+    "\\(A=\\cos 2x\\left( 2\\cos x+1 \\right)\\)",
+    "\\(A=2\\cos 2x\\left( \\cos x+1 \\right)\\)",
+    "\\(A=\\cos 6x\\)",
+    "\\(A=2\\cos 3x\\)"
+   ]
+  },
+  {
+   "id": 9,
+   "content": "Tìm tập xác định của hàm số \\(y=3\\tan ^{2}\\left( \\dfrac{x}{2}-\\dfrac{\\pi}{4} \\right)\\).",
+   "solution": "Điều kiện: \\(\\cos ^{2}\\left( \\dfrac{x}{2}-\\dfrac{\\pi}{4} \\right)\\ne 0\\Leftrightarrow \\dfrac{x}{2}-\\dfrac{\\pi}{4}\\ne \\dfrac{\\pi}{2}+k\\pi \\Leftrightarrow x\\ne \\dfrac{3\\pi}{2}+k2\\pi ,k\\in \\mathbb{Z}\\).<br>TXĐ: \\(D=\\mathbb{R}\\backslash \\left\\{ \\dfrac{3\\pi}{2}+k2\\pi ,k\\in \\mathbb{Z} \\right\\}\\).",
+   "options": [
+    "\\(D=\\mathbb{R}\\backslash \\left\\{ \\dfrac{3\\pi}{2}+k2\\pi ,k\\in \\mathbb{Z} \\right\\}\\)",
+    "\\(D=\\mathbb{R}\\backslash \\left\\{ \\dfrac{\\pi}{2}+k2\\pi ,k\\in \\mathbb{Z} \\right\\}\\)",
+    "\\(D=\\mathbb{R}\\backslash \\left\\{ \\dfrac{3\\pi}{2}+k\\pi ,k\\in \\mathbb{Z} \\right\\}\\)",
+    "\\(D=\\mathbb{R}\\backslash \\left\\{ \\dfrac{\\pi}{2}+k\\pi ,k\\in \\mathbb{Z} \\right\\}\\)"
+   ]
+  },
+  {
+   "id": 10,
+   "content": "Gọi \\(M,m\\) lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số \\(y=5\\sin \\left( x+\\dfrac{\\pi}{6} \\right)+9\\). Tính tổng \\(T=M+m\\).",
+   "solution": "Với \\(\\forall x\\in \\mathbb{R}\\) ta có \\(-1\\le \\sin \\left( x+\\dfrac{\\pi}{6} \\right)\\le 1\\).<br>Suy ra \\(4\\le 5\\sin \\left( x+\\dfrac{\\pi}{6} \\right)+9\\le 14\\) \\(\\Leftrightarrow 4\\le y\\le 14\\).<br>Giá trị lớn nhất của hàm số là \\(M=14\\) khi \\(\\sin \\left( x+\\dfrac{\\pi}{6} \\right)=1\\Leftrightarrow x=\\dfrac{\\pi}{3}+k2\\pi ,\\left( k\\in \\mathbb{Z} \\right)\\).<br>Giá trị nhỏ nhất của hàm số là \\(m=4\\) khi \\(\\sin \\left( x+\\dfrac{\\pi}{6} \\right)=-1\\Leftrightarrow x=-\\dfrac{2\\pi}{3}+k2\\pi ,\\left( k\\in \\mathbb{Z} \\right)\\).",
+   "options": [
+    "\\(T=18.\\)",
+    "\\(T=4.\\)",
+    "\\(T=9\\)",
+    "\\(T=14\\)"
+   ]
+  },
+  {
+   "id": 11,
+   "content": "Tất cả các nghiệm của phương trình \\(\\tan \\left( x+\\dfrac{\\pi}{4} \\right)=\\sqrt{3}\\) là",
+   "solution": "Phương trình \\(\\tan \\left( x+\\dfrac{\\pi}{4} \\right)=\\sqrt{3}\\)\\(\\Leftrightarrow \\tan \\left( x+\\dfrac{\\pi}{4} \\right)=\\tan \\dfrac{\\pi}{3}\\Leftrightarrow x+\\dfrac{\\pi}{4}=\\dfrac{\\pi}{3}+k\\pi\\)\\(\\Leftrightarrow x=\\dfrac{\\pi}{12}+k\\pi \\left( k\\in \\mathbb{Z} \\right)\\).",
+   "options": [
+    "\\(x=-\\dfrac{\\pi}{6}+k2\\pi ,k\\in \\mathbb{Z}\\)",
+    "\\(x=-\\dfrac{\\pi}{6}+k\\pi ,k\\in \\mathbb{Z}\\)",
+    "\\(x=\\dfrac{\\pi}{12}+k2\\pi ,k\\in \\mathbb{Z}\\)",
+    "\\(x=\\dfrac{\\pi}{12}+k\\pi ,k\\in \\mathbb{Z}\\)"
+   ]
+  },
+  {
+   "id": 12,
+   "content": "Giải phương trình: \\(\\cos \\left( x-\\dfrac{\\pi}{3} \\right)=\\dfrac{\\sqrt{3}}{2}\\).",
+   "solution": "\\(\\cos \\left( x-\\dfrac{\\pi}{3} \\right)=\\dfrac{\\sqrt{3}}{2}\\Leftrightarrow \\left[ \\begin{array}{l}x-\\dfrac{\\pi}{3}=\\dfrac{\\pi}{6}+k2\\pi \\\\ x-\\dfrac{\\pi}{3}=-\\dfrac{\\pi}{6}+k2\\pi \\end{array} \\right.\\Leftrightarrow \\left[ \\begin{array}{l}x=\\dfrac{\\pi}{2}+k2\\pi \\\\ x=\\dfrac{\\pi}{6}+k2\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\).",
+   "options": [
+    "\\(\\left[ \\begin{array}{l}x=k2\\pi \\\\ x=\\dfrac{2\\pi}{3}+k2\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\)",
+    "\\(\\left[ \\begin{array}{l}x=\\dfrac{\\pi}{2}+k2\\pi \\\\ x=\\dfrac{\\pi}{6}+k2\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\)",
+    "\\(\\left[ \\begin{array}{l}x=\\dfrac{5\\pi}{6}+k2\\pi \\\\ x=\\dfrac{\\pi}{2}+k2\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\)",
+    "\\(\\left[ \\begin{array}{l}x=-\\dfrac{\\pi}{6}+k2\\pi \\\\ x=\\dfrac{\\pi}{2}+k2\\pi \\end{array} \\right.\\left( k\\in \\mathbb{Z} \\right)\\)"
+   ]
+  }
+ ],
+ "part2": [
+  {
+   "id": 1,
+   "content": "Cho góc lượng giác \\(\\alpha\\) thỏa mãn \\(\\dfrac{\\pi}{2}&lt;\\alpha &lt;\\pi\\) và \\(\\text{sin}\\alpha =\\dfrac{4}{5}\\).",
+   "solution": "a) Khoảng \\(\\dfrac{\\pi}{2}&lt;\\alpha &lt;\\pi\\) thuộc góc phần tư thứ II.<br>b) Ở góc phần tư thứ II, hoành độ âm nên \\(\\text{cos}\\alpha &lt;0\\).<br>c) \\(\\text{cos}\\alpha =-\\sqrt{1-\\text{sin}^{2}\\alpha}=-\\sqrt{1-\\dfrac{16}{25}}=-\\dfrac{3}{5}\\).<br>\\(\\text{tan}\\alpha =\\dfrac{\\text{sin}\\alpha}{\\text{cos}\\alpha}=\\dfrac{4/5}{-3/5}=-\\dfrac{4}{3}\\).<br>d) \\(\\text{sin}2\\alpha =2\\text{sin}\\alpha \\text{cos}\\alpha =2\\cdot \\dfrac{4}{5}\\cdot \\left( -\\dfrac{3}{5} \\right)=-\\dfrac{24}{25}\\).<br>\\(\\text{cos}2\\alpha =1-2\\text{sin}^{2}\\alpha =1-2\\cdot \\dfrac{16}{25}=-\\dfrac{7}{25}\\).<br>Tử số: \\(\\text{sin}2\\alpha -\\text{cos}2\\alpha =-\\dfrac{24}{25}-\\left( -\\dfrac{7}{25} \\right)=-\\dfrac{17}{25}\\).<br>Mẫu số: \\(\\text{cot}\\alpha =-\\dfrac{3}{4}\\Rightarrow 1+\\text{cot}\\alpha =1-\\dfrac{3}{4}=\\dfrac{1}{4}\\).<br>Do đó: \\(P=\\dfrac{-17/25}{1/4}=-\\dfrac{68}{25}\\ne \\dfrac{68}{25}\\).",
+   "items": [
+    {
+     "key": "a",
+     "text": "Điểm biểu diễn của góc lượng giác \\(\\alpha\\) trên đường tròn lượng giác thuộc góc phần tư thứ II."
+    },
+    {
+     "key": "b",
+     "text": "Giá trị của \\(\\text{cos}\\alpha\\) mang dấu dương."
+    },
+    {
+     "key": "c",
+     "text": "\\(\\text{cos}\\alpha =-\\dfrac{3}{5}\\) và \\(\\text{tan}\\alpha =-\\dfrac{4}{3}\\)."
+    },
+    {
+     "key": "d",
+     "text": "Giá trị của biểu thức \\(P=\\dfrac{\\text{sin}2\\alpha -\\text{cos}2\\alpha}{1+\\text{cot}\\alpha}\\) bằng \\(\\dfrac{68}{25}\\)."
     }
+   ]
+  },
+  {
+   "id": 2,
+   "content": "Cho hàm số \\(f\\left( x \\right)=\\text{sin}2x+\\text{cos}2x\\).",
+   "solution": "a) Hàm số lượng giác tổng xác định với mọi \\(x\\in \\mathbb{R}\\). Đúng<br>b) \\(f\\left( -x \\right)=\\text{sin}\\left( -2x \\right)+\\text{cos}\\left( -2x \\right)=-\\text{sin}2x+\\text{cos}2x\\ne f\\left( x \\right)\\) và \\(\\ne -f\\left( x \\right)\\), không phải hàm chẵn. Sai<br>c) \\(f\\left( x \\right)=\\text{sin}2x+\\text{cos}2x=\\sqrt{2}\\left( \\dfrac{1}{\\sqrt{2}}\\text{sin}2x+\\dfrac{1}{\\sqrt{2}}\\text{cos}2x \\right)=\\sqrt{2}\\text{sin}\\left( 2x+\\dfrac{\\pi}{4} \\right)\\). Đúng<br>d) Đặt \\(u=f\\left( x \\right)\\), vì \\(f\\left( x \\right)=\\sqrt{2}\\text{sin}\\left( 2x+\\dfrac{\\pi}{4} \\right)\\) nên \\(u\\in \\left[ -\\sqrt{2};\\sqrt{2} \\right]\\). Đúng<br>Xét parabol \\(g\\left( u \\right)=u^{2}-2\\sqrt{2}u+3\\) trên đoạn \\(\\left[ -\\sqrt{2};\\sqrt{2} \\right]\\).<br>Hoành độ đỉnh \\(u_{0}=-\\dfrac{b}{2a}=\\sqrt{2}\\in \\left[ -\\sqrt{2};\\sqrt{2} \\right]\\).<br>Bề lõm quay lên, hàm số đạt giá trị lớn nhất tại mút xa đỉnh nhất là \\(u=-\\sqrt{2}\\):<br>\\(g\\left( -\\sqrt{2} \\right)=(-\\sqrt{2})^{2}-2\\sqrt{2}\\left( -\\sqrt{2} \\right)+3=2+4+3=9\\).",
+   "items": [
+    {
+     "key": "a",
+     "text": "Tập xác định của hàm số \\(f\\left( x \\right)\\) là \\(D=\\mathbb{R}\\)."
+    },
+    {
+     "key": "b",
+     "text": "Hàm số \\(f\\left( x \\right)\\) là hàm số chẵn."
+    },
+    {
+     "key": "c",
+     "text": "Ta có thể biến đổi thu gọn \\(f\\left( x \\right)=\\sqrt{2}\\text{sin}\\left( 2x+\\dfrac{\\pi}{4} \\right)\\)."
+    },
+    {
+     "key": "d",
+     "text": "Giá trị lớn nhất của hàm số \\(g\\left( x \\right)=[f\\left( x \\right)]^{2}-2\\sqrt{2}f\\left( x \\right)+3\\) trên \\(\\mathbb{R}\\) bằng \\(9\\)."
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "content": "Xét phương trình lượng giác: \\(\\text{cos}2x+3\\text{sin}x-2=0\\left( * \\right)\\).",
+   "solution": "a) \\(\\text{cos}2x=1-2\\text{sin}^{2}x\\). Thay vào phương trình:<br>\\(1-2\\text{sin}^{2}x+3\\text{sin}x-2=0\\Leftrightarrow -2\\text{sin}^{2}x+3\\text{sin}x-1=0\\Leftrightarrow 2\\text{sin}^{2}x-3\\text{sin}x+1=0\\).<br>b) Phương trình bậc hai có \\(a+b+c=2-3+1=0\\), phân tích thành \\(\\left( \\text{sin}x-1 \\right)\\left( 2\\text{sin}x-1 \\right)=0\\)<br>c) Phương trình tương đương:<br>\\(\\text{sin}x=1\\Leftrightarrow x=\\dfrac{\\pi}{2}+k2\\pi\\). Trên \\(\\left( 0;2\\pi \\right)\\) có đúng 1 nghiệm là \\(x=\\dfrac{\\pi}{2}\\).<br>\\(\\text{sin}x=\\dfrac{1}{2}\\Leftrightarrow x=\\dfrac{\\pi}{6}+k2\\pi\\) hoặc \\(x=\\dfrac{5\\pi}{6}+k2\\pi\\). Trên \\(\\left( 0;2\\pi \\right)\\) có 2 nghiệm là \\(x=\\dfrac{\\pi}{6}\\) và \\(x=\\dfrac{5\\pi}{6}\\).<br>Tổng cộng có đúng 3 nghiệm phân biệt trên \\(\\left( 0;2\\pi \\right)\\).<br>d) Xét trên đoạn \\(\\left[ 0;2\\pi \\right]\\), các nghiệm là \\(x\\in \\left\\{ \\dfrac{\\pi}{6};\\dfrac{\\pi}{2};\\dfrac{5\\pi}{6} \\right\\}\\).<br>Tổng các nghiệm bằng \\(\\dfrac{\\pi}{6}+\\dfrac{\\pi}{2}+\\dfrac{5\\pi}{6}=\\dfrac{9\\pi}{6}=\\dfrac{3\\pi}{2}\\ne 3\\pi\\)",
+   "items": [
+    {
+     "key": "a",
+     "text": "Đưa về phương trình bậc hai theo \\(\\text{sin}x\\), phương trình \\(\\left( * \\right)\\) tương đương với \\(2\\text{sin}^{2}x-3\\text{sin}x+1=0\\)."
+    },
+    {
+     "key": "b",
+     "text": "Phương trình \\(\\left( * \\right)\\) tương đương với phương trình \\(\\left( \\text{sin}x-1 \\right)\\left( 2\\text{sin}x-1 \\right)=0\\)."
+    },
+    {
+     "key": "c",
+     "text": "Trong khoảng \\(\\left( 0;2\\pi \\right)\\), phương trình \\(\\left( * \\right)\\) có đúng 3 nghiệm phân biệt."
+    },
+    {
+     "key": "d",
+     "text": "Tổng tất cả các nghiệm của phương trình \\(\\left( * \\right)\\) thuộc đoạn \\(\\left[ 0;2\\pi \\right]\\) bằng \\(3\\pi\\)."
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "content": "Một bánh xe của thiết bị tập thể dục có bán kính \\(R=40\\ \\text{cm}\\). Người ta gắn một chiếc đèn cảm ứng phản quang nhỏ tại một điểm \\(M\\) trên vành bánh xe. Ban đầu, khi bắt đầu bấm giờ quan sát (\\(t=0\\ \\text{giây}\\)), điểm \\(M\\) ở vị trí tiếp xúc với mặt sàn nằm ngang. Khi người tập vận hành thiết bị, bánh xe quay ngược chiều kim đồng hồ quanh trục cố định của nó với tốc độ không đổi là \\(90\\\\)vòng một phút.",
+   "solution": "<b>a) </b>Tốc độ \\(90\\ \\text{vòng}/\\text{phút}=\\dfrac{90}{60}=1,5\\ \\text{vòng}/\\text{s}\\).<br>Mỗi vòng tương ứng \\(2\\pi \\ \\text{rad}\\), do đó \\(\\omega =1,5\\cdot 2\\pi =3\\pi \\ \\text{rad}/\\text{s}\\).<br><b>b) </b>Bánh xe quay đều nên góc quét \\(\\alpha \\left( t \\right)=\\omega t=3\\pi t\\ (\\text{rad})\\).<br><b>c) </b>Chọn trục thẳng đứng hướng lên, gốc tại mặt sàn. Tâm trục bánh xe cách đất \\(40\\ \\text{cm}\\).<br>Tại thời điểm \\(t\\), góc quay là \\(3\\pi t\\), vị trí ban đầu \\(t=0\\) ở điểm thấp nhất. Tung độ của điểm \\(M\\) so với trục là \\(-R\\text{cos}\\left( 3\\pi t \\right)=-40\\text{cos}\\left( 3\\pi t \\right)\\).<br>Độ cao so với mặt sàn: \\(h\\left( t \\right)=40-40\\text{cos}\\left( 3\\pi t \\right)\\ (\\text{cm})\\).<br><b>d) </b>\\(h\\left( t \\right)=60\\Leftrightarrow 40-40\\text{cos}\\left( 3\\pi t \\right)=60\\Leftrightarrow \\text{cos}\\left( 3\\pi t \\right)=-\\dfrac{1}{2}=\\text{cos}\\dfrac{2\\pi}{3}\\).<br>\\(\\Leftrightarrow 3\\pi t=\\pm \\dfrac{2\\pi}{3}+k2\\pi \\Leftrightarrow t=\\pm \\dfrac{2}{9}+\\dfrac{2k}{3}\\,\\left( k\\in \\mathbb{Z} \\right)\\).<br>Chu kỳ của chuyển động là \\(T=\\dfrac{2\\pi}{\\omega}=\\dfrac{2\\pi}{3\\pi}=\\dfrac{2}{3}\\ \\text{giây}\\).<br>Trong \\(4\\ \\text{giây}\\) đầu tiên, bánh xe thực hiện đúng \\(\\dfrac{4}{2/3}=6\\ \\text{vòng}\\) quay trọn vẹn.<br>Trong mỗi vòng quay, phương trình \\(\\text{cos}\\left( 3\\pi t \\right)=-\\dfrac{1}{2}\\) có đúng 2 nghiệm.<br>Vậy trong 6 vòng quay có đúng \\(6\\cdot 2=12\\) lần điểm \\(M\\) đạt độ cao \\(60\\ \\text{cm}\\).",
+   "items": [
+    {
+     "key": "a",
+     "text": "Tốc độ góc của bánh xe là \\(\\omega =3\\pi \\ \\text{rad}/\\text{s}\\)."
+    },
+    {
+     "key": "b",
+     "text": "Sau \\(t\\) giây (\\(t\\ge 0\\)), góc mà bán kính nối trục quay đến điểm \\(M\\) đã quét được một góc lượng giác có số đo là \\(\\alpha \\left( t \\right)=3\\pi t\\ (\\text{rad})\\)."
+    },
+    {
+     "key": "c",
+     "text": "Độ cao \\(h\\left( t \\right)\\) của điểm \\(M\\) so với mặt đất tại thời điểm \\(t\\) (giây) được xác định theo công thức \\(h\\left( t \\right)=40-40\\text{cos}\\left( 3\\pi t \\right)\\ (\\text{cm})\\)."
+    },
+    {
+     "key": "d",
+     "text": "Trong \\(4\\ \\text{giây}\\) đầu tiên kể từ lúc bắt đầu quan sát, có đúng 12 lần điểm \\(M\\) đạt độ cao \\(60\\ \\text{cm}\\) so với mặt đất."
+    }
+   ]
+  }
+ ],
+ "part3": [
+  {
+   "id": 1,
+   "content": "Tìm số nghiệm của phương trình lượng giác \\(\\text{cos}\\left( 3x-\\dfrac{\\pi}{6} \\right)=\\dfrac{\\sqrt{3}}{2}\\) trên khoảng \\(\\left( 0;\\pi \\right)\\).",
+   "solution": "Đáp án: 3<br>\\(\\text{cos}\\left( 3x-\\dfrac{\\pi}{6} \\right)=\\dfrac{\\sqrt{3}}{2}=\\text{cos}\\dfrac{\\pi}{6}\\Leftrightarrow \\left[ \\begin{array}{l}3x-\\dfrac{\\pi}{6}=\\dfrac{\\pi}{6}+k2\\pi \\\\ 3x-\\dfrac{\\pi}{6}=-\\dfrac{\\pi}{6}+k2\\pi \\end{array} \\right.\\Leftrightarrow \\left[ \\begin{array}{l}x=\\dfrac{\\pi}{9}+\\dfrac{k2\\pi}{3}\\\\ x=\\dfrac{k2\\pi}{3}\\end{array} \\right.\\,\\left( k\\in \\mathbb{Z} \\right)\\)<br>Xét trên khoảng \\(\\left( 0;\\pi \\right)\\):<br>Nhánh \\(x=\\dfrac{\\pi}{9}+\\dfrac{k2\\pi}{3}\\): với \\(k=0\\Rightarrow x=\\dfrac{\\pi}{9}\\); với \\(k=1\\Rightarrow x=\\dfrac{7\\pi}{9}\\) (thỏa mãn 2 nghiệm).<br>Nhánh \\(x=\\dfrac{k2\\pi}{3}\\): với \\(k=1\\Rightarrow x=\\dfrac{2\\pi}{3}\\) (thỏa mãn 1 nghiệm).<br>Vậy phương trình có tất cả 3 nghiệm trên khoảng \\(\\left( 0;\\pi \\right)\\)."
+  },
+  {
+   "id": 2,
+   "content": "Độ sâu \\(h\\) (tính bằng mét) của mực nước biển tại một vịnh biển ở thời điểm \\(t\\) giờ sau khi nửa đêm (\\(0\\le t\\le 24\\)) được mô hình hóa bởi hàm số: \\(h\\left( t \\right)=4\\text{cos}\\left( \\dfrac{\\pi t}{6} \\right)+10\\). Hỏi trong một ngày (từ \\(t=0\\) đến \\(t=24\\)), có bao nhiêu thời điểm mà mực nước tại vịnh đạt độ sâu đúng \\(12\\ \\text{mét}\\)?",
+   "solution": "Đáp án: 4<br>\\(h\\left( t \\right)=12\\Leftrightarrow 4\\text{cos}\\left( \\dfrac{\\pi t}{6} \\right)+10=12\\Leftrightarrow \\text{cos}\\left( \\dfrac{\\pi t}{6} \\right)=\\dfrac{1}{2}=\\text{cos}\\dfrac{\\pi}{3}\\Leftrightarrow \\dfrac{\\pi t}{6}=\\pm \\dfrac{\\pi}{3}+k2\\pi \\Leftrightarrow t=\\pm 2+12k\\,\\left( k\\in \\mathbb{Z} \\right)\\)<br>Vì \\(0\\le t\\le 24\\):<br>Nhánh \\(t=2+12k\\): với \\(k=0\\Rightarrow t=2\\); với \\(k=1\\Rightarrow t=14\\) (2 giá trị).<br>Nhánh \\(t=-2+12k\\): với \\(k=1\\Rightarrow t=10\\); với \\(k=2\\Rightarrow t=22\\) (2 giá trị).<br>Tổng cộng có đúng 4 thời điểm trong ngày mực nước đạt \\(12\\ \\text{mét}\\)."
+  },
+  {
+   "id": 3,
+   "content": "Tìm giá trị lớn nhất của hàm số \\(y=5-2\\text{cos}\\left( 3x-\\dfrac{\\pi}{4} \\right)\\).",
+   "solution": "Đáp án: 7<br>Vì \\(-1\\le \\text{cos}\\left( 3x-\\dfrac{\\pi}{4} \\right)\\le 1\\) nên \\(-2\\le -2\\text{cos}\\left( 3x-\\dfrac{\\pi}{4} \\right)\\le 2\\).<br>Do đó giá trị lớn nhất của \\(y\\) là \\(y_{\\text{max}}=5+2=7\\) (đạt được khi \\(\\text{cos}\\left( 3x-\\dfrac{\\pi}{4} \\right)=-1\\))."
+  },
+  {
+   "id": 4,
+   "content": "Phương trình \\(2\\text{cos}\\left( 2x+\\dfrac{\\pi}{4} \\right)-\\sqrt{2}=0\\) có bao nhiêu nghiệm trên khoảng \\(\\left( -\\dfrac{\\pi}{2};\\pi \\right)\\)",
+   "solution": "Đáp án: 3<br>\\(2\\text{cos}\\left( 2x+\\dfrac{\\pi}{4} \\right)-\\sqrt{2}=0\\Leftrightarrow \\text{cos}\\left( 2x+\\dfrac{\\pi}{4} \\right)=\\dfrac{\\sqrt{2}}{2}=\\text{cos}\\dfrac{\\pi}{4}\\)<br>\\(\\Leftrightarrow \\left[ \\begin{array}{l}2x+\\dfrac{\\pi}{4}=\\dfrac{\\pi}{4}+k2\\pi \\\\ 2x+\\dfrac{\\pi}{4}=-\\dfrac{\\pi}{4}+k2\\pi \\end{array} \\right.\\Leftrightarrow \\left[ \\begin{array}{l}2x=k2\\pi \\\\ 2x=-\\dfrac{\\pi}{2}+k2\\pi \\end{array} \\right.\\Leftrightarrow \\left[ \\begin{array}{l}x=k\\pi \\\\ x=-\\dfrac{\\pi}{4}+k\\pi \\end{array} \\right.\\,\\left( k\\in \\mathbb{Z} \\right)\\)<br>Vậy tập nghiệm của phương trình là: \\(S=\\left\\{ k\\pi ;-\\dfrac{\\pi}{4}+k\\pi \\,|\\,k\\in \\mathbb{Z} \\right\\}\\)"
+  },
+  {
+   "id": 5,
+   "content": "Một vòng quay Mặt Trời trong công viên giải trí có bán kính \\(R=20\\ \\text{m}\\), tâm của trục quay cách mặt đất \\(25\\ \\text{m}\\). Vòng quay quay đều quanh trục theo chiều ngược chiều kim đồng hồ với tốc độ \\(1\\ \\text{vòng}\\) hết \\(40\\ \\text{giây}\\). Giả sử một hành khách bước vào cabin tại vị trí thấp nhất của vòng quay (cách mặt đất \\(5\\ \\text{m}\\)). Trong vòng quay đầu tiên (\\(0\\le t\\le 40\\)), ở những thời điểm nào thì cabin ở độ cao \\(35\\ \\text{m}\\) so với mặt đất? (kết quả làm tròn đến hàng phần chục).",
+   "solution": "Đáp án: 26,7<br>Khi cabin ở độ cao \\(35\\ \\text{m}\\): \\(25-20\\text{cos}\\left( \\dfrac{\\pi t}{20} \\right)=35\\Leftrightarrow \\text{cos}\\left( \\dfrac{\\pi t}{20} \\right)=-\\dfrac{1}{2}=\\text{cos}\\dfrac{2\\pi}{3}\\)<br>\\(\\Leftrightarrow \\left[ \\begin{array}{l}\\dfrac{\\pi t}{20}=\\dfrac{2\\pi}{3}+k2\\pi \\\\ \\dfrac{\\pi t}{20}=-\\dfrac{2\\pi}{3}+k2\\pi \\end{array} \\right.\\Leftrightarrow \\left[ \\begin{array}{l}t=\\dfrac{40}{3}+40k\\\\ t=-\\dfrac{40}{3}+40k\\end{array} \\right.\\,\\left( k\\in \\mathbb{Z} \\right)\\)<br>Trong vòng quay đầu tiên (\\(0\\le t\\le 40\\)):<br>Nhánh \\(t=\\dfrac{40}{3}+40k\\): chọn \\(k=0\\Rightarrow t=\\dfrac{40}{3}\\ (\\text{giây})\\).<br>Nhánh \\(t=-\\dfrac{40}{3}+40k\\): chọn \\(k=1\\Rightarrow t=\\dfrac{80}{3}\\ (\\text{giây})\\).<br>Vậy sau \\(\\dfrac{40}{3}\\ \\text{giây}\\) (khoảng \\(13,3\\ \\text{s}\\)) và \\(\\dfrac{80}{3}\\ \\text{giây}\\) (khoảng \\(26,7\\ \\text{s}\\)) thì cabin ở độ cao \\(35\\ \\text{m}\\)."
+  },
+  {
+   "id": 6,
+   "content": "Giả sử công suất tiêu thụ điện của một thành phố trong một ngày đêm (tính từ 0 giờ đến 24 giờ) được mô phỏng theo hàm số: \\(P\\left( t \\right)=200+60\\text{sin}\\left( \\dfrac{\\pi t}{12}-\\dfrac{\\pi}{4} \\right)\\)trong đó \\(P\\left( t \\right)\\) là công suất tiêu thụ (đơn vị: MW) và \\(t\\) là thời gian trong ngày (\\(0\\le t\\le 24\\), tính bằng giờ). Tìm thời điểm trong ngày mà công suất tiêu thụ điện của thành phố đạt mức cực đại.",
+   "solution": "Đáp án: 9<br>Ta có \\(-1\\le \\text{sin}\\left( \\dfrac{\\pi t}{12}-\\dfrac{\\pi}{4} \\right)\\le 1\\) với mọi \\(t\\).<br>Do đó, công suất tiêu thụ cực đại là:<br>\\(P_{\\text{max}}=200+60\\left( 1 \\right)=260\\ \\text{MW}\\)<br>Đạt được khi: \\(\\text{sin}\\left( \\dfrac{\\pi t}{12}-\\dfrac{\\pi}{4} \\right)=1\\Leftrightarrow \\dfrac{\\pi t}{12}-\\dfrac{\\pi}{4}=\\dfrac{\\pi}{2}+k2\\pi \\Leftrightarrow \\dfrac{\\pi t}{12}=\\dfrac{3\\pi}{4}+k2\\pi \\Leftrightarrow t=9+24k\\,\\left( k\\in \\mathbb{Z} \\right)\\)<br>Vì \\(0\\le t\\le 24\\), chọn \\(k=0\\Rightarrow t=9\\).<br>Vậy vào lúc 9 giờ sáng, công suất tiêu thụ điện của thành phố đạt cực đại là \\(260\\ \\text{MW}\\)."
+  }
+ ],
+ "answerKey": {
+  "p1": {
+   "1": "C",
+   "2": "B",
+   "3": "D",
+   "4": "C",
+   "5": "D",
+   "6": "A",
+   "7": "C",
+   "8": "A",
+   "9": "A",
+   "10": "A",
+   "11": "D",
+   "12": "B"
+  },
+  "p2": {
+   "1": {
+    "a": "Đ",
+    "b": "S",
+    "c": "Đ",
+    "d": "S"
+   },
+   "2": {
+    "a": "Đ",
+    "b": "S",
+    "c": "Đ",
+    "d": "Đ"
+   },
+   "3": {
+    "a": "Đ",
+    "b": "Đ",
+    "c": "Đ",
+    "d": "S"
+   },
+   "4": {
+    "a": "Đ",
+    "b": "Đ",
+    "c": "Đ",
+    "d": "Đ"
+   }
+  },
+  "p3": {
+   "1": "3",
+   "2": "4",
+   "3": "7",
+   "4": "3",
+   "5": "26,7",
+   "6": "9"
+  }
+ },
+ "title": "ĐỀ THI TOÁN KHỐI 11 - SỐ 2",
+ "subtitle": "Chương trình GDPT 2018 - Thời gian: 90 phút",
+ "durationMinutes": 90,
+ "unlockSolutionScore": 6.5,
+ "formatVersion": 2
 };
 var EXAM_DATA = window.EXAM_DATA;
