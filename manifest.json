@@ -45,6 +45,21 @@
     ]
   },
   {
+    "id": "k10_de04",
+    "grade": "10",
+    "title": "Đề số 4",
+    "folder": "k10_de04",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "10A",
+      "10B"
+    ]
+  },
+  {
     "id": "k11_de01",
     "grade": "11",
     "title": "Đề số 1",
