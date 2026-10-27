@@ -84,6 +84,22 @@
     "allowed_classes": []
   },
   {
+    "id": "k11_de03",
+    "grade": "11",
+    "title": "Đề số 3",
+    "folder": "k11_de03",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "11A",
+      "11B",
+      "11A2"
+    ]
+  },
+  {
     "id": "k12_de01",
     "grade": "12",
     "title": "Đề số 1",
