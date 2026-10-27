@@ -303,6 +303,8 @@
 
         <div id="solutionLockNotice" style="font-size: 13px; margin: 10px 0; padding: 10px; border-radius: 6px;"></div>
         
+        <button type="button" class="btn-modal" id="btnResend" style="display: none; background: #b06000;" onclick="secureSubmit()">📤 GỬI LẠI BÀI LÀM</button>
+
         <button type="button" class="btn-modal" id="btnViewSolution" style="display: none; background: var(--done-color);" onclick="showSolutionDetail()">💡 XEM LỜI GIẢI CHI TIẾT</button>
         
         <div class="btn-row">
@@ -461,6 +463,7 @@ function generateShuffledExam(seedStr) {
             return {
                 ...q,
                 options: finalOptions,
+                optOrig: shuffledPairs.map(p => p.origChar), // phương án hiển thị thứ i là phương án gốc nào
                 originalIdx: q.originalIdx
             };
         });
@@ -637,6 +640,10 @@ function checkStudentAuth() {
     if (!getActiveExam()) {
         msg.style.color = "var(--danger-color)";
         msg.innerText = "Không tải được đề thi. Em kiểm tra mạng rồi tải lại trang (F5).";
+        return;
+    }
+    if (isSecureExam()) {           // đề bảo mật: máy chủ kiểm tra lớp, danh sách, số lượt
+        secureStart(cleanPhone, selectedClass, false);
         return;
     }
     if (!examHasAnswerKey()) {
@@ -966,7 +973,7 @@ function runTimer() {
         if (remainingSeconds <= 0) {
             clearInterval(timerInterval);
             alert("Đã hết thời gian làm bài! Hệ thống tự động nộp bài của em.");
-            submitExam();
+            submitExam(true);
         }
         remainingSeconds--;
     }, 1000);
@@ -1072,14 +1079,14 @@ function gradeExam() {
     };
 }
 
-function submitExam() {
+function submitExam(auto) {
     if (isSubmitted) return;
     if (!currentStudent.phone) {
         alert("Thông tin thí sinh không hợp lệ!");
         return;
     }
 
-    if (!confirm("Em có chắc chắn muốn nộp bài thi ngay bây giờ?")) return;
+    if (auto !== true && !confirm("Em có chắc chắn muốn nộp bài thi ngay bây giờ?")) return;
 
     clearInterval(timerInterval);
     isSubmitted = true;
@@ -1090,6 +1097,8 @@ function submitExam() {
 
     document.querySelectorAll('input').forEach(inp => inp.disabled = true);
     document.querySelectorAll('.btn-tf').forEach(b => b.style.pointerEvents = 'none');
+
+    if (isSecureExam()) { secureSubmit(); return; }
 
     const result = gradeExam();
 
@@ -1156,6 +1165,7 @@ function submitExam() {
 }
 
 function retryExamSession() {
+    if (isSecureExam()) { secureStart(currentStudent.phone, currentStudent.stuClass, true); return; }
     if (currentStudent.attempt >= currentStudent.maxAttempts) {
         alert("Em đã hoàn thành hết số lượt thi cho phép!");
         return;
@@ -1268,6 +1278,246 @@ function showSolutionDetail() {
             throwOnError: false
         });
     }
+}
+
+// =====================================================================
+// ĐỀ BẢO MẬT: đáp án nằm trên máy chủ, máy chủ chấm điểm và đếm lượt thi
+// =====================================================================
+let secureToken = null;
+let secureFirstStart = true;
+
+function isSecureExam() {
+    const ex = getActiveExam();
+    return !!(ex && ex.secure);
+}
+
+function postServer(payload, timeoutMs) {
+    const ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    const t = setTimeout(() => { if (ctrl) ctrl.abort(); }, timeoutMs || 25000);
+    return fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+        signal: ctrl ? ctrl.signal : undefined
+    }).then(r => r.json()).finally(() => clearTimeout(t));
+}
+
+function postServerRetry(payload, tries) {
+    return postServer(payload).catch(err => {
+        if (tries > 1) return new Promise(r => setTimeout(r, 1500)).then(() => postServerRetry(payload, tries - 1));
+        throw err;
+    });
+}
+
+function secureStart(phone, cls, isRetry) {
+    const btn = document.getElementById(isRetry ? 'btnRetryExam' : 'btnVerify');
+    const msg = document.getElementById('authMsg');
+    const oldText = btn.innerText;
+    btn.disabled = true;
+    btn.innerText = isRetry ? "ĐANG MỞ LƯỢT MỚI..." : "ĐANG KIỂM TRA...";
+    if (!isRetry) {
+        msg.style.color = "var(--iexam-blue)";
+        msg.innerText = "Đang kiểm tra danh sách phòng thi...";
+    }
+    const examId = currentExamFolder || "k12_de01";
+
+    return postServerRetry({ action: 'batDau', phone: phone, studentClass: cls, examId: examId }, 2)
+        .then(res => {
+            btn.disabled = false;
+            btn.innerText = oldText;
+            if (!res || res.status !== 'OK') {
+                const text = (res && res.message) ? res.message : "Không vào thi được, em thử lại nhé!";
+                if (isRetry) alert(text);
+                else { msg.style.color = "var(--danger-color)"; msg.innerText = text; }
+                return;
+            }
+            secureToken = res.token;
+            currentStudent = {
+                phone: phone, name: res.name, stuClass: cls,
+                attempt: res.attempt, maxAttempts: res.maxAttempts,
+                examCode: `#${phone.slice(-4)}${res.attempt}`
+            };
+            const shuffled = generateShuffledExam(`${phone}_${examId}_L${res.attempt}`);
+            activeExamData = shuffled.shuffledExam;
+            activeAnswerKey = null;
+            studentAnswers = { p1: {}, p2: {}, p3: {} };
+            isSubmitted = false;
+
+            document.getElementById('stuBadgeName').innerText = `Thí sinh: ${currentStudent.name}`;
+            document.getElementById('stuBadgeClass').innerText = `Lớp: ${cls}`;
+            document.getElementById('stuBadgeExamCode').innerText = `Mã đề: ${currentStudent.examCode}`;
+            document.getElementById('stuBadgeAttempt').innerText = `Lượt thi: ${res.attempt}/${res.maxAttempts}`;
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('scoreModal').style.display = 'none';
+
+            buildExamInterface();
+            remainingSeconds = (res.durationMinutes || 90) * 60;
+            runTimer();
+
+            const sb = document.querySelector('.btn-submit');
+            sb.disabled = false;
+            sb.innerText = "NỘP BÀI THI";
+            try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+
+            if (secureFirstStart) {
+                secureFirstStart = false;
+                try {
+                    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+                    else if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
+                } catch (e) {}
+            }
+        }, () => {   // chỉ lỗi mạng mới vào đây (lỗi hiển thị không bị báo nhầm là mất mạng)
+            btn.disabled = false;
+            btn.innerText = oldText;
+            const text = "Không kết nối được máy chủ. Em kiểm tra mạng rồi bấm thử lại!";
+            if (isRetry) alert(text);
+            else { msg.style.color = "var(--danger-color)"; msg.innerText = text; }
+        });
+}
+
+// Đổi bài làm về số câu và phương án GỐC của đề (trước khi đảo) để máy chủ chấm
+function toOriginalAnswers() {
+    const ex = activeExamData;
+    const out = { p1: {}, p2: {}, p3: {} };
+    (ex.part1 || []).forEach((q, i) => {
+        const s = studentAnswers.p1[i + 1];
+        if (s && q.optOrig) out.p1[q.originalIdx] = q.optOrig[s.charCodeAt(0) - 65];
+    });
+    (ex.part2 || []).forEach((q, i) => {
+        const s = studentAnswers.p2[i + 1];
+        if (s) out.p2[q.originalIdx] = Object.assign({}, s);
+    });
+    (ex.part3 || []).forEach((q, i) => {
+        const s = studentAnswers.p3[i + 1];
+        if (s) out.p3[q.originalIdx] = s;
+    });
+    return out;
+}
+
+function secureSubmit() {
+    const btnResend = document.getElementById('btnResend');
+    const btnSol = document.getElementById('btnViewSolution');
+    const btnRetry = document.getElementById('btnRetryExam');
+    const notice = document.getElementById('solutionLockNotice');
+    document.getElementById('totalScoreCircle').innerText = '...';
+    document.getElementById('rankText').innerText = 'Đang gửi bài lên máy chủ chấm...';
+    ['scoreP1Text', 'scoreP2Text', 'scoreP3Text'].forEach(id => document.getElementById(id).innerText = '...');
+    notice.innerHTML = '';
+    notice.style.background = 'transparent';
+    btnResend.style.display = 'none';
+    btnSol.style.display = 'none';
+    btnRetry.disabled = true;
+    document.getElementById('scoreModal').style.display = 'flex';
+
+    return postServerRetry({ action: 'nopBai', token: secureToken, answers: toOriginalAnswers() }, 3)
+        .then(res => {
+            if (!res || res.status !== 'OK') {
+                document.getElementById('rankText').innerText = (res && res.message) ? res.message : 'Máy chủ chưa nhận được bài.';
+                if (!res || res.status !== 'BAD_TOKEN') btnResend.style.display = 'flex';
+                return;
+            }
+            applyServerResult(res);
+        })
+        .catch(() => {
+            document.getElementById('rankText').innerText = '⚠ Chưa gửi được bài (mạng chập chờn). Bài làm vẫn còn nguyên, em bấm "GỬI LẠI BÀI LÀM".';
+            btnResend.style.display = 'flex';
+        });
+}
+
+function applyServerResult(res) {
+    const ex = activeExamData;
+    const d = res.detail || { p1: {}, p2: {}, p3: {} };
+    currentStudent.attempt = res.attempt;
+    currentStudent.maxAttempts = res.maxAttempts;
+
+    // Tô màu bài làm theo kết quả máy chủ (chỉ báo đúng/sai lựa chọn của em)
+    (ex.part1 || []).forEach((q, i) => {
+        const n = i + 1, ok = !!d.p1[q.originalIdx];
+        const nav = document.getElementById(`nav_p1_${n}`);
+        if (nav) nav.className = ok ? 'nav-item rev-correct' : 'nav-item rev-wrong';
+        const chosen = studentAnswers.p1[n];
+        if (chosen && !ok) {
+            const lbl = document.getElementById(`lbl_p1_${n}_${chosen}`);
+            if (lbl) lbl.classList.add('wrong-opt');
+        }
+    });
+    (ex.part2 || []).forEach((q, i) => {
+        const n = i + 1, items = d.p2[q.originalIdx] || {}, stu = studentAnswers.p2[n] || {};
+        let count = 0;
+        ['a', 'b', 'c', 'd'].forEach(k => {
+            const ok = !!items[k];
+            if (ok) count++;
+            const row = document.getElementById(`row_p2_${n}_${k}`);
+            if (row) row.style.background = ok ? '#f6fbf7' : '#fef7f7';
+            if (stu[k]) {
+                const b = document.getElementById(`btn_p2_${n}_${k}_${stu[k] === 'Đ' ? 'T' : 'F'}`);
+                if (b) b.className = ok ? 'btn-tf grade-correct' : 'btn-tf grade-wrong';
+            }
+        });
+        const nav = document.getElementById(`nav_p2_${n}`);
+        if (nav) nav.className = count === 4 ? 'nav-item rev-correct' : (count > 0 ? 'nav-item done' : 'nav-item rev-wrong');
+    });
+    (ex.part3 || []).forEach((q, i) => {
+        const nav = document.getElementById(`nav_p3_${i + 1}`);
+        if (nav) nav.className = d.p3[q.originalIdx] ? 'nav-item rev-correct' : 'nav-item rev-wrong';
+    });
+
+    // Đủ điểm: máy chủ gửi kèm đáp án + lời giải -> đổi sang thứ tự câu em đang thấy
+    if (res.unlocked && res.answerKey) {
+        const k = res.answerKey, sol = res.solutions || {};
+        activeAnswerKey = { p1: {}, p2: {}, p3: {} };
+        (ex.part1 || []).forEach((q, i) => {
+            const pos = q.optOrig ? q.optOrig.indexOf(k.p1[q.originalIdx]) : -1;
+            if (pos >= 0) activeAnswerKey.p1[i + 1] = String.fromCharCode(65 + pos);
+        });
+        (ex.part2 || []).forEach((q, i) => { activeAnswerKey.p2[i + 1] = k.p2[q.originalIdx] || {}; });
+        (ex.part3 || []).forEach((q, i) => { activeAnswerKey.p3[i + 1] = k.p3[q.originalIdx] || ''; });
+        [['p1', ex.part1], ['p2', ex.part2], ['p3', ex.part3]].forEach(([p, qs]) => {
+            (qs || []).forEach((q, i) => {
+                const box = document.querySelector(`#sol_${p}_${i + 1} .sol-content`);
+                const html = sol[p] && sol[p][q.originalIdx];
+                if (box) box.innerHTML = html || 'Chưa có lời giải.';
+            });
+        });
+    }
+
+    let rank = "Cần cố gắng";
+    if (res.totalScore >= 9.0) rank = "Xuất sắc 🎉";
+    else if (res.totalScore >= 8.0) rank = "Giỏi ⭐";
+    else if (res.totalScore >= 6.5) rank = "Khá";
+    else if (res.totalScore >= 5.0) rank = "Trung bình";
+    document.getElementById('totalScoreCircle').innerText = res.totalScore.toFixed(2);
+    document.getElementById('rankText').innerText = `Xếp loại: ${rank}`;
+    document.getElementById('scoreP1Text').innerText = `${res.scoreP1.toFixed(2)} / 3.0`;
+    document.getElementById('scoreP2Text').innerText = `${res.scoreP2.toFixed(2)} / 4.0`;
+    document.getElementById('scoreP3Text').innerText = `${res.scoreP3.toFixed(2)} / 3.0`;
+
+    const minScore = res.unlockScore;
+    const noticeBox = document.getElementById('solutionLockNotice');
+    const btnSol = document.getElementById('btnViewSolution');
+    if (res.unlocked) {
+        noticeBox.style.background = '#e6f4ea';
+        noticeBox.style.color = '#137333';
+        noticeBox.innerHTML = `🎉 <b>Chúc mừng em!</b> Em đạt <b>${res.totalScore}</b> điểm (từ ${minScore} điểm trở lên được mở khóa lời giải chi tiết).`;
+        btnSol.style.display = 'block';
+    } else {
+        noticeBox.style.background = '#fef7e0';
+        noticeBox.style.color = '#b06000';
+        noticeBox.innerHTML = `🔒 Điểm bài thi của em là <b>${res.totalScore}</b> điểm. Cần đạt từ <b>${minScore}</b> điểm trở lên để xem lời giải chi tiết. Em hãy ôn tập lại và thử sức ở lượt tiếp theo nhé!`;
+        btnSol.style.display = 'none';
+    }
+
+    const btnRetry = document.getElementById('btnRetryExam');
+    if (res.attempt < res.maxAttempts) {
+        btnRetry.disabled = false;
+        btnRetry.innerText = `🔄 THI LẠI (Lượt ${res.attempt + 1}/${res.maxAttempts})`;
+        btnRetry.style.background = 'var(--iexam-blue)';
+    } else {
+        btnRetry.disabled = true;
+        btnRetry.innerText = `🔒 ĐÃ HẾT LƯỢT THI (${res.maxAttempts}/${res.maxAttempts})`;
+        btnRetry.style.background = '#dadce0';
+    }
+    document.getElementById('btnResend').style.display = 'none';
 }
 
 function closeScoreModal() {
