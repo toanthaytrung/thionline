@@ -189,5 +189,22 @@
       "12A",
       "12B"
     ]
+  },
+  {
+    "id": "k12_de06",
+    "grade": "12",
+    "title": "Đề số 6",
+    "folder": "k12_de06",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "12A",
+      "12B",
+      "12A4",
+      "12A6"
+    ]
   }
 ]
