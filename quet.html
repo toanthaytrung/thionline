@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Quét phiếu – Kiểm tra trên lớp</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#041e49">
+<style>
+  :root { --blue: #0b57d0; --deep: #041e49; --bg: #f6f8fc; --line: #dde3ef; --ink: #1e293b; --muted: #64748b;
+          --ok: #137333; --ok-soft: #e6f4ea; --bad: #b3261e; --bad-soft: #fce8e6; --warn: #b06000; --warn-soft: #fef7e0; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; font-size: 15px;
+         padding-bottom: env(safe-area-inset-bottom); }
+  header { background: var(--deep); color: #fff; padding: 12px 16px; padding-top: max(12px, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  header b { font-size: 16px; }
+  header a { color: #cfe0ff; font-size: 13px; }
+  main { max-width: 720px; margin: 0 auto; padding: 14px 14px 40px; display: grid; gap: 12px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+  label { font-weight: 600; font-size: 14px; display: block; margin-bottom: 4px; }
+  input[type=text], input[type=password], select { width: 100%; padding: 11px 12px; border: 1.5px solid var(--line); border-radius: 10px; font: inherit; background: #fff; color: var(--ink); }
+  .btn { border: 0; border-radius: 12px; padding: 13px 16px; font: inherit; font-weight: 800; cursor: pointer; background: var(--blue); color: #fff; }
+  .btn.big { width: 100%; font-size: 17px; padding: 16px; }
+  .btn.ghost { background: #fff; color: var(--blue); border: 1.5px solid #c7d7f5; }
+  .btn.green { background: var(--ok); } .btn.red { background: #fff; color: var(--bad); border: 1.5px solid #f3c7c3; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .muted { color: var(--muted); font-size: 13.5px; }
+  .msg { padding: 10px 12px; border-radius: 10px; font-size: 14px; }
+  .msg.ok { background: var(--ok-soft); color: var(--ok); } .msg.err { background: var(--bad-soft); color: var(--bad); } .msg.warn { background: var(--warn-soft); color: var(--warn); }
+  .item { display: grid; grid-template-columns: 52px 1fr auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .item:last-child { border-bottom: 0; }
+  .item img { width: 52px; height: 72px; object-fit: cover; border-radius: 5px; border: 1px solid var(--line); background: #eee; }
+  .item .st { font-weight: 800; font-size: 13px; white-space: nowrap; }
+  .st.ok { color: var(--ok); } .st.err { color: var(--bad); } .st.warn { color: var(--warn); } .st.wait { color: var(--muted); }
+  .switch { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+  .switch input { width: 20px; height: 20px; accent-color: var(--blue); }
+  /* màn xem lại một phiếu */
+  #review { position: fixed; inset: 0; background: #0f172a; z-index: 20; display: none; flex-direction: column; }
+  #review.on { display: flex; }
+  #rvTop { background: #fff; padding: 10px 12px; padding-top: max(10px, env(safe-area-inset-top)); display: grid; gap: 8px; max-height: 46vh; overflow-y: auto; }
+  #rvWrap { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y pinch-zoom; }
+  #rvCanvas { display: block; width: 100%; height: auto; }
+  #rvBar { background: #fff; padding: 10px 12px; padding-bottom: max(10px, env(safe-area-inset-bottom)); display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 8px; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 14px; align-items: center; }
+  .kv input { padding: 7px 9px; }
+  .flags { font-size: 13.5px; margin: 0; padding-left: 18px; color: var(--bad); }
+  .flags li.warn { color: var(--warn); }
+  .hint { font-size: 12.5px; color: var(--muted); }
+  .hide { display: none !important; }
+</style>
+</head>
+<body>
+<header><b>📷 QUÉT PHIẾU</b><a href="giao_vien.html">Khu giáo viên</a></header>
+<main>
+  <section class="card" id="login">
+    <label>Khóa quản trị</label>
+    <div class="two" style="grid-template-columns:1fr auto"><input type="password" id="keyInput" placeholder="Dán khóa quản trị"><button class="btn" onclick="login()">Vào</button></div>
+    <p class="muted">Chỉ nhập một lần, điện thoại sẽ nhớ.</p>
+    <div id="loginMsg"></div>
+  </section>
+
+  <div id="app" class="hide" style="display:grid; gap:12px">
+    <section class="card">
+      <label>Đợt kiểm tra</label>
+      <select id="dotSel" onchange="chooseDot()"></select>
+      <div id="dotInfo" class="muted" style="margin-top:6px"></div>
+    </section>
+
+    <section class="card" style="display:grid; gap:10px">
+      <button class="btn big" onclick="$('camIn').click()">📷 Chụp phiếu</button>
+      <button class="btn ghost big" onclick="$('fileIn').click()">🖼️ Chọn nhiều ảnh đã chụp</button>
+      <input type="file" id="camIn" accept="image/*" capture="environment" class="hide" onchange="addFiles(this)">
+      <input type="file" id="fileIn" accept="image/*" multiple class="hide" onchange="addFiles(this)">
+      <label class="switch"><input type="checkbox" id="autoSave" checked> Tự lưu phiếu không có lỗi</label>
+      <p class="hint">Chụp thẳng, đủ 4 ô vuông ở 4 góc, đủ sáng, không để bóng tay đổ lên phiếu. Mặt tự luận và tờ làm thêm cũng chụp như vậy, hệ thống tự gắn đúng em theo số báo danh.</p>
+    </section>
+
+    <section class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center"><b>Đã quét</b><span class="muted" id="count"></span></div>
+      <div id="queue"><p class="muted">Chưa có phiếu nào.</p></div>
+    </section>
+  </div>
+</main>
+
+<!-- xem lại / sửa một phiếu -->
+<div id="review">
+  <div id="rvTop">
+    <div class="kv" id="rvKv"></div>
+    <ul class="flags" id="rvFlags"></ul>
+    <div style="display:flex; gap:8px; align-items:center; justify-content:space-between">
+      <div class="hint">Chạm vào ô tròn trên ảnh để tô / bỏ tô nếu máy đọc sai. Vòng đỏ = đã tô, cam = mờ cần xem, xanh = trống.</div>
+      <button class="btn ghost" style="padding:8px 12px; white-space:nowrap" onclick="zoom()">🔍 Phóng to</button>
+    </div>
+  </div>
+  <div id="rvWrap"><canvas id="rvCanvas"></canvas></div>
+  <div id="rvBar">
+    <button class="btn red" onclick="rvClose('skip')">Bỏ phiếu</button>
+    <button class="btn ghost" onclick="rvClose('later')">Để sau</button>
+    <button class="btn green" onclick="rvSave()">✅ Lưu</button>
+  </div>
+</div>
+
+<canvas id="work" class="hide"></canvas>
+<script src="phieu.js"></script>
+<script src="omr.js"></script>
+<script src="kt_chung.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const K = 5;                       // ảnh đã nắn: 5 điểm ảnh / mm (đủ rõ chữ viết tự luận)
+let DOTS = [], DOT = null, ROSTER = {}, QUEUE = [], busy = false, current = null;
+
+// ---------------------------------------------------------------- đăng nhập + đợt
+async function login(silent) {
+  const k = silent ? KT.getKey() : $('keyInput').value.trim();
+  if (!k) return;
+  KT.setKey(k);
+  try {
+    const r = await KT.api('ktDsDot');
+    if (r.status !== 'OK') throw new Error(r.message || 'Máy chủ chưa cập nhật chức năng kiểm tra trên lớp.');
+    DOTS = r.dot || [];
+    $('login').classList.add('hide'); $('app').classList.remove('hide');
+    $('dotSel').innerHTML = DOTS.map(d => `<option value="${d.id}">${d.id} · ${KT.esc(d.ten)}</option>`).join('') || '<option value="">(chưa có đợt nào)</option>';
+    const want = new URLSearchParams(location.search).get('dot');
+    if (want && DOTS.some(d => String(d.id) === want)) $('dotSel').value = want;
+    chooseDot();
+  } catch (e) { if (e.denied) KT.setKey(''); $('loginMsg').innerHTML = `<div class="msg err">${KT.esc(e.message)}</div>`; }
+}
+if (KT.getKey()) login(true);
+
+async function chooseDot() {
+  DOT = DOTS.find(d => String(d.id) === $('dotSel').value) || null;
+  ROSTER = {};
+  if (!DOT) { $('dotInfo').textContent = ''; return; }
+  $('dotInfo').textContent = 'Đang tải danh sách lớp…';
+  try {
+    const lists = await Promise.all(DOT.lop.map(l => KT.api('ktDanhSach', { lop: l })));
+    lists.forEach(r => { ROSTER[r.lop] = {}; (r.hocSinh || []).forEach(h => ROSTER[r.lop][h.sbd] = h); });
+    $('dotInfo').innerHTML = DOT.lop.map(l => `${KT.esc(l)}: ${Object.keys(ROSTER[l] || {}).length} em`).join(' · ') +
+      ` · mã đề ${Object.keys(DOT.dapAn).join(', ')}`;
+  } catch (e) { $('dotInfo').innerHTML = `<span style="color:var(--bad)">${KT.esc(e.message)}</span>`; }
+}
+
+// ---------------------------------------------------------------- nhận ảnh, đọc phiếu
+function addFiles(inp) {
+  if (!DOT) { alert('Chọn đợt kiểm tra trước.'); return; }
+  [...inp.files].forEach(f => QUEUE.unshift({ file: f, state: 'wait', note: 'Đang chờ…' }));
+  inp.value = '';
+  renderQueue(); pump();
+}
+
+async function loadImage(file, maxSide) {
+  const bmp = await createImageBitmap(file);
+  const s = Math.min(1, maxSide / Math.max(bmp.width, bmp.height));
+  const c = $('work'); c.width = Math.round(bmp.width * s); c.height = Math.round(bmp.height * s);
+  const ctx = c.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(bmp, 0, 0, c.width, c.height);
+  bmp.close && bmp.close();
+  return ctx.getImageData(0, 0, c.width, c.height);
+}
+
+function layoutFor(id) {
+  if (!DOT || id.dot !== DOT.id) return null;
+  const lop = DOT.lop[id.lop];
+  if (!lop) return null;
+  const cfg = { p1: DOT.cauTruc.p1, p2: DOT.cauTruc.p2, p3: DOT.cauTruc.p3, ten: DOT.ten, lop, dot: DOT.id, lopIdx: id.lop };
+  return id.loai === 0 ? PHIEU.front(cfg) : PHIEU.essay(cfg, id.loai === 2);
+}
+
+async function pump() {
+  if (busy) return;
+  const it = QUEUE.find(q => q.state === 'wait');
+  if (!it) return;
+  busy = true; it.state = 'work'; it.note = 'Đang đọc…'; renderQueue();
+  try {
+    const img = await loadImage(it.file, 2200);
+    const r = OMR.read(img, layoutFor, { maxSide: 1600 });
+    if (!r.ok) {
+      it.state = 'err';
+      it.note = r.id && r.id.dot !== DOT.id ? `Phiếu thuộc đợt ${r.id.dot}, không phải đợt đang chọn.` : r.error;
+    } else {
+      const W = OMR.warp(img, r, K);
+      const c = document.createElement('canvas'); c.width = W.width; c.height = W.height;
+      c.getContext('2d').putImageData(new ImageData(W.data, W.width, W.height), 0, 0);
+      it.canvas = c; it.r = r; it.lop = DOT.lop[r.id.lop];
+      it.thumb = c.toDataURL('image/jpeg', 0.5);
+      check(it);
+      if (!it.problems.length && $('autoSave').checked) await save(it);
+      else { it.state = 'warn'; it.note = it.problems[0] || 'Cần xem lại'; }
+    }
+  } catch (e) { it.state = 'err'; it.note = 'Lỗi đọc ảnh: ' + e.message; }
+  busy = false; renderQueue();
+  if (QUEUE.some(q => q.state === 'warn' && !q.seen) && !current) openReview(QUEUE.find(q => q.state === 'warn' && !q.seen));
+  pump();
+}
+
+// kiểm tra phiếu: số báo danh có trong lớp, mã đề có trong đáp án, ô tô có vấn đề
+function check(it) {
+  const F = it.r.fields, P = [];
+  it.tn = it.r.loai === 0;
+  it.sbd = it.sbdEdit || F.sbd;
+  it.made = it.tn ? (it.madeEdit || F.made) : '';
+  it.to = it.r.loai === 1 ? '1' : (it.toEdit || F.to || '');
+  if (!/^\d{6}$/.test(it.sbd)) P.push('Số báo danh chưa đọc được đủ 6 số');
+  it.hs = (ROSTER[it.lop] || {})[it.sbd] || null;
+  if (/^\d{6}$/.test(it.sbd) && !it.hs) P.push('Không có SBD ' + it.sbd + ' trong danh sách lớp ' + it.lop);
+  if (it.tn) {
+    if (!/^\d{3}$/.test(it.made) || !DOT.dapAn[it.made]) P.push(/^\d{3}$/.test(it.made) ? 'Không có mã đề ' + it.made + ' trong đáp án' : 'Mã đề chưa đọc được');
+    F.flags.forEach(f => { if (f.lv === 'err' && !/^Số báo danh|^Mã đề/.test(f.t)) P.push(f.t); });
+  } else if (it.r.loai === 2 && !/^[2-9]$/.test(it.to)) P.push('Chưa đọc được Tờ số');
+  it.problems = P;
+}
+
+function answersOf(F) {
+  const a = { p1: {}, p2: {}, p3: {} };
+  Object.entries(F.p1).forEach(([q, v]) => a.p1[q] = v || '');
+  Object.entries(F.p2).forEach(([q, o]) => { a.p2[q] = {}; Object.entries(o).forEach(([it, v]) => a.p2[q][it] = v || ''); });
+  Object.entries(F.p3).forEach(([q, v]) => a.p3[q] = v && /^-?\d+(,\d+)?$/.test(v) ? v : '');
+  return a;
+}
+
+async function save(it) {
+  it.state = 'work'; it.note = 'Đang lưu…'; renderQueue();
+  try {
+    const jpg = it.canvas.toDataURL('image/jpeg', 0.72);
+    if (it.tn) {
+      const r = await KT.api('ktLuuPhieu', { dot: DOT.id, lop: it.lop, sbd: it.sbd, made: it.made, answers: answersOf(it.r.fields) });
+      if (r.status !== 'OK') throw new Error(r.message);
+      it.ten = r.ten; it.score = r.tn;
+      it.note = `${r.ten || 'SBD ' + it.sbd} · mã ${it.made} · <b>${KT.fmt(r.tn)}</b> điểm trắc nghiệm` + (r.daCo ? ' (thay bài quét trước)' : '');
+    }
+    const ra = await KT.api('ktLuuAnh', { dot: DOT.id, lop: it.lop, sbd: it.sbd, trang: it.tn ? 'TN' : 'TL', to: it.to || 1, anh: jpg });
+    if (ra.status !== 'OK') throw new Error(ra.message);
+    if (!it.tn) it.note = `${ra.ten || 'SBD ' + it.sbd} · tự luận tờ ${it.to || 1} (đã có ${ra.soTrang} trang)`;
+    it.state = 'ok';
+    it.canvas = null;     // giải phóng bộ nhớ điện thoại
+  } catch (e) { it.state = 'warn'; it.note = 'Chưa lưu được: ' + e.message; it.problems = [it.note]; }
+  renderQueue();
+}
+
+function renderQueue() {
+  const n = QUEUE.filter(q => q.state === 'ok').length;
+  $('count').textContent = QUEUE.length ? `${n}/${QUEUE.length} đã lưu` : '';
+  if (!QUEUE.length) { $('queue').innerHTML = '<p class="muted">Chưa có phiếu nào.</p>'; return; }
+  const label = { ok: '✓ Đã lưu', warn: '⚠ Xem lại', err: '✗ Lỗi', work: '…', wait: 'Chờ' };
+  $('queue').innerHTML = QUEUE.map((q, i) => `<div class="item">
+      ${q.thumb ? `<img src="${q.thumb}" alt="">` : '<img alt="">'}
+      <div><div>${q.note || ''}</div>${q.lop ? `<div class="muted">Lớp ${KT.esc(q.lop)} · ${q.tn ? 'Phiếu tô' : 'Tự luận'}</div>` : ''}</div>
+      <div style="text-align:right"><div class="st ${q.state}">${label[q.state]}</div>
+        ${q.state === 'warn' ? `<button class="btn ghost" style="padding:6px 10px; margin-top:4px" onclick="openReview(QUEUE[${i}])">Mở</button>` : ''}</div>
+    </div>`).join('');
+}
+
+// ---------------------------------------------------------------- xem lại & chạm sửa
+function openReview(it) {
+  current = it; it.seen = true; zoomed = true; zoom();
+  $('review').classList.add('on');
+  drawReview();
+}
+function drawReview() {
+  const it = current, c = $('rvCanvas'), F = it.r.fields;
+  c.width = it.canvas.width; c.height = it.canvas.height;
+  const ctx = c.getContext('2d'); ctx.drawImage(it.canvas, 0, 0);
+  it.r.bubbles.forEach(b => {
+    ctx.beginPath(); ctx.arc(b.x * K, b.y * K, PHIEU.R * K + 1, 0, 7);
+    ctx.lineWidth = b.st ? 3.5 : 1.2;
+    ctx.strokeStyle = b.st === 'X' ? '#e00' : b.st === '?' ? '#f80' : 'rgba(0,150,0,.7)'; ctx.stroke();
+  });
+  const opts = Object.values(ROSTER[it.lop] || {}).sort((a, b) => a.ten.localeCompare(b.ten, 'vi'));
+  $('rvKv').innerHTML = `
+    <span>Lớp</span><b>${KT.esc(it.lop)} · ${it.tn ? 'Phiếu tô' : 'Tự luận' + (it.r.loai === 2 ? ' (tờ làm thêm)' : ' tờ 1')}</b>
+    <span>SBD</span><input type="text" inputmode="numeric" maxlength="6" value="${KT.esc(it.sbd)}" onchange="current.sbdEdit=this.value.replace(/\\D/g,''); recheck()">
+    <span>Học sinh</span><select onchange="if(this.value){current.sbdEdit=this.value; recheck()}"><option value="">${it.hs ? KT.esc(it.hs.ten) : '— chọn em trong danh sách —'}</option>
+      ${opts.map(h => `<option value="${h.sbd}">${KT.esc(h.ten)} (${h.sbd})</option>`).join('')}</select>
+    ${it.tn ? `<span>Mã đề</span><input type="text" inputmode="numeric" maxlength="3" value="${KT.esc(it.made)}" onchange="current.madeEdit=this.value.replace(/\\D/g,''); recheck()">` : ''}
+    ${it.r.loai === 2 ? `<span>Tờ số</span><input type="text" inputmode="numeric" maxlength="1" value="${KT.esc(it.to)}" onchange="current.toEdit=this.value.replace(/\\D/g,''); recheck()">` : ''}`;
+  $('rvFlags').innerHTML = it.problems.map(p => `<li>${KT.esc(p)}</li>`).join('') +
+    F.flags.filter(f => f.lv === 'warn').map(f => `<li class="warn">${KT.esc(f.t)}</li>`).join('') ||
+    '<li style="color:var(--ok)">Không còn lỗi, bấm Lưu.</li>';
+}
+function recheck() { check(current); drawReview(); }
+let zoomed = false;
+function zoom() {
+  zoomed = !zoomed;
+  $('rvCanvas').style.width = zoomed ? '220%' : '100%';
+  if (zoomed && current) {     // nhảy tới chỗ có lỗi đầu tiên
+    const bad = current.r.bubbles.find(b => b.st === '?') || null;
+    const w = $('rvWrap'), c = $('rvCanvas');
+    if (bad) { w.scrollLeft = bad.x / 210 * c.clientWidth - w.clientWidth / 2; w.scrollTop = bad.y / 297 * c.clientHeight - w.clientHeight / 2; }
+  }
+}
+$('rvCanvas').addEventListener('click', ev => {
+  const it = current; if (!it) return;
+  const rect = ev.target.getBoundingClientRect();
+  const mx = (ev.clientX - rect.left) / rect.width * 210, my = (ev.clientY - rect.top) / rect.height * 297;
+  let best = null, bd = 9;
+  it.r.bubbles.forEach(b => { const d = (b.x - mx) ** 2 + (b.y - my) ** 2; if (d < bd) { bd = d; best = b; } });
+  if (!best) return;
+  best.st = best.st === 'X' ? '' : 'X';
+  it.r.fields = OMR.decode(it.r.layout, it.r.bubbles);
+  if (best.g === 'sbd') it.sbdEdit = ''; if (best.g === 'made') it.madeEdit = ''; if (best.g === 'to') it.toEdit = '';
+  recheck();
+});
+function rvClose(how) {
+  const it = current; current = null; $('review').classList.remove('on');
+  if (how === 'skip') { it.state = 'err'; it.note = 'Đã bỏ phiếu này'; it.canvas = null; }
+  renderQueue();
+  const next = QUEUE.find(q => q.state === 'warn' && !q.seen);
+  if (next) openReview(next);
+}
+async function rvSave() {
+  const it = current;
+  if (it.problems.some(p => /Số báo danh|Không có SBD|Mã đề|mã đề|Tờ số/.test(p)) &&
+      !confirm('Phiếu còn lỗi về số báo danh / mã đề / tờ số:\n- ' + it.problems.join('\n- ') + '\n\nVẫn lưu?')) return;
+  if (!/^\d{6}$/.test(it.sbd) || (it.tn && !DOT.dapAn[it.made])) { alert('Cần đủ số báo danh 6 số' + (it.tn ? ' và mã đề có trong đáp án.' : '.')); return; }
+  current = null; $('review').classList.remove('on');
+  await save(it);
+  const next = QUEUE.find(q => q.state === 'warn' && !q.seen);
+  if (next) openReview(next);
+}
+</script>
+</body>
+</html>

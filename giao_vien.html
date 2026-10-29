@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khu giáo viên – Kiểm tra trên lớp</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --blue: #0b57d0; --deep: #041e49; --bg: #f6f8fc; --card: #fff; --line: #dde3ef; --ink: #1e293b; --muted: #64748b;
+    --ok: #137333; --ok-soft: #e6f4ea; --bad: #b3261e; --bad-soft: #fce8e6; --warn: #b06000; --warn-soft: #fef7e0;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; font-size: 15px; }
+  header { background: linear-gradient(135deg, #0b57d0, #041e49); color: #fff; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  header h1 { font-size: 18px; margin: 0; font-weight: 800; }
+  header small { opacity: .85; }
+  header a, header button { color: #fff; background: rgba(255,255,255,.14); border: 0; border-radius: 8px; padding: 7px 12px; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; }
+  main { max-width: 1100px; margin: 18px auto 40px; padding: 0 16px; display: grid; gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  h2 { font-size: 17px; margin: 0 0 12px; color: var(--deep); }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tabs button { border: 1.5px solid #d3e3fd; background: #fff; border-radius: 10px; padding: 9px 16px; font: inherit; font-weight: 700; color: #475569; cursor: pointer; }
+  .tabs button.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+  label { font-weight: 600; font-size: 14px; display: block; margin-bottom: 4px; }
+  input[type=text], input[type=password], input[type=number], input[type=date], select {
+    width: 100%; padding: 9px 11px; border: 1.5px solid var(--line); border-radius: 9px; font: inherit; background: #fff; color: var(--ink);
+  }
+  input:focus, select:focus { outline: none; border-color: var(--blue); }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .btn { border: 0; border-radius: 9px; padding: 10px 16px; font: inherit; font-weight: 700; cursor: pointer; background: var(--blue); color: #fff; }
+  .btn.ghost { background: #fff; color: var(--blue); border: 1.5px solid #c7d7f5; }
+  .btn.green { background: var(--ok); }
+  .btn.red { background: #fff; color: var(--bad); border: 1.5px solid #f3c7c3; }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .muted { color: var(--muted); font-size: 13.5px; }
+  .msg { padding: 10px 14px; border-radius: 9px; font-size: 14px; margin-top: 10px; }
+  .msg.ok { background: var(--ok-soft); color: var(--ok); } .msg.err { background: var(--bad-soft); color: var(--bad); } .msg.warn { background: var(--warn-soft); color: var(--warn); }
+  .msg ul { margin: 4px 0 0; padding-left: 18px; }
+  .dot { border: 1px solid var(--line); border-left: 5px solid var(--blue); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .dot b { font-size: 16px; }
+  .chip { display: inline-block; background: #eef3fd; color: var(--deep); border-radius: 6px; padding: 2px 8px; font-size: 12.5px; font-weight: 700; margin: 2px 4px 2px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 7px 8px; text-align: center; white-space: nowrap; }
+  th { background: #f1f5fb; font-weight: 700; position: sticky; top: 0; }
+  td.l, th.l { text-align: left; }
+  tr.chua td { color: var(--muted); }
+  .scroll { overflow-x: auto; max-height: 65vh; overflow-y: auto; border: 1px solid var(--line); border-radius: 10px; }
+  .preview { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
+  .preview svg { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .hide { display: none !important; }
+  #printArea { display: none; }
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { background: #fff; }
+    body > *:not(#printArea) { display: none !important; }
+    #printArea { display: block; }
+    #printArea svg { display: block; width: 210mm; height: 297mm; page-break-after: always; break-after: page; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div><h1>KHU GIÁO VIÊN · KIỂM TRA TRÊN LỚP</h1><small>Tạo đợt kiểm tra · In phiếu · Xem điểm · Xuất Excel</small></div>
+  <div class="row">
+    <a href="quet.html">📷 Trang quét phiếu</a>
+    <button id="btnLogout" class="hide" onclick="logout()">Đăng xuất</button>
+  </div>
+</header>
+
+<main>
+  <!-- ĐĂNG NHẬP -->
+  <section class="card" id="login">
+    <h2>🔒 Đăng nhập</h2>
+    <p class="muted">Dùng <b>khóa quản trị</b> của máy chủ chấm điểm (Google Sheets &gt; menu "Thi Online" &gt; "Xem khóa quản trị"). Khóa chỉ lưu trên máy này.</p>
+    <div class="row"><input type="password" id="keyInput" placeholder="Dán khóa quản trị" style="max-width:420px">
+      <button class="btn" onclick="login()">Vào</button></div>
+    <div id="loginMsg"></div>
+  </section>
+
+  <div id="app" class="hide" style="display:grid; gap:16px">
+    <nav class="tabs">
+      <button data-tab="dot" class="on" onclick="tab('dot')">📋 Đợt kiểm tra</button>
+      <button data-tab="tao" onclick="tab('tao')">➕ Tạo đợt mới</button>
+      <button data-tab="in" onclick="tab('in')">🖨️ In phiếu</button>
+      <button data-tab="kq" onclick="tab('kq')">📊 Kết quả</button>
+    </nav>
+
+    <!-- DANH SÁCH ĐỢT -->
+    <section class="card" id="tab-dot">
+      <div class="row" style="justify-content:space-between"><h2 style="margin:0">Các đợt kiểm tra</h2>
+        <button class="btn ghost" onclick="loadDots()">↻ Tải lại</button></div>
+      <div id="dotList" style="display:grid; gap:10px; margin-top:12px"><p class="muted">Đang tải…</p></div>
+    </section>
+
+    <!-- TẠO ĐỢT -->
+    <section class="card hide" id="tab-tao">
+      <h2>Tạo đợt kiểm tra mới</h2>
+      <div class="grid">
+        <div style="grid-column: span 2"><label>Tên bài kiểm tra (in trên phiếu)</label><input type="text" id="fTen" placeholder="VD: Kiểm tra giữa học kì I – Toán 11"></div>
+        <div><label>Khối</label><select id="fKhoi" onchange="khoiChanged()"><option>10</option><option selected>11</option><option>12</option></select></div>
+        <div><label>Ngày kiểm tra</label><input type="date" id="fNgay"></div>
+        <div style="grid-column: span 2"><label>Các lớp (cách nhau dấu phẩy)</label><input type="text" id="fLop" placeholder="VD: 11A, 11B, 11A2"></div>
+        <div><label>Điểm tự luận</label><input type="number" id="fTL" min="0" max="10" step="0.25" value="3"></div>
+      </div>
+      <div style="margin-top:14px">
+        <label>File Excel đáp án (nhiều mã đề)</label>
+        <input type="file" id="fFile" accept=".xlsx" onchange="readFile()">
+        <p class="muted">Dòng 1: <code>Đề\câu | 1 … 12 | 1a … 2d | 1 … 4</code>; mỗi dòng sau là một mã đề (001, 002…). Phần II ghi D (Đúng) hoặc S (Sai).</p>
+      </div>
+      <div id="fPreview"></div>
+      <div class="row" style="margin-top:14px"><button class="btn green" id="btnSave" onclick="saveDot()" disabled>💾 Lưu đợt kiểm tra</button></div>
+      <div id="saveMsg"></div>
+    </section>
+
+    <!-- IN PHIẾU -->
+    <section class="card hide" id="tab-in">
+      <h2>In phiếu</h2>
+      <div class="grid">
+        <div><label>Đợt kiểm tra</label><select id="pDot" onchange="syncDot(this.value); drawPreview()"></select></div>
+        <div><label>Lớp</label><select id="pLop" onchange="drawPreview()"></select></div>
+        <div><label>Loại</label><select id="pLoai" onchange="drawPreview()">
+          <option value="2mat">Phiếu 2 mặt: trước tô – sau tự luận</option>
+          <option value="tn">Chỉ phiếu tô (1 mặt)</option>
+          <option value="them">Tờ làm thêm tự luận</option>
+        </select></div>
+        <div><label>Số bộ trong 1 lần in</label><input type="number" id="pSo" value="1" min="1" max="60"></div>
+      </div>
+      <p class="muted">Phiếu 2 mặt: trong hộp thoại in chọn <b>In 2 mặt (lật theo cạnh dài)</b>, khổ A4, tỉ lệ 100% (Thực tế / Actual size), rồi nhập số bản bằng sĩ số lớp. Mỗi lớp in riêng vì phiếu có mã lớp.</p>
+      <div class="row"><button class="btn" onclick="printNow()">🖨️ In</button></div>
+      <div class="preview" id="pPreview"></div>
+    </section>
+
+    <!-- KẾT QUẢ -->
+    <section class="card hide" id="tab-kq">
+      <h2>Kết quả</h2>
+      <div class="grid">
+        <div><label>Đợt kiểm tra</label><select id="kDot" onchange="syncDot(this.value); loadKq()"></select></div>
+        <div><label>Lớp</label><select id="kLop" onchange="loadKq()"></select></div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn ghost" onclick="loadKq()">↻ Tải lại</button>
+        <button class="btn" onclick="exportXlsx()">📥 Xuất Excel</button>
+        <button class="btn green" onclick="congBo(true)">📢 Công bố điểm lớp này</button>
+        <button class="btn red" onclick="congBo(false)">Thu hồi công bố</button>
+      </div>
+      <div id="kqMsg"></div>
+      <div id="kqSum" class="muted" style="margin:10px 0"></div>
+      <div class="scroll"><table id="kqTable"></table></div>
+    </section>
+  </div>
+</main>
+
+<div id="printArea"></div>
+
+<script src="phieu.js"></script>
+<script src="kt_chung.js"></script>
+<script>
+let DOTS = [], parsed = null, kqRows = [], roster = [];
+const $ = id => document.getElementById(id);
+function msg(el, cls, html) { $(el).innerHTML = html ? `<div class="msg ${cls}">${html}</div>` : ''; }
+
+// ---------------------------------------------------------------- đăng nhập
+async function login(silent) {
+  const k = silent ? KT.getKey() : $('keyInput').value.trim();
+  if (!k) return;
+  KT.setKey(k);
+  msg('loginMsg', 'warn', 'Đang kiểm tra khóa…');
+  try {
+    const r = await KT.api('ktDsDot');
+    if (r.status !== 'OK') throw new Error(r.message || 'Máy chủ chưa có chức năng kiểm tra trên lớp (cần cập nhật Apps Script).');
+    DOTS = r.dot || [];
+    $('login').classList.add('hide'); $('app').classList.remove('hide'); $('btnLogout').classList.remove('hide');
+    renderDots(); fillSelects();
+  } catch (e) {
+    if (e.denied) KT.setKey('');
+    msg('loginMsg', 'err', KT.esc(e.message));
+  }
+}
+function logout() { KT.setKey(''); location.reload(); }
+if (KT.getKey()) login(true);
+
+function tab(t) {
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  ['dot', 'tao', 'in', 'kq'].forEach(x => $('tab-' + x).classList.toggle('hide', x !== t));
+  if (t === 'in') drawPreview();
+  if (t === 'kq') loadKq();
+}
+
+// ---------------------------------------------------------------- danh sách đợt
+async function loadDots() {
+  try { const r = await KT.api('ktDsDot'); DOTS = r.dot || []; renderDots(); fillSelects(); }
+  catch (e) { $('dotList').innerHTML = `<div class="msg err">${KT.esc(e.message)}</div>`; }
+}
+function ctText(d) {
+  const c = d.cauTruc, s = d.scoring.max, f = KT.fmt;
+  return `Phần I ${c.p1} câu (${f(s.p1)}đ) · Phần II ${c.p2} câu (${f(s.p2)}đ) · Phần III ${c.p3} câu (${f(s.p3)}đ)` + (d.tuLuan ? ` · Tự luận ${f(d.tuLuan)}đ` : '');
+}
+function renderDots() {
+  if (!DOTS.length) { $('dotList').innerHTML = '<p class="muted">Chưa có đợt kiểm tra nào. Bấm "➕ Tạo đợt mới".</p>'; return; }
+  $('dotList').innerHTML = DOTS.map(d => `
+    <div class="dot">
+      <div><b>${KT.esc(d.ten)}</b> <span class="muted">· mã đợt ${d.id} · khối ${KT.esc(d.khoi)}${d.ngay ? ' · ' + KT.esc(d.ngay.split('-').reverse().join('/')) : ''}</span><br>
+        ${d.lop.map(l => `<span class="chip">${KT.esc(l)}</span>`).join('')} <span class="muted">${Object.keys(d.dapAn).length} mã đề: ${Object.keys(d.dapAn).join(', ')}</span><br>
+        <span class="muted">${ctText(d)}</span></div>
+      <div class="row">
+        <button class="btn ghost" onclick="goPrint(${d.id})">🖨️ In phiếu</button>
+        <a class="btn ghost" style="text-decoration:none" href="quet.html?dot=${d.id}">📷 Quét</a>
+        <button class="btn ghost" onclick="goKq(${d.id})">📊 Kết quả</button>
+        <button class="btn red" onclick="delDot(${d.id})">Xóa</button>
+      </div>
+    </div>`).join('');
+}
+function fillSelects() {
+  ['pDot', 'kDot'].forEach(id => {
+    const cur = $(id).value;
+    $(id).innerHTML = DOTS.map(d => `<option value="${d.id}">${d.id} · ${KT.esc(d.ten)}</option>`).join('');
+    if (cur && DOTS.some(d => String(d.id) === cur)) $(id).value = cur;
+  });
+  fillLop('pDot', 'pLop'); fillLop('kDot', 'kLop');
+}
+function dotById(id) { return DOTS.find(d => String(d.id) === String(id)); }
+function fillLop(dotSel, lopSel) {
+  const d = dotById($(dotSel).value), cur = $(lopSel).value;
+  $(lopSel).innerHTML = d ? d.lop.map(l => `<option>${KT.esc(l)}</option>`).join('') : '';
+  if (d && d.lop.includes(cur)) $(lopSel).value = cur;
+}
+function syncDot(id) { ['pDot', 'kDot'].forEach(s => { if ($(s).value !== String(id)) { $(s).value = id; fillLop(s, s === 'pDot' ? 'pLop' : 'kLop'); } }); }
+function goPrint(id) { syncDot(id); tab('in'); }
+function goKq(id) { syncDot(id); tab('kq'); }
+async function delDot(id) {
+  const d = dotById(id);
+  if (!confirm(`Xóa đợt "${d.ten}"?\n\nĐáp án của đợt sẽ bị xóa. Điểm đã quét vẫn còn trong tab KT_KetQua của Google Sheets.`)) return;
+  await KT.api('ktXoaDot', { id }); loadDots();
+}
+
+// ---------------------------------------------------------------- tạo đợt
+function khoiChanged() { $('fTL').value = $('fKhoi').value === '12' ? 0 : 3; showPreview(); }
+async function readFile() {
+  const f = $('fFile').files[0]; parsed = null; $('btnSave').disabled = true;
+  if (!f) return;
+  try { parsed = KT.parseDapAn(await KT.readXlsx(await f.arrayBuffer())); }
+  catch (e) { msg('fPreview', 'err', 'Không đọc được file: ' + KT.esc(e.message)); return; }
+  showPreview();
+}
+function previewScoring(ct, tl) {     // giống ktThangDiem_ trên máy chủ
+  const raw = { p1: ct.p1 * 0.25, p2: ct.p2, p3: ct.p3 * 0.5 }, tong = raw.p1 + raw.p2 + raw.p3, f = tong ? (10 - tl) / tong : 0;
+  return { p1: raw.p1 * f, p2: raw.p2 * f, p3: raw.p3 * f };
+}
+function showPreview() {
+  if (!parsed) return;
+  const c = parsed.cauTruc, tl = Number($('fTL').value) || 0, s = previewScoring(c, tl), f = KT.fmt, ma = Object.keys(parsed.dapAn);
+  let h = `<div class="msg ${parsed.errors.length ? 'err' : 'ok'}"><b>Đọc được ${ma.length} mã đề:</b> ${ma.join(', ')}<br>
+    Cấu trúc: Phần I <b>${c.p1}</b> câu · Phần II <b>${c.p2}</b> câu · Phần III <b>${c.p3}</b> câu<br>
+    Thang điểm: Phần I ${f(s.p1)} · Phần II ${f(s.p2)} · Phần III ${f(s.p3)}${tl ? ' · Tự luận ' + f(tl) : ''} = <b>10</b>`;
+  if (parsed.errors.length) h += `<ul>${parsed.errors.map(e => `<li>${KT.esc(e)}</li>`).join('')}</ul>Sửa file Excel rồi chọn lại.`;
+  h += '</div>';
+  if (parsed.warnings.length) h += `<div class="msg warn">${parsed.warnings.map(KT.esc).join('<br>')}</div>`;
+  const khoi = $('fKhoi').value;
+  if (khoi !== '12' && tl === 0) h += '<div class="msg warn">Khối 10, 11 thường có tự luận: kiểm tra lại ô "Điểm tự luận".</div>';
+  if (c.p1 > 40 || c.p2 > 6 || c.p3 > 6) h += '<div class="msg err">Phiếu chứa tối đa 40 câu phần I, 6 câu phần II, 6 câu phần III.</div>';
+  $('fPreview').innerHTML = h;
+  $('btnSave').disabled = !!parsed.errors.length || c.p1 > 40 || c.p2 > 6 || c.p3 > 6;
+}
+$('fTL').addEventListener('input', showPreview);
+async function saveDot() {
+  const lop = $('fLop').value.split(/[,;\s]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
+  const ten = $('fTen').value.trim();
+  if (!ten || !lop.length) { msg('saveMsg', 'err', 'Nhập tên bài kiểm tra và các lớp.'); return; }
+  $('btnSave').disabled = true; msg('saveMsg', 'warn', 'Đang lưu…');
+  try {
+    const r = await KT.api('ktTaoDot', { dot: { ten, khoi: $('fKhoi').value, lop: [...new Set(lop)], ngay: $('fNgay').value,
+      tuLuan: Number($('fTL').value) || 0, cauTruc: parsed.cauTruc, dapAn: parsed.dapAn } });
+    if (r.status !== 'OK') throw new Error(r.message);
+    msg('saveMsg', 'ok', `Đã lưu đợt <b>${KT.esc(r.dot.ten)}</b> (mã đợt ${r.dot.id}). Bấm "🖨️ In phiếu" để in.`);
+    await loadDots(); syncDot(r.dot.id); goPrint(r.dot.id);
+  } catch (e) { msg('saveMsg', 'err', KT.esc(e.message)); $('btnSave').disabled = false; }
+}
+
+// ---------------------------------------------------------------- in phiếu
+function pageCfg(d, lop) {
+  return { p1: d.cauTruc.p1, p2: d.cauTruc.p2, p3: d.cauTruc.p3, ten: d.ten, lop, dot: d.id, lopIdx: d.lop.indexOf(lop) };
+}
+function pagesFor(d, lop, loai) {
+  const cfg = pageCfg(d, lop);
+  if (loai === 'tn') return [PHIEU.front(cfg)];
+  if (loai === 'them') return [PHIEU.essay(cfg, true)];
+  return [PHIEU.front(cfg), PHIEU.essay(cfg, false)];
+}
+function drawPreview() {
+  const d = dotById($('pDot').value);
+  if (!d) { $('pPreview').innerHTML = '<p class="muted">Chưa có đợt kiểm tra.</p>'; return; }
+  if (d.khoi === '12' && $('pLoai').value === '2mat' && !d.tuLuan) $('pLoai').value = 'tn';
+  $('pPreview').innerHTML = pagesFor(d, $('pLop').value, $('pLoai').value).map(PHIEU.svg).join('');
+}
+function printNow() {
+  const d = dotById($('pDot').value); if (!d) return;
+  const n = Math.max(1, Math.min(60, Number($('pSo').value) || 1)), pages = pagesFor(d, $('pLop').value, $('pLoai').value);
+  let h = ''; for (let i = 0; i < n; i++) h += pages.map(PHIEU.svg).join('');
+  $('printArea').innerHTML = h;
+  setTimeout(() => window.print(), 100);
+}
+
+// ---------------------------------------------------------------- kết quả
+async function loadKq() {
+  const d = dotById($('kDot').value), lop = $('kLop').value;
+  if (!d || !lop) return;
+  msg('kqMsg', 'warn', 'Đang tải…');
+  try {
+    const [r, ds] = await Promise.all([KT.api('ktKetQua', { dot: d.id, lop }), KT.api('ktDanhSach', { lop })]);
+    kqRows = r.ketQua || []; roster = ds.hocSinh || [];
+    msg('kqMsg', '', ''); renderKq(d);
+  } catch (e) { msg('kqMsg', 'err', KT.esc(e.message)); }
+}
+function mergedRows(d) {
+  const by = {}; kqRows.forEach(k => by[k.sbd] = k);
+  const rows = roster.map(h => ({ h, k: by[h.sbd] || null }));
+  kqRows.forEach(k => { if (!roster.some(h => h.sbd === k.sbd)) rows.push({ h: { sbd: k.sbd, ten: k.ten || '(không có trong danh sách lớp)' }, k }); });
+  return rows;
+}
+function renderKq(d) {
+  const f = KT.fmt, rows = mergedRows(d), coTL = d.tuLuan > 0, done = rows.filter(r => r.k && r.k.made).length;
+  const pub = kqRows.some(k => k.congBo);
+  $('kqSum').innerHTML = `Đã quét <b>${done}</b>/${roster.length} em · ${pub ? '<b style="color:var(--ok)">ĐANG CÔNG BỐ</b>' : 'chưa công bố'} · ${ctText(d)}`;
+  const s = d.scoring.max;
+  $('kqTable').innerHTML = `<tr><th>STT</th><th>SBD</th><th class="l">Họ và tên</th><th>Mã đề</th><th>Phần I<br><small>/${f(s.p1)}</small></th>
+    <th>Phần II<br><small>/${f(s.p2)}</small></th><th>Phần III<br><small>/${f(s.p3)}</small></th><th>Trắc nghiệm</th>${coTL ? `<th>Tự luận<br><small>/${f(d.tuLuan)}</small></th>` : ''}<th>Tổng</th><th>Ảnh</th></tr>` +
+    rows.map((r, i) => {
+      const k = r.k;
+      if (!k || !k.made) return `<tr class="chua"><td>${i + 1}</td><td>${r.h.sbd}</td><td class="l">${KT.esc(r.h.ten)}</td><td colspan="${coTL ? 7 : 6}">${k ? 'mới có trang tự luận' : 'chưa quét'}</td><td>${k ? Object.keys(k.anh || {}).length : ''}</td></tr>`;
+      const tong = coTL ? (k.tlCham ? f(k.tn + k.tl) : '…') : f(k.tn);
+      return `<tr><td>${i + 1}</td><td>${k.sbd}</td><td class="l">${KT.esc(k.ten || r.h.ten)}</td><td>${k.made}</td><td>${f(k.p1)}</td><td>${f(k.p2)}</td><td>${f(k.p3)}</td>
+        <td><b>${f(k.tn)}</b></td>${coTL ? `<td>${k.tlCham ? f(k.tl) : '<span class="muted">chưa chấm</span>'}</td>` : ''}<td><b>${tong}</b></td><td>${Object.keys(k.anh || {}).length}</td></tr>`;
+    }).join('');
+}
+function exportXlsx() {
+  const d = dotById($('kDot').value), lop = $('kLop').value; if (!d) return;
+  const coTL = d.tuLuan > 0, rows = mergedRows(d);
+  const head = ['STT', 'SBD', 'Họ và tên', 'Mã đề', 'Phần I', 'Phần II', 'Phần III', 'Trắc nghiệm'].concat(coTL ? ['Tự luận'] : [], ['Tổng điểm', 'Ghi chú']);
+  const data = rows.map((r, i) => {
+    const k = r.k;
+    if (!k || !k.made) return [i + 1, r.h.sbd, r.h.ten, '', '', '', '', ''].concat(coTL ? [''] : [], ['', 'Chưa quét phiếu']);
+    const tl = coTL ? (k.tlCham ? k.tl : '') : null;
+    return [i + 1, k.sbd, k.ten || r.h.ten, k.made, k.p1, k.p2, k.p3, k.tn].concat(coTL ? [tl] : [],
+      [coTL ? (k.tlCham ? Math.round((k.tn + k.tl) * 100) / 100 : '') : k.tn, coTL && !k.tlCham ? 'Chưa chấm tự luận' : '']);
+  });
+  KT.download(KT.writeXlsx([{ name: lop, rows: [head].concat(data), widths: [6, 10, 28, 8, 9, 9, 9, 12].concat(coTL ? [9] : [], [11, 20]) }]),
+    `Diem_${lop}_${d.ten.replace(/[^\wÀ-ỹ]+/g, '_').slice(0, 40)}.xlsx`);
+}
+async function congBo(on) {
+  const d = dotById($('kDot').value), lop = $('kLop').value; if (!d) return;
+  if (on && !confirm(`Công bố điểm lớp ${lop}?\nHọc sinh sẽ xem được điểm và bài làm của mình.`)) return;
+  const r = await KT.api('ktCongBo', { dot: d.id, lop, congBo: on });
+  await loadKq();
+  msg('kqMsg', 'ok', `${on ? 'Đã công bố' : 'Đã thu hồi'} ${r.soBai} bài lớp ${KT.esc(lop)}.` + (on ? ' Học sinh xem được điểm của mình.' : ''));
+}
+$('fNgay').valueAsDate = new Date();
+</script>
+</body>
+</html>
