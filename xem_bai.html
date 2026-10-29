@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xem bài kiểm tra – Toán Thầy Trung</title>
+<style>
+  :root {
+    --blue: #0b57d0; --deep: #041e49; --bg: #f6f8fc; --card: #fff; --line: #e2e8f0; --ink: #1e293b; --muted: #64748b;
+    --ok: #137333; --ok-soft: #e6f4ea; --bad: #b3261e; --bad-soft: #fce8e6; --warn: #b06000; --warn-soft: #fef7e0; --red: #d93025;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 15px; }
+  header { background: linear-gradient(135deg, #0b57d0, #041e49); color: #fff; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  header h1 { font-size: 17px; margin: 0; font-weight: 800; }
+  header small { opacity: .85; display: block; font-size: 12.5px; }
+  header a, header button { color: #fff; background: rgba(255,255,255,.15); border: 0; border-radius: 9px; padding: 7px 12px; font: inherit; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; }
+  main { max-width: 860px; margin: 16px auto 40px; padding: 0 16px; display: grid; gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+  h2 { font-size: 17px; margin: 0 0 10px; color: var(--deep); }
+  label { font-weight: 600; font-size: 14px; display: block; margin: 10px 0 4px; }
+  input { width: 100%; padding: 11px 12px; border: 1.5px solid var(--line); border-radius: 10px; font: inherit; font-size: 16px; }
+  input:focus { outline: none; border-color: var(--blue); }
+  .btn { border: 0; border-radius: 10px; padding: 11px 16px; font: inherit; font-weight: 700; cursor: pointer; background: var(--blue); color: #fff; }
+  .btn.ghost { background: #fff; color: var(--blue); border: 1.5px solid #c7d7f5; }
+  .btn:disabled { opacity: .55; }
+  .muted { color: var(--muted); font-size: 13.5px; }
+  .msg { padding: 10px 12px; border-radius: 10px; font-size: 14px; margin-top: 10px; }
+  .msg.err { background: var(--bad-soft); color: var(--bad); } .msg.warn { background: var(--warn-soft); color: var(--warn); }
+  .hide { display: none !important; }
+  .bai { display: flex; gap: 14px; align-items: center; cursor: pointer; }
+  .bai:hover { border-color: #c7d7f5; }
+  .bai .t { flex: 1; min-width: 0; }
+  .bai .t b { font-size: 15.5px; display: block; }
+  .diem { text-align: center; min-width: 74px; }
+  .diem .so { font-size: 28px; font-weight: 800; color: var(--red); line-height: 1; }
+  .diem small { color: var(--muted); font-size: 12px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .chip { background: #eef3fd; color: var(--deep); border-radius: 7px; padding: 3px 8px; font-size: 12.5px; font-weight: 700; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: center; }
+  th { background: #f1f5fb; font-weight: 700; font-size: 13px; }
+  td.l, th.l { text-align: left; }
+  .tong-row td { font-weight: 800; color: var(--red); font-size: 16px; }
+  .grid-tn { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 6px; }
+  .o { border: 1.5px solid var(--line); border-radius: 9px; padding: 6px 8px; font-size: 13.5px; display: flex; justify-content: space-between; align-items: center; gap: 4px; }
+  .o.d { border-color: #a8dab5; background: var(--ok-soft); } .o.s { border-color: #f3c0bb; background: var(--bad-soft); }
+  .o .k { color: var(--muted); font-size: 12px; }
+  .o b { font-size: 14.5px; }
+  .ok { color: var(--ok); font-weight: 800; } .no { color: var(--bad); font-weight: 800; }
+  .sub { font-weight: 800; color: var(--deep); margin: 14px 0 6px; font-size: 14.5px; }
+  .p2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+  .p2 .box { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+  .p2 .row { display: flex; justify-content: space-between; font-size: 13.5px; padding: 2px 0; }
+  .pages { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .pages button { border: 1.5px solid #c7d7f5; background: #fff; border-radius: 9px; padding: 7px 12px; font: inherit; font-weight: 700; font-size: 14px; color: #475569; cursor: pointer; }
+  .pages button.on { background: var(--deep); border-color: var(--deep); color: #fff; }
+  #anh img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  #anhMsg { padding: 30px 10px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div><h1>📝 XEM BÀI KIỂM TRA TRÊN LỚP</h1><small>Lớp Toán Thầy Trung – TN1</small></div>
+  <div style="display:flex; gap:8px">
+    <a href="index.html">🏠 Trang chính</a>
+    <button id="btnOut" class="hide" onclick="dangXuat()">Đăng xuất</button>
+  </div>
+</header>
+
+<main>
+  <section class="card" id="login">
+    <h2>Đăng nhập</h2>
+    <p class="muted" style="margin:0">Dùng lớp và số điện thoại đã đăng ký với Thầy (giống khi vào thi online). Chỉ xem được bài Thầy đã công bố điểm.</p>
+    <label for="lop">Lớp</label><input id="lop" placeholder="VD: 11A" autocomplete="off" autocapitalize="characters">
+    <label for="sdt">Số điện thoại</label><input id="sdt" type="tel" inputmode="numeric" placeholder="VD: 0912 345 678">
+    <button class="btn" style="width:100%; margin-top:14px" id="btnIn" onclick="dangNhap()">Xem bài</button>
+    <div id="loginMsg"></div>
+  </section>
+
+  <section id="ds" class="hide" style="display:grid; gap:12px"></section>
+
+  <section id="ct" class="hide" style="display:grid; gap:14px"></section>
+</main>
+
+<script src="kt_chung.js"></script>
+<script src="cham_ve.js"></script>
+<script>
+const $ = id => document.getElementById(id), f = KT.fmt, esc = KT.esc;
+let TK = null, DATA = null, BAI = null;
+function msg(el, cls, h) { $(el).innerHTML = h ? `<div class="msg ${cls}">${h}</div>` : ''; }
+function luuTK(v) { try { v ? sessionStorage.setItem('kt_hs', JSON.stringify(v)) : sessionStorage.removeItem('kt_hs'); } catch (e) {} }
+function docTK() { try { return JSON.parse(sessionStorage.getItem('kt_hs') || 'null'); } catch (e) { return null; } }
+
+async function dangNhap(tk) {
+  tk = tk || { lop: $('lop').value.trim().toUpperCase(), sdt: $('sdt').value.replace(/\D/g, '') };
+  if (!tk.lop || tk.sdt.length < 9) { msg('loginMsg', 'err', 'Nhập lớp và đủ số điện thoại.'); return; }
+  $('btnIn').disabled = true; msg('loginMsg', 'warn', 'Đang tìm bài…');
+  try {
+    const r = await KT.apiHS('hsXemBai', tk);
+    if (r.status !== 'OK') throw new Error(r.message || 'Không đăng nhập được.');
+    TK = tk; DATA = r; luuTK(tk);
+    $('login').classList.add('hide'); $('btnOut').classList.remove('hide');
+    msg('loginMsg', '', ''); hienDs();
+  } catch (e) { msg('loginMsg', 'err', esc(e.message)); luuTK(null); $('login').classList.remove('hide'); }
+  $('btnIn').disabled = false;
+}
+function dangXuat() { luuTK(null); location.href = 'xem_bai.html'; }
+$('sdt').addEventListener('keydown', e => { if (e.key === 'Enter') dangNhap(); });
+
+function tongText(b) { return b.tong == null ? '…' : f(b.tong); }
+function hienDs() {
+  $('ct').classList.add('hide'); $('ds').classList.remove('hide');
+  const r = DATA;
+  let h = `<div class="card"><b style="font-size:16px">${esc(r.ten)}</b> <span class="muted">· Lớp ${esc(r.lop)} · SBD ${r.sbd}</span></div>`;
+  if (!r.bai.length) h += '<div class="card muted">Chưa có bài kiểm tra nào được công bố điểm. Khi Thầy công bố, bài sẽ hiện ở đây.</div>';
+  h += r.bai.map((b, i) => `
+    <div class="card bai" onclick="moBai(${i})">
+      <div class="t"><b>${esc(b.ten)}</b>
+        <span class="muted">${b.ngay ? esc(b.ngay.split('-').reverse().join('/')) + ' · ' : ''}${b.made ? 'Mã đề ' + esc(b.made) : 'chưa có phiếu trắc nghiệm'}</span>
+        <div class="chips"><span class="chip">Trắc nghiệm ${f(b.tn)}</span>${b.coTuLuan ? `<span class="chip">Tự luận ${b.tl == null ? 'chưa chấm xong' : f(b.tl)}</span>` : ''}</div></div>
+      <div class="diem"><div class="so">${tongText(b)}</div><small>điểm / 10</small></div>
+    </div>`).join('');
+  $('ds').innerHTML = h;
+  window.scrollTo(0, 0);
+}
+
+function moBai(i) {
+  BAI = DATA.bai[i];
+  const b = BAI, mx = b.max, ct = b.cauTruc;
+  $('ds').classList.add('hide'); $('ct').classList.remove('hide');
+  let h = `<div><button class="btn ghost" onclick="hienDs()">← Danh sách bài</button></div>
+    <div class="card"><div class="bai" style="cursor:default"><div class="t"><b>${esc(b.ten)}</b>
+      <span class="muted">${esc(DATA.ten)} · ${esc(DATA.lop)} · SBD ${DATA.sbd}${b.made ? ' · Mã đề ' + esc(b.made) : ''}</span></div>
+      <div class="diem"><div class="so">${tongText(b)}</div><small>điểm / 10</small></div></div>
+    <table style="margin-top:12px"><tr><th class="l">Phần</th><th>Điểm</th><th>Tối đa</th></tr>
+      ${ct.p1 ? `<tr><td class="l">I. Trắc nghiệm nhiều lựa chọn</td><td>${f(b.p1)}</td><td>${f(mx.p1)}</td></tr>` : ''}
+      ${ct.p2 ? `<tr><td class="l">II. Đúng / Sai</td><td>${f(b.p2)}</td><td>${f(mx.p2)}</td></tr>` : ''}
+      ${ct.p3 ? `<tr><td class="l">III. Trả lời ngắn</td><td>${f(b.p3)}</td><td>${f(mx.p3)}</td></tr>` : ''}
+      ${b.coTuLuan ? b.tlCau.map((c, j) => `<tr><td class="l">IV. Tự luận – ${esc(c.ten)}</td><td>${b.diemCau && b.diemCau[j] != null ? f(b.diemCau[j]) : '…'}</td><td>${f(c.max)}</td></tr>`).join('') : ''}
+      <tr class="tong-row"><td class="l">Tổng</td><td>${tongText(b)}</td><td>10</td></tr></table>
+    ${b.coTuLuan && b.tl == null ? '<div class="msg warn">Thầy chưa chấm xong phần tự luận.</div>' : ''}</div>`;
+  if (b.made) h += `<div class="card"><h2>Bài trắc nghiệm</h2>${b.dapAn ? '' : '<p class="muted" style="margin:0">✓ đúng · ✗ sai. Thầy chưa mở đáp án đúng.</p>'}${veTN(b)}</div>`;
+  const trang = CHAMVE.thuTuTrang(b.trang);
+  if (trang.length) h += `<div class="card"><h2>Bài làm đã chấm</h2>
+    <div class="pages">${trang.map(t => `<button data-t="${t}" onclick="moTrang('${t}')">${t === 'TN' ? 'Phiếu tô' : 'Tự luận tờ ' + t.slice(2)}</button>`).join('')}</div>
+    <div id="anh"><div id="anhMsg" class="muted"></div></div>
+    <p class="muted" style="margin:8px 0 0">Chạm hai ngón để phóng to. Bấm giữ vào ảnh để lưu về máy.</p></div>`;
+  $('ct').innerHTML = h;
+  window.scrollTo(0, 0);
+  if (trang.length) moTrang(trang.find(t => t !== 'TN') || trang[0]);
+}
+
+function veTN(b) {
+  const tl = b.traLoi || {}, dg = b.dung || {}, da = b.dapAn, h = [];
+  const p1 = Object.keys(dg.p1 || {}).sort((a, c) => a - c);
+  if (p1.length) h.push(`<div class="sub">Phần I</div><div class="grid-tn">${p1.map(q => {
+    const em = (tl.p1 || {})[q], ok = dg.p1[q];
+    return `<div class="o ${ok ? 'd' : 's'}"><span class="k">Câu ${q}</span><b>${em ? esc(em) : '–'}</b><span class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'}</span>${!ok && da ? `<span class="k">ĐA ${esc(da.p1[q])}</span>` : ''}</div>`;
+  }).join('')}</div>`);
+  const p2 = Object.keys(dg.p2 || {}).sort((a, c) => a - c);
+  if (p2.length) h.push(`<div class="sub">Phần II</div><div class="p2">${p2.map(q => {
+    const em = (tl.p2 || {})[q] || {}, d = dg.p2[q] || {}, n = ['a', 'b', 'c', 'd'].filter(y => d[y]).length;
+    return `<div class="box"><b>Câu ${q}</b> <span class="muted">· đúng ${n}/4 ý</span>${['a', 'b', 'c', 'd'].map(y => `
+      <div class="row"><span>${y})</span><span>em chọn <b>${em[y] ? esc(em[y]) : '–'}</b></span><span class="${d[y] ? 'ok' : 'no'}">${d[y] ? '✓' : '✗'}${!d[y] && da && da.p2[q] ? ' <span class="k" style="font-weight:600">ĐA ' + esc(da.p2[q][y] || '') + '</span>' : ''}</span></div>`).join('')}</div>`;
+  }).join('')}</div>`);
+  const p3 = Object.keys(dg.p3 || {}).sort((a, c) => a - c);
+  if (p3.length) h.push(`<div class="sub">Phần III</div><div class="grid-tn" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))">${p3.map(q => {
+    const em = (tl.p3 || {})[q], ok = dg.p3[q];
+    return `<div class="o ${ok ? 'd' : 's'}"><span class="k">Câu ${q}</span><b>${em ? esc(em) : '–'}</b><span class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'}</span>${!ok && da ? `<span class="k">ĐA ${esc(da.p3[q])}</span>` : ''}</div>`;
+  }).join('')}</div>`);
+  return h.join('');
+}
+
+const cacheAnh = {};
+async function moTrang(t) {
+  document.querySelectorAll('.pages button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+  const b = BAI, key = b.dot + '|' + t;
+  $('anh').innerHTML = '<div id="anhMsg" class="muted">Đang tải ảnh bài làm…</div>';
+  try {
+    if (!cacheAnh[key]) {
+      const r = await KT.apiHS('hsAnh', Object.assign({ dot: b.dot, trang: t }, TK));
+      if (r.status !== 'OK') throw new Error(r.message);
+      cacheAnh[key] = await ghep(r.anh, r.net, t, b, r.coTong);
+    }
+    if (BAI !== b) return;
+    $('anh').innerHTML = `<img src="${cacheAnh[key]}" alt="${esc(CHAMVE.tenTrang(t))}">`;
+  } catch (e) { $('anh').innerHTML = `<div class="msg err">Không tải được ảnh: ${esc(e.message)}</div>`; }
+}
+// ghép ảnh bài làm + nét chấm của Thầy thành một ảnh
+function ghep(src, net, t, b, coTong) {
+  return new Promise((ok, no) => {
+    const im = new Image();
+    im.onload = () => {
+      const c = document.createElement('canvas'); c.width = CHAMVE.W; c.height = CHAMVE.H;
+      const ctx = c.getContext('2d'); ctx.drawImage(im, 0, 0, CHAMVE.W, CHAMVE.H);
+      const dauTL = CHAMVE.thuTuTrang(b.trang).find(x => x !== 'TN');
+      if (b.coTuLuan) CHAMVE.ve(ctx, net || [], { cau: b.tlCau, diem: b.diemCau || [], tl: b.tl == null ? null : b.tl, tlMax: b.tuLuan,
+        tongMacDinh: t === dauTL && b.tl != null && !coTong });
+      else CHAMVE.ve(ctx, net || [], {});
+      ok(c.toDataURL('image/jpeg', 0.85));
+    };
+    im.onerror = () => no(new Error('ảnh hỏng'));
+    im.src = src;
+  });
+}
+
+const tk = docTK();
+if (tk) { $('lop').value = tk.lop; $('sdt').value = tk.sdt; dangNhap(tk); }
+</script>
+</body>
+</html>

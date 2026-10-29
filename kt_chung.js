@@ -215,6 +215,76 @@
   function fmt(x) { return x === '' || x === null || x === undefined ? '' : String(Math.round(x * 100) / 100).replace('.', ','); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
-  root.KT = { api: api, getKey: getKey, setKey: setKey, readXlsx: readXlsx, parseDapAn: parseDapAn, writeXlsx: writeXlsx,
-              download: download, fmt: fmt, esc: esc, SCRIPT_URL: SCRIPT_URL };
+  // ---------------------------------------------------------------- câu tự luận: "Câu 1: 1; Câu 2: 1; 3a: 0,5"
+  function parseTlCau(s, tong) {
+    s = String(s || '').trim();
+    var parts = /[;\n]/.test(s) || /:/.test(s) ? s.split(/[;\n]+/) : s.split(/\s+/), out = [], err = '';
+    parts.map(function (p) { return p.trim(); }).filter(Boolean).forEach(function (p, i) {
+      var m = /^(.*?)\s*[:=]\s*([\d.,]+)\s*(đ|điểm)?$/i.exec(p), ten, v;
+      if (m) { ten = m[1].trim(); v = m[2]; } else { ten = ''; v = p.replace(/(đ|điểm)$/i, ''); }
+      v = Number(String(v).replace(',', '.'));
+      if (!isFinite(v) || v <= 0) { err = 'Không hiểu "' + p + '"'; return; }
+      if (!ten) ten = 'Câu ' + (out.length + 1);
+      else if (/^\d+[a-z]?$/i.test(ten)) ten = 'Câu ' + ten;
+      out.push({ ten: ten.slice(0, 24), max: Math.round(v * 100) / 100 });
+    });
+    var sum = Math.round(out.reduce(function (a, c) { return a + c.max; }, 0) * 100) / 100;
+    if (!err && tong != null && Math.abs(sum - tong) > 1e-6) err = 'Tổng các câu là ' + fmt(sum) + ', chưa bằng điểm tự luận ' + fmt(tong) + '.';
+    return { cau: out, tong: sum, loi: err };
+  }
+  function tlCauText(list) { return (list || []).map(function (c) { return c.ten + ': ' + fmt(c.max); }).join('; '); }
+  function macDinhTlCau(tong) {
+    tong = Number(tong) || 0;
+    if (!tong) return [];
+    if (Math.abs(tong - Math.round(tong)) < 1e-9 && tong <= 10) { var a = []; for (var i = 1; i <= tong; i++) a.push({ ten: 'Câu ' + i, max: 1 }); return a; }
+    return [{ ten: 'Tự luận', max: tong }];
+  }
+
+  // gọi máy chủ không kèm khóa (trang học sinh)
+  function apiHS(action, payload) {
+    var body = Object.assign({}, payload || {}, { action: action });
+    return fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json(); }, function () { throw new Error('Không kết nối được máy chủ. Kiểm tra mạng rồi thử lại.'); });
+  }
+
+  // ---------------------------------------------------------------- mở trang quét trên điện thoại (mã QR + mã ghép)
+  function moDienThoai(dot) {
+    var old = document.getElementById('ktGhepBox'); if (old) old.remove();
+    var box = document.createElement('div'); box.id = 'ktGhepBox';
+    box.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px';
+    box.innerHTML = '<div style="background:#fff;border-radius:16px;padding:22px;max-width:420px;width:100%;text-align:center;font-family:inherit;color:#1e293b">' +
+      '<div style="font-size:18px;font-weight:800;color:#041e49">📱 Mở trang quét trên điện thoại</div>' +
+      '<div id="ktGhepNd" style="margin:14px 0;color:#64748b">Đang tạo mã…</div>' +
+      '<button style="border:0;border-radius:9px;padding:10px 18px;font:inherit;font-weight:700;background:#0b57d0;color:#fff;cursor:pointer" onclick="document.getElementById(\'ktGhepBox\').remove()">Đóng</button></div>';
+    box.addEventListener('click', function (e) { if (e.target === box) box.remove(); });
+    document.body.appendChild(box);
+    var nd = document.getElementById('ktGhepNd');
+    api('ktMaGhep').then(function (r) {
+      if (r.status !== 'OK') throw new Error(r.message || 'Máy chủ chưa có chức năng này (cần cập nhật Apps Script).');
+      var base = location.origin + location.pathname.replace(/[^\/]*$/, '');
+      var url = base + 'quet.html' + (dot ? '?dot=' + dot : '') + '#ghep=' + r.ma, svg = '';
+      if (root.qrcode) { var q = root.qrcode(0, 'M'); q.addData(url); q.make(); svg = q.createSvgTag({ cellSize: 6, margin: 2, scalable: true }); }
+      nd.innerHTML = (svg ? '<div style="width:240px;margin:0 auto">' + svg + '</div>' : '') +
+        '<div style="margin-top:8px">Mở <b>Camera</b> (hoặc Zalo &gt; Quét mã QR) trên điện thoại, quét mã này là vào thẳng trang quét phiếu, không phải gõ khóa.</div>' +
+        '<div style="margin-top:10px">Hoặc trên điện thoại mở <b>' + esc(base.replace(/^https?:\/\//, '')) + 'quet.html</b> rồi nhập mã:</div>' +
+        '<div style="font-size:34px;font-weight:800;letter-spacing:6px;color:#d93025;margin:4px 0">' + r.ma.slice(0, 3) + ' ' + r.ma.slice(3) + '</div>' +
+        '<div style="font-size:13px">Mã dùng một lần, hết hạn sau <b id="ktGhepTg">10:00</b>. Điện thoại sẽ nhớ đăng nhập.</div>';
+      var het = Date.now() + 600000, t = setInterval(function () {
+        var el = document.getElementById('ktGhepTg'); if (!el) { clearInterval(t); return; }
+        var s = Math.max(0, Math.round((het - Date.now()) / 1000)); el.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+        if (!s) { clearInterval(t); el.textContent = 'đã hết hạn'; }
+      }, 1000);
+    }).catch(function (e) { nd.innerHTML = '<span style="color:#b3261e">' + esc(e.message) + '</span>'; });
+  }
+  // điện thoại: nhận khóa bằng mã ghép
+  function ghep(ma) {
+    return apiHS('ktGhep', { ma: String(ma || '').replace(/\D/g, '') }).then(function (r) {
+      if (r.status !== 'OK' || !r.adminKey) throw new Error(r.message || 'Không ghép được.');
+      setKey(r.adminKey); return true;
+    });
+  }
+
+  root.KT = { api: api, apiHS: apiHS, moDienThoai: moDienThoai, ghep: ghep, getKey: getKey, setKey: setKey, readXlsx: readXlsx, parseDapAn: parseDapAn, writeXlsx: writeXlsx,
+              download: download, fmt: fmt, esc: esc, SCRIPT_URL: SCRIPT_URL,
+              parseTlCau: parseTlCau, tlCauText: tlCauText, macDinhTlCau: macDinhTlCau };
 })(typeof window !== 'undefined' ? window : globalThis);

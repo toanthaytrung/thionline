@@ -64,7 +64,9 @@
 <header>
   <div><h1>KHU GIÁO VIÊN · KIỂM TRA TRÊN LỚP</h1><small>Tạo đợt kiểm tra · In phiếu · Xem điểm · Xuất Excel</small></div>
   <div class="row">
-    <a href="quet.html">📷 Trang quét phiếu</a>
+    <a href="#" onclick="KT.moDienThoai(); return false" title="Hiện mã QR để mở trang quét phiếu trên điện thoại">📱 Mở trên điện thoại</a>
+    <a href="cham_tl.html">✍️ Chấm tự luận</a>
+    <a href="xem_bai.html" target="_blank" title="Trang học sinh đăng nhập bằng lớp + số điện thoại để xem bài đã công bố">👀 Trang học sinh xem bài</a>
     <button id="btnLogout" class="hide" onclick="logout()">Đăng xuất</button>
   </div>
 </header>
@@ -103,6 +105,9 @@
         <div><label>Ngày kiểm tra</label><input type="date" id="fNgay"></div>
         <div style="grid-column: span 2"><label>Các lớp (cách nhau dấu phẩy)</label><input type="text" id="fLop" placeholder="VD: 11A, 11B, 11A2"></div>
         <div><label>Điểm tự luận</label><input type="number" id="fTL" min="0" max="10" step="0.25" value="3"></div>
+        <div style="grid-column: 1 / -1" id="fCauBox"><label>Các câu tự luận và điểm tối đa từng câu</label>
+          <input type="text" id="fCau" value="Câu 1: 1; Câu 2: 1; Câu 3: 1" oninput="this.dataset.sua='1'; showPreview()">
+          <p class="muted" style="margin:4px 0 0">Cách nhau dấu chấm phẩy. VD: <code>Câu 1: 1; Câu 2a: 0,5; Câu 2b: 0,5; Câu 3: 1</code>. Tổng phải bằng điểm tự luận. Sửa lại được sau khi tạo đợt.</p></div>
       </div>
       <div style="margin-top:14px">
         <label>File Excel đáp án (nhiều mã đề)</label>
@@ -142,9 +147,12 @@
       <div class="row" style="margin-top:12px">
         <button class="btn ghost" onclick="loadKq()">↻ Tải lại</button>
         <button class="btn" onclick="exportXlsx()">📥 Xuất Excel</button>
+        <a class="btn ghost" id="kChamLink" style="text-decoration:none" href="cham_tl.html">✍️ Chấm tự luận lớp này</a>
         <button class="btn green" onclick="congBo(true)">📢 Công bố điểm lớp này</button>
         <button class="btn red" onclick="congBo(false)">Thu hồi công bố</button>
       </div>
+      <label style="font-weight:500; margin-top:10px; display:flex; gap:8px; align-items:center"><input type="checkbox" id="kXemDA">
+        Khi công bố, cho học sinh xem cả <b>đáp án đúng</b> phần trắc nghiệm (bỏ chọn nếu lớp khác chưa kiểm tra cùng đề)</label>
       <div id="kqMsg"></div>
       <div id="kqSum" class="muted" style="margin:10px 0"></div>
       <div class="scroll"><table id="kqTable"></table></div>
@@ -155,6 +163,7 @@
 <div id="printArea"></div>
 
 <script src="phieu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script src="kt_chung.js"></script>
 <script>
 let DOTS = [], parsed = null, kqRows = [], roster = [];
@@ -197,16 +206,19 @@ function ctText(d) {
   const c = d.cauTruc, s = d.scoring.max, f = KT.fmt;
   return `Phần I ${c.p1} câu (${f(s.p1)}đ) · Phần II ${c.p2} câu (${f(s.p2)}đ) · Phần III ${c.p3} câu (${f(s.p3)}đ)` + (d.tuLuan ? ` · Tự luận ${f(d.tuLuan)}đ` : '');
 }
+function cauTL(d) { return d.tlCau && d.tlCau.length ? d.tlCau : KT.macDinhTlCau(d.tuLuan); }
 function renderDots() {
   if (!DOTS.length) { $('dotList').innerHTML = '<p class="muted">Chưa có đợt kiểm tra nào. Bấm "➕ Tạo đợt mới".</p>'; return; }
   $('dotList').innerHTML = DOTS.map(d => `
     <div class="dot">
       <div><b>${KT.esc(d.ten)}</b> <span class="muted">· mã đợt ${d.id} · khối ${KT.esc(d.khoi)}${d.ngay ? ' · ' + KT.esc(d.ngay.split('-').reverse().join('/')) : ''}</span><br>
         ${d.lop.map(l => `<span class="chip">${KT.esc(l)}</span>`).join('')} <span class="muted">${Object.keys(d.dapAn).length} mã đề: ${Object.keys(d.dapAn).join(', ')}</span><br>
-        <span class="muted">${ctText(d)}</span></div>
+        <span class="muted">${ctText(d)}</span>
+        ${d.tuLuan ? `<br><span class="muted">Tự luận: ${KT.esc(KT.tlCauText(cauTL(d)))}</span> <a href="#" onclick="suaCau(${d.id}); return false" style="font-size:13px">sửa</a>` : ''}</div>
       <div class="row">
         <button class="btn ghost" onclick="goPrint(${d.id})">🖨️ In phiếu</button>
-        <a class="btn ghost" style="text-decoration:none" href="quet.html?dot=${d.id}">📷 Quét</a>
+        <button class="btn ghost" onclick="KT.moDienThoai(${d.id})" title="Hiện mã QR, quét bằng điện thoại để mở trang quét phiếu của đợt này">📱 Quét bằng điện thoại</button>
+        ${d.tuLuan ? `<a class="btn ghost" style="text-decoration:none" href="cham_tl.html?dot=${d.id}">✍️ Chấm tự luận</a>` : ''}
         <button class="btn ghost" onclick="goKq(${d.id})">📊 Kết quả</button>
         <button class="btn red" onclick="delDot(${d.id})">Xóa</button>
       </div>
@@ -229,6 +241,16 @@ function fillLop(dotSel, lopSel) {
 function syncDot(id) { ['pDot', 'kDot'].forEach(s => { if ($(s).value !== String(id)) { $(s).value = id; fillLop(s, s === 'pDot' ? 'pLop' : 'kLop'); } }); }
 function goPrint(id) { syncDot(id); tab('in'); }
 function goKq(id) { syncDot(id); tab('kq'); }
+async function suaCau(id) {
+  const d = dotById(id);
+  const s = prompt(`Các câu tự luận của "${d.ten}" (tổng ${KT.fmt(d.tuLuan)} điểm), cách nhau dấu chấm phẩy:`, KT.tlCauText(cauTL(d)));
+  if (s === null) return;
+  const p = KT.parseTlCau(s, d.tuLuan);
+  if (p.loi) { alert(p.loi); return; }
+  const r = await KT.api('ktSuaDot', { id, tlCau: p.cau });
+  if (r.status !== 'OK') { alert(r.message); return; }
+  loadDots();
+}
 async function delDot(id) {
   const d = dotById(id);
   if (!confirm(`Xóa đợt "${d.ten}"?\n\nĐáp án của đợt sẽ bị xóa. Điểm đã quét vẫn còn trong tab KT_KetQua của Google Sheets.`)) return;
@@ -236,7 +258,13 @@ async function delDot(id) {
 }
 
 // ---------------------------------------------------------------- tạo đợt
-function khoiChanged() { $('fTL').value = $('fKhoi').value === '12' ? 0 : 3; showPreview(); }
+function khoiChanged() { $('fTL').value = $('fKhoi').value === '12' ? 0 : 3; tlChanged(); }
+function tlChanged() {
+  const tl = Number($('fTL').value) || 0;
+  $('fCauBox').classList.toggle('hide', !tl);
+  if (!$('fCau').dataset.sua) $('fCau').value = KT.tlCauText(KT.macDinhTlCau(tl));
+  showPreview();
+}
 async function readFile() {
   const f = $('fFile').files[0]; parsed = null; $('btnSave').disabled = true;
   if (!f) return;
@@ -260,18 +288,22 @@ function showPreview() {
   const khoi = $('fKhoi').value;
   if (khoi !== '12' && tl === 0) h += '<div class="msg warn">Khối 10, 11 thường có tự luận: kiểm tra lại ô "Điểm tự luận".</div>';
   if (c.p1 > 40 || c.p2 > 6 || c.p3 > 6) h += '<div class="msg err">Phiếu chứa tối đa 40 câu phần I, 6 câu phần II, 6 câu phần III.</div>';
+  const pc = tl ? KT.parseTlCau($('fCau').value, tl) : { loi: '' };
+  if (pc.loi) h += `<div class="msg err">Các câu tự luận: ${KT.esc(pc.loi)}</div>`;
   $('fPreview').innerHTML = h;
-  $('btnSave').disabled = !!parsed.errors.length || c.p1 > 40 || c.p2 > 6 || c.p3 > 6;
+  $('btnSave').disabled = !!parsed.errors.length || c.p1 > 40 || c.p2 > 6 || c.p3 > 6 || !!pc.loi;
 }
-$('fTL').addEventListener('input', showPreview);
+$('fTL').addEventListener('input', tlChanged);
 async function saveDot() {
   const lop = $('fLop').value.split(/[,;\s]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
   const ten = $('fTen').value.trim();
   if (!ten || !lop.length) { msg('saveMsg', 'err', 'Nhập tên bài kiểm tra và các lớp.'); return; }
+  const tl = Number($('fTL').value) || 0, pc = KT.parseTlCau($('fCau').value, tl);
+  if (tl && pc.loi) { msg('saveMsg', 'err', 'Các câu tự luận: ' + KT.esc(pc.loi)); return; }
   $('btnSave').disabled = true; msg('saveMsg', 'warn', 'Đang lưu…');
   try {
     const r = await KT.api('ktTaoDot', { dot: { ten, khoi: $('fKhoi').value, lop: [...new Set(lop)], ngay: $('fNgay').value,
-      tuLuan: Number($('fTL').value) || 0, cauTruc: parsed.cauTruc, dapAn: parsed.dapAn } });
+      tuLuan: tl, tlCau: tl ? pc.cau : [], cauTruc: parsed.cauTruc, dapAn: parsed.dapAn } });
     if (r.status !== 'OK') throw new Error(r.message);
     msg('saveMsg', 'ok', `Đã lưu đợt <b>${KT.esc(r.dot.ten)}</b> (mã đợt ${r.dot.id}). Bấm "🖨️ In phiếu" để in.`);
     await loadDots(); syncDot(r.dot.id); goPrint(r.dot.id);
@@ -322,36 +354,48 @@ function mergedRows(d) {
 function renderKq(d) {
   const f = KT.fmt, rows = mergedRows(d), coTL = d.tuLuan > 0, done = rows.filter(r => r.k && r.k.made).length;
   const pub = kqRows.some(k => k.congBo);
-  $('kqSum').innerHTML = `Đã quét <b>${done}</b>/${roster.length} em · ${pub ? '<b style="color:var(--ok)">ĐANG CÔNG BỐ</b>' : 'chưa công bố'} · ${ctText(d)}`;
+  const daCham = rows.filter(r => r.k && r.k.tlCham).length, coAnhTL = rows.filter(r => r.k && Object.keys(r.k.anh || {}).some(t => t !== 'TN')).length;
+  const xemDA = kqRows.some(k => k.congBo && k.xemDapAn);
+  $('kChamLink').classList.toggle('hide', !coTL);
+  if (pub) $('kXemDA').checked = xemDA;
+  $('kChamLink').href = `cham_tl.html?dot=${d.id}&lop=${encodeURIComponent($('kLop').value)}`;
+  $('kqSum').innerHTML = `Đã quét <b>${done}</b>/${roster.length} em` + (coTL ? ` · đã chấm tự luận <b>${daCham}</b>/${coAnhTL} bài có ảnh` : '') +
+    ` · ${pub ? '<b style="color:var(--ok)">ĐANG CÔNG BỐ</b>' + (xemDA ? ' (kèm đáp án)' : '') : 'chưa công bố'} · ${ctText(d)}`;
   const s = d.scoring.max;
   $('kqTable').innerHTML = `<tr><th>STT</th><th>SBD</th><th class="l">Họ và tên</th><th>Mã đề</th><th>Phần I<br><small>/${f(s.p1)}</small></th>
     <th>Phần II<br><small>/${f(s.p2)}</small></th><th>Phần III<br><small>/${f(s.p3)}</small></th><th>Trắc nghiệm</th>${coTL ? `<th>Tự luận<br><small>/${f(d.tuLuan)}</small></th>` : ''}<th>Tổng</th><th>Ảnh</th></tr>` +
     rows.map((r, i) => {
       const k = r.k;
-      if (!k || !k.made) return `<tr class="chua"><td>${i + 1}</td><td>${r.h.sbd}</td><td class="l">${KT.esc(r.h.ten)}</td><td colspan="${coTL ? 7 : 6}">${k ? 'mới có trang tự luận' : 'chưa quét'}</td><td>${k ? Object.keys(k.anh || {}).length : ''}</td></tr>`;
+      if (!k || !k.made) return `<tr class="chua"><td>${i + 1}</td><td>${r.h.sbd}</td><td class="l">${KT.esc(r.h.ten)}</td><td colspan="${coTL ? 7 : 6}">${k ? (k.tlCham ? 'chưa quét phiếu tô · tự luận ' + f(k.tl) : 'mới có trang tự luận') : 'chưa quét'}</td><td>${k ? Object.keys(k.anh || {}).length : ''}</td></tr>`;
       const tong = coTL ? (k.tlCham ? f(k.tn + k.tl) : '…') : f(k.tn);
       return `<tr><td>${i + 1}</td><td>${k.sbd}</td><td class="l">${KT.esc(k.ten || r.h.ten)}</td><td>${k.made}</td><td>${f(k.p1)}</td><td>${f(k.p2)}</td><td>${f(k.p3)}</td>
-        <td><b>${f(k.tn)}</b></td>${coTL ? `<td>${k.tlCham ? f(k.tl) : '<span class="muted">chưa chấm</span>'}</td>` : ''}<td><b>${tong}</b></td><td>${Object.keys(k.anh || {}).length}</td></tr>`;
+        <td><b>${f(k.tn)}</b></td>${coTL ? `<td>${tlCell(d, k)}</td>` : ''}<td><b>${tong}</b></td><td>${Object.keys(k.anh || {}).length}</td></tr>`;
     }).join('');
+}
+function tlCell(d, k) {
+  const href = `cham_tl.html?dot=${d.id}&lop=${encodeURIComponent(k.lop)}&sbd=${k.sbd}`;
+  if (k.tlCham) return `<a href="${href}" title="Mở bài để xem/sửa">${KT.fmt(k.tl)}</a>`;
+  if (k.tlCau && k.tlCau.some(v => v !== null)) return `<a href="${href}" class="muted">đang chấm</a>`;
+  return Object.keys(k.anh || {}).some(t => t !== 'TN') ? `<a href="${href}">chấm</a>` : '<span class="muted">chưa có ảnh</span>';
 }
 function exportXlsx() {
   const d = dotById($('kDot').value), lop = $('kLop').value; if (!d) return;
-  const coTL = d.tuLuan > 0, rows = mergedRows(d);
-  const head = ['STT', 'SBD', 'Họ và tên', 'Mã đề', 'Phần I', 'Phần II', 'Phần III', 'Trắc nghiệm'].concat(coTL ? ['Tự luận'] : [], ['Tổng điểm', 'Ghi chú']);
+  const coTL = d.tuLuan > 0, rows = mergedRows(d), cau = coTL ? cauTL(d) : [];
+  const head = ['STT', 'SBD', 'Họ và tên', 'Mã đề', 'Phần I', 'Phần II', 'Phần III', 'Trắc nghiệm'].concat(cau.map(c => c.ten), coTL ? ['Tự luận'] : [], ['Tổng điểm', 'Ghi chú']);
   const data = rows.map((r, i) => {
-    const k = r.k;
-    if (!k || !k.made) return [i + 1, r.h.sbd, r.h.ten, '', '', '', '', ''].concat(coTL ? [''] : [], ['', 'Chưa quét phiếu']);
+    const k = r.k, oCau = cau.map((c, j) => k && k.tlCau && k.tlCau[j] != null ? k.tlCau[j] : '');
+    if (!k || !k.made) return [i + 1, r.h.sbd, r.h.ten, '', '', '', '', ''].concat(oCau, coTL ? [k && k.tlCham ? k.tl : ''] : [], ['', 'Chưa quét phiếu tô']);
     const tl = coTL ? (k.tlCham ? k.tl : '') : null;
-    return [i + 1, k.sbd, k.ten || r.h.ten, k.made, k.p1, k.p2, k.p3, k.tn].concat(coTL ? [tl] : [],
-      [coTL ? (k.tlCham ? Math.round((k.tn + k.tl) * 100) / 100 : '') : k.tn, coTL && !k.tlCham ? 'Chưa chấm tự luận' : '']);
+    return [i + 1, k.sbd, k.ten || r.h.ten, k.made, k.p1, k.p2, k.p3, k.tn].concat(oCau, coTL ? [tl] : [],
+      [coTL ? (k.tlCham ? Math.round((k.tn + k.tl) * 100) / 100 : '') : k.tn, coTL && !k.tlCham ? 'Chưa chấm xong tự luận' : '']);
   });
-  KT.download(KT.writeXlsx([{ name: lop, rows: [head].concat(data), widths: [6, 10, 28, 8, 9, 9, 9, 12].concat(coTL ? [9] : [], [11, 20]) }]),
+  KT.download(KT.writeXlsx([{ name: lop, rows: [head].concat(data), widths: [6, 10, 28, 8, 9, 9, 9, 12].concat(cau.map(() => 8), coTL ? [9] : [], [11, 22]) }]),
     `Diem_${lop}_${d.ten.replace(/[^\wÀ-ỹ]+/g, '_').slice(0, 40)}.xlsx`);
 }
 async function congBo(on) {
   const d = dotById($('kDot').value), lop = $('kLop').value; if (!d) return;
   if (on && !confirm(`Công bố điểm lớp ${lop}?\nHọc sinh sẽ xem được điểm và bài làm của mình.`)) return;
-  const r = await KT.api('ktCongBo', { dot: d.id, lop, congBo: on });
+  const r = await KT.api('ktCongBo', { dot: d.id, lop, congBo: on, xemDapAn: on && $('kXemDA').checked });
   await loadKq();
   msg('kqMsg', 'ok', `${on ? 'Đã công bố' : 'Đã thu hồi'} ${r.soBai} bài lớp ${KT.esc(lop)}.` + (on ? ' Học sinh xem được điểm của mình.' : ''));
 }

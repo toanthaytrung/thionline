@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chấm tự luận – Kiểm tra trên lớp</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --blue: #0b57d0; --deep: #041e49; --bg: #eef1f6; --card: #fff; --line: #dde3ef; --ink: #1e293b; --muted: #64748b;
+    --ok: #137333; --ok-soft: #e6f4ea; --bad: #b3261e; --bad-soft: #fce8e6; --warn: #b06000; --warn-soft: #fef7e0; --red: #d93025;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; font-size: 14.5px; }
+  header { background: linear-gradient(135deg, #0b57d0, #041e49); color: #fff; padding: 9px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  header h1 { font-size: 16px; margin: 0; font-weight: 800; white-space: nowrap; }
+  header a { color: #fff; background: rgba(255,255,255,.14); border-radius: 8px; padding: 6px 11px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  header select { padding: 6px 9px; border-radius: 8px; border: 0; font: inherit; max-width: 300px; }
+  header .sp { flex: 1; }
+  #hdrSum { font-size: 13px; opacity: .92; }
+  .btn { border: 0; border-radius: 9px; padding: 9px 14px; font: inherit; font-weight: 700; cursor: pointer; background: var(--blue); color: #fff; }
+  .btn.ghost { background: #fff; color: var(--blue); border: 1.5px solid #c7d7f5; }
+  .btn.green { background: var(--ok); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .msg { padding: 9px 12px; border-radius: 9px; font-size: 13.5px; margin-top: 8px; }
+  .msg.ok { background: var(--ok-soft); color: var(--ok); } .msg.err { background: var(--bad-soft); color: var(--bad); } .msg.warn { background: var(--warn-soft); color: var(--warn); }
+  .hide { display: none !important; }
+  input[type=password], input[type=text] { padding: 9px 11px; border: 1.5px solid var(--line); border-radius: 9px; font: inherit; }
+
+  #login { max-width: 560px; margin: 40px auto; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  #app { display: grid; grid-template-columns: 250px minmax(0, 1fr) 300px; height: calc(100vh - 52px); }
+  aside { background: #fff; overflow-y: auto; }
+  #side { border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+  #side .top { padding: 10px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 1; }
+  .seg { display: flex; border: 1.5px solid #c7d7f5; border-radius: 9px; overflow: hidden; }
+  .seg button { flex: 1; border: 0; background: #fff; padding: 6px; font: inherit; font-weight: 700; color: #475569; cursor: pointer; }
+  .seg button.on { background: var(--blue); color: #fff; }
+  .hs { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border-bottom: 1px solid #f0f2f7; cursor: pointer; }
+  .hs:hover { background: #f6f9ff; }
+  .hs.on { background: #e8f0fe; box-shadow: inset 3px 0 0 var(--blue); }
+  .hs .n { width: 22px; color: var(--muted); font-size: 12px; text-align: right; }
+  .hs .t { flex: 1; min-width: 0; }
+  .hs .t b { display: block; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hs .t small { color: var(--muted); }
+  .tag { font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 7px; white-space: nowrap; }
+  .tag.xong { background: var(--ok-soft); color: var(--ok); } .tag.do { background: var(--warn-soft); color: var(--warn); }
+  .tag.chua { background: #eef3fd; color: var(--blue); } .tag.khong { color: #94a3b8; }
+  .hs.dim { opacity: .55; }
+
+  #center { display: flex; flex-direction: column; min-width: 0; }
+  .tools { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; padding: 7px 10px; background: #fff; border-bottom: 1px solid var(--line); }
+  .tools .g { display: flex; gap: 4px; align-items: center; padding-right: 8px; margin-right: 2px; border-right: 1px solid var(--line); }
+  .tools .g:last-child { border-right: 0; }
+  .tb { border: 1.5px solid transparent; background: #f3f6fb; border-radius: 8px; min-width: 36px; height: 34px; padding: 0 8px; font: inherit; font-weight: 700; cursor: pointer; color: #334155; }
+  .tb:hover { background: #e8eefb; }
+  .tb.on { border-color: var(--blue); background: #e8f0fe; color: var(--blue); }
+  .tb:disabled { opacity: .4; cursor: default; }
+  .sw { width: 24px; height: 24px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1.5px #cbd5e1; cursor: pointer; padding: 0; }
+  .sw.on { box-shadow: 0 0 0 2.5px var(--ink); }
+  .pages { display: flex; gap: 4px; flex-wrap: wrap; }
+  .pages button { border: 1.5px solid #c7d7f5; background: #fff; border-radius: 8px; padding: 5px 10px; font: inherit; font-weight: 700; font-size: 13px; color: #475569; cursor: pointer; }
+  .pages button.on { background: var(--deep); border-color: var(--deep); color: #fff; }
+  #stage { flex: 1; overflow: auto; padding: 14px; position: relative; }
+  #paper { position: relative; margin: 0 auto; background: #fff; box-shadow: 0 2px 14px rgba(15,23,42,.18); }
+  #paper img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+  #ink { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+  #ink.erase { cursor: cell; } #ink.place { cursor: copy; }
+  #stageMsg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 15px; text-align: center; padding: 20px; }
+
+  #panel { border-left: 1px solid var(--line); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+  #panel h2 { font-size: 17px; margin: 0; color: var(--deep); }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; font-size: 13.5px; }
+  .kv span { color: var(--muted); }
+  .cau { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+  .cau.cur { border-color: var(--blue); box-shadow: 0 0 0 2px #d3e3fd; }
+  .cau .ct { display: flex; align-items: center; gap: 6px; }
+  .cau .ct b { flex: 1; }
+  .cau .pin { border: 0; background: none; cursor: pointer; font-size: 15px; padding: 2px; }
+  .cau .pin.on { background: #e8f0fe; border-radius: 6px; }
+  .qb { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+  .qb button { min-width: 38px; height: 32px; border: 1.5px solid #e2e8f0; background: #fff; border-radius: 7px; font: inherit; font-weight: 700; cursor: pointer; }
+  .qb button.on { background: var(--red); border-color: var(--red); color: #fff; }
+  .qb input { width: 64px; height: 32px; border: 1.5px dashed #94a3b8; border-radius: 7px; text-align: center; font: inherit; font-weight: 700; color: var(--red); background: #fafbfd; }
+  .qb input::placeholder { color: #94a3b8; font-weight: 500; font-size: 12.5px; }
+  .tong { background: #fff5f4; border: 1.5px solid #f6c9c4; border-radius: 12px; padding: 10px 12px; }
+  .tong .big { font-size: 26px; font-weight: 800; color: var(--red); }
+  .keys { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+  .keys kbd { background: #f1f5f9; border: 1px solid #cbd5e1; border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; font-family: inherit; font-size: 11.5px; color: #334155; }
+  #saveState { font-size: 13px; min-height: 18px; }
+  @media (max-width: 1050px) {
+    #app { grid-template-columns: 210px minmax(0, 1fr); height: auto; }
+    #panel { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); }
+    #stage { height: 80vh; }
+  }
+  @media (max-width: 700px) { #app { grid-template-columns: 1fr; } #side { max-height: 40vh; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>✍️ CHẤM TỰ LUẬN</h1>
+  <select id="dotSel" onchange="chonDot(this.value)" title="Đợt kiểm tra"></select>
+  <select id="lopSel" onchange="chonLop(this.value)" title="Lớp"></select>
+  <span id="hdrSum"></span>
+  <span class="sp"></span>
+  <a href="giao_vien.html">← Khu giáo viên</a>
+</header>
+
+<section id="login" class="hide">
+  <h2 style="margin-top:0">🔒 Đăng nhập</h2>
+  <p class="muted">Dán <b>khóa quản trị</b> (giống khu giáo viên). Khóa chỉ lưu trên máy này.</p>
+  <div style="display:flex; gap:8px"><input type="password" id="keyInput" placeholder="Khóa quản trị" style="flex:1">
+    <button class="btn" onclick="dangNhap()">Vào</button></div>
+  <div id="loginMsg"></div>
+</section>
+
+<div id="app" class="hide">
+  <aside id="side">
+    <div class="top">
+      <div class="seg"><button data-f="chua" class="on" onclick="loc('chua')">Chưa chấm</button><button data-f="tat" onclick="loc('tat')">Tất cả</button></div>
+      <div id="sideSum" class="muted" style="margin-top:6px"></div>
+    </div>
+    <div id="dsHs"></div>
+  </aside>
+
+  <section id="center">
+    <div class="tools">
+      <div class="g">
+        <button class="tb on" data-tool="pen" onclick="chonCu('pen')" title="Bút (B)">🖊 Bút</button>
+        <button class="sw on" data-c="#d93025" style="background:#d93025" onclick="chonMau(this)" title="Đỏ"></button>
+        <button class="sw" data-c="#188038" style="background:#188038" onclick="chonMau(this)" title="Xanh lá"></button>
+        <button class="sw" data-c="#1a56db" style="background:#1a56db" onclick="chonMau(this)" title="Xanh dương"></button>
+        <select id="doDay" onchange="cu.w = +this.value" title="Độ dày nét" style="height:32px; border-radius:8px; border:1.5px solid var(--line); font:inherit">
+          <option value="2">Mảnh</option><option value="3.2" selected>Vừa</option><option value="5">Đậm</option></select>
+      </div>
+      <div class="g">
+        <button class="tb" data-tool="erase" onclick="chonCu('erase')" title="Tẩy: chạm vào nét để xóa (E). Đầu tẩy của bút cũng dùng được.">🧽 Tẩy</button>
+        <button class="tb" data-tool="v" onclick="chonCu('v')" title="Dấu đúng (V)">✓</button>
+        <button class="tb" data-tool="x" onclick="chonCu('x')" title="Dấu sai (X)">✗</button>
+        <button class="tb" data-tool="T" onclick="chonCu('T')" title="Đặt ô tổng điểm tự luận lên bài (T)">Σ Tổng</button>
+      </div>
+      <div class="g">
+        <button class="tb" id="bUndo" onclick="hoanTac()" title="Hoàn tác (Ctrl+Z)">↶</button>
+        <button class="tb" id="bRedo" onclick="lamLai()" title="Làm lại (Ctrl+Y)">↷</button>
+        <button class="tb" onclick="xoaTrang()" title="Xóa hết nét chấm trên trang này">🗑</button>
+      </div>
+      <div class="g">
+        <button class="tb" onclick="phong(-1)" title="Thu nhỏ (Ctrl + lăn chuột)">−</button>
+        <button class="tb" onclick="phong(0)" title="Vừa khung">⤢</button>
+        <button class="tb" onclick="phong(1)" title="Phóng to">+</button>
+      </div>
+      <div class="pages" id="pages"></div>
+    </div>
+    <div id="stage">
+      <div id="paper" class="hide"><img id="img" alt=""><canvas id="ink"></canvas></div>
+      <div id="stageMsg">Chọn một học sinh ở danh sách bên trái để chấm.</div>
+    </div>
+  </section>
+
+  <aside id="panel">
+    <div id="pInfo"><h2>Chưa chọn bài</h2></div>
+    <div id="pCau"></div>
+    <div class="tong" id="pTong"></div>
+    <div style="display:grid; gap:8px">
+      <button class="btn green" id="bNext" onclick="luuTiep()" disabled>💾 Lưu &amp; sang em tiếp ▶</button>
+      <div style="display:flex; gap:8px">
+        <button class="btn ghost" style="flex:1" id="bPrev" onclick="emTruoc()" disabled>◀ Em trước</button>
+        <button class="btn ghost" style="flex:1" id="bSave" onclick="luu()" disabled>💾 Lưu</button>
+      </div>
+      <div id="saveState"></div>
+    </div>
+    <div class="keys">
+      <b>Phím tắt</b> (gán được vào nút của bảng vẽ Gaomon):<br>
+      <kbd>B</kbd> bút · <kbd>E</kbd> tẩy · <kbd>V</kbd> ✓ · <kbd>X</kbd> ✗ · <kbd>T</kbd> ô tổng<br>
+      <kbd>Ctrl</kbd>+<kbd>Z</kbd> hoàn tác · <kbd>Ctrl</kbd>+<kbd>Y</kbd> làm lại<br>
+      <kbd>1</kbd>…<kbd>9</kbd> chọn câu · <kbd>0</kbd>/<kbd>,</kbd>/<kbd>.</kbd> gõ điểm câu đang chọn<br>
+      <kbd>Tab</kbd> trang sau · <kbd>Ctrl</kbd>+<kbd>S</kbd> lưu · <kbd>PageDown</kbd> lưu &amp; em tiếp · <kbd>PageUp</kbd> em trước<br>
+      Bài tự lưu khi chuyển sang em khác.
+    </div>
+  </aside>
+</div>
+
+<script src="kt_chung.js"></script>
+<script src="cham_ve.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const Q = new URLSearchParams(location.search);
+const R = 1.5;                                  // độ nét của lớp vẽ so với ảnh
+let DOTS = [], DOT = null, LOP = '', ROSTER = [], KQ = {}, FILTER = 'chua';
+let CUR = null;                                 // bài đang chấm
+let cu = { t: 'pen', c: '#d93025', w: 3.2, cau: -1 }, cuTruoc = 'pen';
+let zoom = 0;                                   // 0 = vừa khung, còn lại: hệ số phóng
+let penSeen = false, ve = null, tay = false;
+const anhCache = new Map();
+
+function msg(el, cls, h) { $(el).innerHTML = h ? `<div class="msg ${cls}">${h}</div>` : ''; }
+const f = KT.fmt, esc = KT.esc;
+function cauTL(d) { return d.tlCau && d.tlCau.length ? d.tlCau : KT.macDinhTlCau(d.tuLuan); }
+
+// ---------------------------------------------------------------- đăng nhập, chọn đợt / lớp
+async function dangNhap(im) {
+  const k = im ? KT.getKey() : $('keyInput').value.trim();
+  if (!k) { $('login').classList.remove('hide'); return; }
+  KT.setKey(k);
+  try {
+    const r = await KT.api('ktDsDot');
+    if (r.status !== 'OK') throw new Error(r.message);
+    DOTS = (r.dot || []).filter(d => d.tuLuan > 0);
+    $('login').classList.add('hide'); $('app').classList.remove('hide');
+    if (!DOTS.length) { $('dotSel').innerHTML = '<option>Chưa có đợt nào có tự luận</option>'; return; }
+    $('dotSel').innerHTML = DOTS.map(d => `<option value="${d.id}">${d.id} · ${esc(d.ten)}</option>`).join('');
+    const want = Q.get('dot');
+    chonDot(want && DOTS.some(d => String(d.id) === want) ? want : DOTS[0].id, Q.get('lop'), Q.get('sbd'));
+  } catch (e) {
+    if (e.denied) KT.setKey('');
+    $('login').classList.remove('hide'); msg('loginMsg', 'err', esc(e.message));
+  }
+}
+async function chonDot(id, lop, sbd) {
+  if (CUR && CUR.dirty && !(await luu())) { $('dotSel').value = DOT.id; return; }
+  DOT = DOTS.find(d => String(d.id) === String(id)); $('dotSel').value = DOT.id;
+  $('lopSel').innerHTML = DOT.lop.map(l => `<option>${esc(l)}</option>`).join('');
+  chonLop(lop && DOT.lop.includes(String(lop).toUpperCase()) ? String(lop).toUpperCase() : DOT.lop[0], sbd);
+}
+async function chonLop(lop, sbd) {
+  if (CUR && CUR.dirty && !(await luu())) { $('lopSel').value = LOP; return; }
+  LOP = lop; $('lopSel').value = lop; CUR = null; veBangDiem(); hienTrang(null);
+  $('dsHs').innerHTML = '<p class="muted" style="padding:10px">Đang tải danh sách…</p>';
+  try {
+    const [r, ds] = await Promise.all([KT.api('ktKetQua', { dot: DOT.id, lop }), KT.api('ktDanhSach', { lop })]);
+    KQ = {}; (r.ketQua || []).forEach(k => KQ[k.sbd] = k);
+    ROSTER = (ds.hocSinh || []).map(h => ({ sbd: h.sbd, ten: h.ten }));
+    Object.keys(KQ).forEach(s => { if (!ROSTER.some(h => h.sbd === s)) ROSTER.push({ sbd: s, ten: KQ[s].ten || '(không có trong danh sách lớp)' }); });
+    if (sbd && KQ[sbd]) FILTER = 'tat';
+    loc(FILTER);
+    history.replaceState(null, '', `?dot=${DOT.id}&lop=${encodeURIComponent(LOP)}`);
+    if (sbd && KQ[sbd]) moBai(sbd);
+    else { const n = dsLoc().find(h => coTL(KQ[h.sbd])); if (n) moBai(n.sbd); }
+  } catch (e) { $('dsHs').innerHTML = `<div class="msg err" style="margin:10px">${esc(e.message)}</div>`; }
+}
+
+// ---------------------------------------------------------------- danh sách học sinh
+function coTL(k) { return !!(k && Object.keys(k.anh || {}).some(t => t !== 'TN')); }
+function trangThai(k) {
+  if (!coTL(k)) return k ? ['khong', 'không có tự luận'] : ['khong', 'chưa quét'];
+  if (k.tlCham) return ['xong', '✓ ' + f(k.tl)];
+  if (k.tlCau && k.tlCau.some(v => v !== null)) return ['do', 'đang chấm'];
+  return ['chua', 'chưa chấm'];
+}
+function dsLoc() {
+  return ROSTER.filter(h => FILTER === 'tat' || (coTL(KQ[h.sbd]) && !KQ[h.sbd].tlCham) || (CUR && CUR.sbd === h.sbd));
+}
+function loc(fl) {
+  FILTER = fl;
+  document.querySelectorAll('.seg button').forEach(b => b.classList.toggle('on', b.dataset.f === fl));
+  veDs();
+}
+function veDs() {
+  const all = ROSTER.filter(h => coTL(KQ[h.sbd])), xong = all.filter(h => KQ[h.sbd].tlCham).length;
+  $('sideSum').textContent = `Đã chấm ${xong}/${all.length} bài có ảnh tự luận · lớp ${LOP} có ${ROSTER.length} em`;
+  $('hdrSum').textContent = `${DOT.ten} · Tự luận ${f(DOT.tuLuan)}đ`;
+  const ds = dsLoc();
+  $('dsHs').innerHTML = ds.length ? ds.map(h => {
+    const k = KQ[h.sbd], [cls, tx] = trangThai(k), i = ROSTER.indexOf(h) + 1;
+    return `<div class="hs ${CUR && CUR.sbd === h.sbd ? 'on' : ''} ${coTL(k) ? '' : 'dim'}" onclick="moBai('${h.sbd}')">
+      <span class="n">${i}</span><span class="t"><b>${esc(h.ten)}</b><small>SBD ${h.sbd}</small></span><span class="tag ${cls}">${tx}</span></div>`;
+  }).join('') : `<p class="muted" style="padding:12px">${FILTER === 'chua' ? '🎉 Đã chấm hết các bài có ảnh tự luận.' : 'Lớp chưa có ai.'}</p>`;
+}
+
+// ---------------------------------------------------------------- mở bài
+function khoaAnh(sbd, t) { return `${DOT.id}|${LOP}|${sbd}|${t}`; }
+function layAnh(sbd, t) {
+  const key = khoaAnh(sbd, t);
+  if (!anhCache.has(key)) {
+    const p = KT.api('ktAnh', { dot: DOT.id, lop: LOP, sbd, trang: t }).then(r => { if (r.status !== 'OK') throw new Error(r.message); return r.anh; });
+    p.catch(() => anhCache.delete(key));
+    anhCache.set(key, p);
+    if (anhCache.size > 40) anhCache.delete(anhCache.keys().next().value);
+  }
+  return anhCache.get(key);
+}
+async function moBai(sbd) {
+  if (CUR && CUR.sbd === sbd) return;
+  if (CUR && CUR.dirty && !(await luu())) return;
+  const k = KQ[sbd];
+  if (!k) { CUR = null; veDs(); veBangDiem(); hienTrang(null, 'Em này chưa có bài quét.'); return; }
+  CUR = { sbd, kq: k, net: {}, diem: [], trang: [], page: '', dirty: false, undo: [], redo: [], loading: true };
+  veDs(); veBangDiem(); hienTrang(null, 'Đang tải bài…');
+  history.replaceState(null, '', `?dot=${DOT.id}&lop=${encodeURIComponent(LOP)}&sbd=${sbd}`);
+  const cur = CUR;
+  try {
+    const r = await KT.api('ktBaiLam', { dot: DOT.id, lop: LOP, sbd });
+    if (r.status !== 'OK') throw new Error(r.message);
+    if (CUR !== cur) return;
+    KQ[sbd] = r.kq;
+    cur.kq = r.kq; cur.net = r.cham || {};
+    cur.diem = cauTL(DOT).map((c, i) => r.kq.tlCau && r.kq.tlCau[i] != null ? r.kq.tlCau[i] : null);
+    cur.trang = CHAMVE.thuTuTrang(Object.keys(r.kq.anh || {}));
+    cur.loading = false;
+    veBangDiem();
+    const dau = cur.trang.find(t => t !== 'TN') || cur.trang[0];
+    if (!dau) { hienTrang(null, 'Bài này chưa có ảnh.'); return; }
+    await moTrang(dau);
+    cur.trang.forEach(t => layAnh(sbd, t));                     // tải trước các trang còn lại
+    const sau = emKe(1); if (sau) { const tk = CHAMVE.thuTuTrang(Object.keys(KQ[sau].anh || {})).find(t => t !== 'TN'); if (tk) layAnh(sau, tk); }
+  } catch (e) { if (CUR === cur) hienTrang(null, '⚠️ ' + esc(e.message)); }
+}
+async function moTrang(t) {
+  const cur = CUR; if (!cur) return;
+  cur.page = t; veTabs();
+  if (!$('img').dataset.k || $('img').dataset.k !== khoaAnh(cur.sbd, t)) hienTrang(null, 'Đang tải ảnh ' + CHAMVE.tenTrang(t).toLowerCase() + '…');
+  try {
+    const src = await layAnh(cur.sbd, t);
+    if (CUR !== cur || cur.page !== t) return;
+    await new Promise((ok, no) => { const im = $('img'); im.onload = ok; im.onerror = () => no(new Error('Ảnh hỏng')); im.src = src; im.dataset.k = khoaAnh(cur.sbd, t); });
+    hienTrang(true);
+  } catch (e) { if (CUR === cur) hienTrang(null, '⚠️ Không tải được ảnh: ' + esc(e.message)); }
+}
+function hienTrang(on, text) {
+  $('paper').classList.toggle('hide', !on);
+  $('stageMsg').classList.toggle('hide', !!on);
+  if (!on) { $('stageMsg').innerHTML = text || 'Chọn một học sinh ở danh sách bên trái để chấm.'; if (!CUR) veTabs(); return; }
+  datCo(); veLai();
+}
+function veTabs() {
+  $('pages').innerHTML = CUR && CUR.trang.length ? CUR.trang.map(t => `<button class="${t === CUR.page ? 'on' : ''}" onclick="moTrang('${t}')">${t === 'TN' ? 'Phiếu tô' : 'Tờ ' + t.slice(2)}</button>`).join('') : '';
+}
+
+// ---------------------------------------------------------------- khung giấy, phóng to
+function datCo() {
+  const st = $('stage'), fit = Math.max(300, st.clientWidth - 28);
+  const w = zoom ? Math.round(CHAMVE.W * zoom) : fit;
+  $('paper').style.width = w + 'px';
+  const c = $('ink');
+  if (c.width !== CHAMVE.W * R) { c.width = CHAMVE.W * R; c.height = CHAMVE.H * R; }
+}
+function phong(d) {
+  const cur = $('paper').clientWidth / CHAMVE.W;
+  zoom = d === 0 ? 0 : Math.max(0.4, Math.min(3, (zoom || cur) * (d > 0 ? 1.2 : 1 / 1.2)));
+  datCo();
+}
+window.addEventListener('resize', () => { if (!zoom) datCo(); });
+$('stage').addEventListener('wheel', e => { if (e.ctrlKey) { e.preventDefault(); phong(e.deltaY < 0 ? 1 : -1); } }, { passive: false });
+
+// ---------------------------------------------------------------- vẽ nét chấm
+function netTrang() { return CUR.net[CUR.page] || (CUR.net[CUR.page] = []); }
+function tongTL() { return Math.round(CUR.diem.reduce((a, v) => a + (v || 0), 0) * 100) / 100; }
+function coTongDat() { return Object.values(CUR.net).some(a => a.some(it => it.t === 'T')); }
+function veLai() {
+  if (!CUR || !CUR.page) return;
+  const ctx = $('ink').getContext('2d');
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, $('ink').width, $('ink').height); ctx.setTransform(R, 0, 0, R, 0, 0);
+  const dauTL = CUR.trang.find(t => t !== 'TN');
+  CHAMVE.ve(ctx, CUR.net[CUR.page] || [], { cau: cauTL(DOT), diem: CUR.diem, tl: tongTL(), tlMax: DOT.tuLuan,
+    tongMacDinh: CUR.page === dauTL && !coTongDat() });
+  $('bUndo').disabled = !CUR.undo.length; $('bRedo').disabled = !CUR.redo.length;
+}
+function ghiNho() {                          // lưu trạng thái để hoàn tác
+  CUR.undo.push(JSON.stringify(CUR.net)); if (CUR.undo.length > 80) CUR.undo.shift();
+  CUR.redo = []; danhDau();
+}
+function danhDau() { CUR.dirty = true; $('saveState').innerHTML = '<span style="color:var(--warn)">● Có thay đổi chưa lưu</span>'; }
+function hoanTac() { if (!CUR || !CUR.undo.length) return; CUR.redo.push(JSON.stringify(CUR.net)); CUR.net = JSON.parse(CUR.undo.pop()); danhDau(); veLai(); }
+function lamLai() { if (!CUR || !CUR.redo.length) return; CUR.undo.push(JSON.stringify(CUR.net)); CUR.net = JSON.parse(CUR.redo.pop()); danhDau(); veLai(); }
+function xoaTrang() {
+  if (!CUR || !CUR.page || !(CUR.net[CUR.page] || []).length) return;
+  if (!confirm('Xóa hết nét chấm trên trang này? (Hoàn tác được bằng Ctrl+Z)')) return;
+  ghiNho(); CUR.net[CUR.page] = []; veLai();
+}
+function chonCu(t, i) {
+  if (t !== 'd' && t !== 'T') cuTruoc = t;
+  cu.t = t; cu.cau = t === 'd' ? i : -1;
+  document.querySelectorAll('[data-tool]').forEach(b => b.classList.toggle('on', b.dataset.tool === t));
+  document.querySelectorAll('.cau .pin').forEach(b => b.classList.toggle('on', t === 'd' && +b.dataset.i === i));
+  $('ink').className = t === 'erase' ? 'erase' : (t === 'd' || t === 'T' || t === 'v' || t === 'x') ? 'place' : '';
+}
+function chonMau(b) {
+  document.querySelectorAll('.sw').forEach(x => x.classList.toggle('on', x === b));
+  cu.c = b.dataset.c; if (cu.t !== 'pen') chonCu('pen');
+}
+function diem(e) {
+  const r = $('ink').getBoundingClientRect();
+  return { x: Math.round((e.clientX - r.left) / r.width * CHAMVE.W * 10) / 10, y: Math.round((e.clientY - r.top) / r.height * CHAMVE.H * 10) / 10 };
+}
+function luc(e) { return e.pointerType === 'pen' ? Math.round(Math.max(0.05, e.pressure || 0.5) * 100) / 100 : 0.5; }
+function tayXoa(p) {
+  const a = netTrang(), k = CHAMVE.cham(a, p.x, p.y, 7);
+  if (k >= 0) { if (!tay.da) { ghiNho(); tay.da = true; } a.splice(k, 1); veLai(); }
+}
+const ink = $('ink');
+ink.addEventListener('contextmenu', e => e.preventDefault());
+ink.addEventListener('pointerdown', e => {
+  if (!CUR || !CUR.page) return;
+  if (e.pointerType === 'pen') penSeen = true;
+  if (e.pointerType === 'touch' && penSeen) return;          // tì tay lên màn hình khi viết bằng bút
+  const dauTay = e.button === 5 || (e.buttons & 32);         // đầu tẩy của bút
+  if (e.button !== 0 && !dauTay) return;
+  e.preventDefault(); try { ink.setPointerCapture(e.pointerId); } catch (er) {}
+  const p = diem(e);
+  if (cu.t === 'erase' || dauTay) { tay = { id: e.pointerId, da: false }; tayXoa(p); return; }
+  if (cu.t === 'pen') {
+    ve = { id: e.pointerId, it: { t: 'p', c: cu.c, w: cu.w, d: [p.x, p.y, luc(e)] } };
+    const ctx = ink.getContext('2d'); ctx.setTransform(R, 0, 0, R, 0, 0);
+    ctx.fillStyle = cu.c; ctx.beginPath(); ctx.arc(p.x, p.y, cu.w * 0.45, 0, 7); ctx.fill();
+    return;
+  }
+  ghiNho();
+  const a = netTrang();
+  if (cu.t === 'v' || cu.t === 'x') a.push({ t: cu.t, x: p.x, y: p.y, c: cu.c });
+  else if (cu.t === 'd') {
+    const i = cu.cau; CUR.net[CUR.page] = a.filter(it => !(it.t === 'd' && it.i === i)); CUR.net[CUR.page].push({ t: 'd', i, x: p.x, y: p.y });
+    chonCu(cuTruoc);
+  } else if (cu.t === 'T') {
+    Object.keys(CUR.net).forEach(t => CUR.net[t] = CUR.net[t].filter(it => it.t !== 'T'));
+    netTrang().push({ t: 'T', x: p.x, y: p.y }); chonCu(cuTruoc);
+  }
+  veLai();
+});
+ink.addEventListener('pointermove', e => {
+  if (tay && tay.id === e.pointerId) { tayXoa(diem(e)); return; }
+  if (!ve || ve.id !== e.pointerId) return;
+  const ctx = ink.getContext('2d'); ctx.setTransform(R, 0, 0, R, 0, 0);
+  ctx.strokeStyle = ve.it.c; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+  for (const ev of (evs.length ? evs : [e])) {
+    const p = diem(ev), d = ve.it.d, n = d.length, lx = d[n - 3], ly = d[n - 2];
+    if (Math.abs(p.x - lx) + Math.abs(p.y - ly) < 0.8) continue;
+    const pr = luc(ev);
+    ctx.lineWidth = ve.it.w * (0.45 + 0.9 * pr);
+    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(p.x, p.y); ctx.stroke();
+    d.push(p.x, p.y, pr);
+  }
+});
+function ketThuc(e) {
+  if (tay && tay.id === e.pointerId) { tay = false; return; }
+  if (!ve || ve.id !== e.pointerId) return;
+  const it = ve.it; ve = null;
+  ghiNho(); netTrang().push(it); veLai();
+}
+ink.addEventListener('pointerup', ketThuc);
+ink.addEventListener('pointercancel', ketThuc);
+
+// ---------------------------------------------------------------- bảng điểm từng câu
+function nutDiem(max) {
+  const buoc = max <= 2 ? 0.25 : max <= 4 ? 0.5 : 0, out = [];
+  if (buoc) for (let v = 0; v <= max + 1e-9; v += buoc) out.push(Math.round(v * 100) / 100);
+  else out.push(0, max);
+  return out;
+}
+let cauChon = 0;
+function veBangDiem() {
+  if (!CUR) {
+    $('pInfo').innerHTML = '<h2>Chưa chọn bài</h2>'; $('pCau').innerHTML = ''; $('pTong').innerHTML = '';
+    ['bNext', 'bPrev', 'bSave'].forEach(b => $(b).disabled = true); $('saveState').innerHTML = ''; return;
+  }
+  const k = CUR.kq, h = ROSTER.find(x => x.sbd === CUR.sbd) || {}, cau = cauTL(DOT);
+  $('pInfo').innerHTML = `<h2>${esc(k.ten || h.ten || 'SBD ' + CUR.sbd)}</h2>
+    <div class="kv" style="margin-top:6px"><span>SBD</span><b>${CUR.sbd}</b><span>Lớp</span><b>${esc(LOP)}</b>
+    <span>Mã đề</span><b>${k.made ? esc(k.made) : '<span class="muted">chưa quét phiếu tô</span>'}</b>
+    <span>Trắc nghiệm</span><b>${k.made ? f(k.tn) + ' / ' + f(10 - DOT.tuLuan) : '–'}</b></div>`;
+  if (CUR.loading) { $('pCau').innerHTML = '<p class="muted">Đang tải…</p>'; $('pTong').innerHTML = ''; return; }
+  $('pCau').innerHTML = cau.map((c, i) => `
+    <div class="cau ${i === cauChon ? 'cur' : ''}" id="cau${i}" onclick="cauChon=${i}; danhDauCau()">
+      <div class="ct"><b>${esc(c.ten)}</b><span class="muted">tối đa ${f(c.max)}</span>
+        <button class="pin" data-i="${i}" title="Đặt ô điểm câu này lên bài: bấm nút rồi chạm vào chỗ cần đặt" onclick="event.stopPropagation(); chonCu(cu.t === 'd' && cu.cau === ${i} ? cuTruoc : 'd', ${i})">📍</button></div>
+      <div class="qb">${nutDiem(c.max).map(v => `<button class="${CUR.diem[i] === v ? 'on' : ''}" onclick="datDiem(${i}, ${v})">${f(v)}</button>`).join('')}
+        <input type="text" inputmode="decimal" id="in${i}" value="${CUR.diem[i] == null ? '' : f(CUR.diem[i])}" placeholder="gõ điểm" title="Gõ điểm khác (VD 0,3) rồi Enter" onchange="datDiem(${i}, this.value)" onfocus="cauChon=${i}; danhDauCau()"></div>
+    </div>`).join('');
+  veTong();
+  ['bNext', 'bPrev', 'bSave'].forEach(b => $(b).disabled = false);
+  $('saveState').innerHTML = CUR.dirty ? '<span style="color:var(--warn)">● Có thay đổi chưa lưu</span>' : (k.chamLuc ? '<span class="muted">Đã lưu lúc ' + new Date(k.chamLuc).toLocaleString('vi-VN') + '</span>' : '');
+}
+function danhDauCau() { document.querySelectorAll('.cau').forEach((el, i) => el.classList.toggle('cur', i === cauChon)); }
+function veTong() {
+  const cau = cauTL(DOT), thieu = CUR.diem.filter(v => v == null).length, tl = tongTL(), k = CUR.kq;
+  $('pTong').innerHTML = `<div class="muted">Tự luận</div><div class="big">${f(tl)} <span style="font-size:15px; color:var(--muted)">/ ${f(DOT.tuLuan)}</span></div>
+    ${thieu ? `<div class="muted" style="color:var(--warn)">Còn ${thieu} câu chưa cho điểm</div>` : '<div class="muted" style="color:var(--ok)">✓ Đã cho điểm đủ các câu</div>'}
+    <div style="margin-top:6px">Tổng bài: <b>${k.made ? f(Math.round((k.tn + tl) * 100) / 100) : '–'}</b> / 10</div>`;
+}
+function datDiem(i, v) {
+  const c = cauTL(DOT)[i];
+  if (v === '' || v === null) v = null;
+  else { v = Number(String(v).replace(',', '.')); if (!isFinite(v)) v = null; else v = Math.max(0, Math.min(c.max, Math.round(v * 100) / 100)); }
+  CUR.diem[i] = v; cauChon = i; danhDau();
+  const box = $('cau' + i);
+  box.querySelectorAll('.qb button').forEach(b => b.classList.toggle('on', v !== null && Number(b.textContent.replace(',', '.')) === v));
+  $('in' + i).value = v == null ? '' : f(v);
+  veTong(); veLai(); danhDauCau();
+}
+
+// ---------------------------------------------------------------- lưu, chuyển em
+async function luu() {
+  if (!CUR || CUR.loading) return true;
+  const cur = CUR, net = {};
+  Object.keys(cur.net).forEach(t => { if (cur.net[t].length) net[t] = cur.net[t]; });
+  $('saveState').innerHTML = '<span class="muted">Đang lưu…</span>';
+  ['bNext', 'bSave'].forEach(b => $(b).disabled = true);
+  try {
+    const r = await KT.api('ktChamTL', { dot: DOT.id, lop: LOP, sbd: cur.sbd, diem: cur.diem, net });
+    if (r.status !== 'OK') throw new Error(r.message);
+    Object.assign(cur.kq, { tl: r.tl, tlCau: r.diem, tlCham: r.xong, chamLuc: new Date().toISOString() });
+    KQ[cur.sbd] = cur.kq; cur.dirty = false;
+    if (CUR === cur) { $('saveState').innerHTML = `<span style="color:var(--ok)">✓ Đã lưu · tự luận ${f(r.tl)}${r.xong ? '' : ' (chưa đủ câu)'}</span>`; }
+    veDs();
+    return true;
+  } catch (e) {
+    $('saveState').innerHTML = `<span style="color:var(--bad)">⚠️ Chưa lưu được: ${esc(e.message)}</span>`;
+    return false;
+  } finally { ['bNext', 'bSave'].forEach(b => $(b).disabled = !CUR); }
+}
+function emKe(buoc) {
+  const ds = ROSTER.filter(h => coTL(KQ[h.sbd])), i = ds.findIndex(h => CUR && h.sbd === CUR.sbd);
+  for (let j = i + buoc; j >= 0 && j < ds.length; j += buoc) {
+    if (buoc < 0 || FILTER === 'tat' || !KQ[ds[j].sbd].tlCham) return ds[j].sbd;
+  }
+  return null;
+}
+async function luuTiep() {
+  if (!CUR) return;
+  const thieu = CUR.diem.filter(v => v == null).length;
+  if (thieu && !CUR.diem.every(v => v == null) && !confirm(`Còn ${thieu} câu chưa cho điểm. Vẫn lưu và sang em tiếp?`)) return;
+  if (!(await luu())) return;
+  const sau = emKe(1);
+  if (sau) moBai(sau);
+  else { veDs(); $('saveState').innerHTML += '<br><b style="color:var(--ok)">Đã đến em cuối danh sách.</b>'; }
+}
+async function emTruoc() { const t = emKe(-1); if (t) moBai(t); }
+window.addEventListener('beforeunload', e => { if (CUR && CUR.dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+// ---------------------------------------------------------------- phím tắt
+document.addEventListener('keydown', e => {
+  const tag = (e.target.tagName || '').toLowerCase();
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); luu(); return; }
+  if (e.key === 'PageDown') { e.preventDefault(); luuTiep(); return; }
+  if (e.key === 'PageUp') { e.preventDefault(); emTruoc(); return; }
+  if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? lamLai() : hoanTac(); return; }
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') { e.preventDefault(); lamLai(); return; }
+  if (e.ctrlKey || e.metaKey || e.altKey || !CUR) return;
+  const k = e.key.toLowerCase();
+  if (k === 'b' || k === 'p') chonCu('pen');
+  else if (k === 'e') chonCu('erase');
+  else if (k === 'v') chonCu('v');
+  else if (k === 'x') chonCu('x');
+  else if (k === 't') chonCu('T');
+  else if (k === 'tab') {
+    e.preventDefault(); if (!CUR.trang.length) return;
+    const i = CUR.trang.indexOf(CUR.page); moTrang(CUR.trang[(i + (e.shiftKey ? -1 : 1) + CUR.trang.length) % CUR.trang.length]);
+  } else if (/^[1-9]$/.test(k)) {
+    const n = +k - 1; if (n < cauTL(DOT).length) { cauChon = n; danhDauCau(); $('cau' + n).scrollIntoView({ block: 'nearest' }); }
+  } else if (k === '0' || k === ',' || k === '.') {
+    // gõ điểm cho câu đang chọn: 0 , 5 => 0,5 ; 0 => 0
+    const inp = $('in' + cauChon); if (inp) { inp.focus(); inp.value = k === '0' ? '0' : '0,'; e.preventDefault(); }
+  } else if (k === 'escape') chonCu(cuTruoc);
+});
+
+dangNhap(true);
+</script>
+</body>
+</html>
