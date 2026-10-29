@@ -40,7 +40,7 @@
         .tab-section-sub { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
 
         .tab-bar {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 26px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 26px;
         }
         .tab-btn {
             background: #ffffff; border: 2px solid #d3e3fd; padding: 13px 18px; border-radius: 10px;
@@ -73,6 +73,37 @@
             border-radius: 6px; font-size: 12px; font-weight: 800; letter-spacing: 0.3px;
         }
         .card-title { font-size: 19px; font-weight: 800; color: var(--text-dark); }
+        .group-title {
+            font-size: 15px; font-weight: 800; color: var(--dark-blue); letter-spacing: 0.3px;
+            display: flex; align-items: center; gap: 8px; margin: 10px 0 -2px;
+        }
+        .group-title:first-child { margin-top: 0; }
+        .tab-btn.tab-cd { border-color: #f3d9b1; }
+        .tab-btn.tab-cd:hover { border-color: #b45309; color: #b45309; background: #fff8ee; }
+        .tab-btn.tab-cd.active { background: #b45309; border-color: #b45309; color: #fff; box-shadow: 0 4px 14px rgba(180, 83, 9, 0.28); }
+        .cd-filter { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: -10px 0 22px; }
+        .cd-filter button {
+            border: 1.5px solid #f3d9b1; background: #fff; color: #7c4a12; border-radius: 999px;
+            padding: 6px 16px; font-weight: 700; font-size: 14px; cursor: pointer;
+        }
+        .cd-filter button.on { background: #b45309; border-color: #b45309; color: #fff; }
+        .topic-box {
+            background: #fff; border: 1.5px solid #f3d9b1; border-radius: 14px; padding: 16px 18px;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .topic-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .topic-name { font-size: 18px; font-weight: 800; color: #5b3409; }
+        .topic-count { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+        .topic-box .exam-card { padding: 12px 18px; }
+        .topic-box .card-title { font-size: 17px; }
+        .empty-hint { margin-top: 10px; font-size: 14px; }
+        .empty-hint a { color: #b45309; font-weight: 700; }
+        .exam-card.cd { border-left-color: #b45309; }
+        .exam-card.cd:hover { border-left-color: #b45309; }
+        .badge-cd {
+            background: #b45309; color: #fff; padding: 3px 10px;
+            border-radius: 6px; font-size: 12px; font-weight: 800; letter-spacing: 0.3px;
+        }
 
         .card-actions { display: flex; align-items: center; }
 
@@ -93,7 +124,7 @@
         footer { text-align: center; padding: 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid #e2e8f0; }
 
         @media (max-width: 680px) {
-            .tab-bar { grid-template-columns: 1fr; gap: 8px; }
+            .tab-bar { grid-template-columns: 1fr 1fr; gap: 8px; }
             .exam-card { flex-direction: column; align-items: flex-start; gap: 14px; }
             .card-actions { width: 100%; justify-content: flex-end; }
             .btn-start { width: 100%; justify-content: center; }
@@ -116,7 +147,7 @@
     <div class="tab-section-title">
         <i class="fa-regular fa-folder-open"></i> DANH SÁCH BÀI TẬP VÀ ĐỀ THI THEO KHỐI
     </div>
-    <div class="tab-section-sub">Chọn Khối học bên dưới để tiến hành luyện tập</div>
+    <div class="tab-section-sub">Chọn Khối học bên dưới để tiến hành luyện tập (đề luyện thi và đề theo chuyên đề)</div>
 
     <div class="tab-bar">
         <button class="tab-btn active" id="tab-12" onclick="selectGrade('12')">
@@ -128,8 +159,12 @@
         <button class="tab-btn" id="tab-10" onclick="selectGrade('10')">
             <i class="fa-solid fa-graduation-cap"></i> KHỐI 10
         </button>
+        <button class="tab-btn tab-cd" id="tab-cd" onclick="selectGrade('cd')">
+            <i class="fa-solid fa-layer-group"></i> CHUYÊN ĐỀ
+        </button>
     </div>
 
+    <div class="cd-filter" id="cdFilter" hidden></div>
     <div class="exam-list" id="examListContainer"></div>
 </div>
 
@@ -138,7 +173,11 @@
 </footer>
 
 <script>
-let currentSelectedGrade = '12';
+// Trang danh sách đề: 3 tab khối (đề luyện thi) + tab CHUYÊN ĐỀ (nhóm theo tên chuyên đề)
+// Link mở thẳng tab chuyên đề: index.html?tab=chuyende&khoi=11
+const params = new URLSearchParams(location.search);
+let currentSelectedGrade = params.get('tab') === 'chuyende' ? 'cd' : (['10', '11', '12'].includes(params.get('khoi')) ? params.get('khoi') : '12');
+let cdGrade = ['10', '11', '12'].includes(params.get('khoi')) ? params.get('khoi') : 'ALL';
 let allExams = [];
 
 // Danh sách đề dự phòng khi mở trực tiếp file:// từ ổ đĩa
@@ -149,47 +188,61 @@ const FALLBACK_EXAMS = [
 ];
 
 function loadManifest() {
-    // Nếu mở file cục bộ từ ổ cứng (file:///), dùng ngay danh sách dự phòng
     if (window.location.protocol === 'file:') {
         allExams = FALLBACK_EXAMS;
-        renderExams();
+        selectGrade(currentSelectedGrade);
         return;
     }
-
     fetch(`manifest.json?t=${Date.now()}`)
         .then(res => res.json())
-        .then(data => {
-            allExams = data;
-            renderExams();
-        })
+        .then(data => { allExams = data; selectGrade(currentSelectedGrade); })
         .catch(err => {
             console.warn("Không tải được manifest qua fetch, dùng dữ liệu dự phòng:", err);
             allExams = FALLBACK_EXAMS;
-            renderExams();
+            selectGrade(currentSelectedGrade);
         });
+}
+
+const isCD = e => e.type === 'chuyende';
+const topicOf = e => (e.topic || e.title || 'Chuyên đề').trim();
+const nameOf = e => e.topic ? (e.title || 'Đề 1') : 'Đề 1';
+
+function escapeHtml(t) {
+    return String(t == null ? '' : t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 function selectGrade(grade) {
     currentSelectedGrade = grade;
-    ['12', '11', '10'].forEach(g => {
+    ['12', '11', '10', 'cd'].forEach(g => {
         const btn = document.getElementById(`tab-${g}`);
-        if (btn) {
-            if (g === grade) btn.classList.add('active');
-            else btn.classList.remove('active');
-        }
+        if (btn) btn.classList.toggle('active', g === grade);
     });
     renderExams();
 }
 
+function startButton(exam) {
+    return `<a href="exam_player.html?exam=${encodeURIComponent(exam.folder || exam.id)}" class="btn-start">
+                🚀 BẮT ĐẦU LÀM BÀI <i class="fa-solid fa-arrow-right"></i>
+            </a>`;
+}
+
 function renderExams() {
     const container = document.getElementById('examListContainer');
-    let filtered = allExams.filter(e => String(e.grade) === currentSelectedGrade && !e.hidden);
+    const filter = document.getElementById('cdFilter');
+    const visible = allExams.filter(e => !e.hidden);
+    if (currentSelectedGrade === 'cd') { renderTopics(container, filter, visible.filter(isCD)); return; }
+    filter.hidden = true;
+
+    let filtered = visible.filter(e => !isCD(e) && String(e.grade) === currentSelectedGrade);
+    const nCD = visible.filter(e => isCD(e) && String(e.grade) === currentSelectedGrade).length;
+    const hint = nCD ? `<div class="empty-hint">Khối ${currentSelectedGrade} có ${nCD} đề theo chuyên đề:
+                        <a href="#" onclick="cdGrade='${currentSelectedGrade}'; selectGrade('cd'); return false;">xem tab Chuyên đề →</a></div>` : '';
 
     if (filtered.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
                 <i class="fa-solid fa-folder-open"></i>
-                <p>Khối ${currentSelectedGrade} hiện chưa có đề thi nào mở.</p>
+                <p>Khối ${currentSelectedGrade} hiện chưa có đề luyện thi nào mở.</p>${hint}
             </div>`;
         return;
     }
@@ -204,10 +257,7 @@ function renderExams() {
     filtered.forEach(exam => {
         let displayTitle = exam.title;
         const m = (exam.title || exam.id).match(/\d+/);
-        if (m) {
-            displayTitle = `Đề số ${parseInt(m[0], 10)}`;
-        }
-
+        if (m) displayTitle = `Đề số ${parseInt(m[0], 10)}`;
         html += `
         <div class="exam-card" id="card_${exam.id}">
             <div class="card-info">
@@ -215,16 +265,70 @@ function renderExams() {
                     <span class="badge-grade">Khối ${exam.grade}</span>
                     <span><i class="fa-regular fa-clock"></i> ${exam.duration || 90} Phút</span>
                 </div>
-                <div class="card-title">${displayTitle}</div>
+                <div class="card-title">${escapeHtml(displayTitle)}</div>
             </div>
-            <div class="card-actions">
-                <a href="exam_player.html?exam=${exam.folder || exam.id}" class="btn-start">
-                    🚀 BẮT ĐẦU LÀM BÀI <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </div>
+            <div class="card-actions">${startButton(exam)}</div>
         </div>`;
     });
+    if (hint) html += `<div class="text-center" style="text-align:center">${hint}</div>`;
+    container.innerHTML = html;
+}
 
+// Tab CHUYÊN ĐỀ: lọc theo khối, mỗi chuyên đề một khung, bên trong là các đề của chuyên đề đó
+function renderTopics(container, filter, list) {
+    const grades = ['12', '11', '10'].filter(g => list.some(e => String(e.grade) === g));
+    if (cdGrade !== 'ALL' && !grades.includes(cdGrade)) cdGrade = 'ALL';
+    filter.hidden = list.length === 0;
+    filter.innerHTML = [['ALL', 'Tất cả'], ...grades.map(g => [g, `Khối ${g}`])].map(([g, t]) =>
+        `<button class="${g === cdGrade ? 'on' : ''}" onclick="cdGrade='${g}'; renderExams()">${t}</button>`).join('');
+
+    const shown = list.filter(e => cdGrade === 'ALL' || String(e.grade) === cdGrade);
+    if (shown.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fa-solid fa-layer-group"></i>
+                <p>Chưa có đề theo chuyên đề nào. Thầy sẽ cập nhật sớm!</p>
+            </div>`;
+        return;
+    }
+
+    // gom theo (khối, tên chuyên đề); chuyên đề mới nạp lên trên
+    const groups = new Map();
+    shown.forEach(e => {
+        const key = e.grade + '|' + topicOf(e).toLowerCase().replace(/\s+/g, ' ');
+        if (!groups.has(key)) groups.set(key, { grade: e.grade, topic: topicOf(e), items: [] });
+        groups.get(key).items.push(e);
+    });
+    const arr = [...groups.values()];
+    arr.forEach(g => g.items.sort((a, b) => String(a.id).localeCompare(String(b.id))));
+    arr.sort((a, b) => (String(b.grade).localeCompare(String(a.grade))) ||
+        String(b.items[b.items.length - 1].id).localeCompare(String(a.items[a.items.length - 1].id)));
+
+    let html = '';
+    arr.forEach(g => {
+        html += `
+        <div class="topic-box">
+            <div class="topic-head">
+                <span class="badge-cd">Khối ${g.grade}</span>
+                <span class="topic-name">${escapeHtml(g.topic)}</span>
+                <span class="topic-count">· ${g.items.length} đề</span>
+            </div>`;
+        g.items.forEach(exam => {
+            const n = exam.totalQuestions ? `<span><i class="fa-regular fa-circle-question"></i> ${exam.totalQuestions} câu</span>` : '';
+            html += `
+            <div class="exam-card cd" id="card_${exam.id}">
+                <div class="card-info">
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> ${exam.duration || 45} Phút</span>
+                        ${n}
+                    </div>
+                    <div class="card-title">${escapeHtml(nameOf(exam))}</div>
+                </div>
+                <div class="card-actions">${startButton(exam)}</div>
+            </div>`;
+        });
+        html += `</div>`;
+    });
     container.innerHTML = html;
 }
 

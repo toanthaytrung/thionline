@@ -296,9 +296,9 @@
         <div id="rankText" style="font-weight: 700; margin-bottom: 8px; font-size: 16px;"></div>
 
         <table class="score-table">
-            <tr><td>PHẦN I (Trắc nghiệm nhiều lựa chọn):</td><td id="scoreP1Text">0.0 / 3.0</td></tr>
-            <tr><td>PHẦN II (Trắc nghiệm Đúng / Sai):</td><td id="scoreP2Text">0.0 / 4.0</td></tr>
-            <tr><td>PHẦN III (Trắc nghiệm trả lời ngắn):</td><td id="scoreP3Text">0.0 / 3.0</td></tr>
+            <tr id="scoreRowP1"><td id="scoreLblP1">PHẦN I (Trắc nghiệm nhiều lựa chọn):</td><td id="scoreP1Text">0.0 / 3.0</td></tr>
+            <tr id="scoreRowP2"><td id="scoreLblP2">PHẦN II (Trắc nghiệm Đúng / Sai):</td><td id="scoreP2Text">0.0 / 4.0</td></tr>
+            <tr id="scoreRowP3"><td id="scoreLblP3">PHẦN III (Trắc nghiệm trả lời ngắn):</td><td id="scoreP3Text">0.0 / 3.0</td></tr>
         </table>
 
         <div id="solutionLockNotice" style="font-size: 13px; margin: 10px 0; padding: 10px; border-radius: 6px;"></div>
@@ -340,13 +340,13 @@
     <aside class="sidebar">
         <div class="nav-card">
             <div class="nav-title">BẢNG TIẾN ĐỘ BÀI LÀM</div>
-            <div class="nav-section-label">PHẦN I (Trắc nghiệm 4 lựa chọn)</div>
+            <div class="nav-section-label" id="navLblP1">PHẦN I (Trắc nghiệm 4 lựa chọn)</div>
             <div class="nav-grid" id="navGridP1"></div>
 
-            <div class="nav-section-label">PHẦN II (Đúng / Sai)</div>
+            <div class="nav-section-label" id="navLblP2">PHẦN II (Đúng / Sai)</div>
             <div class="nav-grid" id="navGridP2"></div>
 
-            <div class="nav-section-label">PHẦN III (Trả lời ngắn)</div>
+            <div class="nav-section-label" id="navLblP3">PHẦN III (Trả lời ngắn)</div>
             <div class="nav-grid" id="navGridP3"></div>
 
             <button type="button" class="btn-submit" onclick="submitExam()">NỘP BÀI THI</button>
@@ -390,6 +390,46 @@ fetch('manifest.json?t=' + Date.now())
         }
     })
     .catch(() => console.log("Dùng max_attempts mặc định"));
+
+// ---- Đề linh hoạt (chuyên đề): có phần nào hiện phần đó, đánh số lại I, II, III theo thứ tự ----
+const PART_NAMES = {
+    p1: { banner: 'CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN', nav: 'Trắc nghiệm 4 lựa chọn', score: 'Trắc nghiệm nhiều lựa chọn' },
+    p2: { banner: 'CÂU TRẮC NGHIỆM ĐÚNG / SAI', nav: 'Đúng / Sai', score: 'Trắc nghiệm Đúng / Sai' },
+    p3: { banner: 'CÂU TRẮC NGHIỆM TRẢ LỜI NGẮN', nav: 'Trả lời ngắn', score: 'Trắc nghiệm trả lời ngắn' }
+};
+
+function partPlan(ex) {
+    const roman = ['I', 'II', 'III'];
+    const plan = {};
+    let k = 0;
+    ['p1', 'p2', 'p3'].forEach((p, i) => {
+        const qs = ex && ex['part' + (i + 1)];
+        if (qs && qs.length) plan[p] = roman[k++];
+    });
+    return plan;
+}
+
+// Điểm tối đa từng phần: máy chủ gửi về > ghi trong đề (chuyên đề) > đề chuẩn 3 - 4 - 3
+function partMax(ex, res) {
+    if (res && res.maxP1 !== undefined) return { p1: res.maxP1, p2: res.maxP2, p3: res.maxP3 };
+    if (ex && ex.scoring && ex.scoring.max) return ex.scoring.max;
+    return { p1: 3, p2: 4, p3: 3 };
+}
+
+function fmtMax(x) { const v = Math.round(Number(x) * 100) / 100; return Number.isInteger(v) ? v.toFixed(1) : v.toString(); }
+
+function showPartScores(res) {
+    const ex = activeExamData || getActiveExam();
+    const plan = partPlan(ex);
+    const mx = partMax(ex, res);
+    [['p1', 'P1'], ['p2', 'P2'], ['p3', 'P3']].forEach(([p, P]) => {
+        const row = document.getElementById('scoreRow' + P);
+        if (!plan[p]) { if (row) row.style.display = 'none'; return; }
+        if (row) row.style.display = '';
+        document.getElementById('scoreLbl' + P).innerText = `PHẦN ${plan[p]} (${PART_NAMES[p].score}):`;
+        document.getElementById('score' + P + 'Text').innerText = `${Number(res['score' + P] || 0).toFixed(2)} / ${fmtMax(mx[p])}`;
+    });
+}
 
 function getActiveExam() {
     return (typeof window.EXAM_DATA !== 'undefined' && window.EXAM_DATA) ? window.EXAM_DATA : (typeof EXAM_DATA !== 'undefined' ? EXAM_DATA : null);
@@ -755,10 +795,13 @@ function buildExamInterface() {
 
     const container = document.getElementById('examContainer');
     let html = '';
+    const plan = partPlan(examSource);
+    const mxPts = examSource.scoring ? partMax(examSource) : null;
+    const ptsTxt = p => mxPts ? ` · ${String(Math.round(mxPts[p] * 100) / 100).replace('.', ',')} ĐIỂM` : '';
 
     // PHẦN I
     if (examSource.part1 && examSource.part1.length > 0) {
-        html += `<div class="part-title-banner">PHẦN I. CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (${examSource.part1.length} CÂU)</div>
+        html += `<div class="part-title-banner">PHẦN ${plan.p1}. ${PART_NAMES.p1.banner} (${examSource.part1.length} CÂU${ptsTxt('p1')})</div>
                  <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${examSource.part1.length}. Mỗi câu chọn duy nhất một phương án.</div>`;
         
         examSource.part1.forEach((q, idx) => {
@@ -789,7 +832,7 @@ function buildExamInterface() {
 
     // PHẦN II (Định dạng chuẩn xác biến ${item.key})
     if (examSource.part2 && examSource.part2.length > 0) {
-        html += `<div class="part-title-banner">PHẦN II. CÂU TRẮC NGHIỆM ĐÚNG / SAI (${examSource.part2.length} CÂU)</div>
+        html += `<div class="part-title-banner">PHẦN ${plan.p2}. ${PART_NAMES.p2.banner} (${examSource.part2.length} CÂU${ptsTxt('p2')})</div>
                  <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${examSource.part2.length}. Trong mỗi ý a), b), c), d), chọn Đúng hoặc Sai.</div>`;
         
         examSource.part2.forEach((q, idx) => {
@@ -829,7 +872,7 @@ function buildExamInterface() {
 
     // PHẦN III
     if (examSource.part3 && examSource.part3.length > 0) {
-        html += `<div class="part-title-banner">PHẦN III. CÂU TRẮC NGHIỆM TRẢ LỜI NGẮN (${examSource.part3.length} CÂU)</div>
+        html += `<div class="part-title-banner">PHẦN ${plan.p3}. ${PART_NAMES.p3.banner} (${examSource.part3.length} CÂU${ptsTxt('p3')})</div>
                  <div class="part-instruction">Thí sinh trả lời từ câu 1 đến câu ${examSource.part3.length}. Điền giá trị số vào ô đáp án.</div>`;
         
         examSource.part3.forEach((q, idx) => {
@@ -887,6 +930,13 @@ function buildNavGrid() {
     const gridP2 = document.getElementById('navGridP2');
     const gridP3 = document.getElementById('navGridP3');
     gridP1.innerHTML = ''; gridP2.innerHTML = ''; gridP3.innerHTML = '';
+    const plan = partPlan(examSource);
+    [['p1', 'P1', gridP1], ['p2', 'P2', gridP2], ['p3', 'P3', gridP3]].forEach(([p, P, grid]) => {
+        const lbl = document.getElementById('navLbl' + P);
+        const show = !!plan[p];
+        if (lbl) { lbl.style.display = show ? '' : 'none'; if (show) lbl.innerText = `PHẦN ${plan[p]} (${PART_NAMES[p].nav})`; }
+        grid.style.display = show ? '' : 'none';
+    });
 
     if (examSource.part1) {
         examSource.part1.forEach((_, idx) => {
@@ -960,6 +1010,8 @@ function inputP3(qNum, val) {
 function runTimer() {
     const display = document.getElementById('timerDisplay');
     clearInterval(timerInterval);
+    const show0 = Math.max(0, remainingSeconds);   // hiện ngay thời gian của đề, không đợi 1 giây
+    display.innerText = `${String(Math.floor(show0 / 60)).padStart(2, '0')}:${String(show0 % 60).padStart(2, '0')}`;
     timerInterval = setInterval(() => {
         const m = Math.floor(remainingSeconds / 60);
         const s = remainingSeconds % 60;
@@ -995,15 +1047,18 @@ function gradeExam() {
     const keyP1 = (activeAnswerKey && activeAnswerKey.p1) ? activeAnswerKey.p1 : rawKey.p1;
     const keyP2 = (activeAnswerKey && activeAnswerKey.p2) ? activeAnswerKey.p2 : rawKey.p2;
     const keyP3 = (activeAnswerKey && activeAnswerKey.p3) ? activeAnswerKey.p3 : rawKey.p3;
+    const exSrc = activeExamData || sourceExam || {};
+    const nP1 = (exSrc.part1 || []).length, nP2 = (exSrc.part2 || []).length, nP3 = (exSrc.part3 || []).length;
+    const sc = exSrc.scoring || { p1: 0.25, p2: 1, p3: 0.5 };
 
     // CHẤM PHẦN I
-    for (let i = 1; i <= 12; i++) {
+    for (let i = 1; i <= nP1; i++) {
         const stuAns = studentAnswers.p1[i];
         const correctAns = keyP1 ? keyP1[i.toString()] : undefined;
         const navBtn = document.getElementById(`nav_p1_${i}`);
         
         if (stuAns && stuAns === correctAns) {
-            scoreP1 += 0.25;
+            scoreP1 += sc.p1;
             if (navBtn) navBtn.className = 'nav-item rev-correct';
         } else {
             if (navBtn) navBtn.className = 'nav-item rev-wrong';
@@ -1016,8 +1071,8 @@ function gradeExam() {
     }
 
     // CHẤM PHẦN II (TỰ ĐỘNG CHUẨN HÓA KÝ TỰ Đ/D/T VÀ S/F)
-    const p2Weights = [0, 0.1, 0.25, 0.5, 1.0];
-    for (let i = 1; i <= 4; i++) {
+    const p2Weights = [0, 0.1, 0.25, 0.5, 1.0].map(w => w * sc.p2);
+    for (let i = 1; i <= nP2; i++) {
         let correctCount = 0;
         const keyItem = (keyP2 && keyP2[i.toString()]) ? keyP2[i.toString()] : {};
         const stuItem = studentAnswers.p2[i] || {};
@@ -1057,13 +1112,13 @@ function gradeExam() {
     }
 
     // CHẤM PHẦN III
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= nP3; i++) {
         const rawStuAns = (studentAnswers.p3[i] || "").replace(/\s+/g, '').replace('.', ',');
         const rawKey = (keyP3 && keyP3[i.toString()] ? keyP3[i.toString()] : "").replace(/\s+/g, '').replace('.', ',');
         const navBtn = document.getElementById(`nav_p3_${i}`);
 
         if (rawStuAns && rawStuAns === rawKey) {
-            scoreP3 += 0.5;
+            scoreP3 += sc.p3;
             if (navBtn) navBtn.className = 'nav-item rev-correct';
         } else {
             if (navBtn) navBtn.className = 'nav-item rev-wrong';
@@ -1113,9 +1168,7 @@ function submitExam(auto) {
 
     document.getElementById('totalScoreCircle').innerText = result.totalScore.toFixed(2);
     document.getElementById('rankText').innerText = `Xếp loại: ${rank}`;
-    document.getElementById('scoreP1Text').innerText = `${result.scoreP1.toFixed(2)} / 3.0`;
-    document.getElementById('scoreP2Text').innerText = `${result.scoreP2.toFixed(2)} / 4.0`;
-    document.getElementById('scoreP3Text').innerText = `${result.scoreP3.toFixed(2)} / 3.0`;
+    showPartScores(result);
 
     const sourceExam = getActiveExam();
     const minScore = (sourceExam && sourceExam.unlockSolutionScore !== undefined) ? sourceExam.unlockSolutionScore : 6.5;
@@ -1224,8 +1277,9 @@ function showSolutionDetail() {
     const keyP2 = (activeAnswerKey && activeAnswerKey.p2) ? activeAnswerKey.p2 : rawKey.p2;
     const keyP3 = (activeAnswerKey && activeAnswerKey.p3) ? activeAnswerKey.p3 : rawKey.p3;
 
+    const exNow = activeExamData || sourceExam || {};
     // Tô xanh đáp án chuẩn Phần I
-    for (let i = 1; i <= 12; i++) {
+    for (let i = 1; i <= (exNow.part1 || []).length; i++) {
         const correctAns = keyP1 ? keyP1[i.toString()] : undefined;
         if (correctAns) {
             const correctLbl = document.getElementById(`lbl_p1_${i}_${correctAns}`);
@@ -1234,7 +1288,7 @@ function showSolutionDetail() {
     }
 
     // Hiện nhãn đáp án Đúng/Sai chuẩn Phần II
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= (exNow.part2 || []).length; i++) {
         const keyItem = (keyP2 && keyP2[i.toString()]) ? keyP2[i.toString()] : {};
         const stuItem = studentAnswers.p2[i] || {};
 
@@ -1259,7 +1313,7 @@ function showSolutionDetail() {
     }
 
     // Hiện nhãn đáp án chuẩn Phần III
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= (exNow.part3 || []).length; i++) {
         const keySpan = document.getElementById(`p3_key_${i}`);
         if (keySpan && keyP3) {
             keySpan.innerText = `(Đáp án đúng: ${keyP3[i.toString()] || '---'})`;
@@ -1402,6 +1456,11 @@ function secureSubmit() {
     document.getElementById('totalScoreCircle').innerText = '...';
     document.getElementById('rankText').innerText = 'Đang gửi bài lên máy chủ chấm...';
     ['scoreP1Text', 'scoreP2Text', 'scoreP3Text'].forEach(id => document.getElementById(id).innerText = '...');
+    const planNow = partPlan(activeExamData || getActiveExam());
+    [['p1', 'P1'], ['p2', 'P2'], ['p3', 'P3']].forEach(([p, P]) => {
+        const r = document.getElementById('scoreRow' + P);
+        if (r) r.style.display = planNow[p] ? '' : 'none';
+    });
     notice.innerHTML = '';
     notice.style.background = 'transparent';
     btnResend.style.display = 'none';
@@ -1488,9 +1547,7 @@ function applyServerResult(res) {
     else if (res.totalScore >= 5.0) rank = "Trung bình";
     document.getElementById('totalScoreCircle').innerText = res.totalScore.toFixed(2);
     document.getElementById('rankText').innerText = `Xếp loại: ${rank}`;
-    document.getElementById('scoreP1Text').innerText = `${res.scoreP1.toFixed(2)} / 3.0`;
-    document.getElementById('scoreP2Text').innerText = `${res.scoreP2.toFixed(2)} / 4.0`;
-    document.getElementById('scoreP3Text').innerText = `${res.scoreP3.toFixed(2)} / 3.0`;
+    showPartScores(res);
 
     const minScore = res.unlockScore;
     const noticeBox = document.getElementById('solutionLockNotice');
