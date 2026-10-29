@@ -172,7 +172,9 @@
     "hidden": false,
     "allowed_classes": [
       "12A4",
-      "12A6"
+      "12A6",
+      "12A",
+      "12B"
     ]
   },
   {
