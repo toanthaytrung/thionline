@@ -151,6 +151,7 @@
         <button class="tb" onclick="phong(1)" title="Phóng to">+</button>
       </div>
       <div class="pages" id="pages"></div>
+      <label class="muted" style="display:flex; gap:5px; align-items:center; margin-left:6px" title="Tô màu đúng/sai lên phiếu trắc nghiệm"><input type="checkbox" id="hienKQ" checked onchange="veLai()"> đúng/sai trên phiếu tô</label>
     </div>
     <div id="stage">
       <div id="paper" class="hide"><img id="img" alt=""><canvas id="ink"></canvas></div>
@@ -182,6 +183,7 @@
 </div>
 
 <script src="kt_chung.js"></script>
+<script src="phieu.js"></script>
 <script src="cham_ve.js"></script>
 <script>
 const $ = id => document.getElementById(id);
@@ -351,6 +353,10 @@ function veLai() {
   if (!CUR || !CUR.page) return;
   const ctx = $('ink').getContext('2d');
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, $('ink').width, $('ink').height); ctx.setTransform(R, 0, 0, R, 0, 0);
+  const k = CUR.kq;
+  if (CUR.page === 'TN' && k.made && $('hienKQ').checked)
+    CHAMVE.veTN(ctx, PHIEU.front(DOT.cauTruc), { traLoi: k.answers, dung: k.detail, dapAn: DOT.dapAn[k.made] || null,
+      p1: k.p1, p2: k.p2, p3: k.p3, tn: k.tn, max: DOT.scoring.max, cauTruc: DOT.cauTruc });
   const dauTL = CUR.trang.find(t => t !== 'TN');
   CHAMVE.ve(ctx, CUR.net[CUR.page] || [], { cau: cauTL(DOT), diem: CUR.diem, tl: tongTL(), tlMax: DOT.tuLuan,
     tongMacDinh: CUR.page === dauTL && !coTongDat() });

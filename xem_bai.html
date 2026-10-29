@@ -84,6 +84,7 @@
 </main>
 
 <script src="kt_chung.js"></script>
+<script src="phieu.js"></script>
 <script src="cham_ve.js"></script>
 <script>
 const $ = id => document.getElementById(id), f = KT.fmt, esc = KT.esc;
@@ -194,6 +195,7 @@ function ghep(src, net, t, b, coTong) {
     im.onload = () => {
       const c = document.createElement('canvas'); c.width = CHAMVE.W; c.height = CHAMVE.H;
       const ctx = c.getContext('2d'); ctx.drawImage(im, 0, 0, CHAMVE.W, CHAMVE.H);
+      if (t === 'TN' && b.made) CHAMVE.veTN(ctx, PHIEU.front(b.cauTruc), b);   // tô màu đúng / sai lên phiếu
       const dauTL = CHAMVE.thuTuTrang(b.trang).find(x => x !== 'TN');
       if (b.coTuLuan) CHAMVE.ve(ctx, net || [], { cau: b.tlCau, diem: b.diemCau || [], tl: b.tl == null ? null : b.tl, tlMax: b.tuLuan,
         tongMacDinh: t === dauTL && b.tl != null && !coTong });

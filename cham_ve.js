@@ -111,6 +111,63 @@
   }
   function tenTrang(t) { return t === 'TN' ? 'Phiếu tô' : 'Tự luận tờ ' + t.slice(2); }
 
-  root.CHAMVE = { W: W, H: H, DO: DO, TONG_MAC_DINH: TONG_MAC_DINH, ve: ve, veNet: veNet, cham: cham, fmt: fmt,
+  // ---------------------------------------------------------------- tô màu kết quả lên phiếu trắc nghiệm
+  // L: bố cục phiếu (PHIEU.front), b: {traLoi, dung, dapAn|null, p1, p2, p3, tn, max, cauTruc}
+  var XANH = '#188038', K = 5;
+  function vong(ctx, bb, mau, day) {
+    ctx.beginPath(); ctx.arc(bb.x * K, bb.y * K, 13, 0, Math.PI * 2);
+    ctx.strokeStyle = mau; ctx.lineWidth = day || 3.5; ctx.stroke();
+  }
+  function chu(ctx, x, y, t, mau, co, canh) {
+    ctx.save(); ctx.font = '700 ' + (co || 22) + 'px "Segoe UI", Arial, sans-serif';
+    ctx.textAlign = canh || 'center'; ctx.textBaseline = 'middle';
+    ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.strokeText(t, x, y);
+    ctx.fillStyle = mau; ctx.fillText(t, x, y); ctx.restore();
+  }
+  function veTN(ctx, L, b) {
+    var tl = b.traLoi || {}, dg = b.dung || {}, da = b.dapAn, tim = {};
+    L.bubbles.forEach(function (bb) {
+      var k = bb.g + '|' + bb.q + '|' + (bb.it || bb.col || '') + '|' + bb.v;
+      if (bb.g === 'p1' || bb.g === 'p2') tim[k] = bb;
+      if (bb.g === 'p3') (tim['p3|' + bb.q] = tim['p3|' + bb.q] || []).push(bb);
+    });
+    Object.keys(dg.p1 || {}).forEach(function (q) {
+      var em = (tl.p1 || {})[q], ok = dg.p1[q], o = em && tim['p1|' + q + '||' + em];
+      if (o) vong(ctx, o, ok ? XANH : DO);
+      if (!ok && da && da.p1 && da.p1[q]) { var d = tim['p1|' + q + '||' + da.p1[q]]; if (d) vong(ctx, d, XANH, 4.5); }
+      if (!ok && !em && !da) { var a = tim['p1|' + q + '||A']; if (a) chu(ctx, a.x * K - 30, a.y * K, '✗', DO, 22); }
+    });
+    Object.keys(dg.p2 || {}).forEach(function (q) {
+      ['a', 'b', 'c', 'd'].forEach(function (y) {
+        var em = ((tl.p2 || {})[q] || {})[y], ok = (dg.p2[q] || {})[y], o = em && tim['p2|' + q + '|' + y + '|' + em];
+        if (o) vong(ctx, o, ok ? XANH : DO);
+        var dk = da && da.p2 && da.p2[q] && da.p2[q][y];
+        if (!ok && dk) { var d = tim['p2|' + q + '|' + y + '|' + dk]; if (d) vong(ctx, d, XANH, 4.5); }
+        if (!ok && !em && !dk) { var a = tim['p2|' + q + '|' + y + '|S']; if (a) chu(ctx, a.x * K + 30, a.y * K, '✗', DO, 22); }
+      });
+    });
+    Object.keys(dg.p3 || {}).forEach(function (q) {
+      var ds = tim['p3|' + q]; if (!ds) return;
+      var ok = dg.p3[q], x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+      ds.forEach(function (bb) { x0 = Math.min(x0, bb.x); x1 = Math.max(x1, bb.x); y0 = Math.min(y0, bb.y); y1 = Math.max(y1, bb.y); });
+      ctx.save(); ctx.strokeStyle = ok ? XANH : DO; ctx.lineWidth = 4;
+      ctx.beginPath();
+      var rx = (x0 - 4.2) * K, ry = (y0 - 3.6) * K, rw = (x1 - x0 + 8.4) * K, rh = (y1 - y0 + 7) * K;
+      if (ctx.roundRect) ctx.roundRect(rx, ry, rw, rh, 12); else ctx.rect(rx, ry, rw, rh);
+      ctx.stroke(); ctx.restore();
+      var em = (tl.p3 || {})[q], dk = da && da.p3 ? da.p3[q] : null;
+      chu(ctx, (x0 + x1) / 2 * K, (y1 + 6) * K, ok ? '✓ Đúng' : (dk != null ? 'ĐA: ' + dk : '✗ Sai'), ok ? XANH : (dk != null ? XANH : DO), 21);
+      if (!ok) chu(ctx, (x0 + x1) / 2 * K, (y0 - 5.6) * K, '✗ ' + (em ? em : 'không có đáp số'), DO, 19);
+    });
+    // điểm từng phần ở khoảng trống dưới phần họ tên
+    var mx = b.max || {}, ct = b.cauTruc || {}, p = [];
+    if (ct.p1) p.push('Phần I: ' + fmt(b.p1) + '/' + fmt(mx.p1));
+    if (ct.p2) p.push('Phần II: ' + fmt(b.p2) + '/' + fmt(mx.p2));
+    if (ct.p3) p.push('Phần III: ' + fmt(b.p3) + '/' + fmt(mx.p3));
+    chu(ctx, 18 * K, 58 * K, p.join('  ·  '), DO, 21, 'left');
+    chu(ctx, 18 * K, 65 * K, 'Trắc nghiệm: ' + fmt(b.tn) + ' điểm', DO, 30, 'left');
+  }
+
+  root.CHAMVE = { W: W, H: H, DO: DO, TONG_MAC_DINH: TONG_MAC_DINH, ve: ve, veNet: veNet, cham: cham, fmt: fmt, veTN: veTN,
                   thuTuTrang: thuTuTrang, tenTrang: tenTrang };
 })(typeof window !== 'undefined' ? window : globalThis);
