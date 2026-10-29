@@ -208,5 +208,22 @@
       "12A4",
       "12A6"
     ]
+  },
+  {
+    "id": "k12_de07",
+    "grade": "12",
+    "title": "Đề số 7",
+    "folder": "k12_de07",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "12A",
+      "12B",
+      "12A4",
+      "12A6"
+    ]
   }
 ]
