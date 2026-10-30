@@ -60,6 +60,26 @@
     ]
   },
   {
+    "id": "k11_cd01",
+    "grade": "11",
+    "title": "image62.png",
+    "folder": "k11_cd01",
+    "duration": 60,
+    "unlockScore": 6.0,
+    "totalQuestions": 40,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "12A",
+      "12B",
+      "11A",
+      "11B",
+      "11A2"
+    ],
+    "type": "chuyende",
+    "topic": "CẤP SỐ NHÂN"
+  },
+  {
     "id": "k11_de01",
     "grade": "11",
     "title": "Đề số 1",
