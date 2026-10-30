@@ -80,6 +80,23 @@
     "topic": "CẤP SỐ NHÂN"
   },
   {
+    "id": "k11_cd012",
+    "grade": "11",
+    "title": "image91.png",
+    "folder": "k11_cd012",
+    "duration": 60,
+    "unlockScore": 6.0,
+    "totalQuestions": 23,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "11A",
+      "11B"
+    ],
+    "type": "chuyende",
+    "topic": "CD4. PHUONG TRINH LUONG GIAC"
+  },
+  {
     "id": "k11_de01",
     "grade": "11",
     "title": "Đề số 1",
