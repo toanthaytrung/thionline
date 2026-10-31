@@ -223,7 +223,7 @@
     "unlockScore": 6.5,
     "totalQuestions": 22,
     "max_attempts": 3,
-    "hidden": false,
+    "hidden": true,
     "allowed_classes": [
       "12A",
       "12B"
