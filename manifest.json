@@ -60,6 +60,21 @@
     ]
   },
   {
+    "id": "k10_de05",
+    "grade": "10",
+    "title": "Đề số 5",
+    "folder": "k10_de05",
+    "duration": 90,
+    "unlockScore": 6.5,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "10A",
+      "10B"
+    ]
+  },
+  {
     "id": "k11_cd01",
     "grade": "11",
     "title": "image62.png",
