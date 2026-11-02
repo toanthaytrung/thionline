@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đề em đã làm - Toán Thầy Trung</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  body { background: #f8fafd; color: #1e293b; min-height: 100vh; }
+  header { background: linear-gradient(135deg, #0b57d0 0%, #041e49 100%); color: #fff; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  header h1 { font-size: 18px; }
+  header a { color: #fff; text-decoration: none; background: rgba(255,255,255,.15); padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 14px; }
+  .box { max-width: 760px; margin: 22px auto; padding: 0 14px; }
+  .card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 14px; }
+  label { display: block; font-weight: 700; font-size: 13px; margin: 10px 0 6px; color: #041e49; }
+  select, input { width: 100%; padding: 12px; border: 1.5px solid #c7c7c7; border-radius: 8px; font-size: 15px; font-weight: 700; }
+  button { width: 100%; margin-top: 14px; padding: 12px; background: #0b57d0; color: #fff; border: 0; border-radius: 8px; font-size: 15px; font-weight: 800; cursor: pointer; }
+  button:disabled { background: #dadce0; color: #80868b; }
+  #msg { margin-top: 10px; font-weight: 600; font-size: 14px; min-height: 20px; }
+  .err { color: #d93025; } .info { color: #0b57d0; }
+  h2 { font-size: 16px; color: #0b57d0; margin-bottom: 10px; }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid #eef1f5; flex-wrap: wrap; }
+  .row:last-child { border-bottom: 0; }
+  .t { font-weight: 800; font-size: 15px; }
+  .s { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+  .score { font-weight: 800; font-size: 18px; color: #1e8e3e; }
+  .score.low { color: #b06000; }
+  .go { background: #008774; color: #fff; text-decoration: none; padding: 7px 14px; border-radius: 7px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+  .go.again { background: #5f6368; }
+  .none { color: #64748b; font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📋 Đề em đã làm</h1>
+  <a href="index.html">🏠 Về danh mục đề</a>
+</header>
+
+<div class="box">
+  <div class="card" id="formCard">
+    <label>🏷️ Lớp của em</label>
+    <select id="cls">
+      <option value="">-- Chọn lớp --</option>
+      <optgroup label="Lớp học thêm">
+        <option>12A</option><option>12B</option><option>11A</option><option>11B</option><option>10A</option><option>10B</option>
+      </optgroup>
+      <optgroup label="Lớp tại trường">
+        <option>12A4</option><option>12A6</option><option>11A2</option>
+      </optgroup>
+    </select>
+    <label>📞 Số điện thoại đã đăng ký</label>
+    <input type="tel" id="phone" placeholder="Ví dụ: 0985xxxxxx" maxlength="11" onkeydown="if(event.key==='Enter') xem()">
+    <button id="btn" onclick="xem()">XEM LỊCH SỬ LÀM BÀI</button>
+    <div id="msg"></div>
+  </div>
+  <div id="out"></div>
+</div>
+
+<script>
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJkUtzD3BE3whKIOuQDHM48kyANvZaqZC_iM0nQnyGaEH3hZn_97YUcBhpx10y87R-/exec";
+
+function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function setMsg(t, cls) { const m = document.getElementById('msg'); m.className = cls || ''; m.innerText = t || ''; }
+
+function tenDe(e) {
+  if (e.type === 'chuyende') return (e.topic || 'Chuyên đề') + (e.topic && e.title ? ' – ' + e.title : '');
+  const m = String(e.title || e.id).match(/\d+/);
+  return m ? 'Đề số ' + parseInt(m[0], 10) : (e.title || e.id);
+}
+function linkDe(e) { return 'exam_player.html?exam=' + encodeURIComponent(e.folder || e.id); }
+
+async function xem() {
+  const cls = document.getElementById('cls').value;
+  const phone = document.getElementById('phone').value.replace(/\D/g, '');
+  if (!cls) return setMsg('Em chọn đúng lớp của mình nhé!', 'err');
+  if (phone.length < 9) return setMsg('Em nhập đủ số điện thoại đã đăng ký nhé!', 'err');
+  const btn = document.getElementById('btn');
+  btn.disabled = true; setMsg('Đang tra cứu...', 'info');
+  document.getElementById('out').innerHTML = '';
+  try {
+    const [manifest, res] = await Promise.all([
+      fetch('manifest.json?t=' + Date.now()).then(r => r.json()).catch(() => []),
+      fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'hsLichSu', lop: cls, sdt: phone }) }).then(r => r.json())
+    ]);
+    if (!res || res.status !== 'OK') return setMsg((res && res.message) || 'Không tra cứu được, em thử lại nhé!', 'err');
+    setMsg('');
+    hienKetQua(res, manifest, cls);
+  } catch (e) {
+    setMsg('Không kết nối được máy chủ. Em kiểm tra mạng rồi bấm lại nhé!', 'err');
+  } finally { btn.disabled = false; }
+}
+
+function hienKetQua(res, manifest, cls) {
+  const byId = {};
+  manifest.forEach(e => { byId[e.id] = e; byId[e.folder] = e; });
+  const daLam = res.de || [];
+  const daSet = new Set(daLam.map(d => d.maDe));
+  let html = `<div class="card"><h2>Xin chào ${esc(res.ten)} (lớp ${esc(res.lop)})</h2>`;
+
+  if (!daLam.length) html += `<div class="none">Em chưa làm đề nào trên hệ thống.</div>`;
+  daLam.forEach(d => {
+    const e = byId[d.maDe];
+    const ten = e ? tenDe(e) : d.maDe;
+    const khoi = e ? 'Khối ' + e.grade + ' · ' : '';
+    const maxL = e && e.max_attempts ? '/' + e.max_attempts : '';
+    const diem = d.diemCao == null ? '—' : Number(d.diemCao).toFixed(2);
+    const thap = d.diemCao != null && d.diemCao < 6.5 ? ' low' : '';
+    const nut = e && !e.hidden ? `<a class="go again" href="${linkDe(e)}">Làm lại</a>` : '';
+    html += `<div class="row">
+      <div><div class="t">✅ ${esc(ten)}</div>
+      <div class="s">${khoi}Đã làm ${d.luot}${maxL} lượt${d.lanCuoi ? ' · gần nhất: ' + esc(d.lanCuoi) : ''}</div></div>
+      <div style="display:flex;align-items:center;gap:10px"><span class="score${thap}">${diem}</span>${nut}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  const chua = manifest.filter(e => !e.hidden && !daSet.has(e.id) && !daSet.has(e.folder) &&
+    (!e.allowed_classes || !e.allowed_classes.length || e.allowed_classes.includes(cls)));
+  html += `<div class="card"><h2>Đề em chưa làm (${chua.length})</h2>`;
+  if (!chua.length) html += `<div class="none">Em đã làm hết các đề được giao. Giỏi lắm! 🎉</div>`;
+  chua.sort((a, b) => String(b.id).localeCompare(String(a.id))).forEach(e => {
+    html += `<div class="row"><div><div class="t">⬜ ${esc(tenDe(e))}</div>
+      <div class="s">Khối ${esc(e.grade)} · ${e.duration || 90} phút</div></div>
+      <a class="go" href="${linkDe(e)}">Làm bài</a></div>`;
+  });
+  html += `</div>`;
+  document.getElementById('out').innerHTML = html;
+}
+</script>
+</body>
+</html>
