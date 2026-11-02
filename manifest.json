@@ -168,6 +168,21 @@
     ]
   },
   {
+    "id": "k11_de05",
+    "grade": "11",
+    "title": "Đề số 5",
+    "folder": "k11_de05",
+    "duration": 90,
+    "unlockScore": 6.0,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "11A",
+      "11B"
+    ]
+  },
+  {
     "id": "k12_de01",
     "grade": "12",
     "title": "Đề số 1",
