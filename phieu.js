@@ -42,7 +42,7 @@
     header(L, 'PHIẾU TRẢ LỜI TRẮC NGHIỆM', cfg, 0);
 
     // số báo danh: 6 cột chữ số (6 số cuối SĐT), mã đề: 3 cột
-    digitColumns(L, 'sbd', 'Số báo danh', '(6 số cuối SĐT)', 132, 6);
+    digitColumns(L, 'sbd', 'Số báo danh', '', 132, 6);
     digitColumns(L, 'made', 'Mã đề', '', 172, 3);
 
     // PHẦN I: cột 10 câu, tối đa 4 cột
@@ -118,7 +118,7 @@
     header(L, extra ? 'TỜ LÀM THÊM – TỰ LUẬN' : 'BÀI LÀM TỰ LUẬN', cfg, 1);
     // số báo danh nằm ngang: 6 hàng (chữ số thứ 1..6) x 10 cột (0..9)
     var x0 = 116, y0 = 17;
-    L.texts.push({ x: x0 + 26, y: 14.5, t: 'Số báo danh (6 số cuối SĐT)', s: 2.6, c: true, b: true });
+    L.texts.push({ x: x0 + 26, y: 14.5, t: 'Số báo danh', s: 2.6, c: true, b: true });
     for (var c = 0; c <= 9; c++) L.texts.push({ x: x0 + 8 + c * 4.6, y: y0 + 1.6, t: String(c), s: 2.4, c: true });
     L.marks.push(mark(x0 - 6, y0 - 1.5));
     for (var r = 0; r < 6; r++) {
@@ -153,9 +153,10 @@
 
   function header(L, title, cfg, loai) {
     L.texts.push({ x: 60, y: 19, t: title, s: 4.6, c: true, b: true });
-    L.texts.push({ x: 18, y: 28, t: 'Bài kiểm tra: ' + (cfg.ten || '..............................................'), s: 3 });
-    L.texts.push({ x: 18, y: 35, t: 'Lớp: ' + (cfg.lop || '.........') + '        Ngày: ...... / ...... / 20......', s: 3 });
+    // phiếu dùng chung cho nhiều đợt: không in tên bài kiểm tra, không in sẵn lớp; học sinh tự ghi lớp
+    L.texts.push({ x: 18, y: 35, t: 'Ngày: ...... / ...... / 20......', s: 3 });
     L.texts.push({ x: 18, y: 42, t: 'Họ và tên: .......................................................', s: 3 });
+    L.texts.push({ x: 84, y: 42, t: 'Lớp: ..............', s: 3 });
     if (loai === 0) L.texts.push({ x: 18, y: 49, t: 'Chữ ký học sinh: ...................', s: 3 });
   }
 
@@ -178,12 +179,10 @@
     var x0 = 60, y0 = 277.5;
     L.id = { x0: x0, y0: y0, size: ID_SIZE, pitch: ID_PITCH, bits: bits };
     L.texts.push({ x: x0 - 2, y: y0 + 2.4, t: 'Mã phiếu', s: 2.4, r: true });
-    L.texts.push({ x: x0 + ID_CELLS * ID_PITCH + 2, y: y0 + 2.4,
-                   t: (cfg.lop ? 'Lớp ' + cfg.lop + ' · ' : '') + 'Đợt ' + (cfg.dot || 0) + ' · v' + VERSION, s: 2.4 });
   }
 
   function footer(L, text) {
-    L.texts.push({ x: 105, y: 271.5, t: text, s: 2.3, c: true, i: true });
+    // đã bỏ dòng chú thích cuối trang (giữ hàm để không phải sửa chỗ gọi)
   }
 
   // ---------------------------------------------------------------- vẽ SVG
