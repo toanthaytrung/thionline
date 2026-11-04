@@ -349,5 +349,48 @@
     return { width: OW, height: OH, data: out, k: k };
   }
 
-  root.OMR = { read: read, toGray: toGray, decode: decode, warp: warp };
+  // mở ảnh nhị phân (co 1 điểm rồi nở 1 điểm): xoá nét mảnh, giữ ô vuông đặc
+  function openBin(G, B) {
+    var W = G.W, H = G.H, E = new Uint8Array(W * H), O = new Uint8Array(W * H), x, y;
+    for (y = 1; y < H - 1; y++) for (x = 1; x < W - 1; x++) {
+      var p = y * W + x;
+      E[p] = (B[p] && B[p - 1] && B[p + 1] && B[p - W] && B[p + W] && B[p - W - 1] && B[p - W + 1] && B[p + W - 1] && B[p + W + 1]) ? 1 : 0;
+    }
+    for (y = 1; y < H - 1; y++) for (x = 1; x < W - 1; x++) {
+      var q = y * W + x;
+      O[q] = (E[q] || E[q - 1] || E[q + 1] || E[q - W] || E[q + W] || E[q - W - 1] || E[q - W + 1] || E[q + W - 1] || E[q + W + 1]) ? 1 : 0;
+    }
+    return O;
+  }
+
+  // ---------------------------------------------------------------- phát hiện phiếu nhanh (cho chế độ quét liên tục)
+  /*  Chỉ tìm 4 ô vuông ở 4 góc trên ảnh nhỏ để biết "có phiếu trong khung chưa, đã nằm yên chưa".
+      Trả về { ok, corners: [TL, TR, BR, BL] (toạ độ ảnh vào), area, ratio } hoặc { ok:false } */
+  function detect(img, opt) {
+    opt = opt || {};
+    var G = toGray(img, opt.maxSide || 640);
+    var I = integral(G);
+    var win = Math.round(Math.max(G.W, G.H) / 28) | 1;
+    var B = openBin(G, binarize(G, I, win, 0.72));    // bỏ nét mảnh (viền phiếu) dính vào ô vuông ở ảnh nhỏ
+    var sq = squares(G, B);
+    var c = findCorners(G, sq);
+    if (!c) return { ok: false, n: sq.length };
+    var tl = c[0], tr = c[1], bl = c[2], br = c[3];
+    var a = Math.hypot(tr.x - tl.x, tr.y - tl.y), b = Math.hypot(br.x - bl.x, br.y - bl.y);
+    var l = Math.hypot(bl.x - tl.x, bl.y - tl.y), r = Math.hypot(br.x - tr.x, br.y - tr.y);
+    var h = (a + b) / 2, v = (l + r) / 2, ratio = h / v;
+    // hình dạng phải giống tờ A4 (đứng hoặc nằm ngang), hai cạnh đối gần bằng nhau, 4 ô góc to bằng nhau
+    var okShape = (ratio > 0.45 && ratio < 0.95) || (ratio > 1.05 && ratio < 2.2);
+    if (Math.abs(a - b) / Math.max(a, b) > 0.35 || Math.abs(l - r) / Math.max(l, r) > 0.35) okShape = false;
+    var sides = c.map(function (s) { return s.side; });
+    if (Math.max.apply(null, sides) / Math.min.apply(null, sides) > 1.8) okShape = false;
+    if (!okShape) return { ok: false, n: sq.length, shape: false };
+    var s = 1 / G.scale;
+    var corners = [tl, tr, br, bl].map(function (p) { return { x: p.x * s, y: p.y * s }; });
+    var area = 0;
+    for (var i = 0; i < 4; i++) { var p = corners[i], q = corners[(i + 1) % 4]; area += p.x * q.y - q.x * p.y; }
+    return { ok: true, corners: corners, area: Math.abs(area) / 2, ratio: ratio };
+  }
+
+  root.OMR = { read: read, toGray: toGray, decode: decode, warp: warp, detect: detect };
 })(typeof window !== 'undefined' ? window : globalThis);
