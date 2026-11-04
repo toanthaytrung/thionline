@@ -47,6 +47,16 @@
   .flags li.warn { color: var(--warn); }
   .hint { font-size: 12.5px; color: var(--muted); }
   .hide { display: none !important; }
+  .st.dup { color: var(--warn); }
+  /* quét liên tục */
+  #live { position: fixed; inset: 0; background: #0b1220; z-index: 15; display: none; flex-direction: column; align-items: center; }
+  #live.on { display: flex; }
+  #liveTop { width: 100%; background: var(--deep); color: #fff; padding: 10px 14px; padding-top: max(10px, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .lm { width: 100%; min-height: 54px; padding: 8px 14px; font-weight: 800; font-size: 17px; line-height: 1.3; text-align: center; background: #334155; color: #fff; display: flex; align-items: center; justify-content: center; }
+  .lm.ok { background: #137333; } .lm.dup, .lm.warn { background: #b06000; } .lm.err { background: #b3261e; }
+  #liveBox { position: relative; margin: 8px auto; background: #000; border-radius: 10px; overflow: hidden; }
+  #liveBox video, #liveBox canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+  #liveBar { margin-top: auto; width: 100%; padding: 10px 12px; padding-bottom: max(10px, env(safe-area-inset-bottom)); display: grid; gap: 8px; }
 </style>
 </head>
 <body>
@@ -71,7 +81,9 @@
     </section>
 
     <section class="card" style="display:grid; gap:10px">
-      <button class="btn big" onclick="$('camIn').click()">📷 Chụp phiếu</button>
+      <button class="btn big green" onclick="startLive()">🎥 Quét liên tục (tự chụp)</button>
+      <p class="hint" style="margin:-4px 0 2px">Gá điện thoại cố định phía trên bàn, rồi lần lượt đặt từng phiếu vào khung. Máy tự chụp khi phiếu nằm yên và kêu "bíp"; lấy phiếu ra, đặt phiếu tiếp theo là quét tiếp. Phiếu đã quét rồi thì máy báo ngay.</p>
+      <button class="btn ghost big" onclick="$('camIn').click()">📷 Chụp từng phiếu (bấm tay)</button>
       <button class="btn ghost big" onclick="$('fileIn').click()">🖼️ Chọn nhiều ảnh đã chụp</button>
       <input type="file" id="camIn" accept="image/*" capture="environment" class="hide" onchange="addFiles(this)">
       <input type="file" id="fileIn" accept="image/*" multiple class="hide" onchange="addFiles(this)">
@@ -104,7 +116,19 @@
   </div>
 </div>
 
+<!-- quét liên tục bằng camera -->
+<div id="live">
+  <div id="liveTop"><b>🎥 Quét liên tục</b><span id="liveCount"></span></div>
+  <div id="liveMsg" class="lm"></div>
+  <div id="liveBox"><video id="vid" playsinline muted autoplay></video><canvas id="ov"></canvas></div>
+  <div id="liveBar">
+    <button class="btn red" onclick="stopLive()">⏹ Dừng quét</button>
+    <div class="hint" style="color:#cbd5e1">Bấm "Dừng quét" để xem lại những phiếu có dấu ⚠.</div>
+  </div>
+</div>
 <canvas id="work" class="hide"></canvas>
+<canvas id="det" class="hide"></canvas>
+<canvas id="tiny" class="hide" width="64" height="48"></canvas>
 <script src="phieu.js"></script>
 <script src="omr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
@@ -113,6 +137,11 @@
 const $ = id => document.getElementById(id);
 const K = 5;                       // ảnh đã nắn: 5 điểm ảnh / mm (đủ rõ chữ viết tự luận)
 let DOTS = [], DOT = null, ROSTER = {}, QUEUE = [], busy = false, current = null;
+let SCANNED = {}, dotReady = false;      // phiếu đã quét: 'TN|lớp|sbd' hoặc 'TL|lớp|sbd|tờ' -> tên em (lấy từ máy chủ + vừa quét)
+const LIVE = { on: false, stream: null, timer: null, state: 'ready', stable: 0, last: null, away: 0, stickyUntil: 0,
+               shotCenter: null, sawMotion: 0, prevTiny: null, audio: null, wake: null, ticking: false, vw: 0 };
+const NEED_STABLE = 3;    // số lần kiểm tra liên tiếp phiếu nằm yên (mỗi lần ~0,25 giây)
+const TICK = 250, STILL = 0.005, MIN_PPM = 3.4;
 
 // ---------------------------------------------------------------- đăng nhập + đợt
 async function login(silent) {
@@ -142,15 +171,26 @@ else if (KT.getKey()) login(true);
 
 async function chooseDot() {
   DOT = DOTS.find(d => String(d.id) === $('dotSel').value) || null;
-  ROSTER = {};
+  ROSTER = {}; SCANNED = {}; dotReady = false;
   if (!DOT) { $('dotInfo').textContent = ''; return; }
   $('dotInfo').textContent = 'Đang tải danh sách lớp…';
   try {
     const lists = await Promise.all(DOT.lop.map(l => KT.api('ktDanhSach', { lop: l })));
     lists.forEach(r => { ROSTER[r.lop] = {}; (r.hocSinh || []).forEach(h => ROSTER[r.lop][h.sbd] = h); });
+    // bài đã quét từ trước (kể cả ở lần khác, máy khác) để báo "đã quét rồi"
+    const dotNow = DOT; SCANNED = {};
+    await Promise.all(dotNow.lop.map(l => KT.api('ktKetQua', { dot: dotNow.id, lop: l }).then(r => {
+      (r.ketQua || []).forEach(k => {
+        if (k.made) SCANNED[`TN|${l}|${k.sbd}`] = k.ten || true;
+        Object.keys(k.anh || {}).forEach(t => { const m = t !== 'TN' && /(\d)$/.exec(t); if (m) SCANNED[`TL|${l}|${k.sbd}|${m[1]}`] = k.ten || true; });
+      });
+    }).catch(() => {})));
+    if (DOT !== dotNow) return;
+    const daTN = Object.keys(SCANNED).filter(k => k.startsWith('TN|')).length;
     $('dotInfo').innerHTML = DOT.lop.map(l => `${KT.esc(l)}: ${Object.keys(ROSTER[l] || {}).length} em`).join(' · ') +
-      ` · mã đề ${Object.keys(DOT.dapAn).join(', ')}`;
+      ` · mã đề ${Object.keys(DOT.dapAn).join(', ')}` + (daTN ? ` · đã quét phiếu tô ${daTN} bài` : '');
   } catch (e) { $('dotInfo').innerHTML = `<span style="color:var(--bad)">${KT.esc(e.message)}</span>`; }
+  dotReady = true;
 }
 
 // ---------------------------------------------------------------- nhận ảnh, đọc phiếu
@@ -197,12 +237,16 @@ async function pump() {
       it.canvas = c; it.r = r; it.lop = DOT.lop[r.id.lop];
       it.thumb = c.toDataURL('image/jpeg', 0.5);
       check(it);
-      if (!it.problems.length && $('autoSave').checked) await save(it);
+      if (!it.problems.length && it.dup) {
+        it.state = 'dup';
+        it.note = `Bài này <b>đã quét rồi</b>: ${KT.esc(it.hs ? it.hs.ten : 'SBD ' + it.sbd)}${it.tn ? '' : ' (tự luận tờ ' + (it.to || 1) + ')'}`;
+      } else if (!it.problems.length && $('autoSave').checked) await save(it);
       else { it.state = 'warn'; it.note = it.problems[0] || 'Cần xem lại'; }
     }
   } catch (e) { it.state = 'err'; it.note = 'Lỗi đọc ảnh: ' + e.message; }
   busy = false; renderQueue();
-  if (QUEUE.some(q => q.state === 'warn' && !q.seen) && !current) openReview(QUEUE.find(q => q.state === 'warn' && !q.seen));
+  if (it.live && LIVE.on) liveResult(it);
+  else if (!LIVE.on && QUEUE.some(q => q.state === 'warn' && !q.seen) && !current) openReview(QUEUE.find(q => q.state === 'warn' && !q.seen));
   pump();
 }
 
@@ -220,8 +264,11 @@ function check(it) {
     if (!/^\d{3}$/.test(it.made) || !DOT.dapAn[it.made]) P.push(/^\d{3}$/.test(it.made) ? 'Không có mã đề ' + it.made + ' trong đáp án' : 'Mã đề chưa đọc được');
     F.flags.forEach(f => { if (f.lv === 'err' && !/^Số báo danh|^Mã đề/.test(f.t)) P.push(f.t); });
   } else if (it.r.loai === 2 && !/^[2-9]$/.test(it.to)) P.push('Chưa đọc được Tờ số');
+  it.dup = null;
+  if (/^\d{6}$/.test(it.sbd) && it.lop && (it.tn || /^[1-9]$/.test(it.to))) it.dup = SCANNED[keyOf(it)] || null;
   it.problems = P;
 }
+function keyOf(it) { return it.tn ? `TN|${it.lop}|${it.sbd}` : `TL|${it.lop}|${it.sbd}|${it.to || 1}`; }
 
 function answersOf(F) {
   const a = { p1: {}, p2: {}, p3: {} };
@@ -245,6 +292,7 @@ async function save(it) {
     if (ra.status !== 'OK') throw new Error(ra.message);
     if (!it.tn) it.note = `${ra.ten || 'SBD ' + it.sbd} · tự luận tờ ${it.to || 1} (đã có ${ra.soTrang} trang)`;
     it.state = 'ok';
+    SCANNED[keyOf(it)] = it.ten || ra.ten || true; it.dup = null;
     it.canvas = null;     // giải phóng bộ nhớ điện thoại
   } catch (e) { it.state = 'warn'; it.note = 'Chưa lưu được: ' + e.message; it.problems = [it.note]; }
   renderQueue();
@@ -253,13 +301,16 @@ async function save(it) {
 function renderQueue() {
   const n = QUEUE.filter(q => q.state === 'ok').length;
   $('count').textContent = QUEUE.length ? `${n}/${QUEUE.length} đã lưu` : '';
+  if (LIVE.on) updateLiveCounts();
   if (!QUEUE.length) { $('queue').innerHTML = '<p class="muted">Chưa có phiếu nào.</p>'; return; }
-  const label = { ok: '✓ Đã lưu', warn: '⚠ Xem lại', err: '✗ Lỗi', work: '…', wait: 'Chờ' };
+  const label = { ok: '✓ Đã lưu', warn: '⚠ Xem lại', dup: '⚠ Đã quét rồi', err: '✗ Lỗi', work: '…', wait: 'Chờ' };
   $('queue').innerHTML = QUEUE.map((q, i) => `<div class="item">
       ${q.thumb ? `<img src="${q.thumb}" alt="">` : '<img alt="">'}
       <div><div>${q.note || ''}</div>${q.lop ? `<div class="muted">Lớp ${KT.esc(q.lop)} · ${q.tn ? 'Phiếu tô' : 'Tự luận'}</div>` : ''}</div>
       <div style="text-align:right"><div class="st ${q.state}">${label[q.state]}</div>
-        ${q.state === 'warn' ? `<button class="btn ghost" style="padding:6px 10px; margin-top:4px" onclick="openReview(QUEUE[${i}])">Mở</button>` : ''}</div>
+        ${q.state === 'warn' ? `<button class="btn ghost" style="padding:6px 10px; margin-top:4px" onclick="openReview(QUEUE[${i}])">Mở</button>` : ''}
+        ${q.state === 'dup' ? `<button class="btn ghost" style="padding:6px 10px; margin-top:4px" onclick="thayBai(${i})">Thay bài cũ</button>
+          <button class="btn red" style="padding:6px 10px; margin-top:4px" onclick="boBai(${i})">Bỏ</button>` : ''}</div>
     </div>`).join('');
 }
 
@@ -287,6 +338,7 @@ function drawReview() {
     ${it.tn ? `<span>Mã đề</span><input type="text" inputmode="numeric" maxlength="3" value="${KT.esc(it.made)}" onchange="current.madeEdit=this.value.replace(/\\D/g,''); recheck()">` : ''}
     ${it.r.loai === 2 ? `<span>Tờ số</span><input type="text" inputmode="numeric" maxlength="1" value="${KT.esc(it.to)}" onchange="current.toEdit=this.value.replace(/\\D/g,''); recheck()">` : ''}`;
   $('rvFlags').innerHTML = it.problems.map(p => `<li>${KT.esc(p)}</li>`).join('') +
+    (it.dup ? '<li class="warn">Bài này đã quét rồi — bấm Lưu sẽ thay bằng bài vừa quét.</li>' : '') +
     F.flags.filter(f => f.lv === 'warn').map(f => `<li class="warn">${KT.esc(f.t)}</li>`).join('') ||
     '<li style="color:var(--ok)">Không còn lỗi, bấm Lưu.</li>';
 }
@@ -322,6 +374,7 @@ function rvClose(how) {
 }
 async function rvSave() {
   const it = current;
+  if (it.dup && !confirm('Bài này đã quét rồi (' + (it.hs ? it.hs.ten : 'SBD ' + it.sbd) + ').\nThay bằng bài vừa quét?')) return;
   if (it.problems.some(p => /Số báo danh|Không có SBD|Mã đề|mã đề|Tờ số/.test(p)) &&
       !confirm('Phiếu còn lỗi về số báo danh / mã đề / tờ số:\n- ' + it.problems.join('\n- ') + '\n\nVẫn lưu?')) return;
   if (!/^\d{6}$/.test(it.sbd) || (it.tn && !DOT.dapAn[it.made])) { alert('Cần đủ số báo danh 6 số' + (it.tn ? ' và mã đề có trong đáp án.' : '.')); return; }
@@ -329,6 +382,169 @@ async function rvSave() {
   await save(it);
   const next = QUEUE.find(q => q.state === 'warn' && !q.seen);
   if (next) openReview(next);
+}
+
+// ---------------------------------------------------------------- bài đã quét: thay hoặc bỏ
+async function thayBai(i) { const it = QUEUE[i]; if (!it || it.state !== 'dup') return; await save(it); }
+function boBai(i) { const it = QUEUE[i]; if (!it) return; it.state = 'err'; it.note = 'Đã bỏ (bài này đã quét trước đó)'; it.canvas = null; renderQueue(); }
+
+// ---------------------------------------------------------------- QUÉT LIÊN TỤC: camera tự chụp khi phiếu nằm yên
+async function startLive() {
+  if (!DOT) { alert('Chọn đợt kiểm tra trước.'); return; }
+  for (let i = 0; i < 100 && !dotReady; i++) await new Promise(r => setTimeout(r, 100));    // chờ nạp xong danh sách lớp và bài đã quét
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { alert('Trình duyệt này không mở được camera. Dùng Chrome (Android) hoặc Safari (iPhone) và mở trang bằng địa chỉ https.'); return; }
+  try { LIVE.audio = LIVE.audio || new (window.AudioContext || window.webkitAudioContext)(); LIVE.audio.resume && LIVE.audio.resume(); } catch (e) {}
+  try {
+    LIVE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: 'environment' }, width: { ideal: 3840 }, height: { ideal: 2160 } } });
+  } catch (e) { alert('Không mở được camera: ' + (e.message || e.name) + '\nHãy cho phép trang này dùng camera rồi bấm lại.'); return; }
+  const v = $('vid'); v.srcObject = LIVE.stream;
+  try { await LIVE.stream.getVideoTracks()[0].applyConstraints({ advanced: [{ focusMode: 'continuous' }] }); } catch (e) {}
+  try { LIVE.wake = await navigator.wakeLock.request('screen'); } catch (e) {}
+  try { await v.play(); } catch (e) {}
+  Object.assign(LIVE, { on: true, state: 'ready', stable: 0, last: null, away: 0, stickyUntil: 0, sawMotion: 0, prevTiny: null, vw: 0 });
+  $('live').classList.add('on');
+  liveMsg('Đưa phiếu vào khung, thấy đủ 4 ô vuông đen ở góc', 'wait');
+  updateLiveCounts();
+  clearInterval(LIVE.timer); LIVE.timer = setInterval(liveTick, TICK);
+}
+function stopLive() {
+  if (!LIVE.on) return;
+  LIVE.on = false; clearInterval(LIVE.timer);
+  try { LIVE.stream.getTracks().forEach(t => t.stop()); } catch (e) {}
+  try { LIVE.wake && LIVE.wake.release(); } catch (e) {}
+  $('vid').srcObject = null; $('live').classList.remove('on');
+  renderQueue();
+  const w = QUEUE.find(q => q.state === 'warn' && !q.seen);
+  if (w && !busy && !current) openReview(w);
+}
+function fitLive() {
+  const v = $('vid'), box = $('liveBox'); if (!v.videoWidth) return;
+  const r = v.videoWidth / v.videoHeight, availH = Math.max(160, innerHeight - 215);
+  const w = Math.min(innerWidth - 16, availH * r);
+  box.style.width = w + 'px'; box.style.height = (w / r) + 'px';
+}
+addEventListener('resize', () => { if (LIVE.on) fitLive(); });
+
+function liveMsg(t, cls, stickyMs) {
+  const now = Date.now();
+  if (!stickyMs && now < LIVE.stickyUntil) return;
+  if (stickyMs) LIVE.stickyUntil = now + stickyMs;
+  const el = $('liveMsg'); el.className = 'lm ' + (cls || ''); el.textContent = t;
+}
+function updateLiveCounts() {
+  const c = s => QUEUE.filter(q => q.state === s).length, w = c('warn'), d = c('dup');
+  $('liveCount').textContent = `✓ ${c('ok')}` + (w ? ` · ⚠ ${w} cần xem` : '') + (d ? ` · ${d} đã quét rồi` : '');
+}
+function beep(kind) {
+  try {
+    const A = LIVE.audio; if (!A) throw 0;
+    const seq = { shot: [[1500, .04]], ok: [[880, .1], [1320, .14]], dup: [[330, .16], [0, .07], [330, .16]], err: [[200, .4]] }[kind];
+    let t = A.currentTime;
+    seq.forEach(([f, d]) => {
+      if (f) { const o = A.createOscillator(), g = A.createGain(); o.type = 'sine'; o.frequency.value = f; g.gain.value = .3; o.connect(g); g.connect(A.destination); o.start(t); o.stop(t + d); }
+      t += d;
+    });
+  } catch (e) {}
+  try { navigator.vibrate && navigator.vibrate({ shot: 20, ok: 60, dup: [120, 60, 120], err: 300 }[kind]); } catch (e) {}
+}
+
+function centerOf(cs) { return { x: (cs[0].x + cs[1].x + cs[2].x + cs[3].x) / 4, y: (cs[0].y + cs[1].y + cs[2].y + cs[3].y) / 4 }; }
+function shiftOf(a, b) { let m = 0; for (let i = 0; i < 4; i++) m = Math.max(m, Math.hypot(a[i].x - b[i].x, a[i].y - b[i].y)); return m; }
+// số điểm ảnh / mm mà bộ đọc phiếu sẽ thấy (nó thu ảnh về cạnh dài 1600)
+function ppmRead(d, k) {
+  const xs = d.corners.map(p => p.x / k), ys = d.corners.map(p => p.y / k);
+  const L = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * 1.18;
+  return Math.sqrt(d.area / (185 * 272)) / k * Math.min(1, 1600 / L);
+}
+
+function liveTick() {
+  const v = $('vid');
+  if (!LIVE.on || LIVE.ticking || !v.videoWidth || v.readyState < 2) return;
+  LIVE.ticking = true;
+  try {
+    if (LIVE.vw !== v.videoWidth) { LIVE.vw = v.videoWidth; fitLive(); }
+    const k = Math.min(1, 640 / Math.max(v.videoWidth, v.videoHeight)), sc = $('det');
+    sc.width = Math.round(v.videoWidth * k); sc.height = Math.round(v.videoHeight * k);
+    const ctx = sc.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(v, 0, 0, sc.width, sc.height);
+    // có chuyển động trong khung không (tay đưa phiếu mới vào, đổi phiếu tại chỗ…)
+    const tc = $('tiny').getContext('2d', { willReadFrequently: true });
+    tc.drawImage(sc, 0, 0, 64, 48);
+    const td = tc.getImageData(0, 0, 64, 48).data, tiny = new Uint8Array(64 * 48);
+    for (let i = 0; i < tiny.length; i++) tiny[i] = (td[i * 4] * 77 + td[i * 4 + 1] * 150 + td[i * 4 + 2] * 29) >> 8;
+    let diff = 0;
+    if (LIVE.prevTiny) { for (let i = 0; i < tiny.length; i++) diff += Math.abs(tiny[i] - LIVE.prevTiny[i]); diff /= tiny.length; }
+    LIVE.prevTiny = tiny;
+    liveStep(OMR.detect(ctx.getImageData(0, 0, sc.width, sc.height), { maxSide: 640 }), k, sc, diff);
+  } catch (e) { /* bỏ qua khung hình lỗi, thử khung sau */ }
+  LIVE.ticking = false;
+}
+
+function liveStep(d, k, sc, diff) {
+  const present = !!(d && d.ok);
+  let moved = 1, color = '#9aa0a6';
+  if (present && LIVE.last) moved = shiftOf(d.corners, LIVE.last.corners) / Math.hypot(sc.width, sc.height);
+  const still = present && moved < STILL && diff < 4;
+  if (LIVE.state === 'away') {
+    if (diff > 5) LIVE.sawMotion = 1;
+    if (!present) { if (++LIVE.away >= 3) { LIVE.state = 'ready'; LIVE.stable = 0; liveMsg('Sẵn sàng, đặt phiếu tiếp theo', 'wait'); } }
+    else {
+      LIVE.away = 0;
+      const c = centerOf(d.corners), c0 = LIVE.shotCenter;
+      const swapped = c0 && Math.hypot(c.x - c0.x, c.y - c0.y) > 0.2 * sc.width;      // phiếu mới nằm chỗ khác
+      if (still && (swapped || LIVE.sawMotion)) { LIVE.state = 'ready'; LIVE.stable = 1; }  // đổi phiếu tại chỗ rồi nằm yên
+      else liveMsg('Lấy phiếu ra, đặt phiếu tiếp theo', 'wait');
+    }
+  }
+  if (LIVE.state === 'ready') {
+    if (!present) { LIVE.stable = 0; liveMsg('Đưa phiếu vào khung, thấy đủ 4 ô vuông đen ở góc', 'wait'); }
+    else if (ppmRead(d, k) < MIN_PPM) {
+      LIVE.stable = 0; color = '#ea4335';
+      liveMsg(sc.width > sc.height ? 'Xoay điện thoại thành chiều dọc, hoặc đưa lại gần cho phiếu chiếm gần hết khung' : 'Đưa điện thoại lại gần cho phiếu chiếm gần hết khung', 'warn');
+    }
+    else if (still) {
+      LIVE.stable++; color = LIVE.stable >= NEED_STABLE ? '#34a853' : '#fbbc04'; liveMsg('Giữ yên…', 'wait');
+      if (LIVE.stable >= NEED_STABLE) captureLive(d, k);
+    } else { LIVE.stable = 0; color = '#fbbc04'; liveMsg('Giữ yên…', 'wait'); }
+  }
+  LIVE.last = present ? d : null;
+  if (LIVE.state === 'away' && present) color = '#34a853';
+  drawOverlay(d, sc, color);
+}
+
+function drawOverlay(d, sc, color) {
+  const ov = $('ov'), box = $('liveBox'), dpr = Math.min(2, window.devicePixelRatio || 1);
+  ov.width = Math.max(1, Math.round(box.clientWidth * dpr)); ov.height = Math.max(1, Math.round(box.clientHeight * dpr));
+  if (!d || !d.ok) return;
+  const g = ov.getContext('2d'), sx = ov.width / sc.width, sy = ov.height / sc.height;
+  g.lineWidth = 4 * dpr; g.strokeStyle = color; g.lineJoin = 'round'; g.beginPath();
+  d.corners.forEach((p, i) => i ? g.lineTo(p.x * sx, p.y * sy) : g.moveTo(p.x * sx, p.y * sy)); g.closePath(); g.stroke();
+}
+
+function captureLive(d, k) {
+  LIVE.state = 'away'; LIVE.away = 0; LIVE.sawMotion = 0; LIVE.stable = 0; LIVE.shotCenter = centerOf(d.corners);
+  const v = $('vid'), xs = d.corners.map(p => p.x / k), ys = d.corners.map(p => p.y / k);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys), m = 0.09 * Math.max(x1 - x0, y1 - y0);
+  const sx = Math.max(0, Math.floor(x0 - m)), sy = Math.max(0, Math.floor(y0 - m));
+  const sw = Math.min(v.videoWidth, Math.ceil(x1 + m)) - sx, sh = Math.min(v.videoHeight, Math.ceil(y1 + m)) - sy;
+  const c = document.createElement('canvas'); c.width = sw; c.height = sh;
+  c.getContext('2d').drawImage(v, sx, sy, sw, sh, 0, 0, sw, sh);      // cắt sát tờ phiếu để đọc rõ hơn
+  beep('shot'); liveMsg('Đã chụp, đang đọc… lấy phiếu ra được rồi', 'wait', 1200);
+  c.toBlob(b => {
+    if (!b) { LIVE.state = 'ready'; return; }
+    QUEUE.unshift({ file: b, state: 'wait', note: 'Đang chờ…', live: true });
+    renderQueue(); pump();
+  }, 'image/jpeg', 0.93);
+}
+
+// kết quả đọc/lưu của một phiếu chụp tự động (có thể đến sau khi đã đặt phiếu kế tiếp)
+function liveResult(it) {
+  const t = (it.note || '').replace(/<[^>]+>/g, '');
+  if (it.state === 'ok') { liveMsg('✓ ' + t, 'ok', 2200); beep('ok'); }
+  else if (it.state === 'dup') { liveMsg('⚠ ' + t + ' — chưa lưu thêm', 'dup', 3500); beep('dup'); }
+  else if (it.state === 'warn') { liveMsg('⚠ Phiếu vừa rồi cần xem lại: ' + t, 'warn', 3500); beep('err'); }
+  else { liveMsg('✗ Phiếu vừa rồi chưa đọc được: ' + t + ' Đặt lại phiếu đó.', 'err', 3500); beep('err'); }
+  updateLiveCounts();
 }
 </script>
 </body>
