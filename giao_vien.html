@@ -292,6 +292,8 @@ async function readFile() {
 }
 function previewScoring(ct, tl) {     // giống ktThangDiem_ trên máy chủ
   const raw = { p1: ct.p1 * 0.25, p2: ct.p2, p3: ct.p3 * 0.5 }, tong = raw.p1 + raw.p2 + raw.p3, f = tong ? (10 - tl) / tong : 0;
+  const conLai = 10 - tl - raw.p2, r13 = raw.p1 + raw.p3;     // phần II luôn 1 điểm/câu, phần còn lại co giãn cho đủ 10
+  if (ct.p2 && r13 > 0 && conLai > 0) { const g = conLai / r13; return { p1: raw.p1 * g, p2: raw.p2, p3: raw.p3 * g }; }
   return { p1: raw.p1 * f, p2: raw.p2 * f, p3: raw.p3 * f };
 }
 function showPreview() {
