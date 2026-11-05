@@ -122,13 +122,17 @@
   <div id="liveMsg" class="lm"></div>
   <div id="liveBox"><video id="vid" playsinline muted autoplay></video><canvas id="ov"></canvas></div>
   <div id="liveBar">
+    <div class="two">
+      <button class="btn" onclick="liveShot()">📸 Chụp ngay</button>
+      <button class="btn ghost" onclick="liveNext()">⏭ Phiếu tiếp theo</button>
+    </div>
     <button class="btn red" onclick="stopLive()">⏹ Dừng quét</button>
-    <div class="hint" style="color:#cbd5e1">Bấm "Dừng quét" để xem lại những phiếu có dấu ⚠.</div>
+    <div class="hint" style="color:#cbd5e1">Máy không tự sang phiếu mới thì bấm "Phiếu tiếp theo", hoặc "Chụp ngay" khi phiếu đã nằm trong khung. Bấm "Dừng quét" để xem lại những phiếu có dấu ⚠.</div>
   </div>
 </div>
 <canvas id="work" class="hide"></canvas>
 <canvas id="det" class="hide"></canvas>
-<canvas id="tiny" class="hide" width="64" height="48"></canvas>
+<canvas id="tiny" class="hide" width="96" height="72"></canvas>
 <script src="phieu.js"></script>
 <script src="omr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
@@ -139,9 +143,12 @@ const K = 5;                       // ảnh đã nắn: 5 điểm ảnh / mm (đ
 let DOTS = [], DOT = null, ROSTER = {}, QUEUE = [], busy = false, current = null;
 let SCANNED = {}, dotReady = false;      // phiếu đã quét: 'TN|lớp|sbd' hoặc 'TL|lớp|sbd|tờ' -> tên em (lấy từ máy chủ + vừa quét)
 const LIVE = { on: false, stream: null, timer: null, state: 'ready', stable: 0, last: null, away: 0, stickyUntil: 0,
-               shotCenter: null, sawMotion: 0, prevTiny: null, audio: null, wake: null, ticking: false, vw: 0 };
-const NEED_STABLE = 3;    // số lần kiểm tra liên tiếp phiếu nằm yên (mỗi lần ~0,25 giây)
-const TICK = 250, STILL = 0.005, MIN_PPM = 3.4;
+               shotCenter: null, sawMotion: 0, prevTiny: null, audio: null, wake: null, ticking: false, vw: 0,
+               shotAt: 0, shotTiny: null, probed: false, probing: false, lastSig: '', k: 1 };
+const NEED_STABLE = 2;    // số lần kiểm tra liên tiếp phiếu nằm yên (mỗi lần ~0,25 giây)
+const TICK = 250, STILL = 0.006, MIN_PPM = 3.4;
+const TW = 96, TH = 72;   // kích thước ảnh nhỏ để so khung hình
+const PROBE_MS = 3000;    // phiếu nằm yên quá lâu sau khi chụp: tự thử đọc lại một lần xem có phải phiếu mới không
 
 // ---------------------------------------------------------------- đăng nhập + đợt
 async function login(silent) {
@@ -227,6 +234,11 @@ async function pump() {
   try {
     const img = await loadImage(it.file, 2200);
     const r = OMR.read(img, layoutFor, { maxSide: 1600 });
+    if (!r.ok && it.probe) {          // lần thử tự động mà không đọc được: bỏ im lặng
+      dropProbe(it); busy = false; renderQueue();
+      if (LIVE.on) liveMsg('Chưa đọc được phiếu đang nằm trong khung. Lấy ra đặt lại, hoặc bấm "Chụp ngay".', 'warn', 2500);
+      pump(); return;
+    }
     if (!r.ok) {
       it.state = 'err';
       it.note = r.id && r.id.dot !== DOT.id ? `Phiếu thuộc đợt ${r.id.dot}, không phải đợt đang chọn.` : r.error;
@@ -237,6 +249,11 @@ async function pump() {
       it.canvas = c; it.r = r; it.lop = DOT.lop[r.id.lop];
       it.thumb = c.toDataURL('image/jpeg', 0.5);
       check(it);
+      const sig = JSON.stringify([r.loai, r.fields.sbd, r.fields.made, r.fields.to, r.fields.p1, r.fields.p2, r.fields.p3]);
+      if (it.probe && sig === LIVE.lastSig) {      // vẫn là phiếu vừa chụp: không làm gì, không kêu
+        dropProbe(it); busy = false; renderQueue(); pump(); return;
+      }
+      if (it.live) { LIVE.lastSig = sig; if (it.probe) LIVE.probed = false; }
       if (!it.problems.length && it.dup) {
         it.state = 'dup';
         it.note = `Bài này <b>đã quét rồi</b>: ${KT.esc(it.hs ? it.hs.ten : 'SBD ' + it.sbd)}${it.tn ? '' : ' (tự luận tờ ' + (it.to || 1) + ')'}`;
@@ -249,6 +266,8 @@ async function pump() {
   else if (!LIVE.on && QUEUE.some(q => q.state === 'warn' && !q.seen) && !current) openReview(QUEUE.find(q => q.state === 'warn' && !q.seen));
   pump();
 }
+
+function dropProbe(it) { const i = QUEUE.indexOf(it); if (i >= 0) QUEUE.splice(i, 1); it.canvas = null; }
 
 // kiểm tra phiếu: số báo danh có trong lớp, mã đề có trong đáp án, ô tô có vấn đề
 function check(it) {
@@ -401,7 +420,8 @@ async function startLive() {
   try { await LIVE.stream.getVideoTracks()[0].applyConstraints({ advanced: [{ focusMode: 'continuous' }] }); } catch (e) {}
   try { LIVE.wake = await navigator.wakeLock.request('screen'); } catch (e) {}
   try { await v.play(); } catch (e) {}
-  Object.assign(LIVE, { on: true, state: 'ready', stable: 0, last: null, away: 0, stickyUntil: 0, sawMotion: 0, prevTiny: null, vw: 0 });
+  Object.assign(LIVE, { on: true, state: 'ready', stable: 0, last: null, away: 0, stickyUntil: 0, sawMotion: 0, prevTiny: null, vw: 0,
+                        shotAt: 0, shotTiny: null, probed: false, probing: false, lastSig: '' });
   $('live').classList.add('on');
   liveMsg('Đưa phiếu vào khung, thấy đủ 4 ô vuông đen ở góc', 'wait');
   updateLiveCounts();
@@ -469,30 +489,38 @@ function liveTick() {
     ctx.drawImage(v, 0, 0, sc.width, sc.height);
     // có chuyển động trong khung không (tay đưa phiếu mới vào, đổi phiếu tại chỗ…)
     const tc = $('tiny').getContext('2d', { willReadFrequently: true });
-    tc.drawImage(sc, 0, 0, 64, 48);
-    const td = tc.getImageData(0, 0, 64, 48).data, tiny = new Uint8Array(64 * 48);
+    tc.drawImage(sc, 0, 0, TW, TH);
+    const td = tc.getImageData(0, 0, TW, TH).data, tiny = new Uint8Array(TW * TH);
     for (let i = 0; i < tiny.length; i++) tiny[i] = (td[i * 4] * 77 + td[i * 4 + 1] * 150 + td[i * 4 + 2] * 29) >> 8;
-    let diff = 0;
-    if (LIVE.prevTiny) { for (let i = 0; i < tiny.length; i++) diff += Math.abs(tiny[i] - LIVE.prevTiny[i]); diff /= tiny.length; }
+    const m = { diff: 0, chg: 0, chgShot: 0 };      // đổi so với khung trước / so với lúc vừa chụp
+    if (LIVE.prevTiny) {
+      for (let i = 0; i < tiny.length; i++) { const dd = Math.abs(tiny[i] - LIVE.prevTiny[i]); m.diff += dd; if (dd > 28) m.chg++; }
+      m.diff /= tiny.length; m.chg /= tiny.length;
+    }
+    if (LIVE.shotTiny) { for (let i = 0; i < tiny.length; i++) if (Math.abs(tiny[i] - LIVE.shotTiny[i]) > 28) m.chgShot++; m.chgShot /= tiny.length; }
     LIVE.prevTiny = tiny;
-    liveStep(OMR.detect(ctx.getImageData(0, 0, sc.width, sc.height), { maxSide: 640 }), k, sc, diff);
+    liveStep(OMR.detect(ctx.getImageData(0, 0, sc.width, sc.height), { maxSide: 640 }), k, sc, m);
   } catch (e) { /* bỏ qua khung hình lỗi, thử khung sau */ }
   LIVE.ticking = false;
 }
 
-function liveStep(d, k, sc, diff) {
-  const present = !!(d && d.ok);
+function liveStep(d, k, sc, m) {
+  const present = !!(d && d.ok), now = Date.now();
+  LIVE.k = k;
   let moved = 1, color = '#9aa0a6';
   if (present && LIVE.last) moved = shiftOf(d.corners, LIVE.last.corners) / Math.hypot(sc.width, sc.height);
-  const still = present && moved < STILL && diff < 4;
+  const still = present && moved < STILL && m.diff < 6 && m.chg < 0.02;
   if (LIVE.state === 'away') {
-    if (diff > 5) LIVE.sawMotion = 1;
-    if (!present) { if (++LIVE.away >= 3) { LIVE.state = 'ready'; LIVE.stable = 0; liveMsg('Sẵn sàng, đặt phiếu tiếp theo', 'wait'); } }
-    else {
+    if (m.chg > 0.025 || m.diff > 5) LIVE.sawMotion = 1;           // tay hoặc tờ giấy cử động trong khung
+    if (!present) {
+      if (++LIVE.away >= 2) { LIVE.state = 'ready'; LIVE.stable = 0; LIVE.probing = false; liveMsg('Sẵn sàng, đặt phiếu tiếp theo', 'wait'); }
+    } else {
       LIVE.away = 0;
       const c = centerOf(d.corners), c0 = LIVE.shotCenter;
-      const swapped = c0 && Math.hypot(c.x - c0.x, c.y - c0.y) > 0.2 * sc.width;      // phiếu mới nằm chỗ khác
-      if (still && (swapped || LIVE.sawMotion)) { LIVE.state = 'ready'; LIVE.stable = 1; }  // đổi phiếu tại chỗ rồi nằm yên
+      const swapped = !!c0 && Math.hypot(c.x - c0.x, c.y - c0.y) > 0.2 * sc.width;      // phiếu mới nằm chỗ khác
+      const khac = swapped || m.chgShot > 0.02;                                         // nội dung khung khác hẳn lúc vừa chụp
+      if (still && (khac || LIVE.sawMotion)) { LIVE.state = 'ready'; LIVE.stable = 0; LIVE.probing = !khac; }
+      else if (still && !LIVE.probed && now - LIVE.shotAt > PROBE_MS) { LIVE.state = 'ready'; LIVE.stable = 0; LIVE.probing = true; }  // nằm yên lâu: thử đọc lại một lần
       else liveMsg('Lấy phiếu ra, đặt phiếu tiếp theo', 'wait');
     }
   }
@@ -504,7 +532,7 @@ function liveStep(d, k, sc, diff) {
     }
     else if (still) {
       LIVE.stable++; color = LIVE.stable >= NEED_STABLE ? '#34a853' : '#fbbc04'; liveMsg('Giữ yên…', 'wait');
-      if (LIVE.stable >= NEED_STABLE) captureLive(d, k);
+      if (LIVE.stable >= NEED_STABLE) captureLive(d, k, LIVE.probing);
     } else { LIVE.stable = 0; color = '#fbbc04'; liveMsg('Giữ yên…', 'wait'); }
   }
   LIVE.last = present ? d : null;
@@ -521,20 +549,34 @@ function drawOverlay(d, sc, color) {
   d.corners.forEach((p, i) => i ? g.lineTo(p.x * sx, p.y * sy) : g.moveTo(p.x * sx, p.y * sy)); g.closePath(); g.stroke();
 }
 
-function captureLive(d, k) {
+function captureLive(d, k, probe) {
   LIVE.state = 'away'; LIVE.away = 0; LIVE.sawMotion = 0; LIVE.stable = 0; LIVE.shotCenter = centerOf(d.corners);
+  LIVE.shotAt = Date.now(); LIVE.shotTiny = LIVE.prevTiny ? LIVE.prevTiny.slice() : null;
+  LIVE.probed = !!probe; LIVE.probing = false;
   const v = $('vid'), xs = d.corners.map(p => p.x / k), ys = d.corners.map(p => p.y / k);
   const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys), m = 0.09 * Math.max(x1 - x0, y1 - y0);
   const sx = Math.max(0, Math.floor(x0 - m)), sy = Math.max(0, Math.floor(y0 - m));
   const sw = Math.min(v.videoWidth, Math.ceil(x1 + m)) - sx, sh = Math.min(v.videoHeight, Math.ceil(y1 + m)) - sy;
   const c = document.createElement('canvas'); c.width = sw; c.height = sh;
   c.getContext('2d').drawImage(v, sx, sy, sw, sh, 0, 0, sw, sh);      // cắt sát tờ phiếu để đọc rõ hơn
-  beep('shot'); liveMsg('Đã chụp, đang đọc… lấy phiếu ra được rồi', 'wait', 1200);
+  if (!probe) { beep('shot'); liveMsg('Đã chụp, đang đọc… lấy phiếu ra được rồi', 'wait', 1200); }
   c.toBlob(b => {
     if (!b) { LIVE.state = 'ready'; return; }
-    QUEUE.unshift({ file: b, state: 'wait', note: 'Đang chờ…', live: true });
+    QUEUE.unshift({ file: b, state: 'wait', note: 'Đang chờ…', live: true, probe: !!probe });
     renderQueue(); pump();
   }, 'image/jpeg', 0.93);
+}
+
+// bấm tay: sang phiếu tiếp theo / chụp ngay phiếu đang nằm trong khung
+function liveNext() {
+  if (!LIVE.on) return;
+  LIVE.state = 'ready'; LIVE.stable = 0; LIVE.probing = false; LIVE.sawMotion = 0; LIVE.away = 0; LIVE.last = null;
+  liveMsg('Sẵn sàng, đặt phiếu tiếp theo', 'wait', 900);
+}
+function liveShot() {
+  if (!LIVE.on) return;
+  if (!LIVE.last) { liveMsg('Chưa thấy phiếu trong khung, đưa đủ 4 ô vuông đen ở góc vào.', 'warn', 1800); return; }
+  captureLive(LIVE.last, LIVE.k, false);
 }
 
 // kết quả đọc/lưu của một phiếu chụp tự động (có thể đến sau khi đã đặt phiếu kế tiếp)

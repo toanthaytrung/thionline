@@ -105,6 +105,11 @@
         <div><label>Ngày kiểm tra</label><input type="date" id="fNgay"></div>
         <div style="grid-column: span 2"><label>Các lớp (cách nhau dấu phẩy)</label><input type="text" id="fLop" placeholder="VD: 11A, 11B, 11A2"></div>
         <div><label>Điểm tự luận</label><input type="number" id="fTL" min="0" max="10" step="0.25" value="3"></div>
+        <div style="grid-column: span 2"><label>Cách tính điểm phần II (đúng sai)</label>
+          <select id="fCheDo" onchange="showPreview()">
+            <option value="chuan">Chuẩn bộ: đúng 1 ý 0,1 · 2 ý 0,25 · 3 ý 0,5 · 4 ý 1 điểm (theo tỉ lệ)</option>
+            <option value="deu">Chia đều: mỗi ý đúng được 1/4 điểm của câu (VD câu 1 điểm: mỗi ý 0,25)</option>
+          </select></div>
         <div style="grid-column: 1 / -1" id="fCauBox"><label>Các câu tự luận và điểm tối đa từng câu</label>
           <input type="text" id="fCau" value="Câu 1: 1; Câu 2: 1; Câu 3: 1" oninput="this.dataset.sua='1'; showPreview()">
           <p class="muted" style="margin:4px 0 0">Cách nhau dấu chấm phẩy. VD: <code>Câu 1: 1; Câu 2a: 0,5; Câu 2b: 0,5; Câu 3: 1</code>. Tổng phải bằng điểm tự luận. Sửa lại được sau khi tạo đợt.</p></div>
@@ -206,6 +211,7 @@ function ctText(d) {
   const c = d.cauTruc, s = d.scoring.max, f = KT.fmt;
   return `Phần I ${c.p1} câu (${f(s.p1)}đ) · Phần II ${c.p2} câu (${f(s.p2)}đ) · Phần III ${c.p3} câu (${f(s.p3)}đ)` + (d.tuLuan ? ` · Tự luận ${f(d.tuLuan)}đ` : '');
 }
+function cheDoText(d) { return d.cheDoP2 === 'deu' ? 'chia đều từng ý' : 'chuẩn bộ'; }
 function cauTL(d) { return d.tlCau && d.tlCau.length ? d.tlCau : KT.macDinhTlCau(d.tuLuan); }
 function renderDots() {
   if (!DOTS.length) { $('dotList').innerHTML = '<p class="muted">Chưa có đợt kiểm tra nào. Bấm "➕ Tạo đợt mới".</p>'; return; }
@@ -213,7 +219,8 @@ function renderDots() {
     <div class="dot">
       <div><b>${KT.esc(d.ten)}</b> <span class="muted">· mã đợt ${d.id} · khối ${KT.esc(d.khoi)}${d.ngay ? ' · ' + KT.esc(d.ngay.split('-').reverse().join('/')) : ''}</span><br>
         ${d.lop.map(l => `<span class="chip">${KT.esc(l)}</span>`).join('')} <span class="muted">${Object.keys(d.dapAn).length} mã đề: ${Object.keys(d.dapAn).join(', ')}</span><br>
-        <span class="muted">${ctText(d)}</span>
+        <span class="muted">${ctText(d)}</span><br>
+        <span class="muted">Chấm phần II: <b>${cheDoText(d)}</b></span> <a href="#" onclick="suaCheDo(${d.id}); return false" style="font-size:13px">đổi</a>
         ${d.tuLuan ? `<br><span class="muted">Tự luận: ${KT.esc(KT.tlCauText(cauTL(d)))}</span> <a href="#" onclick="suaCau(${d.id}); return false" style="font-size:13px">sửa</a>` : ''}</div>
       <div class="row">
         <button class="btn ghost" onclick="goPrint(${d.id})">🖨️ In phiếu</button>
@@ -251,6 +258,17 @@ async function suaCau(id) {
   if (r.status !== 'OK') { alert(r.message); return; }
   loadDots();
 }
+async function suaCheDo(id) {
+  const d = dotById(id), moi = d.cheDoP2 === 'deu' ? 'chuan' : 'deu';
+  const ten = moi === 'deu' ? 'CHIA ĐỀU TỪNG Ý (mỗi ý đúng 1/4 điểm của câu)' : 'CHUẨN BỘ (1 ý 0,1 · 2 ý 0,25 · 3 ý 0,5 · 4 ý 1 điểm)';
+  if (!confirm(`Đổi cách chấm phần II của "${d.ten}" sang ${ten}?\n\nCác bài đã quét sẽ được chấm lại ngay. Điểm tự luận giữ nguyên.`)) return;
+  try {
+    const r = await KT.api('ktSuaDot', { id, cheDoP2: moi });
+    if (r.status !== 'OK') { alert(r.message); return; }
+    alert(`Đã đổi. Chấm lại ${r.chamLai || 0} bài đã quét.`);
+    loadDots();
+  } catch (e) { alert(e.message); }
+}
 async function delDot(id) {
   const d = dotById(id);
   if (!confirm(`Xóa đợt "${d.ten}"?\n\nĐáp án của đợt sẽ bị xóa. Điểm đã quét vẫn còn trong tab KT_KetQua của Google Sheets.`)) return;
@@ -281,7 +299,8 @@ function showPreview() {
   const c = parsed.cauTruc, tl = Number($('fTL').value) || 0, s = previewScoring(c, tl), f = KT.fmt, ma = Object.keys(parsed.dapAn);
   let h = `<div class="msg ${parsed.errors.length ? 'err' : 'ok'}"><b>Đọc được ${ma.length} mã đề:</b> ${ma.join(', ')}<br>
     Cấu trúc: Phần I <b>${c.p1}</b> câu · Phần II <b>${c.p2}</b> câu · Phần III <b>${c.p3}</b> câu<br>
-    Thang điểm: Phần I ${f(s.p1)} · Phần II ${f(s.p2)} · Phần III ${f(s.p3)}${tl ? ' · Tự luận ' + f(tl) : ''} = <b>10</b>`;
+    Thang điểm: Phần I ${f(s.p1)} · Phần II ${f(s.p2)} · Phần III ${f(s.p3)}${tl ? ' · Tự luận ' + f(tl) : ''} = <b>10</b><br>
+    Phần II chấm theo: <b>${$('fCheDo').value === 'deu' ? 'chia đều từng ý' : 'chuẩn bộ'}</b>`;
   if (parsed.errors.length) h += `<ul>${parsed.errors.map(e => `<li>${KT.esc(e)}</li>`).join('')}</ul>Sửa file Excel rồi chọn lại.`;
   h += '</div>';
   if (parsed.warnings.length) h += `<div class="msg warn">${parsed.warnings.map(KT.esc).join('<br>')}</div>`;
@@ -303,7 +322,7 @@ async function saveDot() {
   $('btnSave').disabled = true; msg('saveMsg', 'warn', 'Đang lưu…');
   try {
     const r = await KT.api('ktTaoDot', { dot: { ten, khoi: $('fKhoi').value, lop: [...new Set(lop)], ngay: $('fNgay').value,
-      tuLuan: tl, tlCau: tl ? pc.cau : [], cauTruc: parsed.cauTruc, dapAn: parsed.dapAn } });
+      tuLuan: tl, tlCau: tl ? pc.cau : [], cauTruc: parsed.cauTruc, dapAn: parsed.dapAn, cheDoP2: $('fCheDo').value } });
     if (r.status !== 'OK') throw new Error(r.message);
     msg('saveMsg', 'ok', `Đã lưu đợt <b>${KT.esc(r.dot.ten)}</b> (mã đợt ${r.dot.id}). Bấm "🖨️ In phiếu" để in.`);
     await loadDots(); syncDot(r.dot.id); goPrint(r.dot.id);
