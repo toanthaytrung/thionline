@@ -56,6 +56,9 @@
   .lm.ok { background: #137333; } .lm.dup, .lm.warn { background: #b06000; } .lm.err { background: #b3261e; }
   #liveBox { position: relative; margin: 8px auto; background: #000; border-radius: 10px; overflow: hidden; }
   #liveBox video, #liveBox canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+  #liveBox canvas { pointer-events: none; }
+  #liveBox video::-webkit-media-controls, #liveBox video::-webkit-media-controls-start-playback-button,
+  #liveBox video::-webkit-media-controls-overlay-play-button, #liveBox video::-webkit-media-controls-panel { display: none !important; -webkit-appearance: none; }
   #liveBar { margin-top: auto; width: 100%; padding: 10px 12px; padding-bottom: max(10px, env(safe-area-inset-bottom)); display: grid; gap: 8px; }
 </style>
 </head>
@@ -120,7 +123,7 @@
 <div id="live">
   <div id="liveTop"><b>🎥 Quét liên tục</b><span id="liveCount"></span></div>
   <div id="liveMsg" class="lm"></div>
-  <div id="liveBox"><video id="vid" playsinline muted autoplay></video><canvas id="ov"></canvas></div>
+  <div id="liveBox"><video id="vid" playsinline webkit-playsinline muted autoplay disablepictureinpicture disableremoteplayback onclick="this.play().catch(function(){})"></video><canvas id="ov"></canvas></div>
   <div id="liveBar">
     <div class="two">
       <button class="btn" onclick="liveShot()">📸 Chụp ngay</button>
@@ -144,7 +147,8 @@ let DOTS = [], DOT = null, ROSTER = {}, QUEUE = [], busy = false, current = null
 let SCANNED = {}, dotReady = false;      // phiếu đã quét: 'TN|lớp|sbd' hoặc 'TL|lớp|sbd|tờ' -> tên em (lấy từ máy chủ + vừa quét)
 const LIVE = { on: false, stream: null, timer: null, state: 'ready', stable: 0, last: null, away: 0, stickyUntil: 0,
                shotCenter: null, sawMotion: 0, prevTiny: null, audio: null, wake: null, ticking: false, vw: 0,
-               shotAt: 0, shotTiny: null, probed: false, probing: false, lastSig: '', k: 1 };
+               shotAt: 0, shotTiny: null, probed: false, probing: false, lastSig: '', k: 1,
+               frames: 0, noFrame: 0, framesPrev: -1, frozen: false, hasVfc: false };
 const NEED_STABLE = 2;    // số lần kiểm tra liên tiếp phiếu nằm yên (mỗi lần ~0,25 giây)
 const TICK = 250, STILL = 0.006, MIN_PPM = 3.4;
 const TW = 96, TH = 72;   // kích thước ảnh nhỏ để so khung hình
@@ -250,8 +254,10 @@ async function pump() {
       it.thumb = c.toDataURL('image/jpeg', 0.5);
       check(it);
       const sig = JSON.stringify([r.loai, r.fields.sbd, r.fields.made, r.fields.to, r.fields.p1, r.fields.p2, r.fields.p3]);
-      if (it.probe && sig === LIVE.lastSig) {      // vẫn là phiếu vừa chụp: không làm gì, không kêu
-        dropProbe(it); busy = false; renderQueue(); pump(); return;
+      if (it.live && sig === LIVE.lastSig) {      // vẫn là phiếu vừa chụp: không lập thêm dòng, chỉ nhắc
+        dropProbe(it); busy = false; renderQueue();
+        if (!it.probe && LIVE.on) { liveMsg('Vẫn là phiếu vừa quét. Đặt phiếu MỚI vào khung.', 'warn', 2500); beep('dup'); }
+        pump(); return;
       }
       if (it.live) { LIVE.lastSig = sig; if (it.probe) LIVE.probed = false; }
       if (!it.problems.length && it.dup) {
@@ -420,8 +426,15 @@ async function startLive() {
   try { await LIVE.stream.getVideoTracks()[0].applyConstraints({ advanced: [{ focusMode: 'continuous' }] }); } catch (e) {}
   try { LIVE.wake = await navigator.wakeLock.request('screen'); } catch (e) {}
   try { await v.play(); } catch (e) {}
+  v.onpause = () => { if (LIVE.on) v.play().catch(() => {}); };
+  if (v.requestVideoFrameCallback) {
+    LIVE.hasVfc = true;
+    const cb = () => { if (!LIVE.on) return; LIVE.frames++; v.requestVideoFrameCallback(cb); };
+    v.requestVideoFrameCallback(cb);
+  }
   Object.assign(LIVE, { on: true, state: 'ready', stable: 0, last: null, away: 0, stickyUntil: 0, sawMotion: 0, prevTiny: null, vw: 0,
-                        shotAt: 0, shotTiny: null, probed: false, probing: false, lastSig: '' });
+                        shotAt: 0, shotTiny: null, probed: false, probing: false, lastSig: '',
+                        frames: 0, noFrame: 0, framesPrev: -1, frozen: false });
   $('live').classList.add('on');
   liveMsg('Đưa phiếu vào khung, thấy đủ 4 ô vuông đen ở góc', 'wait');
   updateLiveCounts();
@@ -477,9 +490,33 @@ function ppmRead(d, k) {
   return Math.sqrt(d.area / (185 * 272)) / k * Math.min(1, 1600 / L);
 }
 
+// iPhone / trình duyệt trong Zalo hay tự dừng video sau khi chụp xong phiếu đầu: hình đứng, các lần chụp sau toàn là phiếu cũ.
+// Hàm này phát hiện hình đứng, tự bật lại video; nếu không được thì báo để chạm vào khung hình.
+function keepAlive(v) {
+  if (v.paused || v.ended) v.play().catch(() => {});
+  if (LIVE.hasVfc && LIVE.frames > 0) {
+    if (LIVE.frames === LIVE.framesPrev) LIVE.noFrame++; else LIVE.noFrame = 0;
+    LIVE.framesPrev = LIVE.frames;
+  }
+  const dead = !LIVE.stream || LIVE.stream.getVideoTracks().every(t => t.readyState !== 'live');
+  if (v.paused || dead || LIVE.noFrame >= 5) {
+    LIVE.frozen = true; LIVE.stable = 0; LIVE.last = null;
+    liveMsg(dead ? 'Camera đã tắt. Bấm "Dừng quét" rồi bấm "Quét liên tục" lại.' : 'Camera đang đứng hình. Chạm vào khung hình để bật lại.', 'err');
+    if (!dead && (LIVE.noFrame === 5 || LIVE.noFrame % 12 === 0)) { try { v.srcObject = LIVE.stream; } catch (e) {} v.play().catch(() => {}); }
+    return true;
+  }
+  if (LIVE.frozen) {
+    LIVE.frozen = false; LIVE.state = 'ready'; LIVE.stable = 0; LIVE.prevTiny = null; LIVE.last = null; LIVE.noFrame = 0;
+    liveMsg('Camera chạy lại. Đặt phiếu tiếp theo', 'wait', 1200);
+  }
+  return false;
+}
+
 function liveTick() {
   const v = $('vid');
-  if (!LIVE.on || LIVE.ticking || !v.videoWidth || v.readyState < 2) return;
+  if (!LIVE.on || LIVE.ticking) return;
+  if (keepAlive(v)) return;              // camera đang đứng hình: đang khôi phục, bỏ qua khung này
+  if (!v.videoWidth || v.readyState < 2) return;
   LIVE.ticking = true;
   try {
     if (LIVE.vw !== v.videoWidth) { LIVE.vw = v.videoWidth; fitLive(); }
