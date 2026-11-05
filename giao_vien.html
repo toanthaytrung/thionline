@@ -119,6 +119,20 @@
         <input type="file" id="fFile" accept=".xlsx" onchange="readFile()">
         <p class="muted">Dòng 1: <code>Đề\câu | 1 … 12 | 1a … 2d | 1 … 4</code>; mỗi dòng sau là một mã đề (001, 002…). Phần II ghi D (Đúng) hoặc S (Sai).</p>
       </div>
+      <div id="cfgBox" class="hide" style="margin-top:14px; padding:12px; border:1px solid var(--line, #d0d7e2); border-radius:10px">
+        <b>Cấu trúc đề và thang điểm</b> <span class="muted">(sửa trực tiếp, phiếu in ra theo đúng các số này)</span>
+        <div class="grid" style="margin-top:8px">
+          <div><label>Số câu phần I <small class="muted" id="mx1"></small></label><input type="number" id="sP1" min="0" max="40" oninput="cfgChanged()"></div>
+          <div><label>Số câu phần II <small class="muted" id="mx2"></small></label><input type="number" id="sP2" min="0" max="6" oninput="cfgChanged()"></div>
+          <div><label>Số câu phần III <small class="muted" id="mx3"></small></label><input type="number" id="sP3" min="0" max="6" oninput="cfgChanged()"></div>
+          <div style="grid-column: 1 / -1"><label style="display:flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="dAuto" checked onchange="cfgChanged()" style="width:auto"> Tự tính điểm mỗi câu cho tổng đủ 10 điểm</label></div>
+          <div><label>Điểm mỗi câu phần I</label><input type="text" id="dP1" oninput="showPreview()"></div>
+          <div><label>Điểm mỗi câu phần II</label><input type="text" id="dP2" oninput="showPreview()"></div>
+          <div><label>Điểm mỗi câu phần III</label><input type="text" id="dP3" oninput="showPreview()"></div>
+          <div style="grid-column: 1 / -1" id="yBoxWrap"><label>Số ý của từng câu phần II</label><div id="yBox" class="row"></div>
+            <p class="muted" style="margin:4px 0 0">Câu ít hơn 4 ý thì phiếu chỉ in đúng số ý đó, mỗi ý đúng được 1/số ý điểm của câu. File Excel đáp án vẫn điền đủ a, b, c, d (ý thừa điền tùy ý, không được chấm).</p></div>
+        </div>
+      </div>
       <div id="fPreview"></div>
       <div class="row" style="margin-top:14px"><button class="btn green" id="btnSave" onclick="saveDot()" disabled>💾 Lưu đợt kiểm tra</button></div>
       <div id="saveMsg"></div>
@@ -211,6 +225,11 @@ function ctText(d) {
   const c = d.cauTruc, s = d.scoring.max, f = KT.fmt;
   return `Phần I ${c.p1} câu (${f(s.p1)}đ) · Phần II ${c.p2} câu (${f(s.p2)}đ) · Phần III ${c.p3} câu (${f(s.p3)}đ)` + (d.tuLuan ? ` · Tự luận ${f(d.tuLuan)}đ` : '');
 }
+function diemCauText(d) {
+  const s = d.scoring, c = d.cauTruc, f = KT.fmt, o = [];
+  if (c.p1) o.push('I: ' + f(s.p1)); if (c.p2) o.push('II: ' + f(s.p2)); if (c.p3) o.push('III: ' + f(s.p3));
+  return o.join(' · ') + (d.diemCau ? ' (thầy nhập)' : ' (tự tính)') + (d.p2y ? ' · số ý phần II: ' + d.p2y.join('/') : '');
+}
 function cheDoText(d) { return d.cheDoP2 === 'deu' ? 'chia đều từng ý' : 'chuẩn bộ'; }
 function cauTL(d) { return d.tlCau && d.tlCau.length ? d.tlCau : KT.macDinhTlCau(d.tuLuan); }
 function renderDots() {
@@ -220,7 +239,8 @@ function renderDots() {
       <div><b>${KT.esc(d.ten)}</b> <span class="muted">· mã đợt ${d.id} · khối ${KT.esc(d.khoi)}${d.ngay ? ' · ' + KT.esc(d.ngay.split('-').reverse().join('/')) : ''}</span><br>
         ${d.lop.map(l => `<span class="chip">${KT.esc(l)}</span>`).join('')} <span class="muted">${Object.keys(d.dapAn).length} mã đề: ${Object.keys(d.dapAn).join(', ')}</span><br>
         <span class="muted">${ctText(d)}</span><br>
-        <span class="muted">Chấm phần II: <b>${cheDoText(d)}</b></span> <a href="#" onclick="suaCheDo(${d.id}); return false" style="font-size:13px">đổi</a>
+        <span class="muted">Chấm phần II: <b>${cheDoText(d)}</b></span> <a href="#" onclick="suaCheDo(${d.id}); return false" style="font-size:13px">đổi</a><br>
+        <span class="muted">Điểm mỗi câu — ${diemCauText(d)}</span> <a href="#" onclick="suaDiem(${d.id}); return false" style="font-size:13px">sửa</a>
         ${d.tuLuan ? `<br><span class="muted">Tự luận: ${KT.esc(KT.tlCauText(cauTL(d)))}</span> <a href="#" onclick="suaCau(${d.id}); return false" style="font-size:13px">sửa</a>` : ''}</div>
       <div class="row">
         <button class="btn ghost" onclick="goPrint(${d.id})">🖨️ In phiếu</button>
@@ -269,6 +289,25 @@ async function suaCheDo(id) {
     loadDots();
   } catch (e) { alert(e.message); }
 }
+async function suaDiem(id) {
+  const d = dotById(id), s = d.scoring, f = KT.fmt;
+  const cur = d.diemCau ? [s.p1, s.p2, s.p3].map(f).join('; ') : 'tự động';
+  const t = prompt(`Điểm mỗi câu của "${d.ten}": phần I; phần II; phần III (VD: 0,25; 1; 0,5).\nGõ "tự động" để tự tính cho tổng đủ 10 điểm.\n\nCác bài đã quét sẽ được chấm lại ngay. Số câu và số ý không đổi được vì phiếu đã in.`, cur);
+  if (t === null) return;
+  let dc = null;
+  if (!/^\s*t[uự]\s*[dđ][oộ]ng\s*$/i.test(t)) {
+    const a = t.split(/[;]+/).map(x => num(x));
+    if (a.length !== 3 || a.some((x, i) => x <= 0 && d.cauTruc['p' + (i + 1)] > 0)) { alert('Nhập đủ 3 số lớn hơn 0, cách nhau dấu chấm phẩy. VD: 0,25; 1; 0,5'); return; }
+    dc = { p1: a[0], p2: a[1], p3: a[2] };
+    const tong = d.cauTruc.p1 * dc.p1 + d.cauTruc.p2 * dc.p2 + d.cauTruc.p3 * dc.p3 + (d.tuLuan || 0);
+    if (Math.abs(tong - 10) > 0.005 && !confirm(`Tổng điểm của đề là ${f(Math.round(tong * 100) / 100)}, chưa bằng 10. Vẫn lưu?`)) return;
+  }
+  try {
+    const r = await KT.api('ktSuaDot', { id, diemCau: dc });
+    if (r.status !== 'OK') { alert(r.message); return; }
+    alert(`Đã lưu. Chấm lại ${r.chamLai || 0} bài đã quét.`); loadDots();
+  } catch (e) { alert(e.message); }
+}
 async function delDot(id) {
   const d = dotById(id);
   if (!confirm(`Xóa đợt "${d.ten}"?\n\nĐáp án của đợt sẽ bị xóa. Điểm đã quét vẫn còn trong tab KT_KetQua của Google Sheets.`)) return;
@@ -281,16 +320,62 @@ function tlChanged() {
   const tl = Number($('fTL').value) || 0;
   $('fCauBox').classList.toggle('hide', !tl);
   if (!$('fCau').dataset.sua) $('fCau').value = KT.tlCauText(KT.macDinhTlCau(tl));
-  showPreview();
+  if (parsed) cfgChanged(); else showPreview();
 }
 async function readFile() {
   const f = $('fFile').files[0]; parsed = null; $('btnSave').disabled = true;
   if (!f) return;
   try { parsed = KT.parseDapAn(await KT.readXlsx(await f.arrayBuffer())); }
   catch (e) { msg('fPreview', 'err', 'Không đọc được file: ' + KT.esc(e.message)); return; }
+  const c = parsed.cauTruc;
+  $('sP1').value = c.p1; $('sP2').value = c.p2; $('sP3').value = c.p3;
+  ['1', '2', '3'].forEach(i => $('mx' + i).textContent = '(file có ' + c['p' + i] + ')');
+  $('dAuto').checked = true; $('cfgBox').classList.remove('hide');
+  buildY(c.p2, []);
+  cfgChanged();
+}
+// ---- cấu hình cấu trúc đề / thang điểm
+const num = v => { const x = parseFloat(String(v).replace(',', '.')); return isFinite(x) ? x : 0; };
+function curCT() {
+  const f = k => Math.max(0, Math.floor(num($('sP' + k).value)));
+  return { p1: f(1), p2: f(2), p3: f(3) };
+}
+function buildY(n, old) {
+  $('yBoxWrap').classList.toggle('hide', !n);
+  $('yBox').innerHTML = Array.from({ length: n }, (_, i) =>
+    `<span>Câu ${i + 1}: <select class="sy" onchange="showPreview()">${[4, 3, 2, 1].map(v => `<option${v === (old[i] || 4) ? ' selected' : ''}>${v}</option>`).join('')}</select></span>`).join(' ');
+}
+function curY() { return [...document.querySelectorAll('.sy')].map(s => Number(s.value) || 4); }
+let lastP2 = -1;
+function cfgChanged() {
+  if (!parsed) return;
+  const c = curCT(), auto = $('dAuto').checked;
+  if (c.p2 !== lastP2) { buildY(c.p2, curY()); lastP2 = c.p2; }
+  const s = previewScoring(c, Number($('fTL').value) || 0);
+  ['p1', 'p2', 'p3'].forEach((p, i) => {
+    const el = $('dP' + (i + 1)); el.disabled = auto;
+    if (auto) el.value = c[p] ? String(Math.round(s[p] / c[p] * 10000) / 10000).replace('.', ',') : '';
+  });
   showPreview();
 }
-function previewScoring(ct, tl) {     // giống ktThangDiem_ trên máy chủ
+function diemCauNhap() {      // null = tự động
+  if ($('dAuto').checked) return null;
+  return { p1: num($('dP1').value), p2: num($('dP2').value), p3: num($('dP3').value) };
+}
+// cắt đáp án theo số câu đã chọn (chọn ít hơn file thì bỏ các câu cuối)
+function cutKey(c) {
+  const out = {};
+  Object.keys(parsed.dapAn).forEach(ma => {
+    const k = parsed.dapAn[ma], o = { p1: {}, p2: {}, p3: {} };
+    for (let i = 1; i <= c.p1; i++) o.p1[i] = k.p1[i];
+    for (let i = 1; i <= c.p2; i++) o.p2[i] = k.p2[i];
+    for (let i = 1; i <= c.p3; i++) o.p3[i] = k.p3[i];
+    out[ma] = o;
+  });
+  return out;
+}
+function previewScoring(ct, tl, dc) {     // giống ktThangDiem_ trên máy chủ
+  if (dc && (!ct.p1 || dc.p1 > 0) && (!ct.p2 || dc.p2 > 0) && (!ct.p3 || dc.p3 > 0)) return { p1: ct.p1 * dc.p1, p2: ct.p2 * dc.p2, p3: ct.p3 * dc.p3, tay: true };
   const raw = { p1: ct.p1 * 0.25, p2: ct.p2, p3: ct.p3 * 0.5 }, tong = raw.p1 + raw.p2 + raw.p3, f = tong ? (10 - tl) / tong : 0;
   const conLai = 10 - tl - raw.p2, r13 = raw.p1 + raw.p3;     // phần II luôn 1 điểm/câu, phần còn lại co giãn cho đủ 10
   if (ct.p2 && r13 > 0 && conLai > 0) { const g = conLai / r13; return { p1: raw.p1 * g, p2: raw.p2, p3: raw.p3 * g }; }
@@ -298,10 +383,11 @@ function previewScoring(ct, tl) {     // giống ktThangDiem_ trên máy chủ
 }
 function showPreview() {
   if (!parsed) return;
-  const c = parsed.cauTruc, tl = Number($('fTL').value) || 0, s = previewScoring(c, tl), f = KT.fmt, ma = Object.keys(parsed.dapAn);
+  const fc = parsed.cauTruc, c = curCT(), tl = Number($('fTL').value) || 0, dc = diemCauNhap(), s = previewScoring(c, tl, dc), f = KT.fmt, ma = Object.keys(parsed.dapAn);
+  const tong = s.p1 + s.p2 + s.p3 + tl, thieu = c.p1 > fc.p1 || c.p2 > fc.p2 || c.p3 > fc.p3, tay = !!s.tay;
   let h = `<div class="msg ${parsed.errors.length ? 'err' : 'ok'}"><b>Đọc được ${ma.length} mã đề:</b> ${ma.join(', ')}<br>
     Cấu trúc: Phần I <b>${c.p1}</b> câu · Phần II <b>${c.p2}</b> câu · Phần III <b>${c.p3}</b> câu<br>
-    Thang điểm: Phần I ${f(s.p1)} · Phần II ${f(s.p2)} · Phần III ${f(s.p3)}${tl ? ' · Tự luận ' + f(tl) : ''} = <b>10</b><br>
+    Thang điểm: Phần I ${f(s.p1)} · Phần II ${f(s.p2)} · Phần III ${f(s.p3)}${tl ? ' · Tự luận ' + f(tl) : ''} = <b>${f(Math.round(tong * 100) / 100)}</b><br>
     Phần II chấm theo: <b>${$('fCheDo').value === 'deu' ? 'chia đều từng ý' : 'chuẩn bộ'}</b>`;
   if (parsed.errors.length) h += `<ul>${parsed.errors.map(e => `<li>${KT.esc(e)}</li>`).join('')}</ul>Sửa file Excel rồi chọn lại.`;
   h += '</div>';
@@ -309,10 +395,13 @@ function showPreview() {
   const khoi = $('fKhoi').value;
   if (khoi !== '12' && tl === 0) h += '<div class="msg warn">Khối 10, 11 thường có tự luận: kiểm tra lại ô "Điểm tự luận".</div>';
   if (c.p1 > 40 || c.p2 > 6 || c.p3 > 6) h += '<div class="msg err">Phiếu chứa tối đa 40 câu phần I, 6 câu phần II, 6 câu phần III.</div>';
+  if (thieu) h += '<div class="msg err">Số câu nhiều hơn file Excel đáp án (file có ' + fc.p1 + ' / ' + fc.p2 + ' / ' + fc.p3 + ' câu). Thêm đáp án vào file rồi chọn lại, hoặc giảm số câu.</div>';
+  if (tay && Math.abs(tong - 10) > 0.005) h += '<div class="msg warn">Tổng điểm đang là ' + f(Math.round(tong * 100) / 100) + ', chưa bằng 10. Vẫn lưu được; điểm bài làm tối đa vẫn bị khống chế ở 10.</div>';
+  if (!tay && !c.p1 && !c.p2 && !c.p3) h += '<div class="msg err">Chưa có câu nào.</div>';
   const pc = tl ? KT.parseTlCau($('fCau').value, tl) : { loi: '' };
   if (pc.loi) h += `<div class="msg err">Các câu tự luận: ${KT.esc(pc.loi)}</div>`;
   $('fPreview').innerHTML = h;
-  $('btnSave').disabled = !!parsed.errors.length || c.p1 > 40 || c.p2 > 6 || c.p3 > 6 || !!pc.loi;
+  $('btnSave').disabled = !!parsed.errors.length || c.p1 > 40 || c.p2 > 6 || c.p3 > 6 || !!pc.loi || thieu || (!c.p1 && !c.p2 && !c.p3);
 }
 $('fTL').addEventListener('input', tlChanged);
 async function saveDot() {
@@ -324,7 +413,8 @@ async function saveDot() {
   $('btnSave').disabled = true; msg('saveMsg', 'warn', 'Đang lưu…');
   try {
     const r = await KT.api('ktTaoDot', { dot: { ten, khoi: $('fKhoi').value, lop: [...new Set(lop)], ngay: $('fNgay').value,
-      tuLuan: tl, tlCau: tl ? pc.cau : [], cauTruc: parsed.cauTruc, dapAn: parsed.dapAn, cheDoP2: $('fCheDo').value } });
+      tuLuan: tl, tlCau: tl ? pc.cau : [], cauTruc: curCT(), dapAn: cutKey(curCT()), cheDoP2: $('fCheDo').value,
+      diemCau: diemCauNhap(), p2y: curCT().p2 ? curY() : [] } });
     if (r.status !== 'OK') throw new Error(r.message);
     msg('saveMsg', 'ok', `Đã lưu đợt <b>${KT.esc(r.dot.ten)}</b> (mã đợt ${r.dot.id}). Bấm "🖨️ In phiếu" để in.`);
     await loadDots(); syncDot(r.dot.id); goPrint(r.dot.id);
@@ -333,7 +423,7 @@ async function saveDot() {
 
 // ---------------------------------------------------------------- in phiếu
 function pageCfg(d, lop) {
-  return { p1: d.cauTruc.p1, p2: d.cauTruc.p2, p3: d.cauTruc.p3, ten: d.ten, lop, dot: d.id, lopIdx: d.lop.indexOf(lop) };
+  return { p1: d.cauTruc.p1, p2: d.cauTruc.p2, p3: d.cauTruc.p3, p2y: d.p2y || null, ten: d.ten, lop, dot: d.id, lopIdx: d.lop.indexOf(lop) };
 }
 function pagesFor(d, lop, loai) {
   const cfg = pageCfg(d, lop);

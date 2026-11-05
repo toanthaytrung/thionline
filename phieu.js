@@ -35,6 +35,7 @@
 
   // ---------------------------------------------------------------- bố cục
   // cfg: { p1: số câu phần I (≤40), p2: số câu phần II (≤6), p3: số câu phần III (≤6),
+  //        p2y: (tùy chọn) mảng số ý từng câu phần II, mặc định 4,
   //        ten: tên đợt, lop: tên lớp, dot: mã đợt (số), lopIdx: số thứ tự lớp trong đợt }
   function front(cfg) {
     var L = { page: 'TN', marks: [], bubbles: [], texts: [], boxes: [], lines: [] };
@@ -74,7 +75,9 @@
       L.marks.push(mark(bx - 6, y0 + 7));
       L.texts.push({ x: bx + 8, y: y0 + 10.2, t: 'Đ', s: 2.6, c: true, b: true });
       L.texts.push({ x: bx + 13.4, y: y0 + 10.2, t: 'S', s: 2.6, c: true, b: true });
-      'abcd'.split('').forEach(function (it, k) {
+      var ny = (cfg.p2y && Number(cfg.p2y[c2])) || 4;      // số ý của câu này (mặc định 4; phiếu cũ không đổi)
+      if (ny < 1 || ny > 4) ny = 4;
+      'abcd'.slice(0, ny).split('').forEach(function (it, k) {
         var y = y0 + 15 + k * 5;
         L.texts.push({ x: bx + 3, y: y + 1, t: it + ')', s: 2.8, r: true });
         L.bubbles.push({ g: 'p2', q: c2 + 1, it: it, v: 'Đ', x: bx + 8, y: y });

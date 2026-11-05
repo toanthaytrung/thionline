@@ -180,6 +180,13 @@ const maTuQR = (/[#&]ghep=(\d{6})/.exec(location.hash) || [])[1];
 if (maTuQR) { history.replaceState(null, '', location.pathname + location.search); dungMa(maTuQR); }
 else if (KT.getKey()) login(true);
 
+// máy chủ từ chối khóa: điện thoại đang giữ khóa cũ → xóa và quay về màn hình ghép lại
+function khoaHong() {
+  KT.setKey(''); if (LIVE.on) stopLive();
+  $('app').classList.add('hide'); $('login').classList.remove('hide');
+  $('loginMsg').innerHTML = '<div class="msg err"><b>Điện thoại chưa được ghép (hoặc khóa đã đổi).</b><br>Trên máy tính, ở Khu giáo viên bấm "📱 Mở trên điện thoại", rồi quét mã QR bằng Camera điện thoại, hoặc nhập mã 6 số vào ô phía trên.</div>';
+}
+
 async function chooseDot() {
   DOT = DOTS.find(d => String(d.id) === $('dotSel').value) || null;
   ROSTER = {}; SCANNED = {}; dotReady = false;
@@ -200,7 +207,11 @@ async function chooseDot() {
     const daTN = Object.keys(SCANNED).filter(k => k.startsWith('TN|')).length;
     $('dotInfo').innerHTML = DOT.lop.map(l => `${KT.esc(l)}: ${Object.keys(ROSTER[l] || {}).length} em`).join(' · ') +
       ` · mã đề ${Object.keys(DOT.dapAn).join(', ')}` + (daTN ? ` · đã quét phiếu tô ${daTN} bài` : '');
-  } catch (e) { $('dotInfo').innerHTML = `<span style="color:var(--bad)">${KT.esc(e.message)}</span>`; }
+  } catch (e) {
+    ROSTER = {};
+    if (e.denied) { khoaHong(); return; }
+    $('dotInfo').innerHTML = `<span style="color:var(--bad)">${KT.esc(e.message)}</span>`;
+  }
   dotReady = true;
 }
 
@@ -226,7 +237,7 @@ function layoutFor(id) {
   if (!DOT || id.dot !== DOT.id) return null;
   const lop = DOT.lop[id.lop];
   if (!lop) return null;
-  const cfg = { p1: DOT.cauTruc.p1, p2: DOT.cauTruc.p2, p3: DOT.cauTruc.p3, ten: DOT.ten, lop, dot: DOT.id, lopIdx: id.lop };
+  const cfg = { p1: DOT.cauTruc.p1, p2: DOT.cauTruc.p2, p3: DOT.cauTruc.p3, p2y: DOT.p2y || null, ten: DOT.ten, lop, dot: DOT.id, lopIdx: id.lop };
   return id.loai === 0 ? PHIEU.front(cfg) : PHIEU.essay(cfg, id.loai === 2);
 }
 
@@ -284,7 +295,8 @@ function check(it) {
   it.to = it.r.loai === 1 ? '1' : (it.toEdit || F.to || '');
   if (!/^\d{6}$/.test(it.sbd)) P.push('Số báo danh chưa đọc được đủ 6 số');
   it.hs = (ROSTER[it.lop] || {})[it.sbd] || null;
-  if (/^\d{6}$/.test(it.sbd) && !it.hs) P.push('Không có SBD ' + it.sbd + ' trong danh sách lớp ' + it.lop);
+  if (/^\d{6}$/.test(it.sbd) && !it.hs && !ROSTER[it.lop]) P.push('Chưa tải được danh sách lớp ' + it.lop + '. Kiểm tra kết nối/ghép lại điện thoại.');
+  else if (/^\d{6}$/.test(it.sbd) && !it.hs) P.push('Không có SBD ' + it.sbd + ' trong danh sách lớp ' + it.lop);
   if (it.tn) {
     if (!/^\d{3}$/.test(it.made) || !DOT.dapAn[it.made]) P.push(/^\d{3}$/.test(it.made) ? 'Không có mã đề ' + it.made + ' trong đáp án' : 'Mã đề chưa đọc được');
     F.flags.forEach(f => { if (f.lv === 'err' && !/^Số báo danh|^Mã đề/.test(f.t)) P.push(f.t); });
@@ -319,7 +331,9 @@ async function save(it) {
     it.state = 'ok';
     SCANNED[keyOf(it)] = it.ten || ra.ten || true; it.dup = null;
     it.canvas = null;     // giải phóng bộ nhớ điện thoại
-  } catch (e) { it.state = 'warn'; it.note = 'Chưa lưu được: ' + e.message; it.problems = [it.note]; }
+  } catch (e) {
+    if (e.denied) setTimeout(khoaHong, 0);
+    it.state = 'warn'; it.note = 'Chưa lưu được: ' + e.message; it.problems = [it.note]; }
   renderQueue();
 }
 
