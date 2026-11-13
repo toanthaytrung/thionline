@@ -274,12 +274,12 @@ async function pump() {
       if (!it.problems.length && it.dup) {
         it.state = 'dup';
         it.note = `Bài này <b>đã quét rồi</b>: ${KT.esc(it.hs ? it.hs.ten : 'SBD ' + it.sbd)}${it.tn ? '' : ' (tự luận tờ ' + (it.to || 1) + ')'}`;
-      } else if (!it.problems.length && $('autoSave').checked) await save(it);
+      } else if (!it.problems.length && $('autoSave').checked) queueSave(it);   // lưu ngầm, không chặn việc đọc phiếu tiếp theo
       else { it.state = 'warn'; it.note = it.problems[0] || 'Cần xem lại'; }
     }
   } catch (e) { it.state = 'err'; it.note = 'Lỗi đọc ảnh: ' + e.message; }
   busy = false; renderQueue();
-  if (it.live && LIVE.on) liveResult(it);
+  if (it.live && LIVE.on) { if (!it.saving) liveResult(it); }
   else if (!LIVE.on && QUEUE.some(q => q.state === 'warn' && !q.seen) && !current) openReview(QUEUE.find(q => q.state === 'warn' && !q.seen));
   pump();
 }
@@ -315,17 +315,40 @@ function answersOf(F) {
   return a;
 }
 
+// Hàng đợi lưu ngầm: đọc phiếu tiếp theo ngay, tối đa 2 phiếu lưu cùng lúc
+const SAVEQ = []; let savingNow = 0;
+function queueSave(it) {
+  it.state = 'work'; it.note = 'Chờ lưu…'; it.saving = true;
+  const k = keyOf(it);
+  it.preMark = !SCANNED[k];
+  if (it.preMark) SCANNED[k] = true;          // đánh dấu ngay để không quét trùng khi chưa lưu xong
+  SAVEQ.push(it); renderQueue(); drainSave();
+}
+function drainSave() {
+  while (savingNow < 2 && SAVEQ.length) {
+    const it = SAVEQ.shift(); savingNow++;
+    save(it).catch(() => {}).finally(() => {
+      savingNow--; it.saving = false;
+      if (it.live && LIVE.on) liveResult(it);
+      drainSave();
+    });
+  }
+}
+
 async function save(it) {
   it.state = 'work'; it.note = 'Đang lưu…'; renderQueue();
   try {
     const jpg = it.canvas.toDataURL('image/jpeg', 0.72);
+    // gửi ảnh và điểm trắc nghiệm cùng lúc (máy chủ tự xếp hàng), nhanh hơn gửi lần lượt
+    const pAnh = KT.api('ktLuuAnh', { dot: DOT.id, lop: it.lop, sbd: it.sbd, trang: it.tn ? 'TN' : 'TL', to: it.to || 1, anh: jpg });
+    pAnh.catch(() => {});
     if (it.tn) {
       const r = await KT.api('ktLuuPhieu', { dot: DOT.id, lop: it.lop, sbd: it.sbd, made: it.made, answers: answersOf(it.r.fields) });
       if (r.status !== 'OK') throw new Error(r.message);
       it.ten = r.ten; it.score = r.tn;
       it.note = `${r.ten || 'SBD ' + it.sbd} · mã ${it.made} · <b>${KT.fmt(r.tn)}</b> điểm trắc nghiệm` + (r.daCo ? ' (thay bài quét trước)' : '');
     }
-    const ra = await KT.api('ktLuuAnh', { dot: DOT.id, lop: it.lop, sbd: it.sbd, trang: it.tn ? 'TN' : 'TL', to: it.to || 1, anh: jpg });
+    const ra = await pAnh;
     if (ra.status !== 'OK') throw new Error(ra.message);
     if (!it.tn) it.note = `${ra.ten || 'SBD ' + it.sbd} · tự luận tờ ${it.to || 1} (đã có ${ra.soTrang} trang)`;
     it.state = 'ok';
@@ -333,6 +356,7 @@ async function save(it) {
     it.canvas = null;     // giải phóng bộ nhớ điện thoại
   } catch (e) {
     if (e.denied) setTimeout(khoaHong, 0);
+    if (it.preMark) { delete SCANNED[keyOf(it)]; it.preMark = false; }
     it.state = 'warn'; it.note = 'Chưa lưu được: ' + e.message; it.problems = [it.note]; }
   renderQueue();
 }

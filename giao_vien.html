@@ -241,7 +241,7 @@ function renderDots() {
         <span class="muted">${ctText(d)}</span><br>
         <span class="muted">Chấm phần II: <b>${cheDoText(d)}</b></span> <a href="#" onclick="suaCheDo(${d.id}); return false" style="font-size:13px">đổi</a><br>
         <span class="muted">Điểm mỗi câu — ${diemCauText(d)}</span> <a href="#" onclick="suaDiem(${d.id}); return false" style="font-size:13px">sửa</a>
-        ${d.tuLuan ? `<br><span class="muted">Tự luận: ${KT.esc(KT.tlCauText(cauTL(d)))}</span> <a href="#" onclick="suaCau(${d.id}); return false" style="font-size:13px">sửa</a>` : ''}</div>
+        ${d.tuLuan ? `<br><span class="muted">Tự luận: ${KT.esc(KT.tlCauText(cauTL(d)))}</span> <a href="#" onclick="suaCau(${d.id}); return false" style="font-size:13px">sửa</a> · <a href="#" onclick="suaTuLuan(${d.id}); return false" style="font-size:13px" title="Đổi tổng điểm tự luận (điểm đã chấm tự quy đổi)">đổi tổng điểm tự luận</a>` : ''}</div>
       <div class="row">
         <button class="btn ghost" onclick="goPrint(${d.id})">🖨️ In phiếu</button>
         <button class="btn ghost" onclick="KT.moDienThoai(${d.id})" title="Hiện mã QR, quét bằng điện thoại để mở trang quét phiếu của đợt này">📱 Quét bằng điện thoại</button>
@@ -277,6 +277,25 @@ async function suaCau(id) {
   const r = await KT.api('ktSuaDot', { id, tlCau: p.cau });
   if (r.status !== 'OK') { alert(r.message); return; }
   loadDots();
+}
+async function suaTuLuan(id) {
+  const d = dotById(id), cu = cauTL(d), f = KT.fmt;
+  const s = prompt(`Đổi điểm tự luận của "${d.ten}" (hiện ${f(d.tuLuan)} điểm, ${cu.length} câu).\nGõ điểm tối đa MỚI của từng câu, cách nhau dấu chấm phẩy. Phải giữ nguyên số câu; tổng các câu là điểm tự luận mới.\nĐiểm đã chấm được quy đổi theo tỉ lệ từng câu, không phải chấm lại.`, KT.tlCauText(cu));
+  if (s === null) return;
+  const p = KT.parseTlCau(s, null);
+  if (p.loi) { alert(p.loi); return; }
+  if (p.cau.length !== cu.length) { alert(`Phải giữ nguyên ${cu.length} câu tự luận.`); return; }
+  if (!(p.tong > 0 && p.tong < 10)) { alert('Điểm tự luận phải lớn hơn 0 và nhỏ hơn 10.'); return; }
+  if (Math.abs(p.tong - d.tuLuan) < 1e-9) { alert('Tổng điểm tự luận không đổi. Muốn đổi điểm từng câu thì dùng nút "sửa".'); return; }
+  if (!confirm(`Đổi điểm tự luận từ ${f(d.tuLuan)} sang ${f(p.tong)} điểm?\nĐiểm tự luận đã chấm được quy đổi theo tỉ lệ. Các bài trắc nghiệm đã quét giữ nguyên.`)) return;
+  try {
+    const r = await KT.api('ktSuaDot', { id, tuLuan: p.tong, tlCau: p.cau });
+    if (r.status !== 'OK') { alert(r.message); return; }
+    await loadDots();
+    const dd = dotById(id), m = dd.scoring.max, tong = m.p1 + m.p2 + m.p3 + dd.tuLuan;
+    alert(`Đã đổi. Quy đổi điểm tự luận của ${r.doiTL || 0} bài, chấm lại ${r.chamLai || 0} bài trắc nghiệm.`);
+    if (Math.abs(tong - 10) > 0.005) { alert(`Tổng điểm đề đang là ${f(Math.round(tong * 100) / 100)}. Mời thầy nhập lại "Điểm mỗi câu" để đủ 10 điểm.`); suaDiem(id); }
+  } catch (e) { alert(e.message); }
 }
 async function suaCheDo(id) {
   const d = dotById(id), moi = d.cheDoP2 === 'deu' ? 'chuan' : 'deu';
