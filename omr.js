@@ -273,17 +273,65 @@
   // ---------------------------------------------------------------- ghép ô thành đáp án
   function decode(L, bub) {
     var F = { sbd: [], made: [], to: null, p1: {}, p2: {}, p3: {}, flags: [] };
-    function pick(list, label) {
-      var x = list.filter(function (b) { return b.st === 'X'; });
-      var u = list.filter(function (b) { return b.st === '?'; });
-      if (x.length === 1 && !u.length) return { v: x[0].v };
-      if (x.length === 1 && u.length) return { v: x[0].v, warn: label + ': có ô tô mờ/tẩy chưa sạch, đã lấy ô đậm nhất' };
-      if (x.length > 1) return { v: null, err: label + ': tô ' + x.length + ' ô' };
-      if (u.length) return { v: null, err: label + ': ô tô quá mờ, cần xem lại' };
-      return { v: '' };
+    // Cách đọc mới: so sánh các ô TRONG CÙNG MỘT CÂU với nhau và với mức tô quen thuộc của chính em đó,
+    // nên bút chì nhạt hay phiếu bị bóng đổ vẫn đọc đúng (không dùng ngưỡng cố định cho cả phiếu).
+    function med(a) { var v = a.slice().sort(function (x, y) { return x - y; }); return v.length ? v[Math.floor((v.length - 1) / 2)] : 0; }
+    var EMPTY = med(bub.map(function (b) { return b.s; }));
+    function deltas(list) {      // độ đậm của từng ô so với "giấy trắng" ngay tại câu đó
+      var v = list.map(function (b) { return b.s; }).sort(function (x, y) { return x - y; });
+      var low = med(v.slice(0, Math.max(1, Math.ceil(v.length / 2))));
+      var base = Math.max(EMPTY - 0.05, Math.min(EMPTY + 0.08, low));
+      return list.map(function (b) { return b.s - base; });
+    }
+    var FILL = 0.4;              // mức tô điển hình của phiếu này, tính từ các câu bắt buộc phải có ô tô
+    var THR = 0.07;
+    function calib(lists) {
+      var best = [];
+      lists.forEach(function (l) { if (l.length) best.push(Math.max.apply(null, deltas(l))); });
+      var good = best.filter(function (x) { return x >= 0.10; });
+      FILL = good.length >= 3 ? Math.min(0.8, Math.max(0.12, med(good))) : 0.4;
+      THR = Math.max(0.07, 0.5 * FILL);
+    }
+    function pick(list, label, ngat) {
+      if (!list.length) return { v: '' };
+      if (list.some(function (b) { return b.man; })) {       // thầy đã chạm sửa nhóm này trên điện thoại: theo đúng ô thầy chọn
+        var xm = list.filter(function (b) { return b.st === 'X'; });
+        if (xm.length === 1) return { v: xm[0].v };
+        if (xm.length > 1) return { v: null, err: label + ': tô ' + xm.length + ' ô' };
+        return { v: '' };
+      }
+      list.forEach(function (b) { b.st = ''; });
+      var d = deltas(list), idx = d.map(function (x, i) { return i; }).sort(function (i, j) { return d[j] - d[i]; });
+      var b1 = d[idx[0]], b2 = idx.length > 1 ? d[idx[1]] : -1, top = list[idx[0]];
+      // phần III: cột trống là bình thường, nên vết tẩy mờ dễ bị nhầm với chữ số tô nhạt -> vùng lưng chừng thì cho thầy xem lại
+      if (ngat) {
+        var lo3 = Math.max(0.06, ngat.lo), hi3 = Math.max(0.09, ngat.hi);
+        if (b1 < lo3) return { v: '' };
+        if (b1 < hi3) { top.st = '?'; return { v: null, err: label + ': ô tô nhạt (hoặc vết tẩy), cần xem lại' }; }
+      }
+      if (b1 < THR) {
+        if (b1 >= 0.65 * THR) { top.st = '?'; return { v: null, err: label + ': ô tô quá mờ, cần xem lại' }; }
+        return { v: '' };
+      }
+      if (b2 >= THR && b2 >= 0.65 * b1) { top.st = 'X'; list[idx[1]].st = 'X'; return { v: null, err: label + ': tô 2 ô' }; }
+      top.st = 'X';
+      if (b2 >= THR) { list[idx[1]].st = '?'; return { v: top.v, warn: label + ': có ô tô mờ/tẩy chưa sạch, đã lấy ô đậm nhất' }; }
+      return { v: top.v };
     }
     function group(pred) { return bub.filter(pred); }
     function note(r) { if (r.err) F.flags.push({ lv: 'err', t: r.err }); else if (r.warn) F.flags.push({ lv: 'warn', t: r.warn }); }
+
+    (function () {      // các nhóm bắt buộc phải có đúng một ô tô: số báo danh, mã đề, tờ số, phần I, phần II
+      var lists = [], cols = {}, q1 = {}, q2 = {};
+      bub.forEach(function (b) {
+        if (b.g === 'sbd' || b.g === 'made') (cols[b.g + b.col] = cols[b.g + b.col] || []).push(b);
+        else if (b.g === 'to') (cols.to = cols.to || []).push(b);
+        else if (b.g === 'p1') (q1[b.q] = q1[b.q] || []).push(b);
+        else if (b.g === 'p2') (q2[b.q + b.it] = q2[b.q + b.it] || []).push(b);
+      });
+      [cols, q1, q2].forEach(function (o) { Object.keys(o).forEach(function (k) { lists.push(o[k]); }); });
+      calib(lists);
+    })();
 
     ['sbd', 'made'].forEach(function (g) {
       var cols = {};
@@ -312,8 +360,12 @@
     bub.forEach(function (b) { if (b.g === 'p3') (((q3[b.q] = q3[b.q] || {})[b.col]) || (q3[b.q][b.col] = [])).push(b); });
     Object.keys(q3).forEach(function (q) {
       var s = '', bad = false;
+      // mức tô của chính câu này: các cột chữ số đã tô rõ (so với mức điển hình của phiếu)
+      var rs = [0, 1, 2, 3].map(function (c) { return q3[q][c] && q3[q][c].length ? Math.max.apply(null, deltas(q3[q][c])) : 0; })
+                 .filter(function (x) { return x >= 0.65 * FILL; });
+      var ref = rs.length ? med(rs) : FILL, ng = { lo: 0.5 * ref, hi: 0.7 * ref };
       [0, 1, 2, 3].forEach(function (c) {
-        var r = pick(q3[q][c] || [], 'Phần III câu ' + q + ' cột ' + (c + 1));
+        var r = pick(q3[q][c] || [], 'Phần III câu ' + q + ' cột ' + (c + 1), ng);
         if (r.err) { bad = true; note(r); } else { note(r); s += r.v || ''; }
       });
       if (!bad && s && !/^-?\d+(,\d+)?$/.test(s)) F.flags.push({ lv: 'err', t: 'Phần III câu ' + q + ': "' + s + '" không phải số hợp lệ' });

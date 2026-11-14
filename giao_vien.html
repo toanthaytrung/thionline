@@ -167,6 +167,7 @@
         <button class="btn ghost" onclick="loadKq()">↻ Tải lại</button>
         <button class="btn" onclick="exportXlsx()">📥 Xuất Excel</button>
         <a class="btn ghost" id="kChamLink" style="text-decoration:none" href="cham_tl.html">✍️ Chấm tự luận lớp này</a>
+        <a class="btn ghost" id="kPhieuLink" style="text-decoration:none" href="xem_phieu.html">🔍 Xem &amp; sửa phiếu tô cả lớp</a>
         <button class="btn green" onclick="congBo(true)">📢 Công bố điểm lớp này</button>
         <button class="btn red" onclick="congBo(false)">Thu hồi công bố</button>
       </div>
@@ -489,6 +490,7 @@ function renderKq(d) {
   $('kChamLink').classList.toggle('hide', !coTL);
   if (pub) $('kXemDA').checked = xemDA;
   $('kChamLink').href = `cham_tl.html?dot=${d.id}&lop=${encodeURIComponent($('kLop').value)}`;
+  $('kPhieuLink').href = `xem_phieu.html?dot=${d.id}&lop=${encodeURIComponent($('kLop').value)}`;
   $('kqSum').innerHTML = `Đã quét <b>${done}</b>/${roster.length} em` + (coTL ? ` · đã chấm tự luận <b>${daCham}</b>/${coAnhTL} bài có ảnh` : '') +
     ` · ${pub ? '<b style="color:var(--ok)">ĐANG CÔNG BỐ</b>' + (xemDA ? ' (kèm đáp án)' : '') : 'chưa công bố'} · ${ctText(d)}`;
   const s = d.scoring.max;
