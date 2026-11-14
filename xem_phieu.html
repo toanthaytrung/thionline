@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xem và sửa phiếu tô trắc nghiệm – Kiểm tra trên lớp</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --blue:#0b57d0; --deep:#041e49; --bg:#eef1f6; --line:#dde3ef; --ink:#1e293b; --muted:#64748b;
+          --ok:#137333; --ok-soft:#e6f4ea; --bad:#b3261e; --bad-soft:#fce8e6; --warn:#b06000; --warn-soft:#fef7e0; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif; font-size:14px; }
+  header { background:linear-gradient(135deg,#0b57d0,#041e49); color:#fff; padding:9px 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  header h1 { font-size:16px; margin:0; font-weight:800; white-space:nowrap; }
+  header a { color:#fff; background:rgba(255,255,255,.14); border-radius:8px; padding:6px 11px; font-weight:600; text-decoration:none; white-space:nowrap; }
+  header select { padding:6px 9px; border-radius:8px; border:0; font:inherit; max-width:300px; }
+  header .sp { flex:1; }
+  .btn { border:0; border-radius:9px; padding:8px 13px; font:inherit; font-weight:700; cursor:pointer; background:var(--blue); color:#fff; }
+  .btn.ghost { background:#fff; color:var(--blue); border:1.5px solid #c7d7f5; }
+  .muted { color:var(--muted); font-size:13px; }
+  .hide { display:none !important; }
+  .msg { padding:8px 11px; border-radius:9px; font-size:13.5px; margin-top:8px; }
+  .msg.ok { background:var(--ok-soft); color:var(--ok); } .msg.err { background:var(--bad-soft); color:var(--bad); } .msg.warn { background:var(--warn-soft); color:var(--warn); }
+  input[type=password], input[type=text] { padding:8px 10px; border:1.5px solid var(--line); border-radius:9px; font:inherit; }
+  #login { max-width:560px; margin:40px auto; background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; }
+
+  #app { display:grid; grid-template-columns:minmax(0,1fr) 440px; height:calc(100vh - 52px); }
+  #left { display:flex; flex-direction:column; min-width:0; border-right:1px solid var(--line); }
+  .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding:8px 12px; background:#fff; border-bottom:1px solid var(--line); }
+  .seg { display:flex; border:1.5px solid #c7d7f5; border-radius:9px; overflow:hidden; }
+  .seg button { border:0; background:#fff; padding:6px 11px; font:inherit; font-weight:700; color:#475569; cursor:pointer; }
+  .seg button.on { background:var(--blue); color:#fff; }
+  #gridWrap { flex:1; overflow:auto; background:#fff; }
+  table.mx { border-collapse:separate; border-spacing:0; font-size:13px; }
+  table.mx th, table.mx td { border-right:1px solid #eef1f6; border-bottom:1px solid #eef1f6; padding:0; text-align:center; min-width:27px; height:28px; white-space:nowrap; }
+  table.mx thead th { position:sticky; top:0; background:#f3f6fb; z-index:2; font-size:12px; color:#475569; height:30px; }
+  table.mx thead tr.r2 th { top:30px; font-size:11px; font-weight:600; }
+  table.mx th.grp { background:var(--deep); color:#fff; }
+  table.mx td.nm, table.mx th.nm { position:sticky; left:0; background:#fff; z-index:1; text-align:left; padding:0 8px; min-width:170px; max-width:190px; overflow:hidden; text-overflow:ellipsis; border-right:2px solid #c7d7f5; }
+  table.mx thead th.nm { background:#f3f6fb; z-index:3; }
+  table.mx tr.sel td { background:#eaf1fe; } table.mx tr.sel td.nm { background:#dbe8fd; font-weight:700; }
+  table.mx tr.row { cursor:pointer; }
+  td.c { cursor:pointer; font-weight:600; }
+  td.c.ok { color:var(--ok); } td.c.sai { background:var(--bad-soft); color:var(--bad); } td.c.trong { background:#fff7e0; color:#b06000; }
+  td.c:hover { outline:2px solid var(--blue); outline-offset:-2px; }
+  td.sum { padding:0 7px; font-weight:700; min-width:50px; } td.sum small { color:var(--muted); font-weight:500; }
+  tr.pct td { position:sticky; bottom:0; background:#f3f6fb; font-size:11.5px; font-weight:700; z-index:2; }
+  tr.pct td.nm { z-index:3; background:#f3f6fb; }
+  td.pct.low { color:var(--bad); background:var(--bad-soft); }
+  #pop { position:fixed; z-index:50; background:#fff; border:1.5px solid var(--blue); border-radius:11px; padding:7px; box-shadow:0 6px 24px rgba(15,23,42,.28); display:flex; gap:5px; align-items:center; }
+  #pop button { border:1.5px solid #c7d7f5; background:#fff; border-radius:8px; min-width:38px; height:36px; font:inherit; font-weight:800; cursor:pointer; }
+  #pop button:hover { background:#e8f0fe; } #pop button.on { background:var(--blue); color:#fff; border-color:var(--blue); }
+  #pop input { width:90px; height:36px; font-size:16px; }
+
+  #right { background:#fff; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:10px; }
+  #right h2 { margin:0; font-size:17px; color:var(--deep); }
+  .row2 { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .kv { display:flex; gap:12px; flex-wrap:wrap; font-size:13.5px; } .kv b { color:var(--deep); }
+  #paper { position:relative; width:100%; background:#fff; box-shadow:0 2px 12px rgba(15,23,42,.2); }
+  #paper img { display:block; width:100%; height:auto; user-select:none; -webkit-user-drag:none; }
+  .bb { position:absolute; border-radius:50%; transform:translate(-50%,-50%); }
+  .bb.hit { cursor:pointer; } .bb.hit:hover { background:rgba(11,87,208,.28); }
+  .bb.dung { border:2.5px solid #137333; } .bb.sai { border:2.5px solid #d93025; background:rgba(217,48,37,.12); }
+  .bb.key { border:2.5px dashed #137333; }
+  .legend { font-size:12px; color:var(--muted); }
+  .legend i { display:inline-block; width:11px; height:11px; border-radius:50%; vertical-align:-1px; margin-right:3px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🔍 Xem &amp; sửa phiếu tô trắc nghiệm</h1>
+  <select id="dotSel" onchange="chonDot(this.value)" title="Đợt kiểm tra"></select>
+  <select id="lopSel" onchange="chonLop(this.value)" title="Lớp"></select>
+  <span class="sp"></span>
+  <span id="hdrSum" style="font-size:13px;opacity:.92"></span>
+  <a href="giao_vien.html">← Về trang giáo viên</a>
+</header>
+
+<section id="login" class="hide">
+  <h2 style="margin-top:0">Đăng nhập giáo viên</h2>
+  <p class="muted">Nhập khóa quản trị (khóa thầy vẫn dùng ở trang giáo viên).</p>
+  <div class="row2"><input type="password" id="keyInput" placeholder="Khóa quản trị" style="flex:1" onkeydown="if(event.key==='Enter')dangNhap(false)"><button class="btn" onclick="dangNhap(false)">Vào</button></div>
+  <div id="loginMsg"></div>
+</section>
+
+<div id="app" class="hide">
+  <div id="left">
+    <div class="bar">
+      <div class="seg" id="seg">
+        <button data-f="tat" class="on" onclick="loc('tat')">Cả lớp</button>
+        <button data-f="trong" onclick="loc('trong')">Có ô bỏ trống</button>
+        <button data-f="tay" onclick="loc('tay')">Đã sửa tay</button>
+      </div>
+      <div class="seg" id="seg2">
+        <button data-s="stt" class="on" onclick="sapXep('stt')">Theo thứ tự quét</button>
+        <button data-s="ten" onclick="sapXep('ten')">Theo tên</button>
+        <button data-s="diem" onclick="sapXep('diem')">Theo điểm</button>
+      </div>
+      <span id="sum" class="muted"></span>
+      <span class="legend"><i style="background:#fce8e6;border:1px solid #d93025"></i>sai &nbsp;<i style="background:#fff7e0;border:1px solid #b06000"></i>bỏ trống &nbsp;— Chạm vào một ô để sửa</span>
+    </div>
+    <div id="gridWrap"><p class="muted" style="padding:14px">Đang tải…</p></div>
+  </div>
+  <div id="right"><p class="muted">Chạm vào tên một em ở bảng bên trái để xem phiếu tô của em đó.</p></div>
+</div>
+<div id="pop" class="hide"></div>
+
+<script src="kt_chung.js"></script>
+<script src="phieu.js"></script>
+<script>
+'use strict';
+const $ = id => document.getElementById(id), Q = new URLSearchParams(location.search), esc = KT.esc, f = KT.fmt;
+let DOTS = [], DOT = null, LOP = '', LIST = [], BY = {}, CUR = null, FILTER = 'tat', SORT = 'stt', LAYOUT = null;
+const anhCache = new Map(), SAVE = {};
+
+function msg(el, cls, h) { $(el).innerHTML = h ? `<div class="msg ${cls}">${h}</div>` : ''; }
+
+// ---------------------------------------------------------------- đăng nhập, chọn đợt / lớp
+async function dangNhap(im) {
+  const k = im ? KT.getKey() : $('keyInput').value.trim();
+  if (!k) { $('login').classList.remove('hide'); return; }
+  KT.setKey(k);
+  try {
+    const r = await KT.api('ktDsDot');
+    if (r.status !== 'OK') throw new Error(r.message);
+    DOTS = r.dot || [];
+    $('login').classList.add('hide'); $('app').classList.remove('hide');
+    if (!DOTS.length) { $('dotSel').innerHTML = '<option>Chưa có đợt nào</option>'; return; }
+    $('dotSel').innerHTML = DOTS.map(d => `<option value="${d.id}">${d.id} · ${esc(d.ten)}</option>`).join('');
+    const want = Q.get('dot');
+    chonDot(want && DOTS.some(d => String(d.id) === want) ? want : DOTS[0].id, Q.get('lop'), Q.get('sbd'));
+  } catch (e) {
+    if (e.denied) KT.setKey('');
+    $('login').classList.remove('hide'); msg('loginMsg', 'err', esc(e.message));
+  }
+}
+function chonDot(id, lop, sbd) {
+  DOT = DOTS.find(d => String(d.id) === String(id)); $('dotSel').value = DOT.id;
+  $('lopSel').innerHTML = DOT.lop.map(l => `<option>${esc(l)}</option>`).join('');
+  chonLop(lop && DOT.lop.includes(String(lop).toUpperCase()) ? String(lop).toUpperCase() : DOT.lop[0], sbd);
+}
+async function chonLop(lop, sbd) {
+  LOP = lop; $('lopSel').value = lop; CUR = null; anhCache.clear(); dongPop();
+  $('gridWrap').innerHTML = '<p class="muted" style="padding:14px">Đang tải phiếu cả lớp…</p>';
+  $('right').innerHTML = '<p class="muted">Chạm vào tên một em ở bảng bên trái để xem phiếu tô của em đó.</p>';
+  try {
+    const r = await KT.api('ktPhieuLop', { dot: DOT.id, lop });
+    if (r.status !== 'OK') throw new Error(r.message || 'Lỗi máy chủ');
+    LIST = r.phieu || []; BY = {}; LIST.forEach((p, i) => { p._i = i; BY[p.sbd] = p; });
+    history.replaceState(null, '', `?dot=${DOT.id}&lop=${encodeURIComponent(LOP)}`);
+    $('hdrSum').textContent = DOT.ten;
+    ve();
+    if (sbd && BY[sbd]) moEm(sbd);
+  } catch (e) {
+    $('gridWrap').innerHTML = `<div class="msg err" style="margin:14px">${esc(e.message)}${/Unknown|không biết|action/i.test(e.message) ? '<br>Có thể chưa cập nhật Apps Script: vào Apps Script → Quản lý các bản triển khai → bút chì → Phiên bản mới.' : ''}</div>`;
+  }
+}
+
+// ---------------------------------------------------------------- dữ liệu phụ trợ
+function keyOf(made) {
+  const d = DOT.dapAn || {}, m = String(made || '');
+  return d[m] || d[String(+m)] || d[('000' + m).slice(-3)] || null;
+}
+function nY(q) { const a = DOT.p2y && Number(DOT.p2y[q - 1]); return a >= 1 && a <= 4 ? a : 4; }
+function cauTruc() { return DOT.cauTruc; }
+function ansP1(p, q) { return String((p.answers.p1 || {})[q] || ''); }
+function ansP2(p, q, y) { return String((((p.answers.p2 || {})[q]) || {})[y] || ''); }
+function ansP3(p, q) { return String((p.answers.p3 || {})[q] || ''); }
+function dungP1(p, q) { return !!(p.detail.p1 || {})[q]; }
+function dungP2(p, q, y) { return !!(((p.detail.p2 || {})[q]) || {})[y]; }
+function dungP3(p, q) { return !!(p.detail.p3 || {})[q]; }
+function soTrong(p) {
+  const c = cauTruc(); let n = 0;
+  for (let q = 1; q <= c.p1; q++) if (!ansP1(p, q)) n++;
+  for (let q = 1; q <= c.p2; q++) for (let k = 0; k < nY(q); k++) if (!ansP2(p, q, 'abcd'[k])) n++;
+  for (let q = 1; q <= c.p3; q++) if (!ansP3(p, q)) n++;
+  return n;
+}
+function tenCuoi(s) { const t = String(s || '').trim().split(/\s+/); return t[t.length - 1] + ' ' + t.join(' '); }
+
+// ---------------------------------------------------------------- bảng cả lớp
+function sapXep(s) { SORT = s; document.querySelectorAll('#seg2 button').forEach(b => b.classList.toggle('on', b.dataset.s === s)); ve(); }
+function loc(fl) { FILTER = fl; document.querySelectorAll('#seg button').forEach(b => b.classList.toggle('on', b.dataset.f === fl)); ve(); }
+function dsHien() {
+  let a = LIST.slice();
+  if (FILTER === 'trong') a = a.filter(p => soTrong(p) > 0 || (CUR && CUR.sbd === p.sbd));
+  if (FILTER === 'tay') a = a.filter(p => p.suaTay || (CUR && CUR.sbd === p.sbd));
+  if (SORT === 'ten') a.sort((x, y) => tenCuoi(x.ten).localeCompare(tenCuoi(y.ten), 'vi'));
+  if (SORT === 'diem') a.sort((x, y) => (y.tn || 0) - (x.tn || 0));
+  return a;
+}
+function ve() {
+  const c = cauTruc(), a = dsHien();
+  $('sum').textContent = `${LIST.length} phiếu · ${LIST.filter(p => soTrong(p) > 0).length} em có ô bỏ trống · ${LIST.filter(p => p.suaTay).length} em đã sửa tay`;
+  if (!LIST.length) { $('gridWrap').innerHTML = '<p class="muted" style="padding:14px">Lớp này chưa có phiếu trắc nghiệm nào được quét.</p>'; return; }
+  // cột
+  const cols = [];
+  for (let q = 1; q <= c.p1; q++) cols.push({ g: 1, q, lb: q });
+  for (let q = 1; q <= c.p2; q++) for (let k = 0; k < nY(q); k++) cols.push({ g: 2, q, y: 'abcd'[k], lb: 'abcd'[k], first: k === 0 });
+  for (let q = 1; q <= c.p3; q++) cols.push({ g: 3, q, lb: q });
+  const grp = (g, t, n) => n ? `<th class="grp" colspan="${n}">${t}</th>` : '';
+  const n1 = cols.filter(x => x.g === 1).length, n2 = cols.filter(x => x.g === 2).length, n3 = cols.filter(x => x.g === 3).length;
+  let h = `<table class="mx"><thead><tr><th class="nm" rowspan="2">Học sinh</th><th rowspan="2">Mã đề</th><th rowspan="2">Điểm TN</th>${grp(1, 'PHẦN I', n1)}${grp(2, 'PHẦN II (câu · ý)', n2)}${grp(3, 'PHẦN III', n3)}</tr><tr class="r2">`;
+  h += cols.map(x => `<th>${x.g === 2 ? (x.first ? x.q + '.' : '') + x.lb : x.lb}</th>`).join('') + '</tr></thead><tbody>';
+  a.forEach(p => {
+    h += `<tr class="row ${CUR && CUR.sbd === p.sbd ? 'sel' : ''}" data-s="${p.sbd}"><td class="nm" onclick="moEm('${p.sbd}')">${p.suaTay ? '✎ ' : ''}${esc(p.ten || p.sbd)}</td>`;
+    h += `<td class="sum" onclick="moEm('${p.sbd}')">${esc(p.made)}</td><td class="sum" onclick="moEm('${p.sbd}')">${f(p.tn)}</td>`;
+    cols.forEach(x => h += cell(p, x));
+    h += '</tr>';
+  });
+  // hàng % đúng
+  h += '<tr class="pct"><td class="nm">% học sinh làm đúng</td><td></td><td></td>';
+  cols.forEach(x => {
+    let d = 0, n = 0;
+    LIST.forEach(p => { n++; if (x.g === 1 ? dungP1(p, x.q) : x.g === 2 ? dungP2(p, x.q, x.y) : dungP3(p, x.q)) d++; });
+    const pc = n ? Math.round(d * 100 / n) : 0;
+    h += `<td class="pct ${pc < 35 ? 'low' : ''}" title="${d}/${n} em đúng">${pc}</td>`;
+  });
+  $('gridWrap').innerHTML = h + '</tbody></table>';
+}
+function cell(p, x) {
+  const v = x.g === 1 ? ansP1(p, x.q) : x.g === 2 ? ansP2(p, x.q, x.y) : ansP3(p, x.q);
+  const ok = x.g === 1 ? dungP1(p, x.q) : x.g === 2 ? dungP2(p, x.q, x.y) : dungP3(p, x.q);
+  const cls = !v ? 'trong' : ok ? 'ok' : 'sai';
+  return `<td class="c ${cls}" onclick="suaO(event,'${p.sbd}',${x.g},${x.q},'${x.y || ''}')">${v ? esc(v) : '·'}</td>`;
+}
+
+// ---------------------------------------------------------------- sửa một ô
+function dongPop() { $('pop').classList.add('hide'); }
+document.addEventListener('mousedown', e => { if (!e.target.closest('#pop') && !e.target.closest('td.c') && !e.target.closest('.bb.hit')) dongPop(); });
+function suaO(ev, sbd, g, q, y) {
+  ev.stopPropagation();
+  if (!CUR || CUR.sbd !== sbd) moEm(sbd);
+  const p = BY[sbd], pop = $('pop'), r = ev.target.getBoundingClientRect();
+  const cur = g === 1 ? ansP1(p, q) : g === 2 ? ansP2(p, q, y) : ansP3(p, q);
+  const opts = g === 1 ? ['A', 'B', 'C', 'D'] : g === 2 ? ['Đ', 'S'] : null;
+  let h = `<small class="muted">${esc(p.ten)} · ${g === 1 ? 'Câu ' + q : g === 2 ? 'Câu ' + q + ' ý ' + y : 'Câu ' + q + ' (phần III)'}</small>`;
+  if (opts) h += opts.map(o => `<button class="${cur === o ? 'on' : ''}" onclick="datO('${sbd}',${g},${q},'${y}','${o}')">${o}</button>`).join('') + `<button onclick="datO('${sbd}',${g},${q},'${y}','')" title="Bỏ trống">∅</button>`;
+  else h += `<input type="text" id="p3in" value="${esc(cur)}" maxlength="5" placeholder="vd: -12,5" onkeydown="if(event.key==='Enter')datO('${sbd}',3,${q},'',this.value)"><button onclick="datO('${sbd}',3,${q},'',$('p3in').value)">Lưu</button>`;
+  pop.innerHTML = h; pop.classList.remove('hide');
+  const w = pop.offsetWidth; pop.style.left = Math.max(6, Math.min(innerWidth - w - 6, r.left - 10)) + 'px';
+  pop.style.top = Math.min(innerHeight - 90, r.bottom + 4) + 'px';
+  const inp = $('p3in'); if (inp) { inp.focus(); inp.select(); }
+}
+function datO(sbd, g, q, y, v) {
+  const p = BY[sbd]; dongPop();
+  p.answers = p.answers || {};
+  if (g === 1) { (p.answers.p1 = p.answers.p1 || {})[q] = v; }
+  else if (g === 2) { ((p.answers.p2 = p.answers.p2 || {})[q] = p.answers.p2[q] || {})[y] = v; }
+  else { (p.answers.p3 = p.answers.p3 || {})[q] = String(v).replace(/[^0-9,\-]/g, '').slice(0, 4); }
+  luuEm(sbd);
+}
+
+// lưu: gửi cả bài tô lên máy chủ để chấm lại; mỗi em gửi lần lượt, không đè nhau
+function luuEm(sbd, made) {
+  const p = BY[sbd]; p._chiLuu = true; hienTrangThai(sbd, 'Đang lưu…');
+  const s = SAVE[sbd] = SAVE[sbd] || { busy: false, again: false, made: undefined };
+  if (made !== undefined) s.made = made;
+  if (s.busy) { s.again = true; return; }
+  s.busy = true;
+  (async function loop() {
+    do {
+      s.again = false;
+      const mm = s.made; s.made = undefined;
+      try {
+        const body = { dot: DOT.id, lop: LOP, sbd, answers: p.answers };
+        if (mm !== undefined) body.made = mm;
+        const r = await KT.api('ktSuaPhieu', body);
+        if (r.status === 'NO_MADE') { hienTrangThai(sbd, '', 'err', esc(r.message) + ' Các mã đề có: ' + (r.maDe || []).join(', ')); }
+        else if (r.status !== 'OK') throw new Error(r.message || 'Lỗi máy chủ');
+        else if (!s.again) { Object.assign(p, r.phieu); hienTrangThai(sbd, 'Đã lưu và chấm lại ✓', 'ok'); }
+      } catch (e) { hienTrangThai(sbd, '', 'err', esc(e.message)); s.again = false; }
+    } while (s.again);
+    s.busy = false; ve(); if (CUR && CUR.sbd === sbd) veTho();
+  })();
+}
+function hienTrangThai(sbd, t, cls, html) {
+  const el = $('stt'); if (!el || !CUR || CUR.sbd !== sbd) return;
+  el.innerHTML = html ? `<div class="msg ${cls || 'warn'}">${html}</div>` : t ? `<div class="msg ${cls || 'warn'}">${t}</div>` : '';
+}
+
+// ---------------------------------------------------------------- phiếu của một em: ảnh + vòng đánh dấu
+function layoutOf() {
+  if (!LAYOUT || LAYOUT.dot !== DOT.id + '|' + LOP) {
+    const c = cauTruc();
+    LAYOUT = { dot: DOT.id + '|' + LOP, L: PHIEU.front({ p1: c.p1, p2: c.p2, p3: c.p3, p2y: DOT.p2y || null, ten: DOT.ten, lop: LOP, dot: DOT.id, lopIdx: DOT.lop.indexOf(LOP) }) };
+  }
+  return LAYOUT.L;
+}
+function layAnh(sbd) {
+  const key = `${DOT.id}|${LOP}|${sbd}`;
+  if (!anhCache.has(key)) {
+    const pr = KT.api('ktAnh', { dot: DOT.id, lop: LOP, sbd, trang: 'TN' }).then(r => { if (r.status !== 'OK') throw new Error(r.message || 'Không tải được ảnh'); return r.anh; });
+    pr.catch(() => anhCache.delete(key));
+    anhCache.set(key, pr);
+    if (anhCache.size > 30) anhCache.delete(anhCache.keys().next().value);
+  }
+  return anhCache.get(key);
+}
+async function moEm(sbd) {
+  const p = BY[sbd]; if (!p) return;
+  dongPop(); CUR = p;
+  document.querySelectorAll('tr.row').forEach(tr => tr.classList.toggle('sel', tr.dataset.s === sbd));
+  history.replaceState(null, '', `?dot=${DOT.id}&lop=${encodeURIComponent(LOP)}&sbd=${sbd}`);
+  veTho();
+  // đọc trước ảnh em kế tiếp
+  const ds = dsHien(), i = ds.indexOf(p); if (ds[i + 1] && ds[i + 1].coAnh) layAnh(ds[i + 1].sbd).catch(() => {});
+}
+async function veTho() {
+  const p = CUR, sbd = p.sbd, ds = dsHien(), i = ds.indexOf(p), c = cauTruc();
+  $('right').innerHTML = `
+    <div class="row2"><button class="btn ghost" onclick="ke(-1)" ${i <= 0 ? 'disabled' : ''}>← Em trước</button>
+      <h2 style="flex:1;text-align:center">${esc(p.ten || p.sbd)}</h2>
+      <button class="btn ghost" onclick="ke(1)" ${i < 0 || i >= ds.length - 1 ? 'disabled' : ''}>Em sau →</button></div>
+    <div class="kv"><span>SBD <b>${esc(p.sbd)}</b></span><span>Điểm trắc nghiệm <b>${f(p.tn)}</b></span>
+      <span>Phần I <b>${f(p.p1)}</b> · Phần II <b>${f(p.p2)}</b> · Phần III <b>${f(p.p3)}</b></span></div>
+    <div class="row2"><label>Mã đề: <input type="text" id="madeIn" value="${esc(p.made)}" maxlength="3" style="width:70px;text-align:center;font-weight:700"></label>
+      <button class="btn ghost" onclick="doiMade()">Đổi mã đề &amp; chấm lại</button>
+      <span class="muted">(nếu máy đọc sai mã đề)</span></div>
+    <div id="stt"></div>
+    <div class="legend"><i style="border:2.5px solid #137333"></i>em tô đúng &nbsp;<i style="border:2.5px solid #d93025;background:rgba(217,48,37,.15)"></i>em tô sai &nbsp;<i style="border:2.5px dashed #137333"></i>đáp án đúng (câu em tô sai) — chạm vào ô tròn trên phiếu để đổi đáp án</div>
+    <div id="paperBox"><p class="muted">Đang tải ảnh phiếu…</p></div>
+    <div id="p3Box"></div>`;
+  veP3();
+  if (!p.coAnh) { $('paperBox').innerHTML = '<div class="msg warn">Em này chưa có ảnh phiếu lưu trên máy chủ (có thể quét bằng bản cũ). Vẫn sửa được bằng bảng bên trái.</div>'; return; }
+  try {
+    const url = await layAnh(sbd);
+    if (CUR !== p) return;
+    $('paperBox').innerHTML = `<div id="paper"><img src="${url}" alt="Phiếu của ${esc(p.ten)}"></div>`;
+    veVong();
+  } catch (e) { if (CUR === p) $('paperBox').innerHTML = `<div class="msg err">${esc(e.message)}</div>`; }
+}
+function veP3() {
+  const c = cauTruc(), p = CUR; if (!c.p3) { $('p3Box').innerHTML = ''; return; }
+  let h = '<b>Phần III</b> (chạm vào ô để sửa): <div class="row2" style="margin-top:6px">';
+  for (let q = 1; q <= c.p3; q++) {
+    const v = ansP3(p, q), ok = dungP3(p, q);
+    h += `<span style="border:1.5px solid ${!v ? '#b06000' : ok ? '#137333' : '#d93025'};border-radius:8px;padding:5px 9px;cursor:pointer;background:${!v ? '#fff7e0' : ok ? '#e6f4ea' : '#fce8e6'}" onclick="suaO(event,'${p.sbd}',3,${q},'')">Câu ${q}: <b>${v ? esc(v) : '·'}</b></span>`;
+  }
+  $('p3Box').innerHTML = h + '</div>';
+}
+function veVong() {
+  const paper = $('paper'); if (!paper || !CUR) return;
+  paper.querySelectorAll('.bb').forEach(e => e.remove());
+  const p = CUR, key = keyOf(p.made), Rp = (PHIEU.R || 2.2) * 2 / 210 * 100 + '%';
+  const mk = (b, cls, extra) => {
+    const d = document.createElement('div'); d.className = 'bb ' + cls; d.style.left = b.x / 210 * 100 + '%'; d.style.top = b.y / 297 * 100 + '%';
+    d.style.width = d.style.height = Rp; if (extra) extra(d); paper.appendChild(d); return d;
+  };
+  layoutOf().bubbles.forEach(b => {
+    if (b.g !== 'p1' && b.g !== 'p2') return;
+    const y = b.it, cur = b.g === 'p1' ? ansP1(p, b.q) : ansP2(p, b.q, y);
+    const ok = b.g === 'p1' ? dungP1(p, b.q) : dungP2(p, b.q, y);
+    const kv = key ? (b.g === 'p1' ? (key.p1 || {})[b.q] : (((key.p2 || {})[b.q]) || {})[y]) : null;
+    if (cur === b.v) mk(b, ok ? 'dung' : 'sai');
+    else if (kv === b.v && cur !== b.v) mk(b, 'key');
+    // ô bấm được
+    mk(b, 'hit', d => { d.style.width = d.style.height = (PHIEU.R || 2.2) * 2.6 / 210 * 100 + '%'; d.title = b.g === 'p1' ? `Câu ${b.q} · ${b.v}` : `Câu ${b.q} ý ${y} · ${b.v}`;
+      d.onclick = ev => { ev.stopPropagation(); datO(p.sbd, b.g === 'p1' ? 1 : 2, b.q, y || '', cur === b.v ? '' : b.v); }; });
+  });
+}
+function ke(d) { const ds = dsHien(), i = ds.indexOf(CUR); if (ds[i + d]) moEm(ds[i + d].sbd); }
+function doiMade() {
+  const m = $('madeIn').value.replace(/\D/g, '');
+  if (!m) return;
+  if (m === String(CUR.made)) { hienTrangThai(CUR.sbd, 'Mã đề không đổi.', 'warn'); return; }
+  luuEm(CUR.sbd, m);
+}
+document.addEventListener('keydown', e => {
+  if (!CUR || /INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || '')) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { ke(1); e.preventDefault(); }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { ke(-1); e.preventDefault(); }
+  if (e.key === 'Escape') dongPop();
+});
+dangNhap(true);
+</script>
+</body>
+</html>
