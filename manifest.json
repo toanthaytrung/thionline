@@ -75,18 +75,6 @@
     ]
   },
   {
-    "id": "k10_de06",
-    "grade": "10",
-    "title": "Đề số 6",
-    "folder": "k10_de06",
-    "duration": 90,
-    "unlockScore": 6.0,
-    "totalQuestions": 22,
-    "max_attempts": 3,
-    "hidden": true,
-    "allowed_classes": []
-  },
-  {
     "id": "k11_cd01",
     "grade": "11",
     "title": "image62.png",
