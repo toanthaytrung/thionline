@@ -87,6 +87,21 @@
     "allowed_classes": []
   },
   {
+    "id": "k10_de07",
+    "grade": "10",
+    "title": "Đề số 7",
+    "folder": "k10_de07",
+    "duration": 90,
+    "unlockScore": 6.0,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "10A",
+      "10B"
+    ]
+  },
+  {
     "id": "k11_cd01",
     "grade": "11",
     "title": "image62.png",
