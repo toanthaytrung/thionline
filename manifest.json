@@ -195,6 +195,23 @@
     ]
   },
   {
+    "id": "k12_cd01",
+    "grade": "12",
+    "title": "PHƯƠNG TRÌNH MẶT PHẲNG PB1",
+    "folder": "k12_cd01",
+    "duration": 60,
+    "unlockScore": 6.0,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "12A",
+      "12B"
+    ],
+    "type": "chuyende",
+    "topic": "PHƯƠNG TRÌNH MP PB1"
+  },
+  {
     "id": "k12_de01",
     "grade": "12",
     "title": "Đề số 1",
