@@ -124,6 +124,23 @@
     "topic": "CD4. PHUONG TRINH LUONG GIAC"
   },
   {
+    "id": "k11_cd03",
+    "grade": "11",
+    "title": "image94.png",
+    "folder": "k11_cd03",
+    "duration": 90,
+    "unlockScore": 5.0,
+    "totalQuestions": 22,
+    "max_attempts": 3,
+    "hidden": false,
+    "allowed_classes": [
+      "11A",
+      "11B"
+    ],
+    "type": "chuyende",
+    "topic": "QUAN HỆ SONG SONG"
+  },
+  {
     "id": "k11_de01",
     "grade": "11",
     "title": "Đề số 1",
